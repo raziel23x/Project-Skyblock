@@ -15,7 +15,7 @@ apply plugin: 'maven-publish'
 
 version = "${projectskyblock_version}"
 group = 'raziel23x.projectskyblock' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'projectskyblock'
+archivesBaseName = 'ProjectSkyblock'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -44,7 +44,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                projectskyblock {
                     source sourceSets.main
                 }
             }
@@ -60,7 +60,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                projectskyblock {
                     source sourceSets.main
                 }
             }
@@ -76,10 +76,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'projectskyblock', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                projectskyblock {
                     source sourceSets.main
                 }
             }

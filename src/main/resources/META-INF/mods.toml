@@ -6,8 +6,8 @@ issueTrackerURL="https://github.com/raziel23x/Project-Skyblock/issues"
 [[mods]]
 modId="projectskyblock"
 version="${version}"
-displayName="Skyblock Recipes"
-displayURL="http://example.com/"
+displayName="Project Skyblock"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/project-skyblock"
 logoFile="logo.png"
 authors="Raziel23x"
 credits="ValkyrieofNight, SinKillerJ and pupnewfster for their insight and helping with issues and questions i have had" #optional
