@@ -1,0 +1,7 @@
+{
+  "item.projectskyblock.repair_gem": "Repair Gem",
+  "item.projectskyblock.repair_gem.line1": "Slowly repairs damaged item in player inventory",
+  "item.projectskyblock.repair_gem.line2": "Work while gem is in player inventory",
+  "itemGroup.projectskyblockTab": "Project Skyblock",
+  "block.projectskyblock.repair_gem_block": "Repair Gem Block"
+}
