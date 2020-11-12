@@ -50,14 +50,12 @@ public class PSRepairTick {
     private static void repair(PlayerEntity player, PlayerInventory inv) {
         for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
             ItemStack target = inv.getStackInSlot(slot);
-            if (!target.isEmpty()) {
-                if (!(target == player.getHeldItemMainhand())) {
-                    if (target.isDamaged() && target.getItem().isRepairable(target)) {
-                        target.setDamage(target.getDamage() - 1);
-                        return;
-                    }
-                }
+            if (target.isEmpty() || !target.isDamaged() || !target.getItem().isRepairable(target)) {
+                continue;
             }
+            target.setDamage(target.getDamage() - 1);
+            // comment this out if you want to repair everything one time per tick
+            return; // return here won't repair any more items this tick, stops at 1.
         }
     }
 }
