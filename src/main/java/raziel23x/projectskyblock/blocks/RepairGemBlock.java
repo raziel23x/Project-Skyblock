@@ -12,6 +12,6 @@ public class RepairGemBlock extends Block {
                 .hardnessAndResistance(5.0f, 6.0f)
                 .sound(SoundType.METAL)
                 .harvestLevel(0)
-                .harvestTool(ToolType.PICKAXE) );
+                .harvestTool(ToolType.PICKAXE));
     }
 }

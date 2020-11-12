@@ -1,7 +1,5 @@
 {
-  "replace": false,
-  "values": [
-    "projectskyblock:repair_gem"
-   
+  "replace": "false",
+  "values": ["projectskyblock:repair_gem"
   ]
 }

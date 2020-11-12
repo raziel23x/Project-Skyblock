@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "projectskyblock:block/repair_gem_block" }
+    "": {
+      "model": "projectskyblock:block/repair_gem_block"
+    }
   }
 }
