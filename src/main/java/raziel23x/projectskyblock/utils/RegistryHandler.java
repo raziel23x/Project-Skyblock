@@ -11,6 +11,7 @@ import raziel23x.projectskyblock.blocks.BlockItemBase;
 import raziel23x.projectskyblock.blocks.RepairGemBlock;
 import raziel23x.projectskyblock.items.ItemBaseSingleStack;
 import raziel23x.projectskyblock.items.ItemBase;
+import raziel23x.projectskyblock.items.MixingBowl;
 
 public class RegistryHandler {
 
