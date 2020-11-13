@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "/",
+        "B"
+    ],
+    "key": {
+        "/": {
+            "item": "minecraft:stick"
+        },
+        "B": {
+            "item": "minecraft:bowl"
+        }
+    },
+    "result": {
+        "item": "projectskyblock:mixing_bowl",
+        "count": 1
+    }
+}

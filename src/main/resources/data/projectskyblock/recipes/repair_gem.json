@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LMH",
+    "SPS",
+    "HML"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "L": {
+      "item": "projectskyblock:red_reagent"
+    },
+    "M": {
+      "item": "projectskyblock:green_reagent"
+    },
+    "H": {
+      "item": "projectskyblock:blue_reagent"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:repair_gem"
+  }
+}

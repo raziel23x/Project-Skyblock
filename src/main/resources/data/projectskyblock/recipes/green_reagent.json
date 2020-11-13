@@ -7,20 +7,20 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:redstone"
+      "item": "minecraft:emerald"
     },
     "F": {
       "item": "minecraft:flint"
     },
     "C": {
-      "item": "minecraft:charcoal"
+      "item": "minecraft:prismarine_shard"
     },
     "B": {
       "item": "projectskyblock:mixing_bowl"
     }
   },
   "result": {
-    "item": "projectskyblock:red_reagent",
+    "item": "projectskyblock:green_reagent",
     "count": 40
   }
 }

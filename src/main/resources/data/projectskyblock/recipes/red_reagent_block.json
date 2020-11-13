@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "projectskyblock:red_reagent"
+        }
+    },
+    "result": {
+        "item": "projectskyblock:red_reagent_block",
+        "count": 1
+    }
+}
