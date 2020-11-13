@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.items.gems;
+package raziel23x.projectskyblock.items;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -10,19 +10,21 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import raziel23x.projectskyblock.ProjectSkyblock;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
-public class RepairGem extends Item {
+public class ItemRepairGem extends Item {
+    public ItemRepairGem() {
 
-    public RepairGem(Properties properties) { super(properties); }
+        super(new Properties().group(ProjectSkyblock.TAB).maxStackSize(1));
+    }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void addInformation(ItemStack stack,  World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 
-        tooltip.add(new StringTextComponent("Test Information"));
+     //   tooltip.add(new StringTextComponent("Test Information"));
 
         tooltip.add((new TranslationTextComponent("item.projectskyblock.repair_gem.line1").mergeStyle(TextFormatting.GREEN)));
         tooltip.add((new TranslationTextComponent("item.projectskyblock.repair_gem.line2").mergeStyle(TextFormatting.YELLOW)));

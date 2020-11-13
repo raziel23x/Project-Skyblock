@@ -20,30 +20,43 @@ public class PSRepairTick {
         PlayerInventory inv = event.player.inventory;
         EnderChestInventory end_inv = player.getInventoryEnderChest();
 
-        for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
-            ItemStack stack = inv.getStackInSlot(slot);
-            if (stack.getItem() == RegistryHandler.REPAIR_GEM.get()) {
-                if (player.ticksExisted % repairTickRate == 0) {
-                    repair(player, inv);
-                }
-            }
-        }
+        boolean doIt = false;
 
-        for (int slot = 0; slot < end_inv.getSizeInventory(); slot++) {
-            ItemStack stack = end_inv.getStackInSlot(slot);
-            if (stack.getItem() == RegistryHandler.REPAIR_GEM.get()) {
-                if (player.ticksExisted % repairTickRate == 0) {
-                    repair(player, inv);
+        // if its time for a repair then check inventory, find Gem, make repair and exit
+        // if RepairGem is found the doIt is set to true, exit For loop
+        if (player.ticksExisted % repairTickRate == 0) {
+            for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
+                ItemStack stack = inv.getStackInSlot(slot);
+                if (stack.getItem() == RegistryHandler.REPAIR_GEM.get()) {
+                    doIt = true;
+                    break;
                 }
             }
-        }
 
-        if (CuriosModCheck.CURIOS.isLoaded()) {
-            if (CuriosUtil.findItem(RegistryHandler.REPAIR_GEM.get(), player) != ItemStack.EMPTY) {
-                if (player.ticksExisted % repairTickRate == 0) {
-                    repair(player, inv);
+            // if doIt is false then RepairGem is not yet found, so check EnderChest
+            // if RepairGem is found the doIt is set to true, exit For loop
+            if (!doIt) {
+                for (int slot = 0; slot < end_inv.getSizeInventory(); slot++) {
+                    ItemStack stack = end_inv.getStackInSlot(slot);
+                    if (stack.getItem() == RegistryHandler.REPAIR_GEM.get()) {
+                        doIt = true;
+                        break;
+                    }
                 }
             }
+
+            // if doIt is false then RepairGem is not yet found, so check Curios
+            // if RepairGem is found the doIt is set to true
+            if (!doIt) {
+                if (CuriosUtil.findMod()) {
+                    if (CuriosUtil.findItem(RegistryHandler.REPAIR_GEM.get(), player) != ItemStack.EMPTY) {
+                        doIt = true;
+                    }
+                }
+            }
+
+            // if doIt is true then RepairGem was found, so call Repair
+            if (doIt) repair(player, inv);
         }
     }
 
