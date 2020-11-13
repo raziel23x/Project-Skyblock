@@ -1,0 +1,42 @@
+{
+  "group": "skyblockresources",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:charcoal"
+    },
+    "1": {
+      "item": "minecraft:sand"
+    },
+    "2": {
+      "item": "minecraft:charcoal"
+    },
+    "3": {
+      "item": "minecraft:sand"
+    },
+    "4": {
+      "item": "projectskyblock:mixing_bowl"
+    },
+    "5": {
+      "item": "minecraft:sand"
+    },
+    "6": {
+      "item": "minecraft:charcoal"
+    },
+    "7": {
+      "item": "minecraft:sand"
+    },
+    "8": {
+      "item": "minecraft:charcoal"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:red_reagent",
+    "count": 1
+  }
+}

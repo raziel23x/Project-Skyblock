@@ -10,6 +10,7 @@ import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.blocks.BlockItemBase;
 import raziel23x.projectskyblock.blocks.RepairGemBlock;
 import raziel23x.projectskyblock.items.ItemBaseSingleStack;
+import raziel23x.projectskyblock.items.ItemBase;
 
 public class RegistryHandler {
 
@@ -18,8 +19,15 @@ public class RegistryHandler {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ProjectSkyblock.MOD_ID);
     //Items
     public static final RegistryObject<Item> REPAIR_GEM = ITEMS.register("repair_gem", ItemBaseSingleStack::new);
+    public static final RegistryObject<Item> REAGENT_RED = ITEMS.register("red_reagent", ItemBase::new);
+    public static final RegistryObject<Item> REAGENT_GREEN = ITEMS.register("green_reagent", ItemBase::new);
+    public static final RegistryObject<Item> REAGENT_BLUE = ITEMS.register("blue_reagent", ItemBase::new);
+    public static final RegistryObject<Item> MIXING_BOWL = ITEMS.register("mixing_bowl", MixingBowl::new);
+
+
     //Blocks
     public static final RegistryObject<Block> REPAIR_GEM_Block = BLOCKS.register("repair_gem_block", RepairGemBlock::new);
+
     //Block Items
     public static final RegistryObject<Item> REPAIR_GEM_Block_ITEM = ITEMS.register("repair_gem_block", () -> new BlockItemBase(REPAIR_GEM_Block.get()));
 

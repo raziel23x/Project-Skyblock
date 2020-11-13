@@ -3,5 +3,9 @@
   "item.projectskyblock.repair_gem.line1": "Slowly repairs damaged item in player inventory",
   "item.projectskyblock.repair_gem.line2": "Work while gem is in player inventory",
   "itemGroup.projectskyblockTab": "Project Skyblock",
-  "block.projectskyblock.repair_gem_block": "Repair Gem Block"
+  "block.projectskyblock.repair_gem_block": "Repair Gem Block",
+  "item.projectskyblock.red_reagent": "Red Reagent",
+  "item.projectskyblock.green_reagent": "Green Reagent",
+  "item.projectskyblock.blue_reagent": "Blue Reagent",
+  "item.projectskyblock.mixing_bowl": "Mixing Bowl"
 }
