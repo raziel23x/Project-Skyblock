@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "projectskyblock:block/cobblestone_generator_block"
+    }
+  }
+}

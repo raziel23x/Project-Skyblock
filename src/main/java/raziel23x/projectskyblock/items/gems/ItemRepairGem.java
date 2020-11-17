@@ -9,20 +9,23 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import raziel23x.projectskyblock.ProjectSkyblock;
+import raziel23x.projectskyblock.utils.RegistryHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class RepairGem extends Item {
+public class ItemRepairGem extends Item {
 
-    public RepairGem(Properties properties) {
+    public ItemRepairGem(Properties properties) {
         super(properties);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add((new TranslationTextComponent("tip."+ProjectSkyblock.MOD_ID+".repairgemline1").mergeStyle(TextFormatting.GREEN)));
+        tooltip.add((new TranslationTextComponent("tip."+ProjectSkyblock.MOD_ID+".repairgemline2").mergeStyle(TextFormatting.YELLOW)));
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add((new TranslationTextComponent("item.projectskyblock.repair_gem.line1").mergeStyle(TextFormatting.GREEN)));
-        tooltip.add((new TranslationTextComponent("item.projectskyblock.repair_gem.line2").mergeStyle(TextFormatting.YELLOW)));
     }
 }

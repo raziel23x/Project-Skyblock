@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "projectskyblock:repair_gem_block"
+          "name": "projectskyblock:cobblestone_generator_block"
         }
       ]
     }

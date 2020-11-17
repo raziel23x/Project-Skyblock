@@ -61,4 +61,5 @@ public class ProjectSkyblock {
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Project Skyblock server setup");
     }
+
 }
