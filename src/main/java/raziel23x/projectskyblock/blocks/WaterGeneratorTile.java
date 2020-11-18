@@ -29,7 +29,7 @@ public class WaterGeneratorTile extends TileEntity implements ITickableTileEntit
 
     private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
 
-    private int done;
+    private int ticks;
 
     public WaterGeneratorTile() {
         super(WATERGENERATOR_TILE.get());
@@ -49,11 +49,9 @@ public class WaterGeneratorTile extends TileEntity implements ITickableTileEntit
 
     @Override
     public void tick() {
-        //ProjectSkyblock.LOGGER.info("TILES: Ever Here ?");
-
-        done++;
-        if (done == 20) {
-            done = 0;
+        ticks++;
+        if (ticks == 20) {
+            ticks = 0;
 
             this.tank.fill(new FluidStack(Fluids.WATER.getFluid(), 17), IFluidHandler.FluidAction.EXECUTE);
             this.markDirty();

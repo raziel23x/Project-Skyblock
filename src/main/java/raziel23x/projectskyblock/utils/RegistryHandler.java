@@ -14,8 +14,6 @@ import raziel23x.projectskyblock.items.ItemBase;
 import raziel23x.projectskyblock.items.mixingbowl.MixingBowl;
 
 public class RegistryHandler {
-
-
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ProjectSkyblock.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ProjectSkyblock.MOD_ID);
     private static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, ProjectSkyblock.MOD_ID);
@@ -26,7 +24,6 @@ public class RegistryHandler {
     public static final RegistryObject<Item> GREEN_REAGENT = ITEMS.register("green_reagent", ItemBase::new);
     public static final RegistryObject<Item> BLUE_REAGENT = ITEMS.register("blue_reagent", ItemBase::new);
     public static final RegistryObject<Item> MIXING_BOWL = ITEMS.register("mixing_bowl", MixingBowl::new);
-
 
     //Blocks
     public static final RegistryObject<Block> RED_REAGENT_BLOCK = BLOCKS.register("red_reagent_block", RedReagentBlock::new);
@@ -54,10 +51,5 @@ public class RegistryHandler {
         TILES.register(FMLJavaModLoadingContext.get().getModEventBus());
         //CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
         //ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
-
     }
-
-
-
 }

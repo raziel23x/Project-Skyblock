@@ -14,7 +14,7 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raziel23x.projectskyblock.config.PSConfig;
-import raziel23x.projectskyblock.utils.CuriosModCheck;
+import raziel23x.projectskyblock.utils.CuriosUtil;
 import raziel23x.projectskyblock.utils.RegistryHandler;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
@@ -50,7 +50,7 @@ public class ProjectSkyblock {
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
-        if (CuriosModCheck.CURIOS.isLoaded()) {
+        if (CuriosUtil.isModLoaded()) {
             InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("curio").size(1).build());
             // InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("ring").size(4).build());
         }

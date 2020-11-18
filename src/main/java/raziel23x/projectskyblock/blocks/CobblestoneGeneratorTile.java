@@ -1,5 +1,6 @@
 package raziel23x.projectskyblock.blocks;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,7 +22,7 @@ import static raziel23x.projectskyblock.utils.RegistryHandler.COBBLEGENERATOR_TI
 public class CobblestoneGeneratorTile extends TileEntity implements ITickableTileEntity {
 
     private ItemStackHandler handler;
-    private int tick;
+    private int ticks;
 
     public CobblestoneGeneratorTile() {
         super(COBBLEGENERATOR_TILE.get());
@@ -29,14 +30,14 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
 
     @Override
     public void tick() {
-        tick++;
-        if (tick == 10) {
-            tick=0;
+        ticks++;
+        if (ticks == 10) {
+            ticks = 0;
 
             ItemStack stack = new ItemStack(Items.COBBLESTONE, 1);
-            ItemHandlerHelper.insertItemStacked(getHandler(), stack, false);
-
+            ItemHandlerHelper.insertItemStacked(getItemHandler(), stack, false);
             TileEntity tile = world.getTileEntity(pos.offset(Direction.UP));
+
             if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
                 IItemHandler ihandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
 
@@ -44,6 +45,7 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
                     ItemStack stack2 = handler.getStackInSlot(0).copy();
                     stack2.setCount(1);
                     ItemStack stack1 = ItemHandlerHelper.insertItem(ihandler, stack2, true);
+
                     if (stack1 == ItemStack.EMPTY || stack1.getCount() == 0) {
                         ItemHandlerHelper.insertItem(ihandler, handler.extractItem(0, 1, false), false);
                         markDirty();
@@ -55,12 +57,20 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
 
     @Override
     public CompoundNBT write(CompoundNBT tag) {
-        CompoundNBT compound = getHandler().serializeNBT();
+        CompoundNBT compound = getItemHandler().serializeNBT();
         tag.put("inv", compound);
         return super.write(tag);
     }
 
-    private ItemStackHandler getHandler(){
+    @Override
+    public void read(BlockState state, CompoundNBT tag) {
+        super.read(state, tag);
+        if (tag.contains("inv")) {
+            getItemHandler().deserializeNBT((CompoundNBT) tag.get("inv"));
+        }
+    }
+
+    private ItemStackHandler getItemHandler(){
         if(handler == null) {
             handler = new ItemStackHandler(1);
         }
@@ -71,7 +81,7 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
     @Override
     public <T>LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
-            return LazyOptional.of(() -> (T) getHandler());
+            return LazyOptional.of(() -> (T) getItemHandler());
         }
         return super.getCapability(cap, side);
     }
