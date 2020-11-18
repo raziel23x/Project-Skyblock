@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "projectskyblock:block/water_generator_block"
+    }
+  }
+}

@@ -7,10 +7,10 @@
   ],
   "key": {
     "P": {
-      "item": "minecraft:paper"
+      "item": "minecraft:anvil"
     },
     "S": {
-      "item": "minecraft:string"
+      "item": "minecraft:smithing_table"
     },
     "L": {
       "item": "projectskyblock:red_reagent"

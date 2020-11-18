@@ -51,7 +51,7 @@ public class ProjectSkyblock {
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (CuriosModCheck.CURIOS.isLoaded()) {
-            InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("belt").size(1).build());
+            InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("curio").size(1).build());
             // InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("ring").size(4).build());
         }
 

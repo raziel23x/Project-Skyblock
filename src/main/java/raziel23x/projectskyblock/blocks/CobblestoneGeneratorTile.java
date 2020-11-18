@@ -9,6 +9,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -20,6 +21,7 @@ import static raziel23x.projectskyblock.utils.RegistryHandler.COBBLEGENERATOR_TI
 public class CobblestoneGeneratorTile extends TileEntity implements ITickableTileEntity {
 
     private ItemStackHandler handler;
+    private int tick;
 
     public CobblestoneGeneratorTile() {
         super(COBBLEGENERATOR_TILE.get());
@@ -27,8 +29,28 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
 
     @Override
     public void tick() {
-        ItemStack stack = new ItemStack(Items.COBBLESTONE, 1);
-        ItemHandlerHelper.insertItemStacked(getHandler(),stack, false);
+        tick++;
+        if (tick == 10) {
+            tick=0;
+
+            ItemStack stack = new ItemStack(Items.COBBLESTONE, 1);
+            ItemHandlerHelper.insertItemStacked(getHandler(), stack, false);
+
+            TileEntity tile = world.getTileEntity(pos.offset(Direction.UP));
+            if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
+                IItemHandler ihandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
+
+                if (handler.getStackInSlot(0) != ItemStack.EMPTY) {
+                    ItemStack stack2 = handler.getStackInSlot(0).copy();
+                    stack2.setCount(1);
+                    ItemStack stack1 = ItemHandlerHelper.insertItem(ihandler, stack2, true);
+                    if (stack1 == ItemStack.EMPTY || stack1.getCount() == 0) {
+                        ItemHandlerHelper.insertItem(ihandler, handler.extractItem(0, 1, false), false);
+                        markDirty();
+                    }
+                }
+            }
+        }
     }
 
     @Override

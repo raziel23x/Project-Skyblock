@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "#F#",
-    "CBC",
-    "#F#"
+    "EDE",
+    "PBP",
+    "EDE"
   ],
   "key": {
-    "#": {
+    "E": {
       "item": "minecraft:emerald"
     },
     "F": {
-      "item": "minecraft:flint"
+      "item": "minecraft:diamond"
     },
-    "C": {
+    "P": {
       "item": "minecraft:prismarine_shard"
     },
     "B": {

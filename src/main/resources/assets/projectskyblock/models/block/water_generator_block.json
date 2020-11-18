@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "projectskyblock:blocks/water_generator_block"
+  }
+}

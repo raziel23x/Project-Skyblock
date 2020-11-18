@@ -1,8 +1,8 @@
-package raziel23x.projectskyblock.items;
+package raziel23x.projectskyblock.items.mixingbowl;
 
 import net.minecraft.item.ItemStack;
 
-public class MixingBowl extends ItemBase {
+public class MixingBowl extends ItemBaseMixingBowl {
     public MixingBowl () {
 
     }
