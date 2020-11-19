@@ -43,7 +43,7 @@ public class CobblestoneGeneratorBlock extends Block {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
 
         if (tileEntity != null) {
-            if (heldItem.isEmpty() || heldItem.getItem() == Items.COAL_ORE) {
+            if (heldItem.isEmpty() || heldItem.getItem() == Items.COBBLESTONE) {
                 worldIn.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
                     player.addItemStackToInventory(h.getStackInSlot(0)); });
             }
