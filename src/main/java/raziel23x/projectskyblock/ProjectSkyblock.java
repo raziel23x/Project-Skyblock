@@ -1,9 +1,12 @@
 package raziel23x.projectskyblock;
 
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -38,6 +41,7 @@ public class ProjectSkyblock {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
 
+
         RegistryHandler.init();
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -47,7 +51,11 @@ public class ProjectSkyblock {
     }
 
     private void doClientStuff(final FMLClientSetupEvent even) {
+        RenderTypeLookup.setRenderLayer(RegistryHandler.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
+
     }
+
+
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (CuriosUtil.isModLoaded()) {
