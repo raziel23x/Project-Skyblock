@@ -3,12 +3,7 @@ package raziel23x.projectskyblock.blocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtils;
-import net.minecraft.potion.Potions;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -27,11 +22,11 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class LavaGeneratorBlock extends Block {
-    private  static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
     public LavaGeneratorBlock() {
         super(AbstractBlock.Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
@@ -76,35 +71,21 @@ public class LavaGeneratorBlock extends Block {
         return new LavaGeneratorTile();
     }
 
-
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-        ItemStack heldItem = player.getHeldItem(hand);
         TileEntity tileEntity = world.getTileEntity(pos);
 
         if (tileEntity != null) {
             LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-            if (!fluidHandlerCap.isPresent()) {
-                //spawnParticles(world, pos, state);
-            }
-            else
-            {
+
+            if (fluidHandlerCap.isPresent()) {
                 IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
                 if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
-                    // Special case for bottles, they can hold 1/3 of a bucket
+                    FluidStack simulated = fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE);
 
-                        if (heldItem.getItem() == Items.BUCKET) {
-                            FluidStack simulated = fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE);
-
-                            if (simulated.getAmount() == 1000) {
-                                fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-
-                                if (player.addItemStackToInventory(new ItemStack(Items.LAVA_BUCKET))) {
-                                    heldItem.shrink(1);
-                                }
-                            }
-                        }
+                    if (simulated.getAmount() == 1000)
+                        fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
 
                 }
             }

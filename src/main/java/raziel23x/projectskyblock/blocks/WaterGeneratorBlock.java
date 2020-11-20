@@ -3,6 +3,7 @@ package raziel23x.projectskyblock.blocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -72,7 +73,6 @@ public class WaterGeneratorBlock extends Block {
         return new WaterGeneratorTile();
     }
 
-
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
         ItemStack heldItem = player.getHeldItem(hand);
@@ -80,40 +80,43 @@ public class WaterGeneratorBlock extends Block {
 
         if (tileEntity != null) {
             LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-            if (!fluidHandlerCap.isPresent()) {
-                //spawnParticles(world, pos, state);
-            }
-            else
-            {
+
+            if (fluidHandlerCap.isPresent()) {
                 IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
                 if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
-                    // Special case for bottles, they can hold 1/3 of a bucket
                     if (heldItem.getItem() == Items.GLASS_BOTTLE) {
-                        FluidStack simulated = fluidHandler.drain(333, IFluidHandler.FluidAction.SIMULATE);
-
-                        if (simulated.getAmount() == 333) {
+                        if (fluidHandler.drain(333, IFluidHandler.FluidAction.SIMULATE).getAmount() == 333) {
                             fluidHandler.drain(333, IFluidHandler.FluidAction.EXECUTE);
 
-                            if (player.addItemStackToInventory(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER))) {
+                            heldItem.shrink(1);
+                            ItemStack itemPotion = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER);
+
+                            if (!player.addItemStackToInventory(itemPotion))
+                                spawnAsEntity(world, player.getPosition(), itemPotion);
+
+                        }
+                    }
+
+                    else if (heldItem.getItem() == Items.POTION && heldItem.getTag() != null) {
+                        if (heldItem.getTag().getString("Potion").equals("minecraft:water")) {
+                            if (fluidHandler.fill(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.SIMULATE) == 333) {
+                                fluidHandler.fill(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.EXECUTE);
+
                                 heldItem.shrink(1);
-                            }
-                        } else {
-                            //spawnParticles(world, pos, state);
-                        }
-                    }  else {
-                        if (heldItem.getItem() == Items.BUCKET) {
-                            FluidStack simulated = fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE);
+                                ItemStack itemBottle = new ItemStack(Items.GLASS_BOTTLE);
 
-                            if (simulated.getAmount() == 1000) {
-                                fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                                if (!player.addItemStackToInventory(itemBottle))
+                                    spawnAsEntity(world, player.getPosition(), itemBottle);
 
-                                if (player.addItemStackToInventory(new ItemStack(Items.WATER_BUCKET))) {
-                                    heldItem.shrink(1);
-                                }
                             }
                         }
-                   }
+                    }
+
+                    else {
+                        if (fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE).getAmount() == 1000)
+                            fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                    }
                 }
             }
         }
