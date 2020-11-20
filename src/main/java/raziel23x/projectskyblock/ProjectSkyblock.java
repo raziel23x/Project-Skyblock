@@ -51,7 +51,9 @@ public class ProjectSkyblock {
     }
 
     private void doClientStuff(final FMLClientSetupEvent even) {
+        RenderTypeLookup.setRenderLayer(RegistryHandler.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(RegistryHandler.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(RegistryHandler.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
 
     }
 
@@ -59,7 +61,7 @@ public class ProjectSkyblock {
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
         if (CuriosUtil.isModLoaded()) {
-            InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("curio").size(1).build());
+            InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("curio").size(2).build());
             // InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("ring").size(4).build());
         }
 

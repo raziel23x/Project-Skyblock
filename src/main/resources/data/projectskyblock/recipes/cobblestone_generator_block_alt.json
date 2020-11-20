@@ -2,13 +2,13 @@
     "type": "minecraft:crafting_shaped",
     "group": "simplyrandom:cobblestone_generator",
     "pattern": [
-        "PPP",
+        "III",
         "WCL",
-        "PPP"
+        "III"
     ],
     "key": {
         "P": {
-            "tag": "forge:cobblestone"
+            "item": "minecraft:iron_ingot"
         },
         "L": {
             "item": "minecraft:lava_bucket"

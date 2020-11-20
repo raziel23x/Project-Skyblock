@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -32,11 +33,13 @@ import javax.annotation.Nullable;
 public class LavaGeneratorBlock extends Block {
     private  static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     public LavaGeneratorBlock() {
-        super(AbstractBlock.Properties.create(Material.IRON)
-                .sound(SoundType.ANVIL)
-                .hardnessAndResistance(2.0f)
+        super(AbstractBlock.Properties.create(Material.ROCK)
+                .sound(SoundType.STONE)
                 .setLightLevel(IntToFunction -> 13)
+                .hardnessAndResistance(2.0f, 3.0f)
+                .harvestLevel(0)
                 .setRequiresTool()
+                .harvestTool(ToolType.PICKAXE)
                 .notSolid()
         );
     }

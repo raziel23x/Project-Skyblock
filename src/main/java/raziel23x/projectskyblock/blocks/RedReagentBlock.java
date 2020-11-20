@@ -8,10 +8,11 @@ import net.minecraftforge.common.ToolType;
 public class RedReagentBlock extends Block {
 
     public RedReagentBlock() {
-        super(Block.Properties.create(Material.IRON)
-                .hardnessAndResistance(5.0f, 6.0f)
-                .sound(SoundType.METAL)
-                .harvestLevel(1)
-                .harvestTool(ToolType.PICKAXE));
+        super(Block.Properties.create(Material.SNOW)
+                .sound(SoundType.SNOW)
+                .hardnessAndResistance(2.0f, 3.0f)
+                .harvestLevel(0)
+                .harvestTool(ToolType.SHOVEL)
+        );
     }
 }

@@ -2,16 +2,13 @@
     "type": "minecraft:crafting_shaped",
     "group": "simplyrandom:cobblestone_generator",
     "pattern": [
-        "III",
-        "LCW",
-        "III"
+        "IWI",
+        "WCW",
+        "IWI"
     ],
     "key": {
         "I": {
             "item": "minecraft:iron_ingot"
-        },
-        "L": {
-            "item": "minecraft:lava_bucket"
         },
         "W": {
             "item": "minecraft:water_bucket"
@@ -21,6 +18,6 @@
         }
     },
     "result": {
-        "item": "projectskyblock:cobblestone_generator_block"
+        "item": "projectskyblock:water_generator_block"
     }
 }
