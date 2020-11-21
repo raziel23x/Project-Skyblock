@@ -74,7 +74,6 @@ public class LavaGeneratorBlock extends Block {
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
         if (!world.isRemote) {
-            ItemStack heldItem = player.getHeldItem(hand);
             TileEntity tileEntity = world.getTileEntity(pos);
 
             if (tileEntity != null) {
@@ -83,17 +82,9 @@ public class LavaGeneratorBlock extends Block {
                 if (fluidHandlerCap.isPresent()) {
                     IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
-                        if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
-                            //LOGGER.info("Interact.FAILED");
-                            return ActionResultType.FAIL;
-                        } else {
-                            //LOGGER.info("Interact.SUCCESS");
-                            return ActionResultType.SUCCESS;
-                        }
+                    return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
                     }
                 }
-
-                //LOGGER.info("FAILED: " + heldItem.getItem().getTranslationKey());
             }
 
         return ActionResultType.SUCCESS;
