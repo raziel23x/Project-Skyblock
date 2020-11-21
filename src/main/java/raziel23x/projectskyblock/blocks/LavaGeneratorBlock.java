@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -17,7 +18,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -73,23 +73,28 @@ public class LavaGeneratorBlock extends Block {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-        TileEntity tileEntity = world.getTileEntity(pos);
+        if (!world.isRemote) {
+            ItemStack heldItem = player.getHeldItem(hand);
+            TileEntity tileEntity = world.getTileEntity(pos);
 
-        if (tileEntity != null) {
-            LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+            if (tileEntity != null) {
+                LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
 
-            if (fluidHandlerCap.isPresent()) {
-                IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
+                if (fluidHandlerCap.isPresent()) {
+                    IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
-                if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
-                    FluidStack simulated = fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE);
-
-                    if (simulated.getAmount() == 1000)
-                        fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
-
+                        if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
+                            //LOGGER.info("Interact.FAILED");
+                            return ActionResultType.FAIL;
+                        } else {
+                            //LOGGER.info("Interact.SUCCESS");
+                            return ActionResultType.SUCCESS;
+                        }
+                    }
                 }
+
+                //LOGGER.info("FAILED: " + heldItem.getItem().getTranslationKey());
             }
-        }
 
         return ActionResultType.SUCCESS;
     }

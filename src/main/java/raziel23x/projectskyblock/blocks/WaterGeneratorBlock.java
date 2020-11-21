@@ -30,7 +30,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import javax.annotation.Nullable;
 
 public class WaterGeneratorBlock extends Block {
-    private  static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+    private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
     public WaterGeneratorBlock() {
         super(AbstractBlock.Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
@@ -41,6 +42,7 @@ public class WaterGeneratorBlock extends Block {
                 .notSolid()
         );
     }
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -75,16 +77,16 @@ public class WaterGeneratorBlock extends Block {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
-        ItemStack heldItem = player.getHeldItem(hand);
-        TileEntity tileEntity = world.getTileEntity(pos);
+        if (!world.isRemote) {
+            ItemStack heldItem = player.getHeldItem(hand);
+            TileEntity tileEntity = world.getTileEntity(pos);
 
-        if (tileEntity != null) {
-            LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+            if (tileEntity != null) {
+                LazyOptional<IFluidHandler> fluidHandlerCap = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
 
-            if (fluidHandlerCap.isPresent()) {
-                IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
+                if (fluidHandlerCap.isPresent()) {
+                    IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
-                if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
                     if (heldItem.getItem() == Items.GLASS_BOTTLE) {
                         if (fluidHandler.drain(333, IFluidHandler.FluidAction.SIMULATE).getAmount() == 333) {
                             fluidHandler.drain(333, IFluidHandler.FluidAction.EXECUTE);
@@ -92,13 +94,13 @@ public class WaterGeneratorBlock extends Block {
                             heldItem.shrink(1);
                             ItemStack itemPotion = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER);
 
-                            if (!player.addItemStackToInventory(itemPotion))
+                            if (!player.addItemStackToInventory(itemPotion)) {
                                 spawnAsEntity(world, player.getPosition(), itemPotion);
+                            }
 
+                            return ActionResultType.SUCCESS;
                         }
-                    }
-
-                    else if (heldItem.getItem() == Items.POTION && heldItem.getTag() != null) {
+                    } else if (heldItem.getItem() == Items.POTION && heldItem.getTag() != null) {
                         if (heldItem.getTag().getString("Potion").equals("minecraft:water")) {
                             if (fluidHandler.fill(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.SIMULATE) == 333) {
                                 fluidHandler.fill(new FluidStack(Fluids.WATER, 333), IFluidHandler.FluidAction.EXECUTE);
@@ -106,19 +108,29 @@ public class WaterGeneratorBlock extends Block {
                                 heldItem.shrink(1);
                                 ItemStack itemBottle = new ItemStack(Items.GLASS_BOTTLE);
 
-                                if (!player.addItemStackToInventory(itemBottle))
+                                if (!player.addItemStackToInventory(itemBottle)) {
                                     spawnAsEntity(world, player.getPosition(), itemBottle);
+                                }
 
+                                return ActionResultType.SUCCESS;
                             }
                         }
-                    }
+                    } else {
 
-                    else {
-                        if (fluidHandler.drain(1000, IFluidHandler.FluidAction.SIMULATE).getAmount() == 1000)
-                            fluidHandler.drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                        if (!FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) {
+                            //LOGGER.info("Interact.FAILED");
+                            return ActionResultType.FAIL;
+                        } else {
+                            //LOGGER.info("Interact.SUCCESS");
+                            return ActionResultType.SUCCESS;
+                        }
                     }
                 }
+
+                //LOGGER.info("FAILED: " + heldItem.getItem().getTranslationKey());
             }
+
+            //LOGGER.info("FAILED: Ever here");
         }
 
         return ActionResultType.SUCCESS;
