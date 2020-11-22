@@ -101,7 +101,7 @@ public class FlintShears extends ShearsItem {
         if (PSConfig.DROP_SHEARS_PRODUCTS.get()) {
             Block block = state.getBlock();
             if (isPresentOnTag(BlockTags.LEAVES, state) || block == Blocks.GRASS || block == Blocks.FERN || block == Blocks.DEAD_BUSH || block == Blocks.VINE
-            || block == Blocks.PUMPKIN) {
+            || block == Blocks.PUMPKIN || block == Blocks.BEEHIVE || block == Blocks.BEE_NEST) {
                 Block.spawnAsEntity(worldIn, pos, new ItemStack(state.getBlock().asItem()));
             }
         }

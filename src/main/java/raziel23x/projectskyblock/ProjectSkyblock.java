@@ -1,10 +1,20 @@
 package raziel23x.projectskyblock;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -73,4 +83,39 @@ public class ProjectSkyblock {
         LOGGER.info("Project Skyblock server setup");
     }
 
+    @SubscribeEvent
+    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        World world = event.getWorld();
+
+        if (!world.isRemote) {
+            PlayerEntity player = event.getPlayer();
+            BlockState state = world.getBlockState(event.getPos());
+            Block block = state.getBlock();
+
+            if (event.getItemStack().getItem() == RegistryHandler.FLINT_SHEARS.get()) {
+                if (block.getBlock() == Blocks.PUMPKIN) {
+                    //LOGGER.info("Clicked Pumpkin with Flint Shears");
+
+                    ItemStack seedItem = new ItemStack (Items.PUMPKIN_SEEDS);
+                    seedItem.setCount(4);
+
+                    world.removeBlock(event.getPos(),false);
+                    world.setBlockState(event.getPos(), Blocks.CARVED_PUMPKIN.getDefaultState());
+                    world.playSound(null, event.getPos(), SoundEvents.BLOCK_PUMPKIN_CARVE, SoundCategory.BLOCKS, 1f, 1f);
+                    block.spawnAsEntity(world, event.getPos(), seedItem);
+
+                    if (!player.isCreative()) {
+                        if (event.getItemStack().getItem().isDamageable()) {
+                            event.getItemStack().getItem().setDamage(event.getItemStack(), event.getItemStack().getItem().getDamage(event.getItemStack()) + 1);
+                        }
+                    }
+                } else {
+
+                    if (block.getBlock() == Blocks.BEE_NEST) {
+                        // do something
+                    }
+                }
+            }
+        }
+    }
 }
