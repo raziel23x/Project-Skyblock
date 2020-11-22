@@ -23,7 +23,7 @@ public class ClientEvents {
 
         BlockColors blockcolors = event.getBlockColors();
 
-        blockcolors.register((state, reader, pos, i) -> reader != null && pos != null ? BiomeColors.getWaterColor(reader, pos) : 0x3c44a9, RegistryHandler.WATER_GENERATOR_BLOCK.get());
+        blockcolors.register((state, reader, pos, i) -> reader != null && pos != null ? BiomeColors.getWaterColor(reader, pos) : 0x3c44a9, RegistryHandler.WATER_GENERATOR_BLOCK.get(), RegistryHandler.COBBLESTONE_CRUSHER_BLOCK.get());
 
     }
 
@@ -37,7 +37,7 @@ public class ClientEvents {
         itemcolors.register((stack, i) -> {
             BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
             return blockcolors.getColor(state, null, null, i);
-        }, RegistryHandler.WATER_GENERATOR_BLOCK_ITEM.get());
+        }, RegistryHandler.WATER_GENERATOR_BLOCK_ITEM.get(), RegistryHandler.COBBLESTONE_CRUSHER_BLOCK_ITEM.get());
     }
 
 

@@ -54,6 +54,7 @@ public class ProjectSkyblock {
         RenderTypeLookup.setRenderLayer(RegistryHandler.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(RegistryHandler.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(RegistryHandler.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegistryHandler.COBBLESTONE_CRUSHER_BLOCK.get(), RenderType.getTranslucent());
 
     }
 

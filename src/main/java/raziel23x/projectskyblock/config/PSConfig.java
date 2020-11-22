@@ -11,10 +11,17 @@ public class PSConfig {
     public static final ForgeConfigSpec CONFIG;
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
+    public static ForgeConfigSpec.BooleanValue DROP_SHEARS_PRODUCTS;
+
     static {
         PSConfigBuilder.init(BUILDER);
 
         CONFIG = BUILDER.build();
+
+            BUILDER.push("Flint Shears Configuration");
+            DROP_SHEARS_PRODUCTS = BUILDER.comment("When enabled the Flint Shears will behave the same as the iron shears.").define("drop_shears_products", true);
+            BUILDER.pop();
+
     }
 
     public static void loadConfig(ForgeConfigSpec spec, Path path) {
@@ -24,5 +31,4 @@ public class PSConfig {
 
         spec.setConfig(configData);
     }
-
 }

@@ -1,7 +1,7 @@
 package raziel23x.projectskyblock.utils;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -12,6 +12,7 @@ import raziel23x.projectskyblock.blocks.*;
 import raziel23x.projectskyblock.items.gems.RepairGem;
 import raziel23x.projectskyblock.items.ItemBase;
 import raziel23x.projectskyblock.items.mixingbowl.MixingBowl;
+import raziel23x.projectskyblock.tools.PSItemTier;
 
 public class RegistryHandler {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ProjectSkyblock.MOD_ID);
@@ -25,6 +26,21 @@ public class RegistryHandler {
     public static final RegistryObject<Item> BLUE_REAGENT = ITEMS.register("blue_reagent", ItemBase::new);
     public static final RegistryObject<Item> MIXING_BOWL = ITEMS.register("mixing_bowl", MixingBowl::new);
 
+    //Tools
+    public static final RegistryObject<ShovelItem> FLINT_SHOVEL = ITEMS.register("flint_shovel", () ->
+            new ShovelItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+    public static final RegistryObject<SwordItem> FLINT_SWORD = ITEMS.register("flint_sword", () ->
+            new SwordItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+    public static final RegistryObject<PickaxeItem> FLINT_PICKAXE = ITEMS.register("flint_pickaxe", () ->
+            new PickaxeItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+    public static final RegistryObject<AxeItem> FLINT_AXE = ITEMS.register("flint_axe", () ->
+            new AxeItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+    public static final RegistryObject<HoeItem> FLINT_HOE = ITEMS.register("flint_hoe", () ->
+            new HoeItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+    public static final RegistryObject<ShearsItem> FLINT_SHEARS = ITEMS.register("flint_shears", () ->
+            new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
+
+
     //Blocks
     public static final RegistryObject<Block> RED_REAGENT_BLOCK = BLOCKS.register("red_reagent_block", RedReagentBlock::new);
     public static final RegistryObject<Block> GREEN_REAGENT_BLOCK = BLOCKS.register("green_reagent_block", GreenReagentBlock::new);
@@ -32,6 +48,7 @@ public class RegistryHandler {
     public static final RegistryObject<Block> COBBLESTONE_GENERATOR_BLOCK  = BLOCKS.register("cobblestone_generator_block", CobblestoneGeneratorBlock::new);
     public static final RegistryObject<Block> LAVA_GENERATOR_BLOCK  = BLOCKS.register("lava_generator_block", LavaGeneratorBlock::new);
     public static final RegistryObject<Block> WATER_GENERATOR_BLOCK  = BLOCKS.register("water_generator_block", WaterGeneratorBlock::new);
+    public static final RegistryObject<Block> COBBLESTONE_CRUSHER_BLOCK  = BLOCKS.register("cobblestone_crusher_block", CobblestoneCrusherBlock::new);
 
     //Block Items
     public static final RegistryObject<Item> RED_REAGENT_BLOCK_ITEM = ITEMS.register("red_reagent_block", () -> new BlockItemBase(RED_REAGENT_BLOCK.get()));
@@ -40,10 +57,13 @@ public class RegistryHandler {
     public static final RegistryObject<Item> COBBLESTONE_GENERATOR_BLOCK_ITEM = ITEMS.register("cobblestone_generator_block", () -> new BlockItemBaseCobblestoneGenerator(COBBLESTONE_GENERATOR_BLOCK.get()));
     public static final RegistryObject<Item> LAVA_GENERATOR_BLOCK_ITEM = ITEMS.register("lava_generator_block", () -> new BlockItemBaseLavaGenerator(LAVA_GENERATOR_BLOCK.get()));
     public static final RegistryObject<Item> WATER_GENERATOR_BLOCK_ITEM = ITEMS.register("water_generator_block", () -> new BlockItemBaseWaterGenerator(WATER_GENERATOR_BLOCK.get()));
-    //
+    public static final RegistryObject<Item> COBBLESTONE_CRUSHER_BLOCK_ITEM = ITEMS.register("cobblestone_crusher_block", () -> new BlockItemBaseCobblestoneCrusher(COBBLESTONE_CRUSHER_BLOCK.get()));
+
+    //Block TileEntities
     public static final RegistryObject<TileEntityType<CobblestoneGeneratorTile>> COBBLEGENERATOR_TILE = TILES.register("cobblestone_generator_block", () -> TileEntityType.Builder.create(CobblestoneGeneratorTile::new, COBBLESTONE_GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<LavaGeneratorTile>> LAVAGENERATOR_TILE = TILES.register("lava_generator_block", () -> TileEntityType.Builder.create(LavaGeneratorTile::new, LAVA_GENERATOR_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<WaterGeneratorTile>> WATERGENERATOR_TILE = TILES.register("water_generator_block", () -> TileEntityType.Builder.create(WaterGeneratorTile::new, WATER_GENERATOR_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<CobblestoneCrusherTile>> COBBLECRUSHER_TILE = TILES.register("cobblestone_crusher_block", () -> TileEntityType.Builder.create(CobblestoneCrusherTile::new, COBBLESTONE_CRUSHER_BLOCK.get()).build(null));
 
     public static void init() {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());

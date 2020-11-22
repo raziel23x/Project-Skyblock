@@ -20,5 +20,14 @@
   "tip.projectskyblock.LavaGeneratorline2": "Use a bucket or use some type of fluid transportation",
   "block.projectskyblock.water_generator_block": "Water Generator",
   "tip.projectskyblock.WaterGeneratorline1": "Passively generates water",
-  "tip.projectskyblock.WaterGeneratorline2": "Can be collected with either Buckets, Bottles, Tanks\n or other Fluid containers"
+  "tip.projectskyblock.WaterGeneratorline2": "Can be collected with either Buckets, Bottles, Tanks\n or other Fluid containers",
+  "block.projectskyblock.cobblestone_crusher_block": "Cobblestone Crusher",
+  "tip.projectskyblock.CobblestoneCrusherline1": "An Crushing device - does not work at this time",
+  "tip.projectskyblock.CobblestoneCrusherline2": "Can be used in the future to crush and make new reagents",
+  "item.projectskyblock.flint_shovel": "Flint Shovel",
+  "item.projectskyblock.flint_sword": "Flint Sword",
+  "item.projectskyblock.flint_pickaxe": "Flint Pickaxe",
+  "item.projectskyblock.flint_hoe": "Flint Hoe",
+  "item.projectskyblock.flint_axe": "Flint Axe",
+  "item.projectskyblock.flint_shears": "Flint Shears"
 }
