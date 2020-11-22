@@ -28,15 +28,15 @@ public class RegistryHandler {
 
     //Tools
     public static final RegistryObject<ShovelItem> FLINT_SHOVEL = ITEMS.register("flint_shovel", () ->
-            new ShovelItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+            new ShovelItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
     public static final RegistryObject<SwordItem> FLINT_SWORD = ITEMS.register("flint_sword", () ->
-            new SwordItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+            new SwordItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
     public static final RegistryObject<PickaxeItem> FLINT_PICKAXE = ITEMS.register("flint_pickaxe", () ->
-            new PickaxeItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+            new PickaxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
     public static final RegistryObject<AxeItem> FLINT_AXE = ITEMS.register("flint_axe", () ->
-            new AxeItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+            new AxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
     public static final RegistryObject<HoeItem> FLINT_HOE = ITEMS.register("flint_hoe", () ->
-            new HoeItem(PSItemTier.FLINT, 0, -2.4F, new Item.Properties().group(ProjectSkyblock.TAB)));
+            new HoeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
     public static final RegistryObject<ShearsItem> FLINT_SHEARS = ITEMS.register("flint_shears", () ->
             new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
 

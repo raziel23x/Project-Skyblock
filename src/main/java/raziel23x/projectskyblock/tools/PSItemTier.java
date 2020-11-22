@@ -8,14 +8,14 @@ import raziel23x.projectskyblock.utils.RegistryHandler;
 import java.util.function.Supplier;
 
 public enum PSItemTier implements IItemTier {
-    FLINT(3, 64, 5.0F, 1.0F, 8, () -> {
-        return  Ingredient.fromItems(RegistryHandler.FLINT_SHOVEL.get(),
+    FLINT(3, 89, 3.0F, 0.5F, 15, () -> {
+        return  Ingredient.fromItems(Items.FLINT,
+                RegistryHandler.FLINT_SHOVEL.get(),
                 RegistryHandler.FLINT_SWORD.get(),
                 RegistryHandler.FLINT_HOE.get(),
                 RegistryHandler.FLINT_PICKAXE.get(),
                 RegistryHandler.FLINT_AXE.get(),
                 RegistryHandler.FLINT_SHEARS.get()
-
                 );
     });
 
