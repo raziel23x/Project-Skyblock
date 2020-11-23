@@ -8,12 +8,12 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import raziel23x.projectskyblock.ProjectSkyblock;
-import raziel23x.projectskyblock.config.PSConfigBuilder;
+import raziel23x.projectskyblock.config.ConfigBuilder;
 import raziel23x.projectskyblock.init.ModItems;
 
 @EventBusSubscriber(modid = ProjectSkyblock.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class PSRepairTick {
-    public static int repairTickRate = PSConfigBuilder.REPAIR_GEM_DELAY.get();
+    public static int repairTickRate = ConfigBuilder.REPAIR_GEM_DELAY.get();
     private static int ticks = 0;
 
     @SubscribeEvent

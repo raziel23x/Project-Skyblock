@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IShearable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.tags.BlockTags;
@@ -29,10 +28,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class FlintShears extends ShearsItem {
+public class WoodenShears extends ShearsItem {
 
-    public FlintShears() {
-        super(new Item.Properties()
+    public WoodenShears() {
+        super(new Properties()
                 .maxStackSize(1)
                 .maxDamage(100)
                 .group(ProjectSkyblock.TAB)
@@ -98,7 +97,7 @@ public class FlintShears extends ShearsItem {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stackIn, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (Config.DROP_FLINT_SHEARS_PRODUCTS.get()) {
+        if (Config.DROP_WOODEN_SHEARS_PRODUCTS.get()) {
             Block block = state.getBlock();
             if (isPresentOnTag(BlockTags.LEAVES, state) || block == Blocks.GRASS || block == Blocks.FERN || block == Blocks.DEAD_BUSH || block == Blocks.VINE
                     || block == Blocks.PUMPKIN || block == Blocks.BEEHIVE || block == Blocks.BEE_NEST) {
@@ -129,7 +128,7 @@ public class FlintShears extends ShearsItem {
 
     @Override
     public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity entity, Hand hand) {
-        if (Config.DROP_FLINT_SHEARS_PRODUCTS.get()) {
+        if (Config.DROP_WOODEN_SHEARS_PRODUCTS.get()) {
             return super.itemInteractionForEntity(stack, playerIn, entity, hand);
         }
         return ActionResultType.PASS;

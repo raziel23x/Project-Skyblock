@@ -29,5 +29,14 @@
   "item.projectskyblock.flint_pickaxe": "Flint Pickaxe",
   "item.projectskyblock.flint_hoe": "Flint Hoe",
   "item.projectskyblock.flint_axe": "Flint Axe",
-  "item.projectskyblock.flint_shears": "Flint Shears"
+  "item.projectskyblock.flint_shears": "Flint Shears",
+  "item.projectskyblock.wooden_shears": "Wooden Shears",
+  "item.projectskyblock.flint_helmet": "Flint Helmet",
+  "item.projectskyblock.flint_boots": "Flint Boots",
+  "item.projectskyblock.flint_leggings": "Flint Leggings",
+  "item.projectskyblock.flint_chestplate": "Flint Chestplate",
+  "item.projectskyblock.wooden_helmet": "Wooden Helmet",
+  "item.projectskyblock.wooden_boots": "Wooden Boots",
+  "item.projectskyblock.wooden_leggings": "Wooden Leggings",
+  "item.projectskyblock.wooden_chestplate": "Wooden Chestplate"
 }

@@ -3,20 +3,14 @@ package raziel23x.projectskyblock.utils.enums;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import raziel23x.projectskyblock.init.ModItems;
+
 
 import java.util.function.Supplier;
 
-public enum PSItemTier implements IItemTier {
+public enum ModItemTier implements IItemTier {
+
     FLINT(3, 89, 3.0F, 0.5F, 15, () -> {
-        return Ingredient.fromItems(Items.FLINT,
-                ModItems.FLINT_SHOVEL.get(),
-                ModItems.FLINT_SWORD.get(),
-                ModItems.FLINT_HOE.get(),
-                ModItems.FLINT_PICKAXE.get(),
-                ModItems.FLINT_AXE.get(),
-                ModItems.FLINT_SHEARS.get()
-        );
+        return Ingredient.fromItems(Items.FLINT);
     });
 
     private final int harvestLevel;
@@ -26,7 +20,7 @@ public enum PSItemTier implements IItemTier {
     private final int enchantability;
     private final Supplier<Ingredient> repairMaterial;
 
-    PSItemTier(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairMaterial) {
+    ModItemTier(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairMaterial) {
         this.harvestLevel = harvestLevel;
         this.maxUses = maxUses;
         this.efficiency = efficiency;

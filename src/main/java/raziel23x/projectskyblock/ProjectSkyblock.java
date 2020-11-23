@@ -29,7 +29,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import raziel23x.projectskyblock.config.PSConfig;
+import raziel23x.projectskyblock.config.Config;
 import raziel23x.projectskyblock.init.ModBlocks;
 import raziel23x.projectskyblock.init.ModEntityType;
 import raziel23x.projectskyblock.init.ModItems;
@@ -51,7 +51,7 @@ public class ProjectSkyblock {
     public ProjectSkyblock() {
         instance = this;
 
-        PSConfig.loadConfig(PSConfig.CONFIG, FMLPaths.CONFIGDIR.get().resolve("projectskyblock-general.toml"));
+        Config.loadConfig(Config.CONFIG, FMLPaths.CONFIGDIR.get().resolve("projectskyblock-general.toml"));
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
@@ -93,7 +93,8 @@ public class ProjectSkyblock {
             Block block = state.getBlock();
 
             if (!event.getItemStack().isEmpty()) {
-                if (event.getItemStack().getItem() == ModItems.FLINT_SHEARS.get()) {
+                if (event.getItemStack().getItem() == ModItems.FLINT_SHEARS.get() ||
+                        event.getItemStack().getItem() == ModItems.WOODEN_SHEARS.get()) {
                     if (block == Blocks.PUMPKIN) {
                         //LOGGER.info("Clicked Pumpkin with Flint Shears");
 

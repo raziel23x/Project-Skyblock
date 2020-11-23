@@ -1,0 +1,17 @@
+{
+
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    "F F"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:flint_boots",
+    "count": 1
+  }
+}

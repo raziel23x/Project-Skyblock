@@ -2,7 +2,7 @@ package raziel23x.projectskyblock.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class PSConfigBuilder {
+public class ConfigBuilder {
 
     public static ForgeConfigSpec.IntValue REPAIR_GEM_DELAY;
 

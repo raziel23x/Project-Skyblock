@@ -1,5 +1,6 @@
 package raziel23x.projectskyblock.init;
 
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -9,7 +10,8 @@ import raziel23x.projectskyblock.blocks.*;
 import raziel23x.projectskyblock.items.ItemBase;
 import raziel23x.projectskyblock.items.MixingBowl;
 import raziel23x.projectskyblock.items.RepairGem;
-import raziel23x.projectskyblock.utils.enums.PSItemTier;
+import raziel23x.projectskyblock.utils.enums.ModArmorMaterial;
+import raziel23x.projectskyblock.utils.enums.ModItemTier;
 
 public class ModItems {
 
@@ -26,22 +28,55 @@ public class ModItems {
     //Tools
 
     public static final RegistryObject<ShovelItem> FLINT_SHOVEL = ITEMS.register("flint_shovel",
-            () -> new ShovelItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new ShovelItem(ModItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<SwordItem> FLINT_SWORD = ITEMS.register("flint_sword",
-            () -> new SwordItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new SwordItem(ModItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<PickaxeItem> FLINT_PICKAXE = ITEMS.register("flint_pickaxe",
-            () -> new PickaxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new PickaxeItem(ModItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<AxeItem> FLINT_AXE = ITEMS.register("flint_axe",
-            () -> new AxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new AxeItem(ModItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<HoeItem> FLINT_HOE = ITEMS.register("flint_hoe",
-            () -> new HoeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new HoeItem(ModItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<ShearsItem> FLINT_SHEARS = ITEMS.register("flint_shears",
             () -> new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
+
+    public static final RegistryObject<ShearsItem> WOODEN_SHEARS = ITEMS.register("wooden_shears",
+            () -> new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
+
+    // Armor
+
+    //Flint Armor
+
+    public static final RegistryObject<ArmorItem> FLINT_HELMET = ITEMS.register("flint_helmet",
+            () -> new ArmorItem(ModArmorMaterial.FLINT, EquipmentSlotType.HEAD, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    public static final RegistryObject<ArmorItem> FLINT_CHESTPLATE = ITEMS.register("flint_chestplate",
+            () -> new ArmorItem(ModArmorMaterial.FLINT, EquipmentSlotType.CHEST, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    public static final RegistryObject<ArmorItem> FLINT_LEGGINGS = ITEMS.register("flint_leggings",
+            () -> new ArmorItem(ModArmorMaterial.FLINT, EquipmentSlotType.LEGS, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    public static final RegistryObject<ArmorItem> FLINT_BOOTS = ITEMS.register("flint_boots",
+            () -> new ArmorItem(ModArmorMaterial.FLINT, EquipmentSlotType.FEET, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    //Wooden Armor
+
+    public static final RegistryObject<ArmorItem> WOODEN_HELMET = ITEMS.register("wooden_helmet",
+            () -> new ArmorItem(ModArmorMaterial.WOODEN, EquipmentSlotType.HEAD, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    public static final RegistryObject<ArmorItem> WOODEN_CHESTPLATE = ITEMS.register("wooden_chestplate",
+            () -> new ArmorItem(ModArmorMaterial.WOODEN, EquipmentSlotType.CHEST, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    public static final RegistryObject<ArmorItem> WOODEN_LEGGINGS = ITEMS.register("wooden_leggings",
+            () -> new ArmorItem(ModArmorMaterial.WOODEN, EquipmentSlotType.LEGS, new Item.Properties().group(ProjectSkyblock.TAB)));
+
+    public static final RegistryObject<ArmorItem> WOODEN_BOOTS = ITEMS.register("wooden_boots",
+            () -> new ArmorItem(ModArmorMaterial.WOODEN, EquipmentSlotType.FEET, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     //Block Items
 
