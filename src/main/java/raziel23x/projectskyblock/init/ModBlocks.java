@@ -2,7 +2,6 @@ package raziel23x.projectskyblock.init;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import raziel23x.projectskyblock.ProjectSkyblock;
@@ -20,7 +19,5 @@ public class ModBlocks {
     public static final RegistryObject<Block> WATER_GENERATOR_BLOCK = BLOCKS.register("water_generator_block", WaterGeneratorBlock::new);
     public static final RegistryObject<Block> COBBLESTONE_CRUSHER_BLOCK = BLOCKS.register("cobblestone_crusher_block", CobblestoneCrusherBlock::new);
 
-    public static void init() {
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
+
 }

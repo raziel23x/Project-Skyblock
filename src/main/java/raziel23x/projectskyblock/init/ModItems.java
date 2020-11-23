@@ -2,7 +2,6 @@ package raziel23x.projectskyblock.init;
 
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import raziel23x.projectskyblock.ProjectSkyblock;
@@ -15,11 +14,6 @@ import raziel23x.projectskyblock.utils.enums.PSItemTier;
 public class ModItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ProjectSkyblock.MOD_ID);
-
-    public static void init() {
-
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
 
     //Items
 
@@ -35,19 +29,19 @@ public class ModItems {
             () -> new ShovelItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<SwordItem> FLINT_SWORD = ITEMS.register("flint_sword",
-            () ->new SwordItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new SwordItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<PickaxeItem> FLINT_PICKAXE = ITEMS.register("flint_pickaxe",
             () -> new PickaxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<AxeItem> FLINT_AXE = ITEMS.register("flint_axe",
-            () ->new AxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new AxeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<HoeItem> FLINT_HOE = ITEMS.register("flint_hoe",
-            () ->new HoeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
+            () -> new HoeItem(PSItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<ShearsItem> FLINT_SHEARS = ITEMS.register("flint_shears",
-            () ->new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
+            () -> new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
 
     //Block Items
 
