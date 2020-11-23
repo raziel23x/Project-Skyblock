@@ -1,23 +1,23 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "group": "simplyrandom:cobblestone_generator",
-    "pattern": [
-        "ILI",
-        "LCL",
-        "ILI"
-    ],
-    "key": {
-        "I": {
-            "item": "minecraft:iron_ingot"
-        },
-        "L": {
-            "item": "minecraft:lava_bucket"
-        },
-        "C": {
-            "tag": "forge:glass"
-        }
+  "type": "minecraft:crafting_shaped",
+  "group": "simplyrandom:cobblestone_generator",
+  "pattern": [
+    "ILI",
+    "LCL",
+    "ILI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
     },
-    "result": {
-        "item": "projectskyblock:lava_generator_block"
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "C": {
+      "tag": "forge:glass"
     }
+  },
+  "result": {
+    "item": "projectskyblock:lava_generator_block"
+  }
 }

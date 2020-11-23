@@ -3,7 +3,9 @@ package raziel23x.projectskyblock.items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.IShearable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,20 +17,17 @@ import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.IShearable;
 import net.minecraftforge.common.IForgeShearable;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.config.PSConfig;
-import net.minecraft.enchantment.EnchantmentHelper;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
-import java.util.List;
 
 public class FlintShears extends ShearsItem {
 
@@ -39,6 +38,7 @@ public class FlintShears extends ShearsItem {
                 .group(ProjectSkyblock.TAB)
         );
     }
+
     @Nonnull
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
@@ -101,7 +101,7 @@ public class FlintShears extends ShearsItem {
         if (PSConfig.DROP_SHEARS_PRODUCTS.get()) {
             Block block = state.getBlock();
             if (isPresentOnTag(BlockTags.LEAVES, state) || block == Blocks.GRASS || block == Blocks.FERN || block == Blocks.DEAD_BUSH || block == Blocks.VINE
-            || block == Blocks.PUMPKIN || block == Blocks.BEEHIVE || block == Blocks.BEE_NEST) {
+                    || block == Blocks.PUMPKIN || block == Blocks.BEEHIVE || block == Blocks.BEE_NEST) {
                 Block.spawnAsEntity(worldIn, pos, new ItemStack(state.getBlock().asItem()));
             }
         }
@@ -129,7 +129,7 @@ public class FlintShears extends ShearsItem {
 
     @Override
     public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity entity, Hand hand) {
-        if(PSConfig.DROP_SHEARS_PRODUCTS.get()){
+        if (PSConfig.DROP_SHEARS_PRODUCTS.get()) {
             return super.itemInteractionForEntity(stack, playerIn, entity, hand);
         }
         return ActionResultType.PASS;

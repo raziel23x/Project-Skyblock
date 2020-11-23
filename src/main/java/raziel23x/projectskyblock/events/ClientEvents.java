@@ -10,8 +10,8 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import raziel23x.projectskyblock.ProjectSkyblock;
-import raziel23x.projectskyblock.utils.RegistryHandler;
-
+import raziel23x.projectskyblock.init.ModBlocks;
+import raziel23x.projectskyblock.init.ModItems;
 
 
 @Mod.EventBusSubscriber(modid = ProjectSkyblock.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -23,7 +23,7 @@ public class ClientEvents {
 
         BlockColors blockcolors = event.getBlockColors();
 
-        blockcolors.register((state, reader, pos, i) -> reader != null && pos != null ? BiomeColors.getWaterColor(reader, pos) : 0x3c44a9, RegistryHandler.WATER_GENERATOR_BLOCK.get(), RegistryHandler.COBBLESTONE_CRUSHER_BLOCK.get());
+        blockcolors.register((state, reader, pos, i) -> reader != null && pos != null ? BiomeColors.getWaterColor(reader, pos) : 0x3c44a9, ModBlocks.WATER_GENERATOR_BLOCK.get(), ModBlocks.COBBLESTONE_CRUSHER_BLOCK.get());
 
     }
 
@@ -37,7 +37,7 @@ public class ClientEvents {
         itemcolors.register((stack, i) -> {
             BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
             return blockcolors.getColor(state, null, null, i);
-        }, RegistryHandler.WATER_GENERATOR_BLOCK_ITEM.get(), RegistryHandler.COBBLESTONE_CRUSHER_BLOCK_ITEM.get());
+        }, ModItems.WATER_GENERATOR_BLOCK_ITEM.get(), ModItems.COBBLESTONE_CRUSHER_BLOCK_ITEM.get());
     }
 
 

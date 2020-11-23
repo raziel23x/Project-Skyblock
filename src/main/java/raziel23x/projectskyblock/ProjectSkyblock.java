@@ -30,8 +30,10 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raziel23x.projectskyblock.config.PSConfig;
+import raziel23x.projectskyblock.init.ModBlocks;
+import raziel23x.projectskyblock.init.ModEntityType;
+import raziel23x.projectskyblock.init.ModItems;
 import raziel23x.projectskyblock.utils.CuriosUtil;
-import raziel23x.projectskyblock.utils.RegistryHandler;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
 @Mod("projectskyblock")
@@ -41,7 +43,7 @@ public class ProjectSkyblock {
     public static final ItemGroup TAB = new ItemGroup("projectskyblockTab") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(RegistryHandler.REPAIR_GEM.get());
+            return new ItemStack(ModItems.REPAIR_GEM.get());
         }
     };
     public static ProjectSkyblock instance;
@@ -54,7 +56,9 @@ public class ProjectSkyblock {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
 
-        RegistryHandler.init();
+        ModBlocks.init();
+        ModItems.init();
+        ModEntityType.init();
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -63,10 +67,10 @@ public class ProjectSkyblock {
     }
 
     private void doClientStuff(final FMLClientSetupEvent even) {
-        RenderTypeLookup.setRenderLayer(RegistryHandler.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(RegistryHandler.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(RegistryHandler.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(RegistryHandler.COBBLESTONE_CRUSHER_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_CRUSHER_BLOCK.get(), RenderType.getTranslucent());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -88,7 +92,7 @@ public class ProjectSkyblock {
             Block block = state.getBlock();
 
             if (!event.getItemStack().isEmpty()) {
-                if (event.getItemStack().getItem() == RegistryHandler.FLINT_SHEARS.get()) {
+                if (event.getItemStack().getItem() == ModItems.FLINT_SHEARS.get()) {
                     if (block == Blocks.PUMPKIN) {
                         //LOGGER.info("Clicked Pumpkin with Flint Shears");
 

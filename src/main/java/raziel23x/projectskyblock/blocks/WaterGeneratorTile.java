@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static raziel23x.projectskyblock.utils.RegistryHandler.WATERGENERATOR_TILE;
+import static raziel23x.projectskyblock.init.ModEntityType.WATERGENERATOR_TILE;
 
 public class WaterGeneratorTile extends TileEntity implements ITickableTileEntity {
     protected FluidTank tank = new FluidTank(FluidAttributes.BUCKET_VOLUME * 8) {

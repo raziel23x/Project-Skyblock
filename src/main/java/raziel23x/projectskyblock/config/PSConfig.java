@@ -18,9 +18,9 @@ public class PSConfig {
 
         CONFIG = BUILDER.build();
 
-            BUILDER.push("Flint Shears Configuration");
-            DROP_SHEARS_PRODUCTS = BUILDER.comment("When enabled the Flint Shears will behave the same as the iron shears.").define("drop_shears_products", true);
-            BUILDER.pop();
+        BUILDER.push("Flint Shears Configuration");
+        DROP_SHEARS_PRODUCTS = BUILDER.comment("When enabled the Flint Shears will behave the same as the iron shears.").define("drop_shears_products", true);
+        BUILDER.pop();
 
     }
 

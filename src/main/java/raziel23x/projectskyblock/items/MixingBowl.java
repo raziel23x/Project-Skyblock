@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.items.mixingbowl;
+package raziel23x.projectskyblock.items;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -16,23 +16,27 @@ import java.util.List;
 public class MixingBowl extends Item {
     public MixingBowl() {
 
-        super(new Properties().group(ProjectSkyblock.TAB).maxStackSize(1));
+        super(new Properties()
+                .group(ProjectSkyblock.TAB)
+                .maxStackSize(1)
+        );
     }
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add((new TranslationTextComponent("tip."+ProjectSkyblock.MOD_ID+".mixingbowlline1").mergeStyle(TextFormatting.GREEN)));
-        tooltip.add((new TranslationTextComponent("tip."+ProjectSkyblock.MOD_ID+".mixingbowlline2").mergeStyle(TextFormatting.YELLOW)));
+        tooltip.add((new TranslationTextComponent("tip." + ProjectSkyblock.MOD_ID + ".mixingbowlline1").mergeStyle(TextFormatting.GREEN)));
+        tooltip.add((new TranslationTextComponent("tip." + ProjectSkyblock.MOD_ID + ".mixingbowlline2").mergeStyle(TextFormatting.YELLOW)));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override
-    public boolean hasContainerItem (ItemStack stack){
+    public boolean hasContainerItem(ItemStack stack) {
         return true;
     }
 
     @Override
-    public ItemStack getContainerItem (ItemStack stack){
+    public ItemStack getContainerItem(ItemStack stack) {
         return stack.copy();
     }
 }

@@ -23,8 +23,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nullable;
 
 public class CobblestoneGeneratorBlock extends Block {
-    private  static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-    public CobblestoneGeneratorBlock(){
+    private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+
+    public CobblestoneGeneratorBlock() {
         super(AbstractBlock.Properties.create(Material.ROCK)
                 .sound(SoundType.STONE)
                 .hardnessAndResistance(2.0f, 3.0f)
@@ -72,7 +73,8 @@ public class CobblestoneGeneratorBlock extends Block {
     public void onReplaced(BlockState oldState, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (oldState.getBlock() != newState.getBlock()) {
             worldIn.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                spawnAsEntity(worldIn, pos, h.getStackInSlot(0)); });
+                spawnAsEntity(worldIn, pos, h.getStackInSlot(0));
+            });
 
             worldIn.removeTileEntity(pos);
         }
@@ -87,7 +89,8 @@ public class CobblestoneGeneratorBlock extends Block {
         if (tileEntity != null) {
             if (heldItem.isEmpty() || heldItem.getItem() == Items.COBBLESTONE) {
                 worldIn.getTileEntity(pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                    player.addItemStackToInventory(h.getStackInSlot(0)); });
+                    player.addItemStackToInventory(h.getStackInSlot(0));
+                });
             }
         }
 

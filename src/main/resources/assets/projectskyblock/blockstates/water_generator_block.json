@@ -1,8 +1,19 @@
 {
   "variants": {
-    "facing=north": { "model": "projectskyblock:block/water_generator_block" },
-    "facing=south": { "model": "projectskyblock:block/water_generator_block", "y":  180},
-    "facing=west": { "model": "projectskyblock:block/water_generator_block", "y":  270},
-    "facing=east": { "model": "projectskyblock:block/water_generator_block", "y":  90}
+    "facing=north": {
+      "model": "projectskyblock:block/water_generator_block"
+    },
+    "facing=south": {
+      "model": "projectskyblock:block/water_generator_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "projectskyblock:block/water_generator_block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "projectskyblock:block/water_generator_block",
+      "y": 90
+    }
   }
 }

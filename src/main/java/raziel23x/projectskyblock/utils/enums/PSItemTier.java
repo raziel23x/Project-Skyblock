@@ -1,22 +1,22 @@
-package raziel23x.projectskyblock.tools;
+package raziel23x.projectskyblock.utils.enums;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import raziel23x.projectskyblock.utils.RegistryHandler;
+import raziel23x.projectskyblock.init.ModItems;
 
 import java.util.function.Supplier;
 
 public enum PSItemTier implements IItemTier {
     FLINT(3, 89, 3.0F, 0.5F, 15, () -> {
-        return  Ingredient.fromItems(Items.FLINT,
-                RegistryHandler.FLINT_SHOVEL.get(),
-                RegistryHandler.FLINT_SWORD.get(),
-                RegistryHandler.FLINT_HOE.get(),
-                RegistryHandler.FLINT_PICKAXE.get(),
-                RegistryHandler.FLINT_AXE.get(),
-                RegistryHandler.FLINT_SHEARS.get()
-                );
+        return Ingredient.fromItems(Items.FLINT,
+                ModItems.FLINT_SHOVEL.get(),
+                ModItems.FLINT_SWORD.get(),
+                ModItems.FLINT_HOE.get(),
+                ModItems.FLINT_PICKAXE.get(),
+                ModItems.FLINT_AXE.get(),
+                ModItems.FLINT_SHEARS.get()
+        );
     });
 
     private final int harvestLevel;

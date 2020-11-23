@@ -1,8 +1,19 @@
 {
   "variants": {
-    "facing=north": { "model": "projectskyblock:block/cobblestone_crusher_block" },
-    "facing=south": { "model": "projectskyblock:block/cobblestone_crusher_block", "y":  180},
-    "facing=west": { "model": "projectskyblock:block/cobblestone_crusher_block", "y":  270},
-    "facing=east": { "model": "projectskyblock:block/cobblestone_crusher_block", "y":  90}
+    "facing=north": {
+      "model": "projectskyblock:block/cobblestone_crusher_block"
+    },
+    "facing=south": {
+      "model": "projectskyblock:block/cobblestone_crusher_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "projectskyblock:block/cobblestone_crusher_block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "projectskyblock:block/cobblestone_crusher_block",
+      "y": 90
+    }
   }
 }

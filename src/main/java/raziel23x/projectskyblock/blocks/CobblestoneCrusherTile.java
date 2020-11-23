@@ -4,7 +4,7 @@ package raziel23x.projectskyblock.blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
-import static raziel23x.projectskyblock.utils.RegistryHandler.COBBLECRUSHER_TILE;
+import static raziel23x.projectskyblock.init.ModEntityType.COBBLECRUSHER_TILE;
 
 
 public class CobblestoneCrusherTile extends TileEntity {

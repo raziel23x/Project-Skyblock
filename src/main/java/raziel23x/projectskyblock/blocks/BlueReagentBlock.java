@@ -8,7 +8,7 @@ import net.minecraftforge.common.ToolType;
 public class BlueReagentBlock extends Block {
 
     public BlueReagentBlock() {
-        super(Block.Properties.create(Material.SNOW)
+        super(Block.Properties.create(Material.SAND)
                 .sound(SoundType.SNOW)
                 .hardnessAndResistance(2.0f, 3.0f)
                 .harvestLevel(0)

@@ -17,7 +17,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static raziel23x.projectskyblock.utils.RegistryHandler.COBBLEGENERATOR_TILE;
+import static raziel23x.projectskyblock.init.ModEntityType.COBBLEGENERATOR_TILE;
 
 public class CobblestoneGeneratorTile extends TileEntity implements ITickableTileEntity {
 
@@ -70,8 +70,8 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
         }
     }
 
-    private ItemStackHandler getItemHandler(){
-        if(handler == null) {
+    private ItemStackHandler getItemHandler() {
+        if (handler == null) {
             handler = new ItemStackHandler(1);
         }
         return handler;
@@ -79,8 +79,8 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
 
     @Nonnull
     @Override
-    public <T>LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return LazyOptional.of(() -> (T) getItemHandler());
         }
         return super.getCapability(cap, side);

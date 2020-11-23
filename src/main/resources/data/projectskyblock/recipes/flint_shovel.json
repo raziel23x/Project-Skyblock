@@ -1,19 +1,19 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        " # ",
-        " / ",
-        " / "
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:flint"
-        },
-        "/": {
-            "item": "minecraft:stick"
-        }
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    " / ",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:flint"
     },
-    "result": {
-        "item": "projectskyblock:flint_shovel"
+    "/": {
+      "item": "minecraft:stick"
     }
+  },
+  "result": {
+    "item": "projectskyblock:flint_shovel"
+  }
 }

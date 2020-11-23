@@ -9,11 +9,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.config.PSConfigBuilder;
+import raziel23x.projectskyblock.init.ModItems;
 
 @EventBusSubscriber(modid = ProjectSkyblock.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class PSRepairTick {
     public static int repairTickRate = PSConfigBuilder.REPAIR_GEM_DELAY.get();
-    private static int ticks=0;
+    private static int ticks = 0;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
@@ -24,24 +25,24 @@ public class PSRepairTick {
         ticks++;
 
         if (ticks == repairTickRate) {
-            ticks=0;
+            ticks = 0;
 
             for (int slot = 0; slot < inv.getSizeInventory(); slot++) {
                 ItemStack stack = inv.getStackInSlot(slot);
-                if (stack.getItem() == RegistryHandler.REPAIR_GEM.get()) {
+                if (stack.getItem() == ModItems.REPAIR_GEM.get()) {
                     repair(player, inv);
                 }
             }
 
             for (int slot = 0; slot < end_inv.getSizeInventory(); slot++) {
                 ItemStack stack = end_inv.getStackInSlot(slot);
-                if (stack.getItem() == RegistryHandler.REPAIR_GEM.get()) {
+                if (stack.getItem() == ModItems.REPAIR_GEM.get()) {
                     repair(player, inv);
                 }
             }
 
             if (CuriosUtil.isModLoaded()) {
-                if (CuriosUtil.findItem(RegistryHandler.REPAIR_GEM.get(), player) != ItemStack.EMPTY) {
+                if (CuriosUtil.findItem(ModItems.REPAIR_GEM.get(), player) != ItemStack.EMPTY) {
                     repair(player, inv);
                 }
             }

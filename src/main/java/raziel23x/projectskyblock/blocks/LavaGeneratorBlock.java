@@ -4,7 +4,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -83,9 +82,9 @@ public class LavaGeneratorBlock extends Block {
                     IFluidHandler fluidHandler = fluidHandlerCap.orElseThrow(IllegalStateException::new);
 
                     return (FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
-                    }
                 }
             }
+        }
 
         return ActionResultType.SUCCESS;
     }
