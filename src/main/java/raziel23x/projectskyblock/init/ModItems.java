@@ -7,9 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.blocks.*;
-import raziel23x.projectskyblock.items.ItemBase;
-import raziel23x.projectskyblock.items.MixingBowl;
-import raziel23x.projectskyblock.items.RepairGem;
+import raziel23x.projectskyblock.items.*;
 import raziel23x.projectskyblock.utils.enums.ModArmorMaterial;
 import raziel23x.projectskyblock.utils.enums.ModItemTier;
 
@@ -43,10 +41,10 @@ public class ModItems {
             () -> new HoeItem(ModItemTier.FLINT, 0, 0, new Item.Properties().group(ProjectSkyblock.TAB)));
 
     public static final RegistryObject<ShearsItem> FLINT_SHEARS = ITEMS.register("flint_shears",
-            () -> new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
+            () -> new FlintShears());
 
     public static final RegistryObject<ShearsItem> WOODEN_SHEARS = ITEMS.register("wooden_shears",
-            () -> new ShearsItem(new Item.Properties().group(ProjectSkyblock.TAB).maxDamage(100)));
+            () -> new WoodenShears());
 
     // Armor
 
