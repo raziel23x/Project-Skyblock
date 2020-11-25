@@ -5,7 +5,7 @@
     64
   ],
   "textures": {
-    "2": "projectskyblock:blocks/mob_spawnertemp",
+    "2": "projectskyblock:block/mob_spawnertemp",
     "4": "minecraft:block/water_still",
     "particle": "minecraft:block/water_still"
   },

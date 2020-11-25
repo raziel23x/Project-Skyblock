@@ -55,7 +55,7 @@ public class PSRepairTick {
             }
             target.setDamage(target.getDamage() - 1);
             // comment this out if you want to repair everything one time per tick
-            return; // return here won't repair any more items this tick, stops at 1.
+            return; // return here won't repair any more item this tick, stops at 1.
         }
     }
 }

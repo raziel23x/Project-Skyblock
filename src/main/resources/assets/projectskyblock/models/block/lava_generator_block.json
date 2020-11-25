@@ -5,9 +5,9 @@
     64
   ],
   "textures": {
-    "1": "projectskyblock:blocks/lava_flow",
-    "2": "projectskyblock:blocks/mob_spawnertemp",
-    "particle": "projectskyblock:blocks/lava_flow"
+    "1": "projectskyblock:block/lava_flow",
+    "2": "projectskyblock:block/mob_spawnertemp",
+    "particle": "projectskyblock:block/lava_flow"
   },
   "elements": [
     {
