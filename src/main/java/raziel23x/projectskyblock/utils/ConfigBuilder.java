@@ -1,9 +1,9 @@
-package raziel23x.projectskyblock.config;
+package raziel23x.projectskyblock.utils;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigBuilder {
     //public final ForgeConfigSpec CLIENT;
-    public final ForgeConfigSpec SERVER;
+    public final ForgeConfigSpec CLIENT;
 
     public ForgeConfigSpec.IntValue RepairGemTickDelay;
     public ForgeConfigSpec.BooleanValue FlintShearsVanillaDrops;
@@ -16,33 +16,28 @@ public class ConfigBuilder {
 
         builder.push("Repair Gem Settings");
         RepairGemTickDelay = builder
-            .comment("Repair Gem - Delay time between repair ticks " +
-                    "\nDefault = 60")
+            .comment("Repair Gem - Delay time between repair ticks")
             .defineInRange("RepairGemTickDelay", 60, 20, 600);
 
         builder.pop();
 
 
-        builder.push("Flint Shears Setting");
+        builder.push("Flint Item Settings");
         FlintShearsVanillaDrops = builder
-                .comment("Should the Shears drop Vanilla item? " +
-                        "\nDefault = true " +
-                        "\nSet to false to disable")
+                .comment("Should the Shears drop Vanilla items ?")
                 .define("Vanilla Drops", true);
 
         builder.pop();
 
 
-        builder.push("Wooden Shears Setting");
+        builder.push("Wooden Item Settings");
         WoodenShearsVanillaDrops = builder
-                .comment("Should the Shears drop Vanilla item? " +
-                        "\nDefault = true" +
-                        "\nSet to false to disable")
+                .comment("Should the Shears drop Vanilla items ?")
                 .define("Vanilla Drops", true);
 
         builder.pop();
 
 
-        SERVER = builder.build();
+        CLIENT = builder.build();
     }
 }

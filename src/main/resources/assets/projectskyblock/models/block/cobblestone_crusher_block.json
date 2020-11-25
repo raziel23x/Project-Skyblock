@@ -1,11 +1,11 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "projectskyblock:blocks/lava_flow",
-    "1": "projectskyblock:blocks/blue",
-    "2": "projectskyblock:blocks/water_overlay",
-    "3": "projectskyblock:blocks/cobblestone",
-    "particle": "projectskyblock:blocks/lava_flow"
+    "0": "projectskyblock:block/lava_flow",
+    "1": "projectskyblock:block/blue",
+    "2": "projectskyblock:block/water_overlay",
+    "3": "projectskyblock:block/cobblestone",
+    "particle": "projectskyblock:block/lava_flow"
   },
   "elements": [
     {

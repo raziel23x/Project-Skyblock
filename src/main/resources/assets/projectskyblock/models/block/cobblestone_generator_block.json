@@ -5,9 +5,9 @@
     64
   ],
   "textures": {
-    "1": "projectskyblock:blocks/cobblestone",
-    "2": "projectskyblock:blocks/mob_spawnertemp",
-    "particle": "projectskyblock:blocks/cobblestone"
+    "1": "projectskyblock:block/cobblestone",
+    "2": "projectskyblock:block/mob_spawnertemp",
+    "particle": "projectskyblock:block/cobblestone"
   },
   "elements": [
     {
