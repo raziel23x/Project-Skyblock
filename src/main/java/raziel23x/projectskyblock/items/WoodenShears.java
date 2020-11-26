@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
@@ -14,6 +15,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import raziel23x.projectskyblock.ProjectSkyblock;
+import raziel23x.projectskyblock.utils.ShearsUtil;
+
 import java.util.Random;
 
 public class WoodenShears extends ShearsItem {
@@ -48,7 +51,7 @@ public class WoodenShears extends ShearsItem {
             if (isPresentOnTag(BlockTags.LEAVES, state) || block == Blocks.GRASS || block == Blocks.TALL_GRASS
                     || block == Blocks.FERN || block == Blocks.DEAD_BUSH || block == Blocks.VINE
                     || block == Blocks.ROSE_BUSH || block == Blocks.POPPY || block == Blocks.BLUE_ORCHID
-                    || block == Blocks.SEAGRASS || block == Blocks.DANDELION || block ==Blocks.NETHER_SPROUTS) {
+                    || block == Blocks.SEAGRASS || block == Blocks.DANDELION || block == Blocks.NETHER_SPROUTS) {
                 Block.spawnAsEntity(worldIn, pos, new ItemStack(state.getBlock().asItem()));
             }
         }
@@ -62,6 +65,12 @@ public class WoodenShears extends ShearsItem {
             }
         }
         return false;
+    }
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        ShearsUtil.onUseItem(context);
+        return ActionResultType.PASS;
     }
 
     @Override

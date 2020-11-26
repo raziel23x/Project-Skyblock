@@ -5,9 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShearsItem;
+import net.minecraft.item.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResultType;
@@ -15,6 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import raziel23x.projectskyblock.ProjectSkyblock;
+import raziel23x.projectskyblock.utils.ShearsUtil;
 
 public class FlintShears extends ShearsItem {
     public FlintShears() {
@@ -49,6 +48,13 @@ public class FlintShears extends ShearsItem {
         }
         return false;
     }
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        ShearsUtil.onUseItem(context);
+        return ActionResultType.PASS;
+    }
+
 
     @Override
     public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity entity, Hand hand) {
