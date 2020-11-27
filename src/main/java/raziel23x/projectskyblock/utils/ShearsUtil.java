@@ -15,8 +15,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 public class ShearsUtil {
-    public static void onUseItem(ItemUseContext context)
-    {
+    public static void onUseItem(ItemUseContext context) {
         PlayerEntity player = context.getPlayer();
         World world = context.getWorld();
         BlockState state = context.getWorld().getBlockState(context.getPos());

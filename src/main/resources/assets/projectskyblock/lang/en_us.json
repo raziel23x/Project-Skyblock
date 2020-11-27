@@ -38,5 +38,11 @@
   "item.projectskyblock.wooden_helmet": "Wooden Helmet",
   "item.projectskyblock.wooden_boots": "Wooden Boots",
   "item.projectskyblock.wooden_leggings": "Wooden Leggings",
-  "item.projectskyblock.wooden_chestplate": "Wooden Chestplate"
+  "item.projectskyblock.wooden_chestplate": "Wooden Chestplate",
+  "block.projectskyblock.dirt_generator_block": "Dirt Generator",
+  "tip.projectskyblock.DirtGeneratorline1": "Passively generates dirt",
+  "tip.projectskyblock.DirtGeneratorline2": "Can have either a chest placed on top\n as well as be placed on top of a hopper\n or use some type of item transportation",
+  "block.projectskyblock.grassblock_generator_block": "Grass Block Generator",
+  "tip.projectskyblock.GrassblockGeneratorline1": "Passively generates grass blocks",
+  "tip.projectskyblock.GrassblockGeneratorline2": "Can have either a chest placed on top\n as well as be placed on top of a hopper\n or use some type of item transportation"
 }

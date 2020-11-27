@@ -4,7 +4,6 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
-
 import java.util.function.Supplier;
 
 public enum ModItemTier implements IItemTier {
