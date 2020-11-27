@@ -30,6 +30,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void basicBlock(Block block) {
         simpleItemBlock(block, cubeAll(block));
     }
+
     private void simpleItemBlock(Block block, ModelFile modelFile) {
         simpleBlock(block, modelFile);
         simpleBlockItem(block, modelFile);

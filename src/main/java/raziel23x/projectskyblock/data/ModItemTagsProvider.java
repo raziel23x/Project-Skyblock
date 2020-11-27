@@ -26,5 +26,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 
         getOrCreateBuilder(Tags.Items.DUSTS).addTag(ModTags.Items.DUST_REAGENT);
 
+        getOrCreateBuilder(Tags.Items.SHEARS).add(ModItems.WOODEN_SHEARS.get());
+        getOrCreateBuilder(Tags.Items.SHEARS).add(ModItems.FLINT_SHEARS.get());
+
+
     }
 }

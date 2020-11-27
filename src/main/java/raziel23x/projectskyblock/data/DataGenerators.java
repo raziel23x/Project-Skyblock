@@ -12,7 +12,8 @@ import raziel23x.projectskyblock.data.client.ModItemModelProvider;
 
 @Mod.EventBusSubscriber(modid = ProjectSkyblock.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class DataGenerators {
-    private DataGenerators() {}
+    private DataGenerators() {
+    }
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

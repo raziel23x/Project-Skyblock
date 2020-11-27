@@ -1,28 +1,28 @@
-modLoader="javafml"
-loaderVersion="[${loader_version},)"
-license="GNU GPLv3"
-issueTrackerURL="https://github.com/raziel23x/Project-Skyblock/issues"
+modLoader = "javafml"
+loaderVersion = "[${loader_version},)"
+license = "GNU GPLv3"
+issueTrackerURL = "https://github.com/raziel23x/Project-Skyblock/issues"
 
 [[mods]]
-modId="projectskyblock"
-version="${version}"
-displayName="Project Skyblock"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/project-skyblock"
-updateJSONURL="https://github.com/raziel23x/Project-Skyblock/raw/MC-V1.16.X/update.json"
-logoFile="logo.png"
-authors="Raziel23x"
-credits="ValkyrieofNight, SinKillerJ and pupnewfster for their insight and helping with issues and questions i have had" #optional
-description=''' This is a mod for designing and making things possible with my skyblock modpack that i could not find else where
+modId = "projectskyblock"
+version = "${version}"
+displayName = "Project Skyblock"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/project-skyblock"
+updateJSONURL = "https://github.com/raziel23x/Project-Skyblock/raw/MC-V1.16.X/update.json"
+logoFile = "logo.png"
+authors = "Raziel23x"
+credits = "ValkyrieofNight, SinKillerJ and pupnewfster for their insight and helping with issues and questions i have had" #optional
+description = ''' This is a mod for designing and making things possible with my skyblock modpack that i could not find else where
 or the fact that there was way too many mods that just added a single recipes and I did not want to have modpack that had
 a few 1000 mods that added a single recipe  '''
 
 [[dependencies.projectskyblock]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[${mc_version}]"
-  side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[${mc_version}]"
+side = "BOTH"
 [[dependencies.projectskyblock]]
-    modId="forge"
-    mandatory=true
-    versionRange="[${forge_version},)"
-    side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[${forge_version},)"
+side = "BOTH"

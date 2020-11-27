@@ -1,29 +1,32 @@
 package raziel23x.projectskyblock.utils.enums;
 
-import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
-import raziel23x.projectskyblock.ProjectSkyblock;
-import raziel23x.projectskyblock.init.ModItems;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import raziel23x.projectskyblock.ProjectSkyblock;
 
 import java.util.function.Supplier;
 
 public enum ModArmorMaterial implements IArmorMaterial {
 
-    FLINT(ProjectSkyblock.MOD_ID + ":flint", 10, new int[] { 1, 3, 4, 1 }, 10,
+    FLINT(ProjectSkyblock.MOD_ID + ":flint", 10, new int[]{1, 3, 4, 1}, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0,
-            () -> { return Ingredient.fromItems(Items.FLINT); },0),
-    WOODEN(ProjectSkyblock.MOD_ID + ":wooden", 10, new int[] { 1, 2, 3, 1 }, 10,
+            () -> {
+                return Ingredient.fromItems(Items.FLINT);
+            }, 0),
+    WOODEN(ProjectSkyblock.MOD_ID + ":wooden", 10, new int[]{1, 2, 3, 1}, 10,
             SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0,
-            () -> { return Ingredient.fromTag(ItemTags.PLANKS); },0);
+            () -> {
+                return Ingredient.fromTag(ItemTags.PLANKS);
+            }, 0);
 
-    private static final int[] MAX_DAMAGE_ARRAY = new int[] { 11, 16, 15, 13 };
+    private static final int[] MAX_DAMAGE_ARRAY = new int[]{11, 16, 15, 13};
     private final String name;
     private final int maxDamageFactor; //Durability, Iron=15, Diamond=33, Gold=7, Leather=5
     private final int[] damageReductionAmountArray; //Armor Bar Protection, 1 = 1/2 armor bar

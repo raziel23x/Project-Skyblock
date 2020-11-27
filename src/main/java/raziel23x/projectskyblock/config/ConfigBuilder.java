@@ -1,4 +1,5 @@
 package raziel23x.projectskyblock.config;
+
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class ConfigBuilder {
@@ -16,9 +17,9 @@ public class ConfigBuilder {
 
         builder.push("Repair Gem Settings");
         RepairGemTickDelay = builder
-            .comment("Repair Gem - Delay time between repair ticks " +
-                    "\nDefault = 60")
-            .defineInRange("RepairGemTickDelay", 60, 20, 600);
+                .comment("Repair Gem - Delay time between repair ticks " +
+                        "\nDefault = 60")
+                .defineInRange("RepairGemTickDelay", 60, 20, 600);
 
         builder.pop();
 

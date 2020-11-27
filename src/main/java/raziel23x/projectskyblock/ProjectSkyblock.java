@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -11,12 +12,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import raziel23x.projectskyblock.config.ConfigBuilder;
+import raziel23x.projectskyblock.init.ModBlockItems;
 import raziel23x.projectskyblock.init.ModBlocks;
 import raziel23x.projectskyblock.init.ModEntityType;
 import raziel23x.projectskyblock.init.ModItems;
@@ -44,20 +45,26 @@ public class ProjectSkyblock {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
 
         ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ModBlockItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ModEntityType.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event) { }
-    private void serverSetup(final FMLDedicatedServerSetupEvent event) { }
+
+    //private void serverSetup(final FMLDedicatedServerSetupEvent event) { }
+
+    private void setup(final FMLCommonSetupEvent event) {
+    }
 
     private void doClientStuff(final FMLClientSetupEvent even) {
         RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_CRUSHER_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DIRT_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GRASSBLOCK_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
