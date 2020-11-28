@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P ",
+    "BP"
+  ],
+  "key": {
+    "B": {
+      "tag": "minecraft:buttons"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:wooden_shears"
+  }
+}

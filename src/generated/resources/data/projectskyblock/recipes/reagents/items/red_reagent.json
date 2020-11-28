@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RFR",
+    "CMC",
+    "RFR"
+  ],
+  "key": {
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "C": {
+      "item": "minecraft:charcoal"
+    },
+    "M": {
+      "item": "projectskyblock:mixing_bowl"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:red_reagent",
+    "count": 40
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "LGW",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:cobblestone"
+    },
+    "L": {
+      "item": "minecraft:lava_bucket"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:cobblestone_generator_block"
+  }
+}

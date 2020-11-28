@@ -8,6 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.data.client.ModBlockStateProvider;
 import raziel23x.projectskyblock.data.client.ModItemModelProvider;
+import raziel23x.projectskyblock.data.client.ModRecipeProvider;
 
 
 @Mod.EventBusSubscriber(modid = ProjectSkyblock.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -22,6 +23,7 @@ public final class DataGenerators {
 
         gen.addProvider(new ModBlockStateProvider(gen, existingFileHelper));
         gen.addProvider(new ModItemModelProvider(gen, existingFileHelper));
+        gen.addProvider(new ModRecipeProvider(gen));
 
         ModBlockTagsProvider blockTags = new ModBlockTagsProvider(gen, existingFileHelper);
         gen.addProvider(blockTags);

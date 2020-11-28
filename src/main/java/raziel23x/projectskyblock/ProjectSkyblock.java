@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -26,16 +27,17 @@ import top.theillusivec4.curios.api.SlotTypeMessage;
 
 @Mod("projectskyblock")
 public class ProjectSkyblock {
-    public static final ItemGroup TAB = new ItemGroup("projectskyblockTab") {
+
+    public static final String MOD_ID = "projectskyblock";
+    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+    public static final ConfigBuilder CONFIGURATION = new ConfigBuilder();
+
+    public static final ItemGroup TAB = new ItemGroup("projectskyblock") {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(ModItems.REPAIR_GEM.get());
         }
     };
-
-    public static final String MOD_ID = "projectskyblock";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-    public static final ConfigBuilder CONFIGURATION = new ConfigBuilder();
 
     public ProjectSkyblock() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIGURATION.SERVER);
@@ -53,7 +55,7 @@ public class ProjectSkyblock {
     }
 
 
-    //private void serverSetup(final FMLDedicatedServerSetupEvent event) { }
+    private void serverSetup(final FMLDedicatedServerSetupEvent event) { }
 
     private void setup(final FMLCommonSetupEvent event) {
     }
