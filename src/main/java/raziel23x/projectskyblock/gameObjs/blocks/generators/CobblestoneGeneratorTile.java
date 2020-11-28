@@ -20,36 +20,37 @@ import javax.annotation.Nullable;
 import static raziel23x.projectskyblock.init.ModEntityType.COBBLEGENERATOR_TILE;
 
 public class CobblestoneGeneratorTile extends TileEntity implements ITickableTileEntity {
+    protected ItemStackHandler handler = new ItemStackHandler() {
+        @Override
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {return stack.getItem() == Items.COBBLESTONE;}
+    };
 
-    private ItemStackHandler handler;
     private int ticks;
-
     public CobblestoneGeneratorTile() {
         super(COBBLEGENERATOR_TILE.get());
     }
 
     @Override
     public void tick() {
-        ticks++;
-        if (ticks == 10) {
-            ticks = 0;
+        if (!world.isRemote) {
+            ticks++;
 
-            ItemStack stack = new ItemStack(Items.COBBLESTONE, 1);
-            ItemHandlerHelper.insertItemStacked(getItemHandler(), stack, false);
-            assert world != null;
-            TileEntity tile = world.getTileEntity(pos.offset(Direction.UP));
+            if (ticks == 10) {
+                ticks = 0;
 
-            if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
-                IItemHandler ihandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
+                ItemHandlerHelper.insertItemStacked(handler, new ItemStack(Items.COBBLESTONE, 1), false);
+                TileEntity tile = world.getTileEntity(pos.offset(Direction.UP));
 
-                if (handler.getStackInSlot(0) != ItemStack.EMPTY) {
-                    ItemStack stack2 = handler.getStackInSlot(0).copy();
-                    stack2.setCount(1);
-                    ItemStack stack1 = ItemHandlerHelper.insertItem(ihandler, stack2, true);
+                if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {
+                    IItemHandler outHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
 
-                    if (stack1 == ItemStack.EMPTY || stack1.getCount() == 0) {
-                        ItemHandlerHelper.insertItem(ihandler, handler.extractItem(0, 1, false), false);
-                        markDirty();
+                    if (handler.getStackInSlot(0) != ItemStack.EMPTY) {
+                        ItemStack stack = ItemHandlerHelper.insertItem(outHandler, new ItemStack(Items.COBBLESTONE, 1), true);
+
+                        if (stack == ItemStack.EMPTY) {
+                            ItemHandlerHelper.insertItem(outHandler, handler.extractItem(0, 1, false), false);
+                            markDirty();
+                        }
                     }
                 }
             }
@@ -66,9 +67,7 @@ public class CobblestoneGeneratorTile extends TileEntity implements ITickableTil
     @Override
     public void read(BlockState state, CompoundNBT tag) {
         super.read(state, tag);
-        if (tag.contains("inv")) {
-            getItemHandler().deserializeNBT((CompoundNBT) tag.get("inv"));
-        }
+        if (tag.contains("inv")) getItemHandler().deserializeNBT((CompoundNBT) tag.get("inv"));
     }
 
     private ItemStackHandler getItemHandler() {
