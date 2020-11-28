@@ -2,7 +2,7 @@
   "item.projectskyblock.repair_gem": "Repair Gem",
   "tip.projectskyblock.repairgemline1": "Slowly repairs damaged item in player inventory",
   "tip.projectskyblock.repairgemline2": "Work while gem is in player inventory",
-  "itemGroup.projectskyblockTab": "Project Skyblock",
+  "itemGroup.projectskyblock": "Project Skyblock",
   "block.projectskyblock.red_reagent_block": "Block of Red Reagent",
   "block.projectskyblock.green_reagent_block": "Block of Green Reagent",
   "block.projectskyblock.blue_reagent_block": "Block of Blue Reagent",

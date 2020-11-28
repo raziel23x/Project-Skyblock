@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LFL",
+    "PMP",
+    "LFL"
+  ],
+  "key": {
+    "L": {
+      "tag": "forge:gems/lapis"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "P": {
+      "tag": "forge:dusts/prismarine"
+    },
+    "M": {
+      "item": "projectskyblock:mixing_bowl"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:blue_reagent",
+    "count": 40
+  }
+}

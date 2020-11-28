@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EDE",
+    "PMP",
+    "EDE"
+  ],
+  "key": {
+    "E": {
+      "tag": "forge:gems/emerald"
+    },
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "P": {
+      "tag": "forge:dusts/prismarine"
+    },
+    "M": {
+      "item": "projectskyblock:mixing_bowl"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:green_reagent",
+    "count": 40
+  }
+}

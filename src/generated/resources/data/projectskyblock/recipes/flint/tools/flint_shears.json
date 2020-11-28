@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F ",
+    "PF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:flint_shears"
+  }
+}

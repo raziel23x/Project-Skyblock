@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GGG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "projectskyblock:green_reagent"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:green_reagent_block"
+  }
+}
