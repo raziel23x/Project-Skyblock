@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ILI",
-    "LGL",
-    "ILI"
+    "IWI",
+    "WGW",
+    "IWI"
   ],
   "key": {
     "I": {
       "tag": "forge:ingots/iron"
     },
-    "L": {
-      "item": "minecraft:lava_bucket"
+    "W": {
+      "item": "minecraft:water_bucket"
     },
     "G": {
       "tag": "forge:glass"

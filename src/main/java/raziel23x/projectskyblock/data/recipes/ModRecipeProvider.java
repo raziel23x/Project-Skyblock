@@ -33,7 +33,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     private void addMiscRecipes(Consumer<IFinishedRecipe> consumer) {
 
         //Repair Gem
-        ShapedRecipeBuilder.shapedRecipe(ModItems.REPAIR_GEM.get(), 40)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.REPAIR_GEM.get())
                 .key('A', Items.ANVIL)
                 .key('S', Items.SMITHING_TABLE)
                 .key('R', ModItems.RED_REAGENT.get())
@@ -46,7 +46,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .build(consumer, location("repair_gem"));
 
         //Mixing Bowl
-        ShapedRecipeBuilder.shapedRecipe(ModItems.REPAIR_GEM.get(), 40)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.MIXING_BOWL.get())
 
                 .key('S', Items.STICK)
                 .key('B', Items.BOWL)
@@ -185,11 +185,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         //Water Generator
         ShapedRecipeBuilder.shapedRecipe(ModBlocks.WATER_GENERATOR_BLOCK.get())
                 .key('I', Tags.Items.INGOTS_IRON)
-                .key('L', Items.LAVA_BUCKET)
+                .key('W', Items.WATER_BUCKET)
                 .key('G', Tags.Items.GLASS)
-                .patternLine("ILI")
-                .patternLine("LGL")
-                .patternLine("ILI")
+                .patternLine("IWI")
+                .patternLine("WGW")
+                .patternLine("IWI")
                 .addCriterion("has_water_bucket", hasItem(Items.WATER_BUCKET))
                 .build(consumer, location(folder + "water_generator"));
     }
@@ -200,30 +200,30 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         //Flint Axe
         ShapedRecipeBuilder.shapedRecipe(ModItems.FLINT_AXE.get())
                 .key('F', Items.FLINT)
-                .key('P', ItemTags.PLANKS)
+                .key('S', Items.STICK)
                 .patternLine("FF ")
-                .patternLine("FP ")
-                .patternLine(" P ")
+                .patternLine("FS ")
+                .patternLine(" S ")
                 .addCriterion("has_flint", hasItem(Items.FLINT))
                 .build(consumer, location(folder + "flint_axe"));
 
         //Flint Hoe
         ShapedRecipeBuilder.shapedRecipe(ModItems.FLINT_HOE.get())
                 .key('F', Items.FLINT)
-                .key('P', ItemTags.PLANKS)
+                .key('S', Items.STICK)
                 .patternLine("FF ")
-                .patternLine(" P ")
-                .patternLine(" P ")
+                .patternLine(" S ")
+                .patternLine(" S ")
                 .addCriterion("has_flint", hasItem(Items.FLINT))
                 .build(consumer, location(folder + "flint_hoe"));
 
         //Flint Pickaxe
         ShapedRecipeBuilder.shapedRecipe(ModItems.FLINT_PICKAXE.get())
                 .key('F', Items.FLINT)
-                .key('P', ItemTags.PLANKS)
+                .key('S', Items.STICK)
                 .patternLine("FFF")
-                .patternLine(" P ")
-                .patternLine(" P ")
+                .patternLine(" S ")
+                .patternLine(" S ")
                 .addCriterion("has_flint", hasItem(Items.FLINT))
                 .build(consumer, location(folder + "flint_pickaxe"));
 
@@ -239,20 +239,20 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         //Flint Shovel
         ShapedRecipeBuilder.shapedRecipe(ModItems.FLINT_SHOVEL.get())
                 .key('F', Items.FLINT)
-                .key('P', ItemTags.PLANKS)
+                .key('S', Items.STICK)
                 .patternLine(" F ")
-                .patternLine(" P ")
-                .patternLine(" P ")
+                .patternLine(" S ")
+                .patternLine(" S ")
                 .addCriterion("has_flint", hasItem(Items.FLINT))
                 .build(consumer, location(folder + "flint_shovel"));
 
         //Flint Sword
         ShapedRecipeBuilder.shapedRecipe(ModItems.FLINT_SWORD.get())
                 .key('F', Items.FLINT)
-                .key('P', ItemTags.PLANKS)
+                .key('S', Items.STICK)
                 .patternLine(" F ")
                 .patternLine(" F ")
-                .patternLine(" P ")
+                .patternLine(" S ")
                 .addCriterion("has_flint", hasItem(Items.FLINT))
                 .build(consumer, location(folder + "flint_sword"));
     }
