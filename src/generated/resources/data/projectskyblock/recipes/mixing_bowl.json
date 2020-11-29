@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "/",
+    "S",
     "B"
   ],
   "key": {
-    "/": {
+    "S": {
       "item": "minecraft:stick"
     },
     "B": {
@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "item": "projectskyblock:mixing_bowl",
-    "count": 1
+    "item": "projectskyblock:repair_gem",
+    "count": 40
   }
 }

@@ -1,28 +1,29 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "LMH",
-    "SPS",
-    "HML"
+    "RGB",
+    "SAS",
+    "BGR"
   ],
   "key": {
-    "P": {
+    "A": {
       "item": "minecraft:anvil"
     },
     "S": {
       "item": "minecraft:smithing_table"
     },
-    "L": {
+    "R": {
       "item": "projectskyblock:red_reagent"
     },
-    "M": {
+    "G": {
       "item": "projectskyblock:green_reagent"
     },
-    "H": {
+    "B": {
       "item": "projectskyblock:blue_reagent"
     }
   },
   "result": {
-    "item": "projectskyblock:repair_gem"
+    "item": "projectskyblock:repair_gem",
+    "count": 40
   }
 }
