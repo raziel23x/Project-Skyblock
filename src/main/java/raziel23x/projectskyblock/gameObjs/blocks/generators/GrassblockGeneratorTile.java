@@ -22,7 +22,7 @@ import static raziel23x.projectskyblock.init.ModEntityType.GRASSBLOCKGENERATOR_T
 public class GrassblockGeneratorTile extends TileEntity implements ITickableTileEntity {
     protected ItemStackHandler handler = new ItemStackHandler() {
         @Override
-        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {return stack.getItem() == Items.GRASS;}
+        public boolean isItemValid(int slot, @Nonnull ItemStack stack) {return stack.getItem() == Items.GRASS_BLOCK;}
     };
     
     private int ticks;
@@ -38,7 +38,7 @@ public class GrassblockGeneratorTile extends TileEntity implements ITickableTile
             if (ticks == 10) {
                 ticks = 0;
 
-                ItemHandlerHelper.insertItemStacked(handler, new ItemStack(Items.GRASS, 1), false);
+                ItemHandlerHelper.insertItemStacked(handler, new ItemStack(Items.GRASS_BLOCK, 1), false);
                 TileEntity tile = world.getTileEntity(pos.offset(Direction.UP));
 
                 if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).isPresent()) {

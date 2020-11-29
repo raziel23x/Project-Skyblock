@@ -3,14 +3,14 @@
   "pattern": [
     " F ",
     " F ",
-    " P "
+    " S "
   ],
   "key": {
     "F": {
       "item": "minecraft:flint"
     },
-    "P": {
-      "tag": "minecraft:planks"
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "result": {
