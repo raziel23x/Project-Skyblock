@@ -1,23 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "simplyrandom:cobblestone_generator",
   "pattern": [
     "ILI",
-    "LCL",
+    "LGL",
     "ILI"
   ],
   "key": {
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     },
     "L": {
       "item": "minecraft:lava_bucket"
     },
-    "C": {
+    "G": {
       "tag": "forge:glass"
     }
   },
   "result": {
-    "item": "projectskyblock:lava_generator_block"
+    "item": "projectskyblock:water_generator_block"
   }
 }

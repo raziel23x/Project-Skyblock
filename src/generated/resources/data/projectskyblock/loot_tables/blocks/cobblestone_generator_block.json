@@ -8,6 +8,11 @@
           "type": "minecraft:item",
           "name": "projectskyblock:cobblestone_generator_block"
         }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
       ]
     }
   ]

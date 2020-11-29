@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data.client;
+package raziel23x.projectskyblock.data.recipes;
 
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
@@ -27,6 +27,33 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         this.addFlintArmorRecipes(consumer);
         this.addWoodenToolsRecipes(consumer);
         this.addWoodenArmorRecipes(consumer);
+        this.addMiscRecipes(consumer);
+    }
+
+    private void addMiscRecipes(Consumer<IFinishedRecipe> consumer) {
+
+        //Repair Gem
+        ShapedRecipeBuilder.shapedRecipe(ModItems.REPAIR_GEM.get(), 40)
+                .key('A', Items.ANVIL)
+                .key('S', Items.SMITHING_TABLE)
+                .key('R', ModItems.RED_REAGENT.get())
+                .key('G', ModItems.GREEN_REAGENT.get())
+                .key('B', ModItems.BLUE_REAGENT.get())
+                .patternLine("RGB")
+                .patternLine("SAS")
+                .patternLine("BGR")
+                .addCriterion("", hasItem(ModItems.MIXING_BOWL.get()))
+                .build(consumer, location("repair_gem"));
+
+        //Mixing Bowl
+        ShapedRecipeBuilder.shapedRecipe(ModItems.REPAIR_GEM.get(), 40)
+
+                .key('S', Items.STICK)
+                .key('B', Items.BOWL)
+                .patternLine("S")
+                .patternLine("B")
+                .addCriterion("has_bowl", hasItem(Items.BOWL))
+                .build(consumer, location("mixing_bowl"));
     }
 
     private void addReagentRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -82,8 +109,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addIngredient(ModBlocks.RED_REAGENT_BLOCK.get())
                 .addCriterion("", hasItem(ModItems.MIXING_BOWL.get()))
                 .build(consumer, location(folder + "red_reagent_alt"));
-
-
     }
 
     private void addReagentBlockRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -130,6 +155,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .patternLine("LGW")
                 .patternLine("CCC")
                 .addCriterion("has_lava_bucket", hasItem(Items.LAVA_BUCKET))
+                .addCriterion("has_water_bucket", hasItem(Items.WATER_BUCKET))
                 .build(consumer, location(folder + "cobblestone_generator"));
 
         //Cobblestone Generator Alternative
@@ -142,7 +168,30 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .patternLine("WGL")
                 .patternLine("CCC")
                 .addCriterion("has_lava_bucket", hasItem(Items.LAVA_BUCKET))
+                .addCriterion("has_water_bucket", hasItem(Items.WATER_BUCKET))
                 .build(consumer, location(folder + "cobblestone_generator_alt"));
+
+        //Lava Generator
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.LAVA_GENERATOR_BLOCK.get())
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('L', Items.LAVA_BUCKET)
+                .key('G', Tags.Items.GLASS)
+                .patternLine("ILI")
+                .patternLine("LGL")
+                .patternLine("ILI")
+                .addCriterion("has_lava_bucket", hasItem(Items.LAVA_BUCKET))
+                .build(consumer, location(folder + "lava_generator"));
+
+        //Water Generator
+        ShapedRecipeBuilder.shapedRecipe(ModBlocks.WATER_GENERATOR_BLOCK.get())
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('L', Items.LAVA_BUCKET)
+                .key('G', Tags.Items.GLASS)
+                .patternLine("ILI")
+                .patternLine("LGL")
+                .patternLine("ILI")
+                .addCriterion("has_water_bucket", hasItem(Items.WATER_BUCKET))
+                .build(consumer, location(folder + "water_generator"));
     }
 
     private void addFlintToolsRecipes(Consumer<IFinishedRecipe> consumer) {
