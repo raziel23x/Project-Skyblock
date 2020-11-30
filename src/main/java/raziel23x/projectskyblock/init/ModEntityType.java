@@ -28,12 +28,39 @@ public class ModEntityType {
 
     //Block Generators
 
+    public static final RegistryObject<TileEntityType<ClayGeneratorTile>> CLAYGENERATOR_TILE = ENTITY_TYPES.register("clay_generator_block",
+            () -> TileEntityType.Builder.create(ClayGeneratorTile::new, ModBlocks.CLAY_GENERATOR_BLOCK.get()).build(null));
+
     public static final RegistryObject<TileEntityType<CobblestoneGeneratorTile>> COBBLEGENERATOR_TILE = ENTITY_TYPES.register("cobblestone_generator_block",
             () -> TileEntityType.Builder.create(CobblestoneGeneratorTile::new, ModBlocks.COBBLESTONE_GENERATOR_BLOCK.get()).build(null));
 
     public static final RegistryObject<TileEntityType<DirtGeneratorTile>> DIRTGENERATOR_TILE = ENTITY_TYPES.register("dirt_generator_block",
             () -> TileEntityType.Builder.create(DirtGeneratorTile::new, ModBlocks.DIRT_GENERATOR_BLOCK.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<DirtGeneratorTile>> GRASSBLOCKGENERATOR_TILE = ENTITY_TYPES.register("grassblock_generator_block",
-            () -> TileEntityType.Builder.create(DirtGeneratorTile::new, ModBlocks.GRASSBLOCK_GENERATOR_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<EndstoneGeneratorTile>> ENDSTONEGENERATOR_TILE = ENTITY_TYPES.register("endstone_generator_block",
+            () -> TileEntityType.Builder.create(EndstoneGeneratorTile::new, ModBlocks.ENDSTONE_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<GrassblockGeneratorTile>> GRASSBLOCKGENERATOR_TILE = ENTITY_TYPES.register("grassblock_generator_block",
+            () -> TileEntityType.Builder.create(GrassblockGeneratorTile::new, ModBlocks.GRASSBLOCK_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<GravelGeneratorTile>> GRAVELGENERATOR_TILE = ENTITY_TYPES.register("gravel_generator_block",
+            () -> TileEntityType.Builder.create(GravelGeneratorTile::new, ModBlocks.GRAVEL_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<NetherrackGeneratorTile>> NETHEREACKGENERATOR_TILE = ENTITY_TYPES.register("netherrack_generator_block",
+            () -> TileEntityType.Builder.create(NetherrackGeneratorTile::new, ModBlocks.NETHERRACK_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<ObsidianGeneratorTile>> OBSIDIANGENERATOR_TILE = ENTITY_TYPES.register("obsdian_generator_block",
+            () -> TileEntityType.Builder.create(ObsidianGeneratorTile::new, ModBlocks.OBSIDIAN_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<QuartzGeneratorTile>> QUARTZGENERATOR_TILE = ENTITY_TYPES.register("quartz_generator_block",
+            () -> TileEntityType.Builder.create(QuartzGeneratorTile::new, ModBlocks.QUARTZ_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<RedsandGeneratorTile>> REDSANDGENERATOR_TILE = ENTITY_TYPES.register("redsand_generator_block",
+            () -> TileEntityType.Builder.create(RedsandGeneratorTile::new, ModBlocks.REDSAND_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<SandGeneratorTile>> SANDGENERATOR_TILE = ENTITY_TYPES.register("sand_generator_block",
+            () -> TileEntityType.Builder.create(SandGeneratorTile::new, ModBlocks.SAND_GENERATOR_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<SoulsandGeneratorTile>> SOULSANDGENERATOR_TILE = ENTITY_TYPES.register("soulsand_generator_block",
+            () -> TileEntityType.Builder.create(SoulsandGeneratorTile::new, ModBlocks.SOULSAND_GENERATOR_BLOCK.get()).build(null));
 }

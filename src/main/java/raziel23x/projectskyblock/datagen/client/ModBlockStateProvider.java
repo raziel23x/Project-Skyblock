@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data.client;
+package raziel23x.projectskyblock.datagen.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -19,6 +19,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         registerSimpleBlocks();
 
 
+
     }
 
     private void registerSimpleBlocks() {
@@ -26,6 +27,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         basicBlock(ModBlocks.GREEN_REAGENT_BLOCK.get());
         basicBlock(ModBlocks.RED_REAGENT_BLOCK.get());
     }
+
+
 
     private void basicBlock(Block block) {
         simpleItemBlock(block, cubeAll(block));

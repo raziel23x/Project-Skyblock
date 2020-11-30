@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data.loot;
+package raziel23x.projectskyblock.datagen.loot;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;

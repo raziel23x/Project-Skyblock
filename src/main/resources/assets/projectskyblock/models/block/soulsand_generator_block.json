@@ -2,21 +2,22 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
+		"1": "projectskyblock:block/soul_sand",
 		"2": "projectskyblock:block/mob_spawnertemp",
-		"3": "projectskyblock:block/water_still"
+		"particle": "projectskyblock:block/soul_sand"
 	},
 	"elements": [
 		{
-			"name": "Water",
+			"name": "Soulsand",
 			"from": [4, 4, 4],
 			"to": [12, 12, 12],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#3", "tintindex": 0}
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#1"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#1"},
+				"down": {"uv": [16, 0, 0, 16], "texture": "#1"}
 			}
 		},
 		{

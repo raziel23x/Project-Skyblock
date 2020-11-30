@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data;
+package raziel23x.projectskyblock.datagen;
 
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
