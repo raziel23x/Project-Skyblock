@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HSI",
+    "CGB",
+    "ISH"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:barrel"
+    },
+    "S": {
+      "item": "minecraft:stone_hoe"
+    },
+    "I": {
+      "item": "minecraft:iron_shovel"
+    },
+    "H": {
+      "item": "minecraft:iron_hoe"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "C": {
+      "item": "minecraft:composter"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:dirt_generator_block"
+  }
+}

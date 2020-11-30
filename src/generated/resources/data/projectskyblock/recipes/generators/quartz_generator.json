@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PGP",
+    "NBN",
+    "PGP"
+  ],
+  "key": {
+    "N": {
+      "item": "projectskyblock:netherrack_generator_block"
+    },
+    "G": {
+      "item": "minecraft:golden_pickaxe"
+    },
+    "B": {
+      "item": "minecraft:bone_block"
+    },
+    "P": {
+      "item": "minecraft:diamond_pickaxe"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:quartz_generator_block"
+  }
+}

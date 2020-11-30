@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "projectskyblock:generators/grassblock_generator"
+    ]
+  },
+  "criteria": {
+    "has_dirt_generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "projectskyblock:dirt_generator_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "projectskyblock:generators/grassblock_generator"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dirt_generator",
+      "has_the_recipe"
+    ]
+  ]
+}

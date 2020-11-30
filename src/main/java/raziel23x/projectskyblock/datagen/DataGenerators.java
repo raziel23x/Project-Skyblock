@@ -10,6 +10,8 @@ import raziel23x.projectskyblock.datagen.client.ModBlockStateProvider;
 import raziel23x.projectskyblock.datagen.client.ModItemModelProvider;
 import raziel23x.projectskyblock.datagen.loot.LootTables;
 import raziel23x.projectskyblock.datagen.recipes.ModRecipeProvider;
+import raziel23x.projectskyblock.datagen.tags.ModBlockTagsProvider;
+import raziel23x.projectskyblock.datagen.tags.ModItemTagsProvider;
 
 
 @Mod.EventBusSubscriber(modid = ProjectSkyblock.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)

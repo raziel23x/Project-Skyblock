@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "projectskyblock:generators/dirt_generator"
+    ]
+  },
+  "criteria": {
+    "has_composter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:composter"
+          }
+        ]
+      }
+    },
+    "has_barrel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:barrel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "projectskyblock:generators/dirt_generator"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_composter",
+      "has_barrel",
+      "has_the_recipe"
+    ]
+  ]
+}

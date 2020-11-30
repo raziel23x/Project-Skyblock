@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "DSD",
+    "DDD"
+  ],
+  "key": {
+    "S": {
+      "item": "projectskyblock:sand_generator_block"
+    },
+    "D": {
+      "tag": "forge:dyes/red"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:redsand_generator_block"
+  }
+}
