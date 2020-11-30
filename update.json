@@ -1,10 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/project-skyblock",
   "promos": {
-    "1.16.4-latest": "1.0.2",
-    "1.16.4-recommended": "1.0.2"
+    "1.16.4-latest": "1.0.3",
+    "1.16.4-recommended": "1.0.3"
   },
   "1.16.4": {
-    "1.0.2": "New resource generators for cobblestone lava and water and many new items and armor. Enjoy !"
+    "1.0.3": "Added 9 NEW resource generators to add to your experience . Enjoy !"
   }
 }
