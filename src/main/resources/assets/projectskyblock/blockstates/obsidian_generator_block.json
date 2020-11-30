@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "projectskyblock:block/obsidian_generator_block"
+    },
+    "facing=south": {
+      "model": "projectskyblock:block/obsidian_generator_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "projectskyblock:block/obsidian_generator_block",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "projectskyblock:block/obsidian_generator_block",
+      "y": 90
+    }
+  }
+}

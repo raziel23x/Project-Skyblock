@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data.client;
+package raziel23x.projectskyblock.datagen.client;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -14,11 +14,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-
-        withExistingParent("blue_reagent_block", modLoc("block/blue_reagent_block"));
-        withExistingParent("green_reagent_block", modLoc("block/green_reagent_block"));
-        withExistingParent("red_reagent_block", modLoc("block/red_reagent_block"));
-
 
         ModelFile itemGenerated = getExistingFile(mcLoc("item/generated"));
 

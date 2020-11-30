@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data.recipes;
+package raziel23x.projectskyblock.datagen.recipes;
 
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
@@ -10,6 +10,7 @@ import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.init.ModBlocks;
 import raziel23x.projectskyblock.init.ModItems;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder{
@@ -19,6 +20,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer){
         this.addReagentRecipes(consumer);
         this.addReagentBlockRecipes(consumer);

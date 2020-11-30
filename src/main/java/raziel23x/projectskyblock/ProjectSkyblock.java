@@ -61,12 +61,36 @@ public class ProjectSkyblock {
     }
 
     private void doClientStuff(final FMLClientSetupEvent even) {
+        //Generators
+
+        //Resource Generators
+
+        RenderTypeLookup.setRenderLayer(ModBlocks.CLAY_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.DIRT_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.ENDSTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GRASSBLOCK_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GRAVEL_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.NETHERRACK_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.OBSIDIAN_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.QUARTZ_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.REDSAND_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SAND_GENERATOR_BLOCK.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.SOULSAND_GENERATOR_BLOCK.get(), RenderType.getCutout());
+
+        //Fluid Generators
+
         RenderTypeLookup.setRenderLayer(ModBlocks.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
+
+        //Machines
+
         RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_CRUSHER_BLOCK.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(ModBlocks.DIRT_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GRASSBLOCK_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
+
+
+
+
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

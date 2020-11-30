@@ -1,4 +1,4 @@
-package raziel23x.projectskyblock.data.loot;
+package raziel23x.projectskyblock.datagen.loot;
 
 import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import raziel23x.projectskyblock.utils.ProjectSkyblockLogger;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public abstract class LootTableGenerator implements IDataProvider {
     }
 
     @Override
+    @ParametersAreNonnullByDefault
     public void act(DirectoryCache cache) {
         lootTables.clear();
         Path outFolder = generator.getOutputFolder();
