@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "projectskyblock:generators/soulsand_generator"
+    ]
+  },
+  "criteria": {
+    "has_sand_generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "projectskyblock:sand_generator_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "projectskyblock:generators/soulsand_generator"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sand_generator",
+      "has_the_recipe"
+    ]
+  ]
+}

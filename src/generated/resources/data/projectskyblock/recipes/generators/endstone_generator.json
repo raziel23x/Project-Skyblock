@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "QLQ",
+    "PSP"
+  ],
+  "key": {
+    "Q": {
+      "item": "projectskyblock:quartz_generator_block"
+    },
+    "S": {
+      "item": "projectskyblock:sand_generator_block"
+    },
+    "L": {
+      "item": "projectskyblock:lava_generator_block"
+    },
+    "P": {
+      "item": "minecraft:diamond_pickaxe"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:endstone_generator_block"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "WGL",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:diamond_pickaxe"
+    },
+    "L": {
+      "item": "projectskyblock:lava_generator_block"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "W": {
+      "item": "projectskyblock:water_generator_block"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:obsidian_generator_block"
+  }
+}

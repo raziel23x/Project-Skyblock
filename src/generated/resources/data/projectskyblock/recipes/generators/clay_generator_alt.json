@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IsI",
+    "GgS",
+    "IsI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_shovel"
+    },
+    "G": {
+      "item": "projectskyblock:gravel_generator_block"
+    },
+    "S": {
+      "item": "projectskyblock:sand_generator_block"
+    },
+    "s": {
+      "item": "minecraft:stone_shovel"
+    },
+    "g": {
+      "tag": "forge:glass"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:clay_generator_block"
+  }
+}

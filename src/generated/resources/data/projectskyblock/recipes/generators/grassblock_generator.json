@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "DBD",
+    "IGI"
+  ],
+  "key": {
+    "D": {
+      "item": "projectskyblock:dirt_generator_block"
+    },
+    "B": {
+      "item": "minecraft:bone_block"
+    },
+    "G": {
+      "item": "minecraft:wheat_seeds"
+    },
+    "I": {
+      "item": "minecraft:iron_shovel"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:grassblock_generator_block"
+  }
+}

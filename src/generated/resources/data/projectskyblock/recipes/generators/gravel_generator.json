@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ISI",
+    "CGC",
+    "ISI"
+  ],
+  "key": {
+    "C": {
+      "item": "projectskyblock:cobblestone_generator_block"
+    },
+    "S": {
+      "item": "minecraft:stone_pickaxe"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "I": {
+      "item": "minecraft:iron_pickaxe"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:gravel_generator_block"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "projectskyblock:generators/obsidian_generator_alt"
+    ]
+  },
+  "criteria": {
+    "has_lava_generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "projectskyblock:lava_generator_block"
+          }
+        ]
+      }
+    },
+    "has_water_generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "projectskyblock:water_generator_block"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "projectskyblock:generators/obsidian_generator_alt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lava_generator",
+      "has_water_generator",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FJS",
+    "GWG",
+    "SCF"
+  ],
+  "key": {
+    "G": {
+      "item": "projectskyblock:sand_generator_block"
+    },
+    "F": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "J": {
+      "item": "minecraft:jack_o_lantern"
+    },
+    "S": {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    "W": {
+      "item": "minecraft:wither_skeleton_skull"
+    }
+  },
+  "result": {
+    "item": "projectskyblock:soulsand_generator_block"
+  }
+}
