@@ -2,6 +2,9 @@
 When wanting to contribute code to IE, please make sure to follow its inherent style of formatting.
 A matching xml file for use with IntelliJ's codestyle.
 
+### Translations
+https://crowdin.com/project/project-skyblock
+
 ### Issues
 #### General
 - Make sure to use to the latest version of Immersive Engineering (IE for short). You can download it [here](https://www.curseforge.com/minecraft/mc-mods/project-skyblock).
