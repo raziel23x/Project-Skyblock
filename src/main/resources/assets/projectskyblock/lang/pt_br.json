@@ -6,11 +6,9 @@
   "block.projectskyblock.red_reagent_block": "Block of Red Reagent",
   "block.projectskyblock.green_reagent_block": "Block of Green Reagent",
   "block.projectskyblock.blue_reagent_block": "Block of Blue Reagent",
-
   "item.projectskyblock.red_reagent": "Red Reagent",
   "item.projectskyblock.green_reagent": "Green Reagent",
   "item.projectskyblock.blue_reagent": "Blue Reagent",
-
   "item.projectskyblock.mixing_bowl": "Mixing Bowl",
   "tip.projectskyblock.mixingbowlline1": "Reusable crafting material",
   "tip.projectskyblock.mixingbowlline2": "Used in creating different types of reagents and materials",
