@@ -1,6 +1,8 @@
 
 # Project Skyblock by Raziel23x
 
+[![Build Status](https://travis-ci.com/raziel23x/Project-Skyblock.svg?branch=MC-V1.16.X)](https://travis-ci.com/raziel23x/Project-Skyblock)
+
 This is a tie in mod that does a few things that are not done with Gardens of Glass but does not necessary need GOG to work that adds new items and in the future add new void worlds to explore as well as the nether as a void world. This mod add many missing vanilla recipes that should of been in vanilla but are missing 
 
 
