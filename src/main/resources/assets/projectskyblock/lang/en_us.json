@@ -3,19 +3,15 @@
   "tip.projectskyblock.repairgemline1": "Slowly repairs damaged item in player inventory",
   "tip.projectskyblock.repairgemline2": "Work while gem is in player inventory",
   "itemGroup.projectskyblock": "Project Skyblock",
-
   "block.projectskyblock.red_reagent_block": "Block of Red Reagent",
   "block.projectskyblock.green_reagent_block": "Block of Green Reagent",
   "block.projectskyblock.blue_reagent_block": "Block of Blue Reagent",
-
   "item.projectskyblock.red_reagent": "Red Reagent",
   "item.projectskyblock.green_reagent": "Green Reagent",
   "item.projectskyblock.blue_reagent": "Blue Reagent",
-
   "item.projectskyblock.mixing_bowl": "Mixing Bowl",
   "tip.projectskyblock.mixingbowlline1": "Reusable crafting material",
   "tip.projectskyblock.mixingbowlline2": "Used in creating different types of reagents and materials",
-
   "block.projectskyblock.clay_generator_block": "Clay Generator",
   "tip.projectskyblock.ClayGeneratorline1": "Passively generates clay",
   "tip.projectskyblock.ClayGeneratorline2": "Can have either a chest placed on top\n as well as be placed on top of a hopper\n or use some type of item transportation",
@@ -52,18 +48,15 @@
   "block.projectskyblock.soulsand_generator_block": "Soul Sand Generator",
   "tip.projectskyblock.SoulsandGeneratorline1": "Passively generates soul sand",
   "tip.projectskyblock.SoulsandGeneratorline2": "Can have either a chest placed on top\n as well as be placed on top of a hopper\n or use some type of item transportation",
-
   "block.projectskyblock.lava_generator_block": "Lava Generator",
   "tip.projectskyblock.LavaGeneratorline1": "Passively generates lava",
   "tip.projectskyblock.LavaGeneratorline2": "Use a bucket or use some type of fluid transportation",
   "block.projectskyblock.water_generator_block": "Water Generator",
   "tip.projectskyblock.WaterGeneratorline1": "Passively generates water",
   "tip.projectskyblock.WaterGeneratorline2": "Can be collected with either Buckets, Bottles, Tanks\n or other Fluid containers",
-
   "block.projectskyblock.cobblestone_crusher_block": "Cobblestone Crusher",
   "tip.projectskyblock.CobblestoneCrusherline1": "An Crushing device - does not work at this time",
   "tip.projectskyblock.CobblestoneCrusherline2": "Can be used in the future to crush and make new reagents",
-
   "item.projectskyblock.flint_shovel": "Flint Shovel",
   "item.projectskyblock.flint_sword": "Flint Sword",
   "item.projectskyblock.flint_pickaxe": "Flint Pickaxe",
