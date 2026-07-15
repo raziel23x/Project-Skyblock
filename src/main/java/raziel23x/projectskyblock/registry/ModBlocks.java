@@ -19,17 +19,44 @@ public final class ModBlocks {
     private static final DeferredRegister.Items BLOCK_ITEMS =
             DeferredRegister.createItems(ProjectSkyblock.MOD_ID);
 
+    public static final DeferredBlock<Block> RED_REAGENT_BLOCK =
+            reagentBlock("red_reagent_block", MapColor.COLOR_RED);
+
+    public static final DeferredBlock<Block> GREEN_REAGENT_BLOCK =
+            reagentBlock("green_reagent_block", MapColor.COLOR_GREEN);
+
+    public static final DeferredBlock<Block> BLUE_REAGENT_BLOCK =
+            reagentBlock("blue_reagent_block", MapColor.COLOR_BLUE);
+
     public static final DeferredBlock<Block> COBBLESTONE_GENERATOR =
-            generator("cobblestone_generator", MapColor.STONE,
-                    ResourceGeneratorBlock.Output.COBBLESTONE);
+            generator(
+                    "cobblestone_generator",
+                    MapColor.STONE,
+                    ResourceGeneratorBlock.Output.COBBLESTONE
+            );
 
     public static final DeferredBlock<Block> WATER_GENERATOR =
-            generator("water_generator", MapColor.WATER,
-                    ResourceGeneratorBlock.Output.WATER);
+            generator(
+                    "water_generator",
+                    MapColor.WATER,
+                    ResourceGeneratorBlock.Output.WATER
+            );
 
     public static final DeferredBlock<Block> LAVA_GENERATOR =
-            generator("lava_generator", MapColor.FIRE,
-                    ResourceGeneratorBlock.Output.LAVA);
+            generator(
+                    "lava_generator",
+                    MapColor.FIRE,
+                    ResourceGeneratorBlock.Output.LAVA
+            );
+
+    public static final DeferredItem<BlockItem> RED_REAGENT_BLOCK_ITEM =
+            blockItem("red_reagent_block", RED_REAGENT_BLOCK);
+
+    public static final DeferredItem<BlockItem> GREEN_REAGENT_BLOCK_ITEM =
+            blockItem("green_reagent_block", GREEN_REAGENT_BLOCK);
+
+    public static final DeferredItem<BlockItem> BLUE_REAGENT_BLOCK_ITEM =
+            blockItem("blue_reagent_block", BLUE_REAGENT_BLOCK);
 
     public static final DeferredItem<BlockItem> COBBLESTONE_GENERATOR_ITEM =
             blockItem("cobblestone_generator", COBBLESTONE_GENERATOR);
@@ -39,6 +66,19 @@ public final class ModBlocks {
 
     public static final DeferredItem<BlockItem> LAVA_GENERATOR_ITEM =
             blockItem("lava_generator", LAVA_GENERATOR);
+
+    private static DeferredBlock<Block> reagentBlock(String name, MapColor color) {
+        return BLOCKS.register(
+                name,
+                () -> new Block(
+                        BlockBehaviour.Properties.of()
+                                .mapColor(color)
+                                .strength(2.0F, 3.0F)
+                                .sound(SoundType.AMETHYST)
+                                .requiresCorrectToolForDrops()
+                )
+        );
+    }
 
     private static DeferredBlock<Block> generator(
             String name,

@@ -20,9 +20,14 @@ public final class ModCreativeTabs {
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.REPAIR_GEM.get());
                         output.accept(ModItems.MIXING_BOWL.get());
+
                         output.accept(ModItems.RED_REAGENT.get());
                         output.accept(ModItems.GREEN_REAGENT.get());
                         output.accept(ModItems.BLUE_REAGENT.get());
+
+                        output.accept(ModBlocks.RED_REAGENT_BLOCK_ITEM.get());
+                        output.accept(ModBlocks.GREEN_REAGENT_BLOCK_ITEM.get());
+                        output.accept(ModBlocks.BLUE_REAGENT_BLOCK_ITEM.get());
 
                         output.accept(ModBlocks.COBBLESTONE_GENERATOR_ITEM.get());
                         output.accept(ModBlocks.WATER_GENERATOR_ITEM.get());
