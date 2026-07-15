@@ -1,101 +1,117 @@
 package raziel23x.projectskyblock;
 
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import raziel23x.projectskyblock.config.ConfigBuilder;
-import raziel23x.projectskyblock.init.ModBlockItems;
-import raziel23x.projectskyblock.init.ModBlocks;
-import raziel23x.projectskyblock.init.ModEntityType;
-import raziel23x.projectskyblock.init.ModItems;
-import raziel23x.projectskyblock.utils.CuriosUtil;
-import top.theillusivec4.curios.api.SlotTypeMessage;
+import org.slf4j.Logger;
 
-@Mod("projectskyblock")
+import com.mojang.logging.LogUtils;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+// The value here should match an entry in the META-INF/neoforge.mods.toml file
+@Mod(ProjectSkyblock.MODID)
 public class ProjectSkyblock {
+    // Define mod id in a common place for everything to reference
+    public static final String MODID = "projectskyblock";
+    // Directly reference a slf4j logger
+    public static final Logger LOGGER = LogUtils.getLogger();
+    // Create a Deferred Register to hold Blocks which will all be registered under the "projectskyblock" namespace
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    // Create a Deferred Register to hold Items which will all be registered under the "projectskyblock" namespace
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "projectskyblock" namespace
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final String MOD_ID = "projectskyblock";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-    public static final ConfigBuilder CONFIGURATION = new ConfigBuilder();
+    // Creates a new Block with the id "projectskyblock:example_block", combining the namespace and path
+    public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
+    // Creates a new BlockItem with the id "projectskyblock:example_block", combining the namespace and path
+    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
 
-    public static final ItemGroup TAB = new ItemGroup("projectskyblock") {
-        @Override
-        public ItemStack createIcon() {
-            return new ItemStack(ModItems.REPAIR_GEM.get());
+    // Creates a new food item with the id "projectskyblock:example_id", nutrition 1 and saturation 2
+    public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", new Item.Properties().food(new FoodProperties.Builder()
+            .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+
+    // Creates a creative tab with the id "projectskyblock:example_tab" for the example item, that is placed after the combat tab
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.projectskyblock")) //The language key for the title of your CreativeModeTab
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
+
+    // The constructor for the mod class is the first code that is run when your mod is loaded.
+    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
+    public ProjectSkyblock(IEventBus modEventBus, ModContainer modContainer) {
+        // Register the commonSetup method for modloading
+        modEventBus.addListener(this::commonSetup);
+
+        // Register the Deferred Register to the mod event bus so blocks get registered
+        BLOCKS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so items get registered
+        ITEMS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so tabs get registered
+        CREATIVE_MODE_TABS.register(modEventBus);
+
+        // Register ourselves for server and other game events we are interested in.
+        // Note that this is necessary if and only if we want *this* class (ProjectSkyblock) to respond directly to events.
+        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
+        NeoForge.EVENT_BUS.register(this);
+
+        // Register the item to a creative tab
+        modEventBus.addListener(this::addCreative);
+
+        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void commonSetup(FMLCommonSetupEvent event) {
+        // Some common setup code
+        LOGGER.info("HELLO FROM COMMON SETUP");
+
+        if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
+            LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
         }
-    };
 
-    public ProjectSkyblock() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIGURATION.SERVER);
+        LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-
-        ModBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModBlockItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModEntityType.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
-        MinecraftForge.EVENT_BUS.register(this);
+        Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
     }
 
-
-    private void serverSetup(final FMLDedicatedServerSetupEvent event) { }
-
-    private void setup(final FMLCommonSetupEvent event) {
-    }
-
-    private void doClientStuff(final FMLClientSetupEvent even) {
-        //Generators
-
-        //Resource Generators
-
-        RenderTypeLookup.setRenderLayer(ModBlocks.CLAY_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.DIRT_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.ENDSTONE_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GRASSBLOCK_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GRAVEL_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.NETHERRACK_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.OBSIDIAN_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.QUARTZ_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.REDSAND_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SAND_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.SOULSAND_GENERATOR_BLOCK.get(), RenderType.getCutout());
-
-        //Fluid Generators
-
-        RenderTypeLookup.setRenderLayer(ModBlocks.LAVA_GENERATOR_BLOCK.get(), RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.WATER_GENERATOR_BLOCK.get(), RenderType.getTranslucent());
-
-        //Machines
-
-        RenderTypeLookup.setRenderLayer(ModBlocks.COBBLESTONE_CRUSHER_BLOCK.get(), RenderType.getTranslucent());
-
-
-
-
-
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        if (CuriosUtil.isModLoaded()) {
-            InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("curio").size(2).build());
+    // Add the example block item to the building blocks tab
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(EXAMPLE_BLOCK_ITEM);
         }
+    }
+
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event) {
+        // Do something when the server starts
+        LOGGER.info("HELLO from server starting");
     }
 }

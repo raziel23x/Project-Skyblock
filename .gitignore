@@ -1,42 +1,40 @@
-# IntelliJ
-/*.iml
-.idea/
-*.ipr
-*.iws
-.idea_modules/
-out/
-
-# Gradle
+### Gradle ###
 .gradle
 build/
-run/
-logs/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/**/build/
 
-# Eclipse + other common
-*.pydevproject
-.project
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/**/out/
+
+.run/
+
+### Eclipse ###
+.apt_generated
 .classpath
-.settings/
-*.launch
-eclipse/
-libs/
+.eclipse/
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/**/bin/
 
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
+### VS Code ###
+.vscode/
 
-# Mac crap
+### Mac OS ###
 .DS_Store
 
-# Data gen cache
-/src/datagen/generated/.cache
+### Minecraft Modding ###
+run/
+!**/src/**/run/
+**/src/generated/**/.cache/
+repo/
+!**/src/**/repo/

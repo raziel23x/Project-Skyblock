@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "projectskyblock:block/green_reagent_block"
-  }
-}
