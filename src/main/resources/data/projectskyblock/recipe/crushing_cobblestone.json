@@ -1,0 +1,12 @@
+{
+  "type": "projectskyblock:crushing",
+  "ingredient": {
+    "item": "minecraft:cobblestone"
+  },
+  "result": {
+    "id": "minecraft:gravel",
+    "count": 1
+  },
+  "extra_result_count": 1,
+  "extra_result_chance": 0.1
+}

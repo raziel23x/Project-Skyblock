@@ -17,6 +17,7 @@ import raziel23x.projectskyblock.registry.ModBlocks;
 import raziel23x.projectskyblock.registry.ModCreativeTabs;
 import raziel23x.projectskyblock.registry.ModItems;
 import raziel23x.projectskyblock.registry.ModMenus;
+import raziel23x.projectskyblock.registry.ModRecipes;
 import raziel23x.projectskyblock.repair.RepairGemHandler;
 
 @Mod(ProjectSkyblock.MOD_ID)
@@ -30,6 +31,7 @@ public final class ProjectSkyblock {
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);
         ModMenus.register(modEventBus);
+        ModRecipes.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
 
         modContainer.registerConfig(

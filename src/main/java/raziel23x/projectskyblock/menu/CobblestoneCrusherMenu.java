@@ -125,7 +125,7 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
             )) {
                 return ItemStack.EMPTY;
             }
-        } else if (CrusherProcessing.isValidInput(sourceStack)) {
+        } else if (CrusherProcessing.isValidInput(player.level(), sourceStack)) {
             if (!moveItemStackTo(
                     sourceStack,
                     CobblestoneCrusherBlockEntity.INPUT_SLOT,

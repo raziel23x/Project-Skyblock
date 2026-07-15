@@ -13,9 +13,6 @@ public final class MachineConfig {
     public static final ModConfigSpec.IntValue CRUSHER_FE_CAPACITY;
     public static final ModConfigSpec.IntValue CRUSHER_FE_PER_TICK;
     public static final ModConfigSpec.DoubleValue FUEL_BURN_MULTIPLIER;
-    public static final ModConfigSpec.DoubleValue CRUSHER_FLINT_CHANCE;
-    public static final ModConfigSpec.DoubleValue CRUSHER_EXTRA_SAND_CHANCE;
-    public static final ModConfigSpec.DoubleValue CRUSHER_EXTRA_GRAVEL_CHANCE;
 
     public static final ModConfigSpec SPEC;
 
@@ -55,18 +52,6 @@ public final class MachineConfig {
         CRUSHER_FE_PER_TICK = BUILDER
                 .comment("Forge Energy consumed for each processing tick.")
                 .defineInRange("energyPerTick", 20, 0, 1_000_000);
-
-        CRUSHER_FLINT_CHANCE = BUILDER
-                .comment("Chance for Gravel to also produce one Flint.")
-                .defineInRange("flintByproductChance", 0.15D, 0.0D, 1.0D);
-
-        CRUSHER_EXTRA_SAND_CHANCE = BUILDER
-                .comment("Chance for Gravel to produce one additional Sand.")
-                .defineInRange("extraSandChance", 0.20D, 0.0D, 1.0D);
-
-        CRUSHER_EXTRA_GRAVEL_CHANCE = BUILDER
-                .comment("Chance for Cobblestone to produce one additional Gravel.")
-                .defineInRange("extraGravelChance", 0.10D, 0.0D, 1.0D);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

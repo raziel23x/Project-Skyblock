@@ -374,11 +374,14 @@ public final class CobblestoneCrusherScreen
                 false
         );
 
+        Component energyText = Component.literal(
+                formatEnergy(menu.getEnergyStored())
+                        + " / " + formatEnergy(menu.getEnergyCapacity())
+        );
         guiGraphics.drawString(
                 font,
-                Component.literal(formatEnergy(menu.getEnergyStored())
-                        + " / " + formatEnergy(menu.getEnergyCapacity())),
-                151,
+                energyText,
+                imageWidth - 8 - font.width(energyText),
                 7,
                 0x303030,
                 false

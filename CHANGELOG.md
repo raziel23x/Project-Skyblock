@@ -167,3 +167,44 @@ Target: Minecraft 1.21.1, NeoForge 21.1.235, Java 21.
 - Added creative-tab entries.
 - Added English display names.
 - Kept reagent block recipes intentionally deferred for later recipe development.
+
+## Data-driven Crusher recipes
+
+- Added the custom `projectskyblock:crushing` recipe type and serializer.
+- Replaced hardcoded Cobblestone, Gravel, Sand, Flint, and Ex Deorum output rules with datapack JSON recipes.
+- Added built-in crushing recipes for Cobblestone to Gravel and Gravel to Sand with optional extra output and byproduct chances.
+- Added a conditional Sand to `exdeorum:dust` recipe that loads only when Ex Deorum is installed.
+- Removed the obsolete Crusher output-chance config entries; output counts and chances now belong to individual recipe JSON files.
+- Kept global processing time, FE capacity, FE use, fuel settings, GUI behavior, automation, and save data unchanged.
+- Updated input validation and shift-click routing to query the active server recipe manager.
+- Crusher recipes now reload with datapacks and can be overridden or extended without rebuilding the mod.
+
+### Crusher recipe JSON format
+
+```json
+{
+  "type": "projectskyblock:crushing",
+  "ingredient": { "item": "minecraft:cobblestone" },
+  "result": { "id": "minecraft:gravel", "count": 1 },
+  "extra_result_count": 1,
+  "extra_result_chance": 0.1,
+  "byproduct": { "id": "minecraft:flint", "count": 1 },
+  "byproduct_chance": 0.15
+}
+```
+
+- `ingredient` and `result` are required.
+- `extra_result_count` defaults to `0`.
+- `extra_result_chance` defaults to `0.0` and is clamped to `0.0` through `1.0`.
+- `byproduct` is optional.
+- `byproduct_chance` defaults to `0.0` and is clamped to `0.0` through `1.0`.
+
+## GUI output panel correction
+
+- Restored both right-side output slot frames from the last known-good GUI texture.
+- Removed the previous oversized and overlapping arrow artwork.
+- Added a compact processing arrow centered in the empty gap between the Crusher chamber and output slots.
+- Kept every arrow pixel outside both output-slot frames.
+- Preserved the right-aligned live FE text and the tested Crusher logic.
+
+- Removed the stray partial process-arrow fragment between the Crusher output slots without changing the slot frames or main arrow.

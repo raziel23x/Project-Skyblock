@@ -38,7 +38,11 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
     public static final int BYPRODUCT_SLOT = CrusherInventory.BYPRODUCT_SLOT;
 
     private final CrusherInventory inventory =
-            new CrusherInventory(this::setChanged);
+            new CrusherInventory(
+                    this::setChanged,
+                    stack -> level != null
+                            && CrusherProcessing.isValidInput(level, stack)
+            );
     private final CrusherEnergyStorage energyStorage =
             new CrusherEnergyStorage(
                     MachineConfig.CRUSHER_FE_CAPACITY.get(),
@@ -111,7 +115,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
         );
 
         ItemStack input = crusher.inventory.getStackInSlot(INPUT_SLOT);
-        CrusherProcessingResult maximumResult = crusher.maximumResult(input);
+        CrusherProcessingResult maximumResult = CrusherProcessing.maximumResult(level, input);
 
         if (input.isEmpty()
                 || maximumResult.isEmpty()
@@ -133,6 +137,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
         int processTime = Math.max(1, MachineConfig.CRUSHER_PROCESS_TIME.get());
         if (crusher.progress >= processTime) {
             CrusherProcessingResult result = CrusherProcessing.createResult(
+                    level,
                     input,
                     level.random
             );
@@ -147,35 +152,6 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
         }
 
         crusher.setChanged();
-    }
-
-    private CrusherProcessingResult maximumResult(ItemStack input) {
-        if (input.is(Items.COBBLESTONE)) {
-            int count = MachineConfig.CRUSHER_EXTRA_GRAVEL_CHANCE.get() > 0.0D
-                    ? 2 : 1;
-            return new CrusherProcessingResult(
-                    new ItemStack(Items.GRAVEL, count),
-                    ItemStack.EMPTY
-            );
-        }
-
-        if (input.is(Items.GRAVEL)) {
-            int count = MachineConfig.CRUSHER_EXTRA_SAND_CHANCE.get() > 0.0D
-                    ? 2 : 1;
-            ItemStack byproduct = MachineConfig.CRUSHER_FLINT_CHANCE.get() > 0.0D
-                    ? new ItemStack(Items.FLINT)
-                    : ItemStack.EMPTY;
-            return new CrusherProcessingResult(
-                    new ItemStack(Items.SAND, count),
-                    byproduct
-            );
-        }
-
-        if (CrusherProcessing.isValidInput(input)) {
-            return CrusherProcessing.createResult(input, level.random);
-        }
-
-        return CrusherProcessingResult.EMPTY;
     }
 
     private void stopAndResetProgress() {
