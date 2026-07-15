@@ -1,13 +1,6 @@
 {
-  "itemGroup.projectskyblock": "Example Mod Tab",
-  "block.projectskyblock.example_block": "Example Block",
-  "item.projectskyblock.example_item": "Example Item",
-
-  "projectskyblock.configuration.title": "Project Skyblock Configs",
-  "projectskyblock.configuration.section.projectskyblock.common.toml": "Project Skyblock Configs",
-  "projectskyblock.configuration.section.projectskyblock.common.toml.title": "Project Skyblock Configs",
-  "projectskyblock.configuration.items": "Item List",
-  "projectskyblock.configuration.logDirtBlock": "Log Dirt Block",
-  "projectskyblock.configuration.magicNumberIntroduction": "Magic Number Text",
-  "projectskyblock.configuration.magicNumber": "Magic Number"
+  "item.projectskyblock.repair_gem": "Repair Gem",
+  "itemGroup.projectskyblock.main": "Project Skyblock",
+  "tooltip.projectskyblock.repair_gem.line_1": "Repairs damaged equipment.",
+  "tooltip.projectskyblock.repair_gem.line_2": "The repair system will be restored in a later milestone."
 }

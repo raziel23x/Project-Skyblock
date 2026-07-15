@@ -1,25 +1,32 @@
+# Project Skyblock
 
-Installation information
-=======
+Project Skyblock is being rebuilt for Minecraft 1.21.1 on NeoForge.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+This branch is a clean modern rewrite of the original 1.16 mod. The legacy implementation remains available on the `MC-V1.16.X` branch.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## Current milestone
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+- NeoForge 1.21.1 project foundation
+- Organized item and creative-tab registries
+- Repair Gem registered with its original texture
+- Localized item name and tooltip
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+The Repair Gem's active repair behavior will be implemented after the foundational registry and data structure is proven in-game.
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+## Development
+
+```bash
+./gradlew build
+./gradlew runClient
+```
+
+Windows:
+
+```cmd
+gradlew.bat build
+gradlew.bat runClient
+```
+
+## License
+
+GNU General Public License v3.0.
