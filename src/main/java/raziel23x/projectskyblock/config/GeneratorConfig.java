@@ -24,6 +24,11 @@ public final class GeneratorConfig {
     public static final ModConfigSpec.BooleanValue LAVA_PIPE_EXTRACTION;
     public static final ModConfigSpec.BooleanValue LAVA_BUCKET_EXTRACTION;
 
+    public static final ModConfigSpec.BooleanValue PARTICLES_ENABLED;
+    public static final ModConfigSpec.IntValue COBBLESTONE_PARTICLE_CHANCE;
+    public static final ModConfigSpec.IntValue WATER_PARTICLE_CHANCE;
+    public static final ModConfigSpec.IntValue LAVA_PARTICLE_CHANCE;
+
     public static final ModConfigSpec.BooleanValue DEBUG_LOGGING;
 
     public static final ModConfigSpec SPEC;
@@ -49,11 +54,11 @@ public final class GeneratorConfig {
                 .define("autoPushUp", true);
 
         COBBLESTONE_PIPE_EXTRACTION = BUILDER
-                .comment("Expose the internal inventory to item pipes and other item capability users.")
+                .comment("Expose the internal inventory to item pipes.")
                 .define("allowPipeExtraction", true);
 
         COBBLESTONE_MANUAL_EXTRACTION = BUILDER
-                .comment("Allow players to take cobblestone by right-clicking the generator with an empty hand.")
+                .comment("Allow empty-hand right-click extraction.")
                 .define("allowManualExtraction", true);
 
         BUILDER.pop();
@@ -74,11 +79,11 @@ public final class GeneratorConfig {
                 .defineInRange("amountPerCycleMb", 1_000, 1, 1_000_000);
 
         WATER_PIPE_EXTRACTION = BUILDER
-                .comment("Expose the internal tank to fluid pipes and other fluid capability users.")
+                .comment("Expose the internal tank to fluid pipes.")
                 .define("allowPipeExtraction", true);
 
         WATER_BUCKET_EXTRACTION = BUILDER
-                .comment("Allow players to fill buckets directly from the generator.")
+                .comment("Allow bucket extraction.")
                 .define("allowBucketExtraction", true);
 
         BUILDER.pop();
@@ -99,12 +104,33 @@ public final class GeneratorConfig {
                 .defineInRange("amountPerCycleMb", 1_000, 1, 1_000_000);
 
         LAVA_PIPE_EXTRACTION = BUILDER
-                .comment("Expose the internal tank to fluid pipes and other fluid capability users.")
+                .comment("Expose the internal tank to fluid pipes.")
                 .define("allowPipeExtraction", true);
 
         LAVA_BUCKET_EXTRACTION = BUILDER
-                .comment("Allow players to fill buckets directly from the generator.")
+                .comment("Allow bucket extraction.")
                 .define("allowBucketExtraction", true);
+
+        BUILDER.pop();
+
+        BUILDER.comment("Client-side ambient generator effects.")
+                .push("particles");
+
+        PARTICLES_ENABLED = BUILDER
+                .comment("Enable ambient particles for all resource generators.")
+                .define("enabled", true);
+
+        COBBLESTONE_PARTICLE_CHANCE = BUILDER
+                .comment("One-in-N random animate ticks create cobblestone particles. Larger is quieter.")
+                .defineInRange("cobblestoneChance", 6, 1, 1_000);
+
+        WATER_PARTICLE_CHANCE = BUILDER
+                .comment("One-in-N random animate ticks create water particles. Larger is quieter.")
+                .defineInRange("waterChance", 6, 1, 1_000);
+
+        LAVA_PARTICLE_CHANCE = BUILDER
+                .comment("One-in-N random animate ticks create lava particles. Larger is quieter.")
+                .defineInRange("lavaChance", 4, 1, 1_000);
 
         BUILDER.pop();
 
