@@ -143,17 +143,33 @@ public final class ResourceGeneratorBlock extends BaseEntityBlock {
             }
 
             case WATER -> {
+                // Bubble particles are effectively invisible in open air.
+                // Use falling-water droplets and visible splashes outside the cage.
                 level.addParticle(
-                        ParticleTypes.SPLASH,
+                        ParticleTypes.DRIPPING_WATER,
                         x, y, z,
-                        0.0D, 0.025D, 0.0D
+                        0.0D, -0.01D, 0.0D
                 );
 
-                if (random.nextInt(5) == 0) {
+                level.addParticle(
+                        ParticleTypes.SPLASH,
+                        x + (random.nextDouble() - 0.5D) * 0.16D,
+                        y + 0.03D,
+                        z + (random.nextDouble() - 0.5D) * 0.16D,
+                        0.0D,
+                        0.035D,
+                        0.0D
+                );
+
+                if (random.nextInt(3) == 0) {
                     level.addParticle(
-                            ParticleTypes.BUBBLE,
-                            x, y, z,
-                            0.0D, 0.03D, 0.0D
+                            ParticleTypes.FALLING_WATER,
+                            x,
+                            y + 0.08D,
+                            z,
+                            0.0D,
+                            -0.015D,
+                            0.0D
                     );
                 }
             }

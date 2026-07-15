@@ -14,6 +14,7 @@ import org.joml.Vector3f;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.block.ReagentBlock;
 import raziel23x.projectskyblock.block.ResourceGeneratorBlock;
+import raziel23x.projectskyblock.item.GeneratorBlockItem;
 import raziel23x.projectskyblock.item.ReagentBlockItem;
 
 public final class ModBlocks {
@@ -66,13 +67,25 @@ public final class ModBlocks {
             reagentBlockItem("blue_reagent_block", BLUE_REAGENT_BLOCK, BLUE);
 
     public static final DeferredItem<BlockItem> COBBLESTONE_GENERATOR_ITEM =
-            blockItem("cobblestone_generator", COBBLESTONE_GENERATOR);
+            generatorBlockItem(
+                    "cobblestone_generator",
+                    COBBLESTONE_GENERATOR,
+                    ResourceGeneratorBlock.Output.COBBLESTONE
+            );
 
     public static final DeferredItem<BlockItem> WATER_GENERATOR_ITEM =
-            blockItem("water_generator", WATER_GENERATOR);
+            generatorBlockItem(
+                    "water_generator",
+                    WATER_GENERATOR,
+                    ResourceGeneratorBlock.Output.WATER
+            );
 
     public static final DeferredItem<BlockItem> LAVA_GENERATOR_ITEM =
-            blockItem("lava_generator", LAVA_GENERATOR);
+            generatorBlockItem(
+                    "lava_generator",
+                    LAVA_GENERATOR,
+                    ResourceGeneratorBlock.Output.LAVA
+            );
 
     private static DeferredBlock<Block> reagentBlock(
             String name,
@@ -117,6 +130,20 @@ public final class ModBlocks {
                         block.get(),
                         new Item.Properties(),
                         particleColor
+                )
+        );
+    }
+
+    private static DeferredItem<BlockItem> generatorBlockItem(
+            String name,
+            DeferredBlock<Block> block,
+            ResourceGeneratorBlock.Output output) {
+        return BLOCK_ITEMS.register(
+                name,
+                () -> new GeneratorBlockItem(
+                        block.get(),
+                        new Item.Properties(),
+                        output
                 )
         );
     }
