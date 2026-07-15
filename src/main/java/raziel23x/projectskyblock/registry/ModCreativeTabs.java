@@ -19,6 +19,9 @@ public final class ModCreativeTabs {
                     .icon(() -> ModItems.REPAIR_GEM.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.REPAIR_GEM.get());
+                        output.accept(ModBlocks.COBBLESTONE_GENERATOR_ITEM.get());
+                        output.accept(ModBlocks.WATER_GENERATOR_ITEM.get());
+                        output.accept(ModBlocks.LAVA_GENERATOR_ITEM.get());
                         output.accept(ModItems.FLINT_SWORD.get());
                         output.accept(ModItems.FLINT_PICKAXE.get());
                         output.accept(ModItems.FLINT_AXE.get());

@@ -43,3 +43,23 @@ GNU General Public License v3.0.
 ## Equipment milestone
 
 This build restores the original flint tool set, flint armor, wooden armor, flint shears, and wooden shears. The equipment remains repairable by its original material and is included in the Project Skyblock creative tab.
+
+## Generator foundation
+
+- Cobblestone Generator: right-click with an empty hand for cobblestone.
+- Water Generator: use an empty bucket to receive a water bucket.
+- Lava Generator: use an empty bucket to receive a lava bucket.
+
+These three blocks share one reusable generator block implementation. Automated item/fluid capabilities are planned as the next generator milestone.
+
+## Generator buffers and automation
+
+- Cobblestone Generator stores up to 64 cobblestone internally.
+- Water Generator stores up to 8 buckets (8,000 mB).
+- Lava Generator stores up to 8 buckets (8,000 mB).
+- All generators produce once per second while space remains.
+- The cobblestone generator automatically inserts upward into any block exposing NeoForge's item-handler capability.
+- Item pipes can extract cobblestone from every side.
+- Fluid pipes can extract water or lava from every side.
+- Generator capabilities are extraction-only; external systems cannot insert into the buffers.
+- No storage, item-pipe, or fluid-pipe mod is required or hardcoded.

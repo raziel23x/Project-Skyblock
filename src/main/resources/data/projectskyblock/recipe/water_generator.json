@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"misc","pattern":["ICI","RBR","ICI"],"key":{"I":{"item":"minecraft:iron_ingot"},"C":{"item":"minecraft:ice"},"R":{"item":"minecraft:redstone"},"B":{"item":"minecraft:water_bucket"}},"result":{"id":"projectskyblock:water_generator","count":1}}

@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"misc","pattern":["ICI","RBR","ICI"],"key":{"I":{"item":"minecraft:iron_ingot"},"C":{"item":"minecraft:obsidian"},"R":{"item":"minecraft:redstone"},"B":{"item":"minecraft:lava_bucket"}},"result":{"id":"projectskyblock:lava_generator","count":1}}

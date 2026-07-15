@@ -17,5 +17,8 @@
   "item.projectskyblock.wooden_helmet": "Wooden Helmet",
   "item.projectskyblock.wooden_chestplate": "Wooden Chestplate",
   "item.projectskyblock.wooden_leggings": "Wooden Leggings",
-  "item.projectskyblock.wooden_boots": "Wooden Boots"
+  "item.projectskyblock.wooden_boots": "Wooden Boots",
+  "block.projectskyblock.cobblestone_generator": "Cobblestone Generator",
+  "block.projectskyblock.water_generator": "Water Generator",
+  "block.projectskyblock.lava_generator": "Lava Generator"
 }
