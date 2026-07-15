@@ -5,6 +5,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -21,9 +28,10 @@ import raziel23x.projectskyblock.machine.crusher.CrusherPowerSource;
 import raziel23x.projectskyblock.machine.crusher.CrusherProcessing;
 import raziel23x.projectskyblock.machine.crusher.CrusherProcessingResult;
 import raziel23x.projectskyblock.machine.crusher.CrusherSidedItemHandler;
+import raziel23x.projectskyblock.menu.CobblestoneCrusherMenu;
 import raziel23x.projectskyblock.registry.ModBlockEntities;
 
-public final class CobblestoneCrusherBlockEntity extends BlockEntity {
+public final class CobblestoneCrusherBlockEntity extends BlockEntity implements MenuProvider {
     public static final int INPUT_SLOT = CrusherInventory.INPUT_SLOT;
     public static final int FUEL_SLOT = CrusherInventory.FUEL_SLOT;
     public static final int OUTPUT_SLOT = CrusherInventory.OUTPUT_SLOT;
@@ -61,6 +69,33 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity {
     private int burnTimeTotal;
     private boolean working;
     private CrusherPowerSource activePowerSource = CrusherPowerSource.NONE;
+
+    private final ContainerData menuData = new ContainerData() {
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> progress;
+                case 1 -> Math.max(1, MachineConfig.CRUSHER_PROCESS_TIME.get());
+                case 2 -> burnTimeRemaining;
+                case 3 -> burnTimeTotal;
+                case 4 -> energyStorage.getEnergyStored();
+                case 5 -> energyStorage.getMaxEnergyStored();
+                case 6 -> activePowerSource.ordinal();
+                case 7 -> working ? 1 : 0;
+                default -> 0;
+            };
+        }
+
+        @Override
+        public void set(int index, int value) {
+            // Server-owned values. The client receives them through menu synchronization.
+        }
+
+        @Override
+        public int getCount() {
+            return CobblestoneCrusherMenu.DATA_COUNT;
+        }
+    };
 
     public CobblestoneCrusherBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COBBLESTONE_CRUSHER.get(), pos, state);
@@ -275,6 +310,30 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity {
                         inventory.getStackInSlot(BYPRODUCT_SLOT).getCount(),
                         false
                 )
+        );
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable(
+                "container.projectskyblock.cobblestone_crusher"
+        );
+    }
+
+    @Override
+    public AbstractContainerMenu createMenu(
+            int containerId,
+            Inventory playerInventory,
+            Player player) {
+        if (level == null) {
+            return null;
+        }
+        return new CobblestoneCrusherMenu(
+                containerId,
+                playerInventory,
+                inventory,
+                menuData,
+                ContainerLevelAccess.create(level, worldPosition)
         );
     }
 

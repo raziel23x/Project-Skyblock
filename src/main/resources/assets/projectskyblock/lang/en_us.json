@@ -31,5 +31,13 @@
   "item.projectskyblock.wooden_chestplate": "Wooden Chestplate",
   "item.projectskyblock.wooden_leggings": "Wooden Leggings",
   "item.projectskyblock.wooden_boots": "Wooden Boots",
-  "block.projectskyblock.creative_energy_cell": "Creative Energy Cell"
+  "block.projectskyblock.creative_energy_cell": "Creative Energy Cell",
+  "container.projectskyblock.cobblestone_crusher": "Cobblestone Crusher",
+  "gui.projectskyblock.cobblestone_crusher.power_source": "Power: %s",
+  "gui.projectskyblock.cobblestone_crusher.power.none": "Idle",
+  "gui.projectskyblock.cobblestone_crusher.power.fe": "FE",
+  "gui.projectskyblock.cobblestone_crusher.power.fuel": "Fuel",
+  "gui.projectskyblock.cobblestone_crusher.energy": "%s / %s FE",
+  "gui.projectskyblock.cobblestone_crusher.fuel": "Fuel: %s / %s ticks",
+  "gui.projectskyblock.cobblestone_crusher.progress": "Progress: %s / %s ticks"
 }
