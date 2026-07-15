@@ -1,1 +1,7 @@
-{"variants":{"":{"model":"projectskyblock:block/lava_generator"}}}
+{
+  "variants": {
+    "": {
+      "model": "projectskyblock:block/lava_generator"
+    }
+  }
+}
