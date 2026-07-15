@@ -19,9 +19,15 @@ public final class ModCreativeTabs {
                     .icon(() -> ModItems.REPAIR_GEM.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.REPAIR_GEM.get());
+                        output.accept(ModItems.MIXING_BOWL.get());
+                        output.accept(ModItems.RED_REAGENT.get());
+                        output.accept(ModItems.GREEN_REAGENT.get());
+                        output.accept(ModItems.BLUE_REAGENT.get());
+
                         output.accept(ModBlocks.COBBLESTONE_GENERATOR_ITEM.get());
                         output.accept(ModBlocks.WATER_GENERATOR_ITEM.get());
                         output.accept(ModBlocks.LAVA_GENERATOR_ITEM.get());
+
                         output.accept(ModItems.FLINT_SWORD.get());
                         output.accept(ModItems.FLINT_PICKAXE.get());
                         output.accept(ModItems.FLINT_AXE.get());
@@ -29,10 +35,12 @@ public final class ModCreativeTabs {
                         output.accept(ModItems.FLINT_HOE.get());
                         output.accept(ModItems.FLINT_SHEARS.get());
                         output.accept(ModItems.WOODEN_SHEARS.get());
+
                         output.accept(ModItems.FLINT_HELMET.get());
                         output.accept(ModItems.FLINT_CHESTPLATE.get());
                         output.accept(ModItems.FLINT_LEGGINGS.get());
                         output.accept(ModItems.FLINT_BOOTS.get());
+
                         output.accept(ModItems.WOODEN_HELMET.get());
                         output.accept(ModItems.WOODEN_CHESTPLATE.get());
                         output.accept(ModItems.WOODEN_LEGGINGS.get());
