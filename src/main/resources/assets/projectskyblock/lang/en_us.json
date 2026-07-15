@@ -2,5 +2,20 @@
   "item.projectskyblock.repair_gem": "Repair Gem",
   "itemGroup.projectskyblock.main": "Project Skyblock",
   "tooltip.projectskyblock.repair_gem.line_1": "Repairs damaged equipment.",
-  "tooltip.projectskyblock.repair_gem.line_2": "Carry it in your inventory or equip it in a Curios slot."
+  "tooltip.projectskyblock.repair_gem.line_2": "Carry it in your inventory or equip it in a Curios slot.",
+  "item.projectskyblock.flint_sword": "Flint Sword",
+  "item.projectskyblock.flint_pickaxe": "Flint Pickaxe",
+  "item.projectskyblock.flint_axe": "Flint Axe",
+  "item.projectskyblock.flint_shovel": "Flint Shovel",
+  "item.projectskyblock.flint_hoe": "Flint Hoe",
+  "item.projectskyblock.flint_shears": "Flint Shears",
+  "item.projectskyblock.wooden_shears": "Wooden Shears",
+  "item.projectskyblock.flint_helmet": "Flint Helmet",
+  "item.projectskyblock.flint_chestplate": "Flint Chestplate",
+  "item.projectskyblock.flint_leggings": "Flint Leggings",
+  "item.projectskyblock.flint_boots": "Flint Boots",
+  "item.projectskyblock.wooden_helmet": "Wooden Helmet",
+  "item.projectskyblock.wooden_chestplate": "Wooden Chestplate",
+  "item.projectskyblock.wooden_leggings": "Wooden Leggings",
+  "item.projectskyblock.wooden_boots": "Wooden Boots"
 }

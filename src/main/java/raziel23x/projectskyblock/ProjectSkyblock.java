@@ -5,6 +5,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
+import raziel23x.projectskyblock.registry.ModArmorMaterials;
 import raziel23x.projectskyblock.registry.ModCreativeTabs;
 import raziel23x.projectskyblock.registry.ModItems;
 import raziel23x.projectskyblock.repair.RepairGemHandler;
@@ -15,6 +16,7 @@ public final class ProjectSkyblock {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ProjectSkyblock(IEventBus modEventBus) {
+        ModArmorMaterials.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         NeoForge.EVENT_BUS.addListener(RepairGemHandler::onPlayerTick);

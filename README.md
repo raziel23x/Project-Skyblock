@@ -39,3 +39,7 @@ GNU General Public License v3.0.
 - Supports an equipped Curios slot when Curios is installed.
 - Never scans or repairs from the Ender Chest.
 - Curios remains completely optional.
+
+## Equipment milestone
+
+This build restores the original flint tool set, flint armor, wooden armor, flint shears, and wooden shears. The equipment remains repairable by its original material and is included in the Project Skyblock creative tab.
