@@ -2,5 +2,5 @@
   "item.projectskyblock.repair_gem": "Repair Gem",
   "itemGroup.projectskyblock.main": "Project Skyblock",
   "tooltip.projectskyblock.repair_gem.line_1": "Repairs damaged equipment.",
-  "tooltip.projectskyblock.repair_gem.line_2": "The repair system will be restored in a later milestone."
+  "tooltip.projectskyblock.repair_gem.line_2": "Carry it in your inventory or equip it in a Curios slot."
 }

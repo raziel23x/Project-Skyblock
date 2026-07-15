@@ -30,3 +30,12 @@ gradlew.bat runClient
 ## License
 
 GNU General Public License v3.0.
+
+
+## Repair Gem behavior
+
+- Repairs one damaged carried item by one durability point each second.
+- Works while carried in the normal inventory, armor, or offhand slots.
+- Supports an equipped Curios slot when Curios is installed.
+- Never scans or repairs from the Ender Chest.
+- Curios remains completely optional.
