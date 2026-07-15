@@ -208,3 +208,9 @@ Target: Minecraft 1.21.1, NeoForge 21.1.235, Java 21.
 - Preserved the right-aligned live FE text and the tested Crusher logic.
 
 - Removed the stray partial process-arrow fragment between the Crusher output slots without changing the slot frames or main arrow.
+
+### Machine framework
+- Added a reusable receive-only machine energy storage with internal FE consumption.
+- Added a reusable validated machine inventory with centralized dirty marking.
+- Added a reusable sided item-handler view for controlled automation access.
+- Refactored the Cobblestone Crusher energy, inventory, and sided handlers onto the shared machine foundation without changing its behavior.
