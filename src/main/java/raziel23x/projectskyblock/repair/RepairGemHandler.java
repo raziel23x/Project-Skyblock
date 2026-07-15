@@ -5,6 +5,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import raziel23x.projectskyblock.compat.curios.CuriosRepairCompat;
+import raziel23x.projectskyblock.config.CommonConfig;
+import raziel23x.projectskyblock.config.IntegrationConfig;
 import raziel23x.projectskyblock.registry.ModItems;
 
 /**
@@ -14,30 +16,30 @@ import raziel23x.projectskyblock.registry.ModItems;
  * in a Curios slot. Ender Chests are deliberately never inspected.</p>
  */
 public final class RepairGemHandler {
-    private static final int REPAIR_INTERVAL_TICKS = 20;
-    private static final int REPAIR_AMOUNT = 1;
-
     private RepairGemHandler() {
     }
 
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) {
+        if (!(event.getEntity() instanceof ServerPlayer player)
+                || !CommonConfig.REPAIR_GEM_ENABLED.get()) {
             return;
         }
 
-        if (player.tickCount % REPAIR_INTERVAL_TICKS != 0) {
+        int interval = CommonConfig.REPAIR_GEM_INTERVAL_TICKS.get();
+        if (player.tickCount % interval != 0) {
             return;
         }
 
         Inventory inventory = player.getInventory();
         boolean hasRepairGem = containsRepairGem(inventory)
-                || CuriosRepairCompat.hasEquippedRepairGem(player);
+                || (IntegrationConfig.CURIOS_REPAIR_GEM.get()
+                && CuriosRepairCompat.hasEquippedRepairGem(player));
 
         if (!hasRepairGem) {
             return;
         }
 
-        repairOneItem(inventory);
+        repairOneItem(inventory, CommonConfig.REPAIR_GEM_AMOUNT.get());
     }
 
     private static boolean containsRepairGem(Inventory inventory) {
@@ -49,7 +51,7 @@ public final class RepairGemHandler {
         return false;
     }
 
-    private static void repairOneItem(Inventory inventory) {
+    private static void repairOneItem(Inventory inventory, int repairAmount) {
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack target = inventory.getItem(slot);
 
@@ -60,7 +62,7 @@ public final class RepairGemHandler {
                 continue;
             }
 
-            target.setDamageValue(Math.max(0, target.getDamageValue() - REPAIR_AMOUNT));
+            target.setDamageValue(Math.max(0, target.getDamageValue() - repairAmount));
             return;
         }
     }

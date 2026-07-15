@@ -2,13 +2,18 @@ package raziel23x.projectskyblock;
 
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
+import raziel23x.projectskyblock.config.CommonConfig;
+import raziel23x.projectskyblock.config.GeneratorConfig;
+import raziel23x.projectskyblock.config.IntegrationConfig;
 import raziel23x.projectskyblock.registry.ModArmorMaterials;
-import raziel23x.projectskyblock.registry.ModCreativeTabs;
-import raziel23x.projectskyblock.registry.ModBlocks;
 import raziel23x.projectskyblock.registry.ModBlockEntities;
+import raziel23x.projectskyblock.registry.ModBlocks;
+import raziel23x.projectskyblock.registry.ModCreativeTabs;
 import raziel23x.projectskyblock.registry.ModItems;
 import raziel23x.projectskyblock.repair.RepairGemHandler;
 
@@ -17,18 +22,37 @@ public final class ProjectSkyblock {
     public static final String MOD_ID = "projectskyblock";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ProjectSkyblock(IEventBus modEventBus) {
+    public ProjectSkyblock(IEventBus modEventBus, ModContainer modContainer) {
         ModArmorMaterials.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
+
+        modContainer.registerConfig(
+                ModConfig.Type.COMMON,
+                CommonConfig.SPEC,
+                "projectskyblock-common.toml"
+        );
+        modContainer.registerConfig(
+                ModConfig.Type.COMMON,
+                GeneratorConfig.SPEC,
+                "projectskyblock-generators.toml"
+        );
+        modContainer.registerConfig(
+                ModConfig.Type.COMMON,
+                IntegrationConfig.SPEC,
+                "projectskyblock-integrations.toml"
+        );
+
         NeoForge.EVENT_BUS.addListener(RepairGemHandler::onPlayerTick);
         modEventBus.addListener(ProjectSkyblock::registerCapabilities);
 
         LOGGER.info("Project Skyblock 2 initialization complete");
     }
-    private static void registerCapabilities(net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) {
+
+    private static void registerCapabilities(
+            net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.RESOURCE_GENERATOR.get(),
@@ -40,5 +64,4 @@ public final class ProjectSkyblock {
                 (blockEntity, side) -> blockEntity.getOutputForFluidCapability()
         );
     }
-
 }
