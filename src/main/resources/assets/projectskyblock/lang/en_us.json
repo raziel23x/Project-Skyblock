@@ -12,6 +12,10 @@
   "block.projectskyblock.red_reagent_block": "Red Reagent Block",
   "block.projectskyblock.green_reagent_block": "Green Reagent Block",
   "block.projectskyblock.blue_reagent_block": "Blue Reagent Block",
+  "block.projectskyblock.cobblestone_generator": "Cobblestone Generator",
+  "block.projectskyblock.water_generator": "Water Generator",
+  "block.projectskyblock.lava_generator": "Lava Generator",
+  "block.projectskyblock.cobblestone_crusher": "Cobblestone Crusher",
   "item.projectskyblock.flint_sword": "Flint Sword",
   "item.projectskyblock.flint_pickaxe": "Flint Pickaxe",
   "item.projectskyblock.flint_axe": "Flint Axe",
@@ -27,7 +31,5 @@
   "item.projectskyblock.wooden_chestplate": "Wooden Chestplate",
   "item.projectskyblock.wooden_leggings": "Wooden Leggings",
   "item.projectskyblock.wooden_boots": "Wooden Boots",
-  "block.projectskyblock.cobblestone_generator": "Cobblestone Generator",
-  "block.projectskyblock.water_generator": "Water Generator",
-  "block.projectskyblock.lava_generator": "Lava Generator"
+  "block.projectskyblock.creative_energy_cell": "Creative Energy Cell"
 }

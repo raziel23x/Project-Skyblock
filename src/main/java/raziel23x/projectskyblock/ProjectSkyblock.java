@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import raziel23x.projectskyblock.config.CommonConfig;
 import raziel23x.projectskyblock.config.GeneratorConfig;
 import raziel23x.projectskyblock.config.IntegrationConfig;
+import raziel23x.projectskyblock.config.MachineConfig;
 import raziel23x.projectskyblock.registry.ModArmorMaterials;
 import raziel23x.projectskyblock.registry.ModBlockEntities;
 import raziel23x.projectskyblock.registry.ModBlocks;
@@ -44,6 +45,11 @@ public final class ProjectSkyblock {
                 IntegrationConfig.SPEC,
                 "projectskyblock-integrations.toml"
         );
+        modContainer.registerConfig(
+                ModConfig.Type.COMMON,
+                MachineConfig.SPEC,
+                "projectskyblock-machines.toml"
+        );
 
         NeoForge.EVENT_BUS.addListener(RepairGemHandler::onPlayerTick);
         modEventBus.addListener(ProjectSkyblock::registerCapabilities);
@@ -58,10 +64,29 @@ public final class ProjectSkyblock {
                 ModBlockEntities.RESOURCE_GENERATOR.get(),
                 (blockEntity, side) -> blockEntity.getOutputForItemCapability()
         );
+
         event.registerBlockEntity(
                 net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK,
                 ModBlockEntities.RESOURCE_GENERATOR.get(),
                 (blockEntity, side) -> blockEntity.getOutputForFluidCapability()
+        );
+
+        event.registerBlockEntity(
+                net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.COBBLESTONE_CRUSHER.get(),
+                (blockEntity, side) -> blockEntity.getItemHandler(side)
+        );
+
+        event.registerBlockEntity(
+                net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK,
+                ModBlockEntities.COBBLESTONE_CRUSHER.get(),
+                (blockEntity, side) -> blockEntity.getEnergyStorage()
+        );
+
+        event.registerBlockEntity(
+                net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK,
+                ModBlockEntities.CREATIVE_ENERGY_CELL.get(),
+                (blockEntity, side) -> blockEntity.getEnergyStorage()
         );
     }
 }

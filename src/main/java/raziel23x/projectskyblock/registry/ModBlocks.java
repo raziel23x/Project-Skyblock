@@ -12,6 +12,8 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.joml.Vector3f;
 import raziel23x.projectskyblock.ProjectSkyblock;
+import raziel23x.projectskyblock.block.CobblestoneCrusherBlock;
+import raziel23x.projectskyblock.block.CreativeEnergyCellBlock;
 import raziel23x.projectskyblock.block.ReagentBlock;
 import raziel23x.projectskyblock.block.ResourceGeneratorBlock;
 import raziel23x.projectskyblock.item.GeneratorBlockItem;
@@ -37,24 +39,40 @@ public final class ModBlocks {
             reagentBlock("blue_reagent_block", MapColor.COLOR_BLUE, BLUE);
 
     public static final DeferredBlock<Block> COBBLESTONE_GENERATOR =
-            generator(
-                    "cobblestone_generator",
-                    MapColor.STONE,
-                    ResourceGeneratorBlock.Output.COBBLESTONE
-            );
+            generator("cobblestone_generator", MapColor.STONE,
+                    ResourceGeneratorBlock.Output.COBBLESTONE);
 
     public static final DeferredBlock<Block> WATER_GENERATOR =
-            generator(
-                    "water_generator",
-                    MapColor.WATER,
-                    ResourceGeneratorBlock.Output.WATER
-            );
+            generator("water_generator", MapColor.WATER,
+                    ResourceGeneratorBlock.Output.WATER);
 
     public static final DeferredBlock<Block> LAVA_GENERATOR =
-            generator(
-                    "lava_generator",
-                    MapColor.FIRE,
-                    ResourceGeneratorBlock.Output.LAVA
+            generator("lava_generator", MapColor.FIRE,
+                    ResourceGeneratorBlock.Output.LAVA);
+
+    public static final DeferredBlock<Block> COBBLESTONE_CRUSHER =
+            BLOCKS.register(
+                    "cobblestone_crusher",
+                    () -> new CobblestoneCrusherBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.STONE)
+                                    .strength(3.0F, 6.0F)
+                                    .sound(SoundType.STONE)
+                                    .requiresCorrectToolForDrops()
+                    )
+            );
+
+
+    public static final DeferredBlock<Block> CREATIVE_ENERGY_CELL =
+            BLOCKS.register(
+                    "creative_energy_cell",
+                    () -> new CreativeEnergyCellBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_CYAN)
+                                    .strength(4.0F, 10.0F)
+                                    .sound(SoundType.METAL)
+                                    .lightLevel(state -> 10)
+                    )
             );
 
     public static final DeferredItem<BlockItem> RED_REAGENT_BLOCK_ITEM =
@@ -67,25 +85,23 @@ public final class ModBlocks {
             reagentBlockItem("blue_reagent_block", BLUE_REAGENT_BLOCK, BLUE);
 
     public static final DeferredItem<BlockItem> COBBLESTONE_GENERATOR_ITEM =
-            generatorBlockItem(
-                    "cobblestone_generator",
-                    COBBLESTONE_GENERATOR,
-                    ResourceGeneratorBlock.Output.COBBLESTONE
-            );
+            generatorBlockItem("cobblestone_generator", COBBLESTONE_GENERATOR,
+                    ResourceGeneratorBlock.Output.COBBLESTONE);
 
     public static final DeferredItem<BlockItem> WATER_GENERATOR_ITEM =
-            generatorBlockItem(
-                    "water_generator",
-                    WATER_GENERATOR,
-                    ResourceGeneratorBlock.Output.WATER
-            );
+            generatorBlockItem("water_generator", WATER_GENERATOR,
+                    ResourceGeneratorBlock.Output.WATER);
 
     public static final DeferredItem<BlockItem> LAVA_GENERATOR_ITEM =
-            generatorBlockItem(
-                    "lava_generator",
-                    LAVA_GENERATOR,
-                    ResourceGeneratorBlock.Output.LAVA
-            );
+            generatorBlockItem("lava_generator", LAVA_GENERATOR,
+                    ResourceGeneratorBlock.Output.LAVA);
+
+    public static final DeferredItem<BlockItem> COBBLESTONE_CRUSHER_ITEM =
+            blockItem("cobblestone_crusher", COBBLESTONE_CRUSHER);
+
+
+    public static final DeferredItem<BlockItem> CREATIVE_ENERGY_CELL_ITEM =
+            blockItem("creative_energy_cell", CREATIVE_ENERGY_CELL);
 
     private static DeferredBlock<Block> reagentBlock(
             String name,
@@ -108,16 +124,18 @@ public final class ModBlocks {
             String name,
             MapColor color,
             ResourceGeneratorBlock.Output output) {
-
-        return BLOCKS.register(name, () -> new ResourceGeneratorBlock(
-                BlockBehaviour.Properties.of()
-                        .mapColor(color)
-                        .strength(2.0F, 3.0F)
-                        .sound(SoundType.STONE)
-                        .requiresCorrectToolForDrops()
-                        .noOcclusion(),
-                output
-        ));
+        return BLOCKS.register(
+                name,
+                () -> new ResourceGeneratorBlock(
+                        BlockBehaviour.Properties.of()
+                                .mapColor(color)
+                                .strength(2.0F, 3.0F)
+                                .sound(SoundType.STONE)
+                                .requiresCorrectToolForDrops()
+                                .noOcclusion(),
+                        output
+                )
+        );
     }
 
     private static DeferredItem<BlockItem> reagentBlockItem(
@@ -151,7 +169,6 @@ public final class ModBlocks {
     private static DeferredItem<BlockItem> blockItem(
             String name,
             DeferredBlock<Block> block) {
-
         return BLOCK_ITEMS.register(
                 name,
                 () -> new BlockItem(block.get(), new Item.Properties())
