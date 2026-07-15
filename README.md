@@ -215,6 +215,17 @@ Report problems through the [GitHub issue tracker](https://github.com/raziel23x/
 
 Project Skyblock may be included in public and private modpacks. Credit and a link to the CurseForge or GitHub project page are appreciated.
 
+
+## Support Development
+
+Project Skyblock is free and open source. Development support is always optional, but it helps cover testing, hosting, artwork, and the time spent maintaining the project.
+
+<p align="center">
+  <a href="https://www.paypal.com/donate/?business=raziel23x%40gmail.com&no_recurring=0&currency_code=USD">
+    <img alt="Support Project Skyblock on PayPal" src="https://img.shields.io/badge/Support%20Development-PayPal-0070BA?logo=paypal&logoColor=white">
+  </a>
+</p>
+
 ## Credits
 
 Created and maintained by **Raziel23x**.
