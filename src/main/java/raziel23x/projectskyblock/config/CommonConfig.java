@@ -11,6 +11,10 @@ public final class CommonConfig {
     public static final ModConfigSpec.BooleanValue REPAIR_GEM_DROPPED_PARTICLES;
     public static final ModConfigSpec.IntValue REPAIR_GEM_DROPPED_PARTICLE_INTERVAL;
 
+    public static final ModConfigSpec.BooleanValue REAGENT_PARTICLES_ENABLED;
+    public static final ModConfigSpec.IntValue REAGENT_BLOCK_PARTICLE_CHANCE;
+    public static final ModConfigSpec.IntValue REAGENT_DROPPED_PARTICLE_INTERVAL;
+
     public static final ModConfigSpec SPEC;
 
     static {
@@ -36,6 +40,23 @@ public final class CommonConfig {
         REPAIR_GEM_DROPPED_PARTICLE_INTERVAL = BUILDER
                 .comment("Ticks between dropped Repair Gem particle pulses.")
                 .defineInRange("droppedParticleIntervalTicks", 10, 1, 1_200);
+
+        BUILDER.pop();
+
+        BUILDER.comment("Colored ambient effects for reagent items and blocks.")
+                .push("reagent_particles");
+
+        REAGENT_PARTICLES_ENABLED = BUILDER
+                .comment("Enable matching red, green, and blue particles for reagents.")
+                .define("enabled", true);
+
+        REAGENT_BLOCK_PARTICLE_CHANCE = BUILDER
+                .comment("One-in-N random animate ticks emit a particle from a placed reagent block.")
+                .defineInRange("blockChance", 8, 1, 1_000);
+
+        REAGENT_DROPPED_PARTICLE_INTERVAL = BUILDER
+                .comment("Ticks between particle pulses from dropped reagent items.")
+                .defineInRange("droppedItemIntervalTicks", 15, 1, 1_200);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

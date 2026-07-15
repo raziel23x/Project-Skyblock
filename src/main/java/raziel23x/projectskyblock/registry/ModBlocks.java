@@ -10,8 +10,11 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.joml.Vector3f;
 import raziel23x.projectskyblock.ProjectSkyblock;
+import raziel23x.projectskyblock.block.ReagentBlock;
 import raziel23x.projectskyblock.block.ResourceGeneratorBlock;
+import raziel23x.projectskyblock.item.ReagentBlockItem;
 
 public final class ModBlocks {
     private static final DeferredRegister.Blocks BLOCKS =
@@ -19,14 +22,18 @@ public final class ModBlocks {
     private static final DeferredRegister.Items BLOCK_ITEMS =
             DeferredRegister.createItems(ProjectSkyblock.MOD_ID);
 
+    private static final Vector3f RED = new Vector3f(1.0F, 0.12F, 0.08F);
+    private static final Vector3f GREEN = new Vector3f(0.12F, 1.0F, 0.20F);
+    private static final Vector3f BLUE = new Vector3f(0.15F, 0.35F, 1.0F);
+
     public static final DeferredBlock<Block> RED_REAGENT_BLOCK =
-            reagentBlock("red_reagent_block", MapColor.COLOR_RED);
+            reagentBlock("red_reagent_block", MapColor.COLOR_RED, RED);
 
     public static final DeferredBlock<Block> GREEN_REAGENT_BLOCK =
-            reagentBlock("green_reagent_block", MapColor.COLOR_GREEN);
+            reagentBlock("green_reagent_block", MapColor.COLOR_GREEN, GREEN);
 
     public static final DeferredBlock<Block> BLUE_REAGENT_BLOCK =
-            reagentBlock("blue_reagent_block", MapColor.COLOR_BLUE);
+            reagentBlock("blue_reagent_block", MapColor.COLOR_BLUE, BLUE);
 
     public static final DeferredBlock<Block> COBBLESTONE_GENERATOR =
             generator(
@@ -50,13 +57,13 @@ public final class ModBlocks {
             );
 
     public static final DeferredItem<BlockItem> RED_REAGENT_BLOCK_ITEM =
-            blockItem("red_reagent_block", RED_REAGENT_BLOCK);
+            reagentBlockItem("red_reagent_block", RED_REAGENT_BLOCK, RED);
 
     public static final DeferredItem<BlockItem> GREEN_REAGENT_BLOCK_ITEM =
-            blockItem("green_reagent_block", GREEN_REAGENT_BLOCK);
+            reagentBlockItem("green_reagent_block", GREEN_REAGENT_BLOCK, GREEN);
 
     public static final DeferredItem<BlockItem> BLUE_REAGENT_BLOCK_ITEM =
-            blockItem("blue_reagent_block", BLUE_REAGENT_BLOCK);
+            reagentBlockItem("blue_reagent_block", BLUE_REAGENT_BLOCK, BLUE);
 
     public static final DeferredItem<BlockItem> COBBLESTONE_GENERATOR_ITEM =
             blockItem("cobblestone_generator", COBBLESTONE_GENERATOR);
@@ -67,15 +74,19 @@ public final class ModBlocks {
     public static final DeferredItem<BlockItem> LAVA_GENERATOR_ITEM =
             blockItem("lava_generator", LAVA_GENERATOR);
 
-    private static DeferredBlock<Block> reagentBlock(String name, MapColor color) {
+    private static DeferredBlock<Block> reagentBlock(
+            String name,
+            MapColor color,
+            Vector3f particleColor) {
         return BLOCKS.register(
                 name,
-                () -> new Block(
+                () -> new ReagentBlock(
                         BlockBehaviour.Properties.of()
                                 .mapColor(color)
                                 .strength(2.0F, 3.0F)
                                 .sound(SoundType.AMETHYST)
-                                .requiresCorrectToolForDrops()
+                                .requiresCorrectToolForDrops(),
+                        particleColor
                 )
         );
     }
@@ -94,6 +105,20 @@ public final class ModBlocks {
                         .noOcclusion(),
                 output
         ));
+    }
+
+    private static DeferredItem<BlockItem> reagentBlockItem(
+            String name,
+            DeferredBlock<Block> block,
+            Vector3f particleColor) {
+        return BLOCK_ITEMS.register(
+                name,
+                () -> new ReagentBlockItem(
+                        block.get(),
+                        new Item.Properties(),
+                        particleColor
+                )
+        );
     }
 
     private static DeferredItem<BlockItem> blockItem(

@@ -91,23 +91,53 @@ public final class ResourceGeneratorBlock extends BaseEntityBlock {
             return;
         }
 
-        double x = pos.getX() + 0.35D + random.nextDouble() * 0.30D;
-        double y = pos.getY() + 0.55D + random.nextDouble() * 0.25D;
-        double z = pos.getZ() + 0.35D + random.nextDouble() * 0.30D;
+        // Spawn around the outside of the cage instead of inside the source block.
+        int side = random.nextInt(5);
+        double x;
+        double y;
+        double z;
+
+        if (side == 4) {
+            // Above the open cage.
+            x = pos.getX() + 0.18D + random.nextDouble() * 0.64D;
+            y = pos.getY() + 1.03D + random.nextDouble() * 0.18D;
+            z = pos.getZ() + 0.18D + random.nextDouble() * 0.64D;
+        } else {
+            y = pos.getY() + 0.25D + random.nextDouble() * 0.65D;
+
+            switch (side) {
+                case 0 -> {
+                    x = pos.getX() - 0.04D;
+                    z = pos.getZ() + 0.12D + random.nextDouble() * 0.76D;
+                }
+                case 1 -> {
+                    x = pos.getX() + 1.04D;
+                    z = pos.getZ() + 0.12D + random.nextDouble() * 0.76D;
+                }
+                case 2 -> {
+                    x = pos.getX() + 0.12D + random.nextDouble() * 0.76D;
+                    z = pos.getZ() - 0.04D;
+                }
+                default -> {
+                    x = pos.getX() + 0.12D + random.nextDouble() * 0.76D;
+                    z = pos.getZ() + 1.04D;
+                }
+            }
+        }
 
         switch (output) {
             case COBBLESTONE -> {
                 level.addParticle(
                         ParticleTypes.POOF,
                         x, y, z,
-                        0.0D, 0.015D, 0.0D
+                        0.0D, 0.018D, 0.0D
                 );
 
                 if (random.nextInt(4) == 0) {
                     level.addParticle(
                             ParticleTypes.ASH,
                             x, y, z,
-                            0.0D, 0.01D, 0.0D
+                            0.0D, 0.012D, 0.0D
                     );
                 }
             }
@@ -116,14 +146,14 @@ public final class ResourceGeneratorBlock extends BaseEntityBlock {
                 level.addParticle(
                         ParticleTypes.SPLASH,
                         x, y, z,
-                        0.0D, 0.02D, 0.0D
+                        0.0D, 0.025D, 0.0D
                 );
 
                 if (random.nextInt(5) == 0) {
                     level.addParticle(
                             ParticleTypes.BUBBLE,
                             x, y, z,
-                            0.0D, 0.025D, 0.0D
+                            0.0D, 0.03D, 0.0D
                     );
                 }
             }
@@ -132,7 +162,7 @@ public final class ResourceGeneratorBlock extends BaseEntityBlock {
                 level.addParticle(
                         ParticleTypes.SMOKE,
                         x, y, z,
-                        0.0D, 0.025D, 0.0D
+                        0.0D, 0.03D, 0.0D
                 );
 
                 if (random.nextInt(3) == 0) {

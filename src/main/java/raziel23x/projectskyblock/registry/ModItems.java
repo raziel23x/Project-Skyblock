@@ -11,14 +11,20 @@ import net.minecraft.world.item.SwordItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.joml.Vector3f;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.item.MixingBowlItem;
 import raziel23x.projectskyblock.item.ModTiers;
+import raziel23x.projectskyblock.item.ReagentItem;
 import raziel23x.projectskyblock.item.RepairGemItem;
 
 public final class ModItems {
     private static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(ProjectSkyblock.MOD_ID);
+
+    private static final Vector3f RED = new Vector3f(1.0F, 0.12F, 0.08F);
+    private static final Vector3f GREEN = new Vector3f(0.12F, 1.0F, 0.20F);
+    private static final Vector3f BLUE = new Vector3f(0.15F, 0.35F, 1.0F);
 
     public static final DeferredItem<RepairGemItem> REPAIR_GEM = ITEMS.registerItem(
             "repair_gem",
@@ -26,18 +32,21 @@ public final class ModItems {
             new Item.Properties().stacksTo(1)
     );
 
-    public static final DeferredItem<Item> RED_REAGENT = ITEMS.registerSimpleItem(
+    public static final DeferredItem<ReagentItem> RED_REAGENT = ITEMS.registerItem(
             "red_reagent",
+            properties -> new ReagentItem(properties, RED),
             new Item.Properties()
     );
 
-    public static final DeferredItem<Item> GREEN_REAGENT = ITEMS.registerSimpleItem(
+    public static final DeferredItem<ReagentItem> GREEN_REAGENT = ITEMS.registerItem(
             "green_reagent",
+            properties -> new ReagentItem(properties, GREEN),
             new Item.Properties()
     );
 
-    public static final DeferredItem<Item> BLUE_REAGENT = ITEMS.registerSimpleItem(
+    public static final DeferredItem<ReagentItem> BLUE_REAGENT = ITEMS.registerItem(
             "blue_reagent",
+            properties -> new ReagentItem(properties, BLUE),
             new Item.Properties()
     );
 
