@@ -214,3 +214,16 @@ Target: Minecraft 1.21.1, NeoForge 21.1.235, Java 21.
 - Added a reusable validated machine inventory with centralized dirty marking.
 - Added a reusable sided item-handler view for controlled automation access.
 - Refactored the Cobblestone Crusher energy, inventory, and sided handlers onto the shared machine foundation without changing its behavior.
+
+### Added
+- Began the Thermal Power System foundation.
+- Added reusable validated machine fluid tanks with centralized dirty-state callbacks.
+- Added reusable generator FE storage that accepts internally generated power and exposes extraction-only FE externally.
+- Added furnace-fuel-to-thermal-fuel conversion helpers using the NeoForge 1.21.1-compatible `ItemStack#getBurnTime(RecipeType.SMELTING)` API.
+- Added shared thermal fuel producer and consumer interfaces for future generators and machines.
+- Added configurable Thermal Generator Mk I tank capacity, FE buffer, generation rate, extraction rate, FE-per-mB value, and solid-fuel conversion rate.
+
+### Design
+- Kept Project Skyblock standalone with no required external power or storage mods.
+- Prepared the generator to interoperate through standard NeoForge FE and fluid capabilities.
+- Deferred a standalone player-facing battery block until the Thermal Generator is tested with common optional storage mods.

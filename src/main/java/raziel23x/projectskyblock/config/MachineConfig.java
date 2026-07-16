@@ -14,6 +14,13 @@ public final class MachineConfig {
     public static final ModConfigSpec.IntValue CRUSHER_FE_PER_TICK;
     public static final ModConfigSpec.DoubleValue FUEL_BURN_MULTIPLIER;
 
+    public static final ModConfigSpec.IntValue THERMAL_GENERATOR_TANK_CAPACITY_MB;
+    public static final ModConfigSpec.IntValue THERMAL_GENERATOR_ENERGY_CAPACITY;
+    public static final ModConfigSpec.IntValue THERMAL_GENERATOR_FE_PER_TICK;
+    public static final ModConfigSpec.IntValue THERMAL_GENERATOR_MAX_OUTPUT_PER_TICK;
+    public static final ModConfigSpec.IntValue THERMAL_GENERATOR_FE_PER_MB;
+    public static final ModConfigSpec.IntValue THERMAL_FUEL_MB_PER_BURN_TICK;
+
     public static final ModConfigSpec SPEC;
 
     static {
@@ -52,6 +59,35 @@ public final class MachineConfig {
         CRUSHER_FE_PER_TICK = BUILDER
                 .comment("Forge Energy consumed for each processing tick.")
                 .defineInRange("energyPerTick", 20, 0, 1_000_000);
+
+        BUILDER.pop();
+
+        BUILDER.comment("Thermal Generator Mk I settings.")
+                .push("thermal_generator");
+
+        THERMAL_GENERATOR_TANK_CAPACITY_MB = BUILDER
+                .comment("Internal thermal fuel tank capacity in millibuckets.")
+                .defineInRange("tankCapacityMb", 16_000, 1_000, Integer.MAX_VALUE);
+
+        THERMAL_GENERATOR_ENERGY_CAPACITY = BUILDER
+                .comment("Internal FE output buffer capacity.")
+                .defineInRange("energyCapacity", 100_000, 1, Integer.MAX_VALUE);
+
+        THERMAL_GENERATOR_FE_PER_TICK = BUILDER
+                .comment("Maximum FE generated each server tick while fuel is available.")
+                .defineInRange("generationPerTick", 80, 1, 1_000_000);
+
+        THERMAL_GENERATOR_MAX_OUTPUT_PER_TICK = BUILDER
+                .comment("Maximum FE that cables or adjacent machines may extract each tick.")
+                .defineInRange("maxOutputPerTick", 200, 1, 1_000_000);
+
+        THERMAL_GENERATOR_FE_PER_MB = BUILDER
+                .comment("Total FE represented by one millibucket of internal thermal fuel.")
+                .defineInRange("energyPerThermalFuelMb", 80, 1, 1_000_000);
+
+        THERMAL_FUEL_MB_PER_BURN_TICK = BUILDER
+                .comment("Thermal fuel produced for each furnace burn tick of a solid fuel item.")
+                .defineInRange("thermalFuelMbPerBurnTick", 1, 1, 10_000);
 
         BUILDER.pop();
         SPEC = BUILDER.build();
