@@ -88,6 +88,24 @@ public final class ProjectSkyblock {
         );
 
         event.registerBlockEntity(
+                net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.THERMAL_GENERATOR.get(),
+                (blockEntity, side) -> blockEntity.getItemHandler(side)
+        );
+
+        event.registerBlockEntity(
+                net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK,
+                ModBlockEntities.THERMAL_GENERATOR.get(),
+                (blockEntity, side) -> blockEntity.getFluidHandler(side)
+        );
+
+        event.registerBlockEntity(
+                net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK,
+                ModBlockEntities.THERMAL_GENERATOR.get(),
+                (blockEntity, side) -> blockEntity.getEnergyStorage(side)
+        );
+
+        event.registerBlockEntity(
                 net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK,
                 ModBlockEntities.CREATIVE_ENERGY_CELL.get(),
                 (blockEntity, side) -> blockEntity.getEnergyStorage()

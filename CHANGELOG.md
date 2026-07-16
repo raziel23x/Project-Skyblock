@@ -1,6 +1,10 @@
 # Project Skyblock Changelog
 
 ## Unreleased
+- Fixed Thermal Generator Mk I FE export so stored power is pushed into adjacent standard NeoForge energy receivers, including the rear face of the Cobblestone Crusher.
+
+### Fixed
+- Fixed the Thermal Generator GUI so the complete 3x9 player inventory and hotbar slot frames are rendered.
 
 This file is the single running changelog for Project Skyblock. New completed work should be appended here instead of creating feature-specific changelog files.
 
@@ -227,3 +231,48 @@ Target: Minecraft 1.21.1, NeoForge 21.1.235, Java 21.
 - Kept Project Skyblock standalone with no required external power or storage mods.
 - Prepared the generator to interoperate through standard NeoForge FE and fluid capabilities.
 - Deferred a standalone player-facing battery block until the Thermal Generator is tested with common optional storage mods.
+
+### Added
+- Added the functional Thermal Generator Mk I block, block entity, menu, and client screen.
+- Added a furnace-fuel input slot using NeoForge furnace burn times.
+- Added a lava-only internal fluid tank exposed through the standard NeoForge fluid capability.
+- Added an extraction-only internal FE buffer exposed through the standard NeoForge energy capability.
+- Added configurable FE generation, tank capacity, battery capacity, and output limits.
+- Added inventory, tank, FE, and burn-state persistence.
+- Added basic blockstate, model, texture, loot table, language, and creative-tab entries.
+
+### Fixed
+- Fixed the Thermal Generator fuel item handler to use the current shared sided-handler constructor.
+
+### Changed
+- Changed Thermal Generator solid-fuel handling so furnace fuels no longer generate FE directly.
+- Furnace fuels now convert into lava-equivalent millibuckets using the configured burn-tick conversion rate.
+- Solid fuel and externally supplied lava now share the same internal tank and the same FE-generation path.
+- Fuel items are consumed only when their complete converted lava amount fits in the tank, preventing partial conversion or lost fuel.
+
+### Fixed
+- Thermal Generator now accepts large furnace fuels such as Blocks of Coal even when the lava tank is partially filled.
+- Added a persistent solid-fuel conversion queue so the full lava-equivalent value is transferred into the tank over time without losing fuel.
+- Clarified that vanilla Minecraft provides charcoal items but no charcoal block.
+
+### Fixed
+- Added hover tooltips to the Thermal Generator lava tank and FE storage gauges.
+- Lava tooltip now displays the exact stored amount and capacity in millibuckets.
+- FE tooltip now displays the exact stored energy and capacity.
+
+### Fixed
+- Aligned the Thermal Generator player inventory and hotbar with the Cobblestone Crusher layout.
+- Standardized the three inventory rows, hotbar spacing, and inventory label position across both machine GUIs.
+
+### Changed
+- Standardized Project Skyblock machine player inventories on the Thermal Generator slot colors and spacing.
+- Updated the Cobblestone Crusher player inventory and hotbar to use the shared machine GUI inventory renderer.
+- Updated the Thermal Generator lava and FE gauges to use the Crusher-style raised vertical frame, highlight stripe, and measurement ticks.
+- Added shared client-side machine GUI rendering helpers for inventory slots and vertical gauges.
+
+### Fixed
+- Centered the Cobblestone Crusher player inventory and hotbar within its wider GUI.
+- Matched the Crusher inventory slot spacing, colors, and label alignment to the Thermal Generator machine GUI standard.
+
+### Fixed
+- Removed the obsolete baked Crusher inventory grid that appeared behind the centered shared machine inventory layout.

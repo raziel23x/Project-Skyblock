@@ -34,6 +34,7 @@ public final class ModCreativeTabs {
                         output.accept(ModBlocks.LAVA_GENERATOR_ITEM.get());
                         output.accept(ModBlocks.COBBLESTONE_CRUSHER_ITEM.get());
                         output.accept(ModBlocks.CREATIVE_ENERGY_CELL_ITEM.get());
+                        output.accept(ModBlocks.THERMAL_GENERATOR_ITEM.get());
 
                         output.accept(ModItems.FLINT_SWORD.get());
                         output.accept(ModItems.FLINT_PICKAXE.get());

@@ -16,6 +16,7 @@ import raziel23x.projectskyblock.block.CobblestoneCrusherBlock;
 import raziel23x.projectskyblock.block.CreativeEnergyCellBlock;
 import raziel23x.projectskyblock.block.ReagentBlock;
 import raziel23x.projectskyblock.block.ResourceGeneratorBlock;
+import raziel23x.projectskyblock.block.ThermalGeneratorBlock;
 import raziel23x.projectskyblock.item.GeneratorBlockItem;
 import raziel23x.projectskyblock.item.ReagentBlockItem;
 
@@ -63,6 +64,18 @@ public final class ModBlocks {
             );
 
 
+    public static final DeferredBlock<Block> THERMAL_GENERATOR =
+            BLOCKS.register(
+                    "thermal_generator",
+                    () -> new ThermalGeneratorBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.METAL)
+                                    .strength(4.0F, 8.0F)
+                                    .sound(SoundType.METAL)
+                                    .requiresCorrectToolForDrops()
+                    )
+            );
+
     public static final DeferredBlock<Block> CREATIVE_ENERGY_CELL =
             BLOCKS.register(
                     "creative_energy_cell",
@@ -99,6 +112,9 @@ public final class ModBlocks {
     public static final DeferredItem<BlockItem> COBBLESTONE_CRUSHER_ITEM =
             blockItem("cobblestone_crusher", COBBLESTONE_CRUSHER);
 
+
+    public static final DeferredItem<BlockItem> THERMAL_GENERATOR_ITEM =
+            blockItem("thermal_generator", THERMAL_GENERATOR);
 
     public static final DeferredItem<BlockItem> CREATIVE_ENERGY_CELL_ITEM =
             blockItem("creative_energy_cell", CREATIVE_ENERGY_CELL);

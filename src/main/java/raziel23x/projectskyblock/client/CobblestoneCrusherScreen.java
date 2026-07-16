@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.machine.crusher.CrusherPowerSource;
 import raziel23x.projectskyblock.menu.CobblestoneCrusherMenu;
+import raziel23x.projectskyblock.client.gui.MachineGuiRenderHelper;
 
 public final class CobblestoneCrusherScreen
         extends AbstractContainerScreen<CobblestoneCrusherMenu> {
@@ -68,7 +69,7 @@ public final class CobblestoneCrusherScreen
         imageHeight = 202;
         titleLabelX = 8;
         titleLabelY = 6;
-        inventoryLabelX = 8;
+        inventoryLabelX = 35;
         inventoryLabelY = 110;
     }
 
@@ -112,6 +113,9 @@ public final class CobblestoneCrusherScreen
                 256,
                 256
         );
+
+        // Use the same player inventory color and slot treatment as the Thermal Generator.
+        MachineGuiRenderHelper.drawPlayerInventory(guiGraphics, left, top, 35, 120, 178);
 
         renderProgress(guiGraphics, left, top);
         renderEnergy(guiGraphics, left, top);

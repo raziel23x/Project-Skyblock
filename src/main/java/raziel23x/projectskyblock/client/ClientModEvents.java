@@ -22,5 +22,9 @@ public final class ClientModEvents {
                 ModMenus.COBBLESTONE_CRUSHER.get(),
                 CobblestoneCrusherScreen::new
         );
+        event.register(
+                ModMenus.THERMAL_GENERATOR.get(),
+                ThermalGeneratorScreen::new
+        );
     }
 }

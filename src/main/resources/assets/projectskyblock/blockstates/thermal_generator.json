@@ -1,0 +1,1 @@
+{"variants":{"facing=north":{"model":"projectskyblock:block/thermal_generator"},"facing=east":{"model":"projectskyblock:block/thermal_generator","y":90},"facing=south":{"model":"projectskyblock:block/thermal_generator","y":180},"facing=west":{"model":"projectskyblock:block/thermal_generator","y":270}}}

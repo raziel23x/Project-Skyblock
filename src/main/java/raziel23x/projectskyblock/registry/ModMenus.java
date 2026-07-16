@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.menu.CobblestoneCrusherMenu;
+import raziel23x.projectskyblock.menu.ThermalGeneratorMenu;
 
 public final class ModMenus {
     private static final DeferredRegister<MenuType<?>> MENU_TYPES =
@@ -20,6 +21,12 @@ public final class ModMenus {
                             CobblestoneCrusherMenu::new,
                             FeatureFlags.DEFAULT_FLAGS
                     )
+            );
+
+    public static final DeferredHolder<MenuType<?>, MenuType<ThermalGeneratorMenu>>
+            THERMAL_GENERATOR = MENU_TYPES.register(
+                    "thermal_generator",
+                    () -> new MenuType<>(ThermalGeneratorMenu::new, FeatureFlags.DEFAULT_FLAGS)
             );
 
     private ModMenus() {

@@ -9,6 +9,7 @@ import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.blockentity.CobblestoneCrusherBlockEntity;
 import raziel23x.projectskyblock.blockentity.CreativeEnergyCellBlockEntity;
 import raziel23x.projectskyblock.blockentity.ResourceGeneratorBlockEntity;
+import raziel23x.projectskyblock.blockentity.ThermalGeneratorBlockEntity;
 
 public final class ModBlockEntities {
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
@@ -34,6 +35,15 @@ public final class ModBlockEntities {
                     ).build(null)
             );
 
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ThermalGeneratorBlockEntity>>
+            THERMAL_GENERATOR = BLOCK_ENTITY_TYPES.register(
+                    "thermal_generator",
+                    () -> BlockEntityType.Builder.of(
+                            ThermalGeneratorBlockEntity::new,
+                            ModBlocks.THERMAL_GENERATOR.get()
+                    ).build(null)
+            );
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CreativeEnergyCellBlockEntity>>
             CREATIVE_ENERGY_CELL = BLOCK_ENTITY_TYPES.register(

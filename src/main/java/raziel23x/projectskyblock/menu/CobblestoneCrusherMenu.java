@@ -85,7 +85,7 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
                 addSlot(new Slot(
                         playerInventory,
                         column + row * 9 + 9,
-                        9 + column * 18,
+                        36 + column * 18,
                         121 + row * 18
                 ));
             }
@@ -95,7 +95,7 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
             addSlot(new Slot(
                     playerInventory,
                     column,
-                    9 + column * 18,
+                    36 + column * 18,
                     179
             ));
         }

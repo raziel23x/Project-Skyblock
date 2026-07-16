@@ -39,5 +39,7 @@
   "gui.projectskyblock.cobblestone_crusher.power.fuel": "Fuel",
   "gui.projectskyblock.cobblestone_crusher.energy": "%s / %s FE",
   "gui.projectskyblock.cobblestone_crusher.fuel": "Fuel: %s / %s ticks",
-  "gui.projectskyblock.cobblestone_crusher.progress": "Progress: %s / %s ticks"
+  "gui.projectskyblock.cobblestone_crusher.progress": "Progress: %s / %s ticks",
+  "block.projectskyblock.thermal_generator": "Thermal Generator Mk I",
+  "container.projectskyblock.thermal_generator": "Thermal Generator Mk I"
 }
