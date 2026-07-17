@@ -8,7 +8,8 @@
     "wood": "projectskyblock:block/machine_wood",
     "front": "projectskyblock:block/material_crusher_front",
     "back": "projectskyblock:block/material_crusher_back",
-    "side": "projectskyblock:block/material_crusher_side"
+    "side": "projectskyblock:block/material_crusher_side",
+    "connector": "projectskyblock:block/thermal_generator_back"
   },
   "elements": [
     {
@@ -232,6 +233,84 @@
         },
         "down": {
           "texture": "#wood"
+        }
+      }
+    },
+    {
+      "name": "fe_connector_housing",
+      "from": [
+        5,
+        5,
+        15
+      ],
+      "to": [
+        11,
+        11,
+        16.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#metal"
+        },
+        "south": {
+          "texture": "#metal"
+        },
+        "east": {
+          "texture": "#metal"
+        },
+        "west": {
+          "texture": "#metal"
+        },
+        "up": {
+          "texture": "#metal"
+        },
+        "down": {
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "fe_connector_socket",
+      "from": [
+        6,
+        6,
+        16.5
+      ],
+      "to": [
+        10,
+        10,
+        17
+      ],
+      "faces": {
+        "north": {
+          "texture": "#connector",
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ]
+        },
+        "south": {
+          "texture": "#connector",
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ]
+        },
+        "east": {
+          "texture": "#metal"
+        },
+        "west": {
+          "texture": "#metal"
+        },
+        "up": {
+          "texture": "#metal"
+        },
+        "down": {
+          "texture": "#metal"
         }
       }
     }
