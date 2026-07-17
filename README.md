@@ -42,9 +42,11 @@ The mod focuses on resource generation, progression, automation, equipment, reus
 | Wooden equipment | ✅ | Armor and shears |
 | Reagent items | ✅ | Red, green, and blue |
 | Reagent blocks | ✅ | Storage blocks with matching particles |
-| Mixing Bowl | 🟡 | Reusable crafting foundation |
-| Cobblestone Crusher | 📋 | Planned |
-| Recipe progression | 🚧 | Being redesigned |
+| Mixing Bowl | ✅ | Reusable crafting foundation |
+| Material Crusher | ✅ | Data-driven FE/fuel processing with active exterior gears and vent effects |
+| Thermal Generator Mk I | ✅ | Solid-fuel/lava generation with internal FE buffer and active exterior animation |
+| Basic Energy Cable (slim blue conduit with industrial connectors) | ✅ | Standalone FE transport using NeoForge capabilities |
+| Recipe progression | 🚧 | Being expanded through datapack-driven systems |
 
 ## Repair Gem
 
@@ -82,6 +84,36 @@ The Repair Gem gradually repairs damaged equipment while carried.
 - Works with compatible pipes and tanks
 
 All generators include placed-block and dropped-item particle effects. Capacity, speed, extraction, automation, and particles are configurable.
+
+
+## Machines and Power
+
+### Material Crusher
+
+- Uses the clean registry ID `projectskyblock:material_crusher`
+- Processes datapack-driven crushing recipes
+- Uses FE first and furnace fuel as fallback
+- Supports strict sided item automation
+- Includes an animated GUI, FE gauge, fuel display, and processing effects
+- Shows its active state in-world through rotating side-cog frames, a glowing front chamber, front material dust, and rear vent smoke/ash
+- Includes optional Ex Deorum dust support when Ex Deorum is installed
+
+### Thermal Generator Mk I
+
+- Shows its working state with a rotating front turbine, full-panel rear exhaust grille with an animated cooling fan, glowing firebox, full-width exhaust smoke emitted from inside the grille, a subtly pulsing firebox glow, and heat particles
+- Converts standard furnace fuels into stored lava-equivalent millibuckets
+- Accepts lava through the standard NeoForge fluid capability
+- Generates FE into an internal output buffer
+- Pushes FE into adjacent receivers
+- Preserves queued solid-fuel conversion, tank contents, and stored FE
+
+### Basic Energy Cable
+
+- Connects automatically on all six sides
+- Links connected cable blocks into one FE network
+- Pulls from standard NeoForge FE sources and distributes to receivers
+- Uses a configurable network transfer limit
+- Contains no item or fluid transport functionality
 
 ## Reagents and Mixing Bowl
 
@@ -136,38 +168,31 @@ The mod generates the following configuration files after first launch:
 config/projectskyblock-common.toml
 config/projectskyblock-generators.toml
 config/projectskyblock-integrations.toml
+config/projectskyblock-machines.toml
 ```
 
 These control Repair Gem behavior, generator storage and speed, extraction rules, particle effects, optional integrations, and debugging.
 
 ## Optional Integrations
 
+Project Skyblock has no required content-mod dependencies. Optional compatibility is enabled only when the matching mod is installed.
+
 Currently supported:
 
-- Curios
+- Curios support for the Repair Gem
+- Ex Deorum dust output for the Crusher
 
-Potential future integrations:
+Additional compatibility is tracked in [`TODO.md`](TODO.md).
 
-- Jade
-- The One Probe
-- EMI / JEI
-- Additional storage and automation systems
+## Project Direction
 
-## Roadmap
+- Resource Generators produce renewable building and utility materials, never ores.
+- Cobblestone, Water, and Lava are the basic generators; later generators are progression rewards.
+- Project Skyblock provides FE generation, storage foundations, and energy cables.
+- Item and fluid transport remain compatible through vanilla mechanics and standard NeoForge capabilities rather than duplicated pipe systems.
+- Project Skyblock does not add world generation.
 
-- [x] NeoForge 1.21.1 foundation
-- [x] Repair Gem
-- [x] Flint and wooden equipment
-- [x] Resource generators
-- [x] Item and fluid automation
-- [x] Configuration system
-- [x] Reagent items and blocks
-- [x] Mixing Bowl foundation
-- [ ] Cobblestone Crusher
-- [ ] Expanded processing machines
-- [ ] Reworked recipes and progression
-- [ ] Additional optional integrations
-- [ ] More visual and audio polish
+Current development plans are tracked in [`TODO.md`](TODO.md), while permanent design choices are recorded in [`DECISIONS.md`](DECISIONS.md).
 
 ## Development
 
@@ -235,3 +260,15 @@ Thanks to community testers, contributors, and players reporting bugs during the
 ## License
 
 Project Skyblock is licensed under the [GNU General Public License v3.0](LICENSE).
+
+- Basic Energy Cables use seamless straight-run visuals with unobtrusive junction geometry.
+
+
+## Machine Visual Standard
+
+Project Skyblock machines use a shared GUI status language, unified gauges, and a seamless Basic Energy Cable designed for continuous network runs.
+
+
+### Energy Network Blocks
+- Basic Energy Cable: compact seamless FE conduit.
+- Structural Energy Frame: exposed industrial lattice variant with the same FE transfer behavior.

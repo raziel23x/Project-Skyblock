@@ -19,8 +19,8 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(
-                ModMenus.COBBLESTONE_CRUSHER.get(),
-                CobblestoneCrusherScreen::new
+                ModMenus.MATERIAL_CRUSHER.get(),
+                MaterialCrusherScreen::new
         );
         event.register(
                 ModMenus.THERMAL_GENERATOR.get(),

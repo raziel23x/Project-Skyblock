@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import raziel23x.projectskyblock.registry.ModBlockEntities;
 
@@ -53,17 +54,12 @@ public final class CreativeEnergyCellBlockEntity extends BlockEntity {
             BlockState state,
             CreativeEnergyCellBlockEntity cell) {
         for (Direction direction : Direction.values()) {
-            BlockEntity adjacent = level.getBlockEntity(
-                    pos.relative(direction)
-            );
-
-            // Directly fills Project Skyblock machines for dependable testing
-            // without requiring an external cable mod.
-            if (adjacent instanceof CobblestoneCrusherBlockEntity crusher) {
-                crusher.getEnergyStorage().receiveEnergy(
-                        TRANSFER_PER_TICK,
-                        false
-                );
+            IEnergyStorage receiver = level.getCapability(
+                    Capabilities.EnergyStorage.BLOCK,
+                    pos.relative(direction),
+                    direction.getOpposite());
+            if (receiver != null && receiver.canReceive()) {
+                receiver.receiveEnergy(TRANSFER_PER_TICK, false);
             }
         }
     }

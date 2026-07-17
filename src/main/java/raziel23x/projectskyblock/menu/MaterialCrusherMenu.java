@@ -12,12 +12,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import raziel23x.projectskyblock.blockentity.CobblestoneCrusherBlockEntity;
+import raziel23x.projectskyblock.blockentity.MaterialCrusherBlockEntity;
 import raziel23x.projectskyblock.machine.crusher.CrusherProcessing;
 import raziel23x.projectskyblock.registry.ModBlocks;
 import raziel23x.projectskyblock.registry.ModMenus;
 
-public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
+public final class MaterialCrusherMenu extends AbstractContainerMenu {
     public static final int MACHINE_SLOT_COUNT = 4;
     public static final int DATA_COUNT = 8;
 
@@ -29,7 +29,7 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final ContainerData data;
 
-    public CobblestoneCrusherMenu(int containerId, Inventory playerInventory) {
+    public MaterialCrusherMenu(int containerId, Inventory playerInventory) {
         this(
                 containerId,
                 playerInventory,
@@ -39,38 +39,38 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
         );
     }
 
-    public CobblestoneCrusherMenu(
+    public MaterialCrusherMenu(
             int containerId,
             Inventory playerInventory,
             IItemHandler machineInventory,
             ContainerData data,
             ContainerLevelAccess access) {
-        super(ModMenus.COBBLESTONE_CRUSHER.get(), containerId);
+        super(ModMenus.MATERIAL_CRUSHER.get(), containerId);
         checkContainerDataCount(data, DATA_COUNT);
         this.access = access;
         this.data = data;
 
         addSlot(new SlotItemHandler(
                 machineInventory,
-                CobblestoneCrusherBlockEntity.INPUT_SLOT,
+                MaterialCrusherBlockEntity.INPUT_SLOT,
                 28,
                 32
         ));
         addSlot(new SlotItemHandler(
                 machineInventory,
-                CobblestoneCrusherBlockEntity.FUEL_SLOT,
+                MaterialCrusherBlockEntity.FUEL_SLOT,
                 28,
                 68
         ));
         addSlot(new OutputSlot(
                 machineInventory,
-                CobblestoneCrusherBlockEntity.OUTPUT_SLOT,
+                MaterialCrusherBlockEntity.OUTPUT_SLOT,
                 140,
                 32
         ));
         addSlot(new OutputSlot(
                 machineInventory,
-                CobblestoneCrusherBlockEntity.BYPRODUCT_SLOT,
+                MaterialCrusherBlockEntity.BYPRODUCT_SLOT,
                 140,
                 68
         ));
@@ -86,7 +86,7 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
                         playerInventory,
                         column + row * 9 + 9,
                         36 + column * 18,
-                        121 + row * 18
+                        118 + row * 18
                 ));
             }
         }
@@ -96,14 +96,14 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
                     playerInventory,
                     column,
                     36 + column * 18,
-                    179
+                    176
             ));
         }
     }
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(access, player, ModBlocks.COBBLESTONE_CRUSHER.get());
+        return stillValid(access, player, ModBlocks.MATERIAL_CRUSHER.get());
     }
 
     @Override
@@ -128,8 +128,8 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
         } else if (CrusherProcessing.isValidInput(player.level(), sourceStack)) {
             if (!moveItemStackTo(
                     sourceStack,
-                    CobblestoneCrusherBlockEntity.INPUT_SLOT,
-                    CobblestoneCrusherBlockEntity.INPUT_SLOT + 1,
+                    MaterialCrusherBlockEntity.INPUT_SLOT,
+                    MaterialCrusherBlockEntity.INPUT_SLOT + 1,
                     false
             )) {
                 return ItemStack.EMPTY;
@@ -137,8 +137,8 @@ public final class CobblestoneCrusherMenu extends AbstractContainerMenu {
         } else if (sourceStack.getBurnTime(RecipeType.SMELTING) > 0) {
             if (!moveItemStackTo(
                     sourceStack,
-                    CobblestoneCrusherBlockEntity.FUEL_SLOT,
-                    CobblestoneCrusherBlockEntity.FUEL_SLOT + 1,
+                    MaterialCrusherBlockEntity.FUEL_SLOT,
+                    MaterialCrusherBlockEntity.FUEL_SLOT + 1,
                     false
             )) {
                 return ItemStack.EMPTY;

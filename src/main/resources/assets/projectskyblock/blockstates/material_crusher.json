@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "active=false,facing=north,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_inactive"
+    },
+    "active=false,facing=north,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_inactive"
+    },
+    "active=false,facing=north,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_inactive"
+    },
+    "active=false,facing=north,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_inactive"
+    },
+    "active=true,facing=north,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_active_0"
+    },
+    "active=true,facing=north,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_active_1"
+    },
+    "active=true,facing=north,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_active_2"
+    },
+    "active=true,facing=north,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_active_3"
+    },
+    "active=false,facing=east,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 90
+    },
+    "active=true,facing=east,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_active_0",
+      "y": 90
+    },
+    "active=true,facing=east,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_active_1",
+      "y": 90
+    },
+    "active=true,facing=east,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_active_2",
+      "y": 90
+    },
+    "active=true,facing=east,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_active_3",
+      "y": 90
+    },
+    "active=false,facing=south,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 180
+    },
+    "active=true,facing=south,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_active_0",
+      "y": 180
+    },
+    "active=true,facing=south,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_active_1",
+      "y": 180
+    },
+    "active=true,facing=south,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_active_2",
+      "y": 180
+    },
+    "active=true,facing=south,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_active_3",
+      "y": 180
+    },
+    "active=false,facing=west,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_inactive",
+      "y": 270
+    },
+    "active=true,facing=west,gear_frame=0": {
+      "model": "projectskyblock:block/material_crusher_active_0",
+      "y": 270
+    },
+    "active=true,facing=west,gear_frame=1": {
+      "model": "projectskyblock:block/material_crusher_active_1",
+      "y": 270
+    },
+    "active=true,facing=west,gear_frame=2": {
+      "model": "projectskyblock:block/material_crusher_active_2",
+      "y": 270
+    },
+    "active=true,facing=west,gear_frame=3": {
+      "model": "projectskyblock:block/material_crusher_active_3",
+      "y": 270
+    }
+  }
+}

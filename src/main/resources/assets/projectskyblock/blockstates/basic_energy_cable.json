@@ -1,0 +1,115 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_core"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_arm"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_arm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_arm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_arm",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_arm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_arm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "machine_north": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_machine_collar"
+      }
+    },
+    {
+      "when": {
+        "machine_south": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_machine_collar",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "machine_west": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_machine_collar",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "machine_east": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_machine_collar",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "machine_up": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_machine_collar",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "machine_down": "true"
+      },
+      "apply": {
+        "model": "projectskyblock:block/basic_energy_cable_machine_collar",
+        "x": 90
+      }
+    }
+  ]
+}

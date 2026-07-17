@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "projectskyblock:basic_energy_cable"
+    },
+    "I": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "CIC",
+    "ICI"
+  ],
+  "result": {
+    "count": 4,
+    "id": "projectskyblock:structural_energy_frame"
+  }
+}

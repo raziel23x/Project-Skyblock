@@ -1,1 +1,124 @@
-{"variants":{"facing=north":{"model":"projectskyblock:block/thermal_generator"},"facing=east":{"model":"projectskyblock:block/thermal_generator","y":90},"facing=south":{"model":"projectskyblock:block/thermal_generator","y":180},"facing=west":{"model":"projectskyblock:block/thermal_generator","y":270}}}
+{
+  "variants": {
+    "active=false,facing=north,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_inactive"
+    },
+    "active=false,facing=north,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_inactive"
+    },
+    "active=false,facing=north,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_inactive"
+    },
+    "active=false,facing=north,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_inactive"
+    },
+    "active=true,facing=north,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_active_0"
+    },
+    "active=true,facing=north,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_active_1"
+    },
+    "active=true,facing=north,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_active_2"
+    },
+    "active=true,facing=north,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_active_3"
+    },
+    "active=false,facing=east,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 90
+    },
+    "active=false,facing=east,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 90
+    },
+    "active=true,facing=east,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_active_0",
+      "y": 90
+    },
+    "active=true,facing=east,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_active_1",
+      "y": 90
+    },
+    "active=true,facing=east,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_active_2",
+      "y": 90
+    },
+    "active=true,facing=east,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_active_3",
+      "y": 90
+    },
+    "active=false,facing=south,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 180
+    },
+    "active=false,facing=south,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 180
+    },
+    "active=true,facing=south,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_active_0",
+      "y": 180
+    },
+    "active=true,facing=south,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_active_1",
+      "y": 180
+    },
+    "active=true,facing=south,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_active_2",
+      "y": 180
+    },
+    "active=true,facing=south,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_active_3",
+      "y": 180
+    },
+    "active=false,facing=west,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 270
+    },
+    "active=false,facing=west,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_inactive",
+      "y": 270
+    },
+    "active=true,facing=west,fan_frame=0": {
+      "model": "projectskyblock:block/thermal_generator_active_0",
+      "y": 270
+    },
+    "active=true,facing=west,fan_frame=1": {
+      "model": "projectskyblock:block/thermal_generator_active_1",
+      "y": 270
+    },
+    "active=true,facing=west,fan_frame=2": {
+      "model": "projectskyblock:block/thermal_generator_active_2",
+      "y": 270
+    },
+    "active=true,facing=west,fan_frame=3": {
+      "model": "projectskyblock:block/thermal_generator_active_3",
+      "y": 270
+    }
+  }
+}

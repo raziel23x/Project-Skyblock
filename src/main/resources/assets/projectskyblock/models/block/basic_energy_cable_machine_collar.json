@@ -1,0 +1,140 @@
+{
+  "textures": {
+    "shell": "projectskyblock:block/basic_energy_cable_shell",
+    "channel": "projectskyblock:block/basic_energy_cable_channel"
+  },
+  "elements": [
+    {
+      "from": [
+        4.25,
+        4.25,
+        0
+      ],
+      "to": [
+        11.75,
+        11.75,
+        0.8
+      ],
+      "shade": true,
+      "faces": {
+        "down": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        5.0,
+        0.8
+      ],
+      "to": [
+        11.0,
+        11.0,
+        1.55
+      ],
+      "shade": true,
+      "faces": {
+        "down": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        5.65,
+        5.65,
+        0.12
+      ],
+      "to": [
+        10.35,
+        10.35,
+        0.42
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "texture": "#channel"
+        },
+        "up": {
+          "texture": "#channel"
+        },
+        "north": {
+          "texture": "#channel"
+        },
+        "south": {
+          "texture": "#channel"
+        },
+        "west": {
+          "texture": "#channel"
+        },
+        "east": {
+          "texture": "#channel"
+        }
+      }
+    },
+    {
+      "from": [
+        6.35,
+        6.35,
+        0.42
+      ],
+      "to": [
+        9.65,
+        9.65,
+        1.7
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "texture": "#channel"
+        },
+        "up": {
+          "texture": "#channel"
+        },
+        "north": {
+          "texture": "#channel"
+        },
+        "south": {
+          "texture": "#channel"
+        },
+        "west": {
+          "texture": "#channel"
+        },
+        "east": {
+          "texture": "#channel"
+        }
+      }
+    }
+  ]
+}

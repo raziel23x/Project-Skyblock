@@ -35,14 +35,14 @@ public final class ThermalGeneratorMenu extends AbstractContainerMenu {
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
-        // Match the Cobblestone Crusher player inventory layout exactly.
+        // Match the shared Project Skyblock machine inventory layout exactly.
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
                 addSlot(new Slot(
                         playerInventory,
                         column + row * 9 + 9,
                         9 + column * 18,
-                        121 + row * 18
+                        118 + row * 18
                 ));
             }
         }
@@ -52,7 +52,7 @@ public final class ThermalGeneratorMenu extends AbstractContainerMenu {
                     playerInventory,
                     column,
                     9 + column * 18,
-                    179
+                    176
             ));
         }
     }

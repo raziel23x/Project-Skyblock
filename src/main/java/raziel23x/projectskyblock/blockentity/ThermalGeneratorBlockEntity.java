@@ -23,6 +23,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
+import raziel23x.projectskyblock.block.ThermalGeneratorBlock;
 import raziel23x.projectskyblock.config.MachineConfig;
 import raziel23x.projectskyblock.machine.base.BaseGeneratorEnergyStorage;
 import raziel23x.projectskyblock.machine.base.BaseMachineInventory;
@@ -75,34 +76,84 @@ public final class ThermalGeneratorBlockEntity extends BlockEntity implements Me
     public static void serverTick(Level level, BlockPos pos, BlockState state, ThermalGeneratorBlockEntity generator) {
         generator.generating = false;
 
-        // Solid furnace fuels are converted into lava-equivalent millibuckets first.
-        // Large fuels may exceed the tank's currently available space, so their
-        // conversion is queued and transferred into the tank over time without loss.
         generator.transferPendingSolidFuelToTank();
         generator.tryQueueSolidFuelConversion();
         generator.transferPendingSolidFuelToTank();
 
-        // Export stored FE through the standard NeoForge energy capability.
-        // The receiver is queried on the face touching this generator.
         generator.pushEnergyToNeighbors(level, pos);
 
-        int target = Math.min(MachineConfig.THERMAL_GENERATOR_FE_PER_TICK.get(), generator.energy.getRemainingCapacity());
-        if (target <= 0) return;
-
-        int fePerMb = Math.max(1, MachineConfig.THERMAL_GENERATOR_FE_PER_MB.get());
-        int totalNeeded = target + generator.lavaEnergyRemainder;
-        int mbNeeded = Math.max(1, (totalNeeded + fePerMb - 1) / fePerMb);
-        FluidStack simulated = generator.lavaTank.drain(mbNeeded, IFluidHandler.FluidAction.SIMULATE);
-        if (simulated.getAmount() <= 0) return;
-
-        int availableFe = simulated.getAmount() * fePerMb;
-        int accepted = generator.energy.generateInternally(Math.min(target, availableFe));
-        if (accepted > 0) {
-            int mbUsed = Math.max(1, (accepted + fePerMb - 1) / fePerMb);
-            generator.lavaTank.drain(mbUsed, IFluidHandler.FluidAction.EXECUTE);
-            generator.lavaEnergyRemainder = mbUsed * fePerMb - accepted;
+        int generationTarget = Math.min(
+                MachineConfig.THERMAL_GENERATOR_FE_PER_TICK.get(),
+                generator.energy.getRemainingCapacity());
+        int generated = generator.generateFromLava(generationTarget);
+        if (generated > 0) {
             generator.generating = true;
             generator.setChanged();
+        }
+
+        generator.updateVisualState(level, state);
+    }
+
+
+    /**
+     * Generates up to {@code targetFe} while preserving unused FE from a
+     * partially consumed millibucket. This prevents fractional FE-per-mB
+     * configurations from silently discarding energy between ticks.
+     */
+    private int generateFromLava(int targetFe) {
+        if (targetFe <= 0) {
+            return 0;
+        }
+
+        int generated = 0;
+        if (lavaEnergyRemainder > 0) {
+            int fromRemainder = energy.generateInternally(
+                    Math.min(targetFe, lavaEnergyRemainder));
+            lavaEnergyRemainder -= fromRemainder;
+            generated += fromRemainder;
+        }
+
+        int remainingTarget = targetFe - generated;
+        if (remainingTarget <= 0) {
+            return generated;
+        }
+
+        int fePerMb = Math.max(1, MachineConfig.THERMAL_GENERATOR_FE_PER_MB.get());
+        int mbNeeded = Math.max(1, (remainingTarget + fePerMb - 1) / fePerMb);
+        FluidStack simulated = lavaTank.drain(mbNeeded, IFluidHandler.FluidAction.SIMULATE);
+        if (simulated.isEmpty()) {
+            return generated;
+        }
+
+        int availableFe = simulated.getAmount() * fePerMb;
+        int accepted = energy.generateInternally(Math.min(remainingTarget, availableFe));
+        if (accepted <= 0) {
+            return generated;
+        }
+
+        int mbUsed = Math.max(1, (accepted + fePerMb - 1) / fePerMb);
+        lavaTank.drain(mbUsed, IFluidHandler.FluidAction.EXECUTE);
+        lavaEnergyRemainder += mbUsed * fePerMb - accepted;
+        return generated + accepted;
+    }
+
+    private void updateVisualState(Level level, BlockState state) {
+        boolean active = generating;
+        int frame = active ? (int) ((level.getGameTime() / 3L) & 3L) : 0;
+        BlockState current = level.getBlockState(worldPosition);
+
+        if (!current.hasProperty(ThermalGeneratorBlock.ACTIVE)
+                || !current.hasProperty(ThermalGeneratorBlock.FAN_FRAME)) {
+            return;
+        }
+
+        if (current.getValue(ThermalGeneratorBlock.ACTIVE) != active
+                || current.getValue(ThermalGeneratorBlock.FAN_FRAME) != frame) {
+            level.setBlock(
+                    worldPosition,
+                    current.setValue(ThermalGeneratorBlock.ACTIVE, active)
+                            .setValue(ThermalGeneratorBlock.FAN_FRAME, frame),
+                    2);
         }
     }
 
@@ -197,8 +248,8 @@ public final class ThermalGeneratorBlockEntity extends BlockEntity implements Me
         if (tag.contains("Inventory")) inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
         if (tag.contains("LavaTank")) lavaTank.readFromNBT(registries, tag.getCompound("LavaTank"));
         energy.setStoredEnergy(tag.getInt("Energy"));
-        lastConvertedFuelMb = tag.getInt("LastConvertedFuelMb");
-        pendingSolidFuelMb = tag.getInt("PendingSolidFuelMb");
-        lavaEnergyRemainder = tag.getInt("LavaEnergyRemainder");
+        lastConvertedFuelMb = Math.max(0, tag.getInt("LastConvertedFuelMb"));
+        pendingSolidFuelMb = Math.max(0, tag.getInt("PendingSolidFuelMb"));
+        lavaEnergyRemainder = Math.max(0, tag.getInt("LavaEnergyRemainder"));
     }
 }

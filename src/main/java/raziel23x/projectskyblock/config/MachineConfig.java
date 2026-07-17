@@ -20,6 +20,7 @@ public final class MachineConfig {
     public static final ModConfigSpec.IntValue THERMAL_GENERATOR_MAX_OUTPUT_PER_TICK;
     public static final ModConfigSpec.IntValue THERMAL_GENERATOR_FE_PER_MB;
     public static final ModConfigSpec.IntValue THERMAL_FUEL_MB_PER_BURN_TICK;
+    public static final ModConfigSpec.IntValue BASIC_ENERGY_CABLE_TRANSFER_RATE;
 
     public static final ModConfigSpec SPEC;
 
@@ -45,8 +46,8 @@ public final class MachineConfig {
 
         BUILDER.pop();
 
-        BUILDER.comment("Cobblestone Crusher settings.")
-                .push("cobblestone_crusher");
+        BUILDER.comment("Material Crusher settings.")
+                .push("material_crusher");
 
         CRUSHER_PROCESS_TIME = BUILDER
                 .comment("Ticks required to crush one item. 20 ticks = 1 second.")
@@ -88,6 +89,15 @@ public final class MachineConfig {
         THERMAL_FUEL_MB_PER_BURN_TICK = BUILDER
                 .comment("Thermal fuel produced for each furnace burn tick of a solid fuel item.")
                 .defineInRange("thermalFuelMbPerBurnTick", 1, 1, 10_000);
+
+        BUILDER.pop();
+
+        BUILDER.comment("Energy cable settings.")
+                .push("energy_cables");
+
+        BASIC_ENERGY_CABLE_TRANSFER_RATE = BUILDER
+                .comment("Maximum FE transferred by one connected Basic Energy Cable network each server tick.")
+                .defineInRange("basicCableTransferRate", 256, 1, 1_000_000);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

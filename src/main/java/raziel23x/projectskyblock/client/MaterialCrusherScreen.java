@@ -10,14 +10,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.machine.crusher.CrusherPowerSource;
-import raziel23x.projectskyblock.menu.CobblestoneCrusherMenu;
+import raziel23x.projectskyblock.menu.MaterialCrusherMenu;
 import raziel23x.projectskyblock.client.gui.MachineGuiRenderHelper;
 
-public final class CobblestoneCrusherScreen
-        extends AbstractContainerScreen<CobblestoneCrusherMenu> {
+public final class MaterialCrusherScreen
+        extends AbstractContainerScreen<MaterialCrusherMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
             ProjectSkyblock.MOD_ID,
-            "textures/gui/container/cobblestone_crusher.png"
+            "textures/gui/container/material_crusher.png"
     );
     private static final ResourceLocation GEAR = ResourceLocation.fromNamespaceAndPath(
             ProjectSkyblock.MOD_ID,
@@ -60,8 +60,8 @@ public final class CobblestoneCrusherScreen
     private int previousProgress;
     private int completionBurstTicks;
 
-    public CobblestoneCrusherScreen(
-            CobblestoneCrusherMenu menu,
+    public MaterialCrusherScreen(
+            MaterialCrusherMenu menu,
             Inventory playerInventory,
             Component title) {
         super(menu, playerInventory, title);
@@ -70,7 +70,7 @@ public final class CobblestoneCrusherScreen
         titleLabelX = 8;
         titleLabelY = 6;
         inventoryLabelX = 35;
-        inventoryLabelY = 110;
+        inventoryLabelY = 104;
     }
 
     @Override
@@ -115,7 +115,7 @@ public final class CobblestoneCrusherScreen
         );
 
         // Use the same player inventory color and slot treatment as the Thermal Generator.
-        MachineGuiRenderHelper.drawPlayerInventory(guiGraphics, left, top, 35, 120, 178);
+        MachineGuiRenderHelper.drawPlayerInventory(guiGraphics, left, top, 35, 115, 175);
 
         renderProgress(guiGraphics, left, top);
         renderEnergy(guiGraphics, left, top);
@@ -355,24 +355,27 @@ public final class CobblestoneCrusherScreen
                 false
         );
 
-        Component powerName = getPowerSourceName();
+        // Unified compact status indicator. The FE amount already appears in the title,
+        // so the bottom-left area is reserved for the current machine state.
+        boolean working = menu.isWorking();
+        int ledBorder = 0xFF24272C;
+        int ledFill = working ? 0xFF43B94F : 0xFF555555;
+        guiGraphics.fill(15, 93, 23, 101, ledBorder);
+        guiGraphics.fill(16, 94, 22, 100, ledFill);
         guiGraphics.drawString(
                 font,
-                Component.translatable(
-                        "gui.projectskyblock.cobblestone_crusher.power_source",
-                        powerName
-                ),
-                10,
-                97,
-                getPowerColor(),
+                Component.literal(working ? "Processing" : "Idle"),
+                27,
+                93,
+                working ? 0xFF2F7D37 : 0xFF505050,
                 false
         );
 
         int percent = Math.min(100, menu.getProgress() * 100 / menu.getProcessTime());
         guiGraphics.drawString(
                 font,
-                Component.literal("Progress: " + percent + "%"),
-                72,
+                Component.literal(percent + "%"),
+                PROGRESS_X + (PROGRESS_WIDTH - font.width(percent + "%")) / 2,
                 86,
                 0x303030,
                 false
@@ -406,7 +409,7 @@ public final class CobblestoneCrusherScreen
             guiGraphics.renderTooltip(
                     font,
                     Component.translatable(
-                            "gui.projectskyblock.cobblestone_crusher.energy",
+                            "gui.projectskyblock.material_crusher.energy",
                             menu.getEnergyStored(),
                             menu.getEnergyCapacity()
                     ),
@@ -417,7 +420,7 @@ public final class CobblestoneCrusherScreen
             guiGraphics.renderTooltip(
                     font,
                     Component.translatable(
-                            "gui.projectskyblock.cobblestone_crusher.fuel",
+                            "gui.projectskyblock.material_crusher.fuel",
                             menu.getBurnTimeRemaining(),
                             menu.getBurnTimeTotal()
                     ),
@@ -435,7 +438,7 @@ public final class CobblestoneCrusherScreen
             guiGraphics.renderTooltip(
                     font,
                     Component.translatable(
-                            "gui.projectskyblock.cobblestone_crusher.progress",
+                            "gui.projectskyblock.material_crusher.progress",
                             menu.getProgress(),
                             menu.getProcessTime()
                     ),
@@ -455,7 +458,7 @@ public final class CobblestoneCrusherScreen
 
     private Component getPowerSourceName() {
         return Component.translatable(
-                "gui.projectskyblock.cobblestone_crusher.power."
+                "gui.projectskyblock.material_crusher.power."
                         + getPowerSource().name().toLowerCase()
         );
     }

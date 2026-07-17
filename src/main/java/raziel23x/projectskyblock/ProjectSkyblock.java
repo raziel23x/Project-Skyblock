@@ -77,13 +77,13 @@ public final class ProjectSkyblock {
 
         event.registerBlockEntity(
                 net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.COBBLESTONE_CRUSHER.get(),
+                ModBlockEntities.MATERIAL_CRUSHER.get(),
                 (blockEntity, side) -> blockEntity.getItemHandler(side)
         );
 
         event.registerBlockEntity(
                 net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK,
-                ModBlockEntities.COBBLESTONE_CRUSHER.get(),
+                ModBlockEntities.MATERIAL_CRUSHER.get(),
                 (blockEntity, side) -> blockEntity.getEnergyStorage()
         );
 

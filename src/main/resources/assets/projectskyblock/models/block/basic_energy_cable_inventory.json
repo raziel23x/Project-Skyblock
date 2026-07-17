@@ -1,0 +1,245 @@
+{
+  "textures": {
+    "shell": "projectskyblock:block/basic_energy_cable_shell",
+    "channel": "projectskyblock:block/basic_energy_cable_channel"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        5.25,
+        5.25
+      ],
+      "to": [
+        14,
+        6.15,
+        10.75
+      ],
+      "shade": true,
+      "faces": {
+        "down": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        9.85,
+        5.25
+      ],
+      "to": [
+        14,
+        10.75,
+        10.75
+      ],
+      "shade": true,
+      "faces": {
+        "down": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        6.15,
+        5.25
+      ],
+      "to": [
+        14,
+        9.85,
+        6.15
+      ],
+      "shade": true,
+      "faces": {
+        "down": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        6.15,
+        9.85
+      ],
+      "to": [
+        14,
+        9.85,
+        10.75
+      ],
+      "shade": true,
+      "faces": {
+        "down": {
+          "texture": "#shell"
+        },
+        "up": {
+          "texture": "#shell"
+        },
+        "north": {
+          "texture": "#shell"
+        },
+        "south": {
+          "texture": "#shell"
+        },
+        "west": {
+          "texture": "#shell"
+        },
+        "east": {
+          "texture": "#shell"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        6.35,
+        6.35
+      ],
+      "to": [
+        14,
+        9.65,
+        9.65
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "texture": "#channel"
+        },
+        "up": {
+          "texture": "#channel"
+        },
+        "north": {
+          "texture": "#channel"
+        },
+        "south": {
+          "texture": "#channel"
+        },
+        "west": {
+          "texture": "#channel"
+        },
+        "east": {
+          "texture": "#channel"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.15,
+        1.15,
+        1.15
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.6,
+        0.6,
+        0.6
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.7,
+        0.7
+      ]
+    }
+  }
+}

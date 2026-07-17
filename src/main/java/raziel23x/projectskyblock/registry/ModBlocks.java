@@ -12,7 +12,8 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.joml.Vector3f;
 import raziel23x.projectskyblock.ProjectSkyblock;
-import raziel23x.projectskyblock.block.CobblestoneCrusherBlock;
+import raziel23x.projectskyblock.block.BasicEnergyCableBlock;
+import raziel23x.projectskyblock.block.MaterialCrusherBlock;
 import raziel23x.projectskyblock.block.CreativeEnergyCellBlock;
 import raziel23x.projectskyblock.block.ReagentBlock;
 import raziel23x.projectskyblock.block.ResourceGeneratorBlock;
@@ -51,10 +52,10 @@ public final class ModBlocks {
             generator("lava_generator", MapColor.FIRE,
                     ResourceGeneratorBlock.Output.LAVA);
 
-    public static final DeferredBlock<Block> COBBLESTONE_CRUSHER =
+    public static final DeferredBlock<Block> MATERIAL_CRUSHER =
             BLOCKS.register(
-                    "cobblestone_crusher",
-                    () -> new CobblestoneCrusherBlock(
+                    "material_crusher",
+                    () -> new MaterialCrusherBlock(
                             BlockBehaviour.Properties.of()
                                     .mapColor(MapColor.STONE)
                                     .strength(3.0F, 6.0F)
@@ -73,6 +74,32 @@ public final class ModBlocks {
                                     .strength(4.0F, 8.0F)
                                     .sound(SoundType.METAL)
                                     .requiresCorrectToolForDrops()
+                    )
+            );
+
+
+    public static final DeferredBlock<Block> BASIC_ENERGY_CABLE =
+            BLOCKS.register(
+                    "basic_energy_cable",
+                    () -> new BasicEnergyCableBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.METAL)
+                                    .strength(1.5F, 4.0F)
+                                    .sound(SoundType.METAL)
+                                    .noOcclusion()
+                    )
+            );
+
+
+    public static final DeferredBlock<Block> STRUCTURAL_ENERGY_FRAME =
+            BLOCKS.register(
+                    "structural_energy_frame",
+                    () -> new BasicEnergyCableBlock(
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.COLOR_GRAY)
+                                    .strength(2.0F, 5.0F)
+                                    .sound(SoundType.METAL)
+                                    .noOcclusion()
                     )
             );
 
@@ -109,12 +136,18 @@ public final class ModBlocks {
             generatorBlockItem("lava_generator", LAVA_GENERATOR,
                     ResourceGeneratorBlock.Output.LAVA);
 
-    public static final DeferredItem<BlockItem> COBBLESTONE_CRUSHER_ITEM =
-            blockItem("cobblestone_crusher", COBBLESTONE_CRUSHER);
+    public static final DeferredItem<BlockItem> MATERIAL_CRUSHER_ITEM =
+            blockItem("material_crusher", MATERIAL_CRUSHER);
 
 
     public static final DeferredItem<BlockItem> THERMAL_GENERATOR_ITEM =
             blockItem("thermal_generator", THERMAL_GENERATOR);
+
+    public static final DeferredItem<BlockItem> BASIC_ENERGY_CABLE_ITEM =
+            blockItem("basic_energy_cable", BASIC_ENERGY_CABLE);
+
+    public static final DeferredItem<BlockItem> STRUCTURAL_ENERGY_FRAME_ITEM =
+            blockItem("structural_energy_frame", STRUCTURAL_ENERGY_FRAME);
 
     public static final DeferredItem<BlockItem> CREATIVE_ENERGY_CELL_ITEM =
             blockItem("creative_energy_cell", CREATIVE_ENERGY_CELL);

@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "particle": "projectskyblock:block/cobblestone_crusher_side",
-    "panel": "projectskyblock:block/cobblestone_crusher_panel",
-    "top": "projectskyblock:block/cobblestone_crusher_top",
+    "particle": "projectskyblock:block/material_crusher_side",
+    "panel": "projectskyblock:block/material_crusher_panel",
+    "top": "projectskyblock:block/material_crusher_top",
     "metal": "projectskyblock:block/machine_metal",
     "wood": "projectskyblock:block/machine_wood",
-    "front": "projectskyblock:block/cobblestone_crusher_front",
-    "back": "projectskyblock:block/cobblestone_crusher_back",
-    "side": "projectskyblock:block/cobblestone_crusher_side"
+    "front": "projectskyblock:block/material_crusher_front_active_0",
+    "back": "projectskyblock:block/material_crusher_back_active_0",
+    "side": "projectskyblock:block/material_crusher_side_frame_0"
   },
   "elements": [
     {

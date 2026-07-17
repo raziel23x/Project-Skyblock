@@ -6,7 +6,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import raziel23x.projectskyblock.ProjectSkyblock;
-import raziel23x.projectskyblock.blockentity.CobblestoneCrusherBlockEntity;
+import raziel23x.projectskyblock.blockentity.BasicEnergyCableBlockEntity;
+import raziel23x.projectskyblock.blockentity.MaterialCrusherBlockEntity;
 import raziel23x.projectskyblock.blockentity.CreativeEnergyCellBlockEntity;
 import raziel23x.projectskyblock.blockentity.ResourceGeneratorBlockEntity;
 import raziel23x.projectskyblock.blockentity.ThermalGeneratorBlockEntity;
@@ -26,12 +27,12 @@ public final class ModBlockEntities {
                     ).build(null)
             );
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CobblestoneCrusherBlockEntity>>
-            COBBLESTONE_CRUSHER = BLOCK_ENTITY_TYPES.register(
-                    "cobblestone_crusher",
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MaterialCrusherBlockEntity>>
+            MATERIAL_CRUSHER = BLOCK_ENTITY_TYPES.register(
+                    "material_crusher",
                     () -> BlockEntityType.Builder.of(
-                            CobblestoneCrusherBlockEntity::new,
-                            ModBlocks.COBBLESTONE_CRUSHER.get()
+                            MaterialCrusherBlockEntity::new,
+                            ModBlocks.MATERIAL_CRUSHER.get()
                     ).build(null)
             );
 
@@ -42,6 +43,17 @@ public final class ModBlockEntities {
                     () -> BlockEntityType.Builder.of(
                             ThermalGeneratorBlockEntity::new,
                             ModBlocks.THERMAL_GENERATOR.get()
+                    ).build(null)
+            );
+
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BasicEnergyCableBlockEntity>>
+            BASIC_ENERGY_CABLE = BLOCK_ENTITY_TYPES.register(
+                    "basic_energy_cable",
+                    () -> BlockEntityType.Builder.of(
+                            BasicEnergyCableBlockEntity::new,
+                            ModBlocks.BASIC_ENERGY_CABLE.get(),
+                            ModBlocks.STRUCTURAL_ENERGY_FRAME.get()
                     ).build(null)
             );
 

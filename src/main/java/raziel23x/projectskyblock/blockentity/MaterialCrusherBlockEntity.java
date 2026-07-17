@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
+import raziel23x.projectskyblock.block.MaterialCrusherBlock;
 import raziel23x.projectskyblock.config.MachineConfig;
 import raziel23x.projectskyblock.machine.crusher.CrusherEnergyStorage;
 import raziel23x.projectskyblock.machine.crusher.CrusherInventory;
@@ -28,10 +29,10 @@ import raziel23x.projectskyblock.machine.crusher.CrusherPowerSource;
 import raziel23x.projectskyblock.machine.crusher.CrusherProcessing;
 import raziel23x.projectskyblock.machine.crusher.CrusherProcessingResult;
 import raziel23x.projectskyblock.machine.crusher.CrusherSidedItemHandler;
-import raziel23x.projectskyblock.menu.CobblestoneCrusherMenu;
+import raziel23x.projectskyblock.menu.MaterialCrusherMenu;
 import raziel23x.projectskyblock.registry.ModBlockEntities;
 
-public final class CobblestoneCrusherBlockEntity extends BlockEntity implements MenuProvider {
+public final class MaterialCrusherBlockEntity extends BlockEntity implements MenuProvider {
     public static final int INPUT_SLOT = CrusherInventory.INPUT_SLOT;
     public static final int FUEL_SLOT = CrusherInventory.FUEL_SLOT;
     public static final int OUTPUT_SLOT = CrusherInventory.OUTPUT_SLOT;
@@ -67,6 +68,12 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
             false,
             true
     );
+    private final IItemHandler unsidedHandler = new CrusherSidedItemHandler(
+            inventory,
+            new int[]{INPUT_SLOT, FUEL_SLOT, OUTPUT_SLOT, BYPRODUCT_SLOT},
+            true,
+            true
+    );
 
     private int progress;
     private int burnTimeRemaining;
@@ -97,19 +104,19 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
 
         @Override
         public int getCount() {
-            return CobblestoneCrusherMenu.DATA_COUNT;
+            return MaterialCrusherMenu.DATA_COUNT;
         }
     };
 
-    public CobblestoneCrusherBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.COBBLESTONE_CRUSHER.get(), pos, state);
+    public MaterialCrusherBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.MATERIAL_CRUSHER.get(), pos, state);
     }
 
     public static void serverTick(
             Level level,
             BlockPos pos,
             BlockState state,
-            CobblestoneCrusherBlockEntity crusher) {
+            MaterialCrusherBlockEntity crusher) {
         crusher.energyStorage.setReceivingEnabled(
                 MachineConfig.ENABLE_FE_POWER.get()
         );
@@ -121,6 +128,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
                 || maximumResult.isEmpty()
                 || !crusher.canAcceptResult(maximumResult)) {
             crusher.stopAndResetProgress();
+            crusher.updateVisualState(level, state);
             return;
         }
 
@@ -128,6 +136,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
             crusher.working = false;
             crusher.activePowerSource = CrusherPowerSource.NONE;
             crusher.setChanged();
+            crusher.updateVisualState(level, state);
             return;
         }
 
@@ -151,7 +160,29 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
             }
         }
 
+        crusher.updateVisualState(level, state);
         crusher.setChanged();
+    }
+
+    private void updateVisualState(Level level, BlockState state) {
+        boolean active = working;
+        int frame = active ? (int) ((level.getGameTime() / 3L) & 3L) : 0;
+        BlockState current = level.getBlockState(worldPosition);
+
+        if (!current.hasProperty(MaterialCrusherBlock.ACTIVE)
+                || !current.hasProperty(MaterialCrusherBlock.GEAR_FRAME)) {
+            return;
+        }
+
+        if (current.getValue(MaterialCrusherBlock.ACTIVE) != active
+                || current.getValue(MaterialCrusherBlock.GEAR_FRAME) != frame) {
+            level.setBlock(
+                    worldPosition,
+                    current.setValue(MaterialCrusherBlock.ACTIVE, active)
+                            .setValue(MaterialCrusherBlock.GEAR_FRAME, frame),
+                    2
+            );
+        }
     }
 
     private void stopAndResetProgress() {
@@ -292,7 +323,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
     @Override
     public Component getDisplayName() {
         return Component.translatable(
-                "container.projectskyblock.cobblestone_crusher"
+                "container.projectskyblock.material_crusher"
         );
     }
 
@@ -304,7 +335,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
         if (level == null) {
             return null;
         }
-        return new CobblestoneCrusherMenu(
+        return new MaterialCrusherMenu(
                 containerId,
                 playerInventory,
                 inventory,
@@ -319,7 +350,7 @@ public final class CobblestoneCrusherBlockEntity extends BlockEntity implements 
 
     public @Nullable IItemHandler getItemHandler(@Nullable Direction side) {
         if (side == null) {
-            return null;
+            return unsidedHandler;
         }
         return switch (side) {
             case UP -> inputHandler;

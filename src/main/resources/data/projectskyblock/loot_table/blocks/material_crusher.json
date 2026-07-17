@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "projectskyblock:cobblestone_crusher"
+          "name": "projectskyblock:material_crusher"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "projectskyblock:blocks/cobblestone_crusher"
+  "random_sequence": "projectskyblock:blocks/material_crusher"
 }
