@@ -1,0 +1,11 @@
+{
+  "category": "crystal",
+  "stages": [
+    "projectskyblock:dissolution",
+    "projectskyblock:purification",
+    "projectskyblock:crystal_growth"
+  ],
+  "accepted_forms": ["gem", "dust", "solution"],
+  "produced_forms": ["solution", "crystal"],
+  "priority": 10
+}

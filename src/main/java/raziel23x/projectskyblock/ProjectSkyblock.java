@@ -18,6 +18,7 @@ import raziel23x.projectskyblock.registry.ModCreativeTabs;
 import raziel23x.projectskyblock.registry.ModItems;
 import raziel23x.projectskyblock.registry.ModMenus;
 import raziel23x.projectskyblock.registry.ModRecipes;
+import raziel23x.projectskyblock.material.reload.MaterialDataReloadListener;
 import raziel23x.projectskyblock.repair.RepairGemHandler;
 
 @Mod(ProjectSkyblock.MOD_ID)
@@ -56,9 +57,15 @@ public final class ProjectSkyblock {
         );
 
         NeoForge.EVENT_BUS.addListener(RepairGemHandler::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(ProjectSkyblock::addReloadListeners);
         modEventBus.addListener(ProjectSkyblock::registerCapabilities);
 
         LOGGER.info("Project Skyblock 2 initialization complete");
+    }
+
+    private static void addReloadListeners(
+            net.neoforged.neoforge.event.AddReloadListenerEvent event) {
+        event.addListener(MaterialDataReloadListener.INSTANCE);
     }
 
     private static void registerCapabilities(

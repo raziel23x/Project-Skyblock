@@ -1,0 +1,13 @@
+{
+  "category": "metal",
+  "stages": [
+    "projectskyblock:crushing",
+    "projectskyblock:classification",
+    "projectskyblock:chemical_treatment",
+    "projectskyblock:concentration",
+    "projectskyblock:smelting"
+  ],
+  "accepted_forms": ["ore", "raw_material", "dust"],
+  "produced_forms": ["concentrate", "dust", "ingot"],
+  "priority": 20
+}

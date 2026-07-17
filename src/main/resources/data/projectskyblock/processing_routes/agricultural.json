@@ -1,0 +1,11 @@
+{
+  "category": "agricultural",
+  "stages": [
+    "projectskyblock:cultivation",
+    "projectskyblock:harvesting",
+    "projectskyblock:organic_processing"
+  ],
+  "accepted_forms": ["seed", "crop"],
+  "produced_forms": ["crop", "reagent"],
+  "priority": 10
+}

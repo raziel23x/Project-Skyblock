@@ -1,0 +1,17 @@
+{
+  "category": "metal",
+  "forms": ["ore", "raw_material", "ingot", "nugget", "block"],
+  "processing_routes": ["projectskyblock:basic_metal", "projectskyblock:chemical_metal"],
+  "journal_chapter": "projectskyblock:metallurgy",
+  "origin_mod": "minecraft",
+  "tags": [
+    "c:ores/gold",
+    "c:raw_materials/gold",
+    "c:ingots/gold",
+    "c:nuggets/gold",
+    "c:storage_blocks/gold"
+  ],
+  "aliases": ["gold", "aurum"],
+  "priority": 100,
+  "automatic_recipes": true
+}

@@ -1,0 +1,11 @@
+{
+  "category": "agricultural",
+  "forms": ["seed", "crop"],
+  "processing_routes": ["projectskyblock:agricultural"],
+  "journal_chapter": "projectskyblock:agriculture",
+  "origin_mod": "minecraft",
+  "tags": ["c:crops/wheat", "c:seeds/wheat"],
+  "aliases": ["wheat"],
+  "priority": 100,
+  "automatic_recipes": false
+}

@@ -1,0 +1,17 @@
+{
+  "category": "metal",
+  "forms": ["ore", "raw_material", "ingot", "nugget", "block"],
+  "processing_routes": ["projectskyblock:basic_metal", "projectskyblock:chemical_metal"],
+  "journal_chapter": "projectskyblock:metallurgy",
+  "origin_mod": "minecraft",
+  "tags": [
+    "c:ores/iron",
+    "c:raw_materials/iron",
+    "c:ingots/iron",
+    "c:nuggets/iron",
+    "c:storage_blocks/iron"
+  ],
+  "aliases": ["iron", "ferrum"],
+  "priority": 100,
+  "automatic_recipes": true
+}

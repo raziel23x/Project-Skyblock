@@ -1,0 +1,16 @@
+{
+  "category": "metal",
+  "forms": ["ore", "raw_material", "ingot", "block"],
+  "processing_routes": ["projectskyblock:basic_metal", "projectskyblock:chemical_metal"],
+  "journal_chapter": "projectskyblock:metallurgy",
+  "origin_mod": "minecraft",
+  "tags": [
+    "c:ores/copper",
+    "c:raw_materials/copper",
+    "c:ingots/copper",
+    "c:storage_blocks/copper"
+  ],
+  "aliases": ["copper", "cuprum"],
+  "priority": 100,
+  "automatic_recipes": true
+}
