@@ -54,8 +54,19 @@ neoForge {
     runs {
         client {
             client()
+            gameDirectory = project.file('run-clean')
+            ideName = 'Project Skyblock - Clean Client'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        integrationClient {
+            client()
+            gameDirectory = project.file('run-integration')
+            ideName = 'Project Skyblock - Integration Client'
+
+            // Keep GameTests available while testing optional client integrations.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -118,6 +129,10 @@ configurations {
 }
 
 dependencies {
+    // Load optional compatibility and diagnostic mods only in the integration client.
+    // Place NeoForge 1.21.1 mod jars in dev/mods/. They are never published or bundled.
+    integrationClientAdditionalRuntimeClasspath fileTree(dir: 'dev/mods', include: ['*.jar'])
+
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

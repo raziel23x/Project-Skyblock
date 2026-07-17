@@ -38,3 +38,13 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+### Local integration testing ###
+dev/mods/*.jar
+dev/configs/
+dev/test-worlds/
+dev/screenshots/
+dev/benchmarks/
+run-clean/
+run-integration/
+
