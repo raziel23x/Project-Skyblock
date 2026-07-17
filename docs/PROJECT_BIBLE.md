@@ -10,6 +10,37 @@ Every system should have a clear purpose. Every file should have an obvious home
 
 ---
 
+
+
+# Gameplay Design Principles
+
+Project Skyblock is a long-term Minecraft progression framework focused on building a thriving civilization from an empty world through biology, chemistry, engineering, automation, and scientific discovery while complementing—never replacing—vanilla Minecraft.
+
+## 1. Complement Vanilla, Don't Override It
+Project Skyblock extends Minecraft rather than replacing it. Vanilla mechanics remain functional whenever practical. Where skyblock removes normal terrain progression, Project Skyblock supplies an equivalent progression that preserves the spirit of vanilla.
+
+## 2. Build a World From Nothing
+Players begin with almost nothing. Every expansion should feel earned.
+
+## 3. Mechanics Must Make Sense
+Avoid arbitrary "skyblock magic." Systems should have understandable internal logic.
+
+## 4. Discovery Before Automation
+Players learn a process before they automate it.
+
+## 5. Renewable Through Knowledge
+Resources become renewable through scientific and technological progression.
+
+## 6. Respect Player Creativity
+Vanilla farms and contraptions remain valid. Project Skyblock offers richer alternatives instead of disabling vanilla.
+
+## 7. Every Dimension Has a Purpose
+Overworld, Nether, and End each have unique roles and progression.
+
+## 8. Preserve the Spirit of Minecraft
+Favor solutions that feel like natural extensions of Minecraft.
+
+
 ## Core Principles
 
 1. **Organization comes first.**
