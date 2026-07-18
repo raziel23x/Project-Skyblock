@@ -1,0 +1,64 @@
+# Documentation v1.0 Manifest
+
+Markdown files: 55
+Broken local links found: 0
+
+## Included Files
+
+- `CONTRIBUTING.md`
+- `README.md`
+- `docs/01-vision/CIVILIZATION_BLUEPRINT.md`
+- `docs/01-vision/DECISION_LOG.md`
+- `docs/01-vision/DESIGN_PATTERNS.md`
+- `docs/01-vision/MOD_VISION.md`
+- `docs/01-vision/PROJECT_CONSTITUTION.md`
+- `docs/01-vision/PROJECT_LANGUAGE.md`
+- `docs/02-game-design/progression/KNOWLEDGE_WEB.md`
+- `docs/02-game-design/progression/PROGRESSION_ATLAS.md`
+- `docs/02-game-design/systems/AGRICULTURE.md`
+- `docs/02-game-design/systems/ALCHEMY.md`
+- `docs/02-game-design/systems/BIOLOGY.md`
+- `docs/02-game-design/systems/CHEMISTRY.md`
+- `docs/02-game-design/systems/DIMENSIONAL_SCIENCE.md`
+- `docs/02-game-design/systems/ECOLOGY.md`
+- `docs/02-game-design/systems/ENERGY.md`
+- `docs/02-game-design/systems/FORESTRY.md`
+- `docs/02-game-design/systems/LOGISTICS.md`
+- `docs/02-game-design/systems/MACHINES.md`
+- `docs/02-game-design/systems/METALLURGY.md`
+- `docs/02-game-design/systems/RESEARCH.md`
+- `docs/03-engineering/CONTRIBUTOR_GUIDE.md`
+- `docs/03-engineering/DEVELOPER_GUIDE.md`
+- `docs/03-engineering/EXTENSION_POINTS.md`
+- `docs/03-engineering/README.md`
+- `docs/03-engineering/api/API_REFERENCE.md`
+- `docs/03-engineering/architecture-decisions/ADR-0001-DOCUMENTATION-FIRST.md`
+- `docs/03-engineering/architecture-decisions/README.md`
+- `docs/03-engineering/feature-specifications/BIOLOGY_SYSTEM.md`
+- `docs/03-engineering/feature-specifications/CIVILIZATION_CORE.md`
+- `docs/03-engineering/feature-specifications/MACHINE_FRAMEWORK.md`
+- `docs/03-engineering/feature-specifications/README.md`
+- `docs/03-engineering/feature-specifications/RESEARCH_SYSTEM.md`
+- `docs/03-engineering/feature-specifications/RESOURCE_PRODUCTION.md`
+- `docs/03-engineering/standards/DOCUMENTATION_STYLE_GUIDE.md`
+- `docs/03-engineering/standards/FEATURE_SPECIFICATION_TEMPLATE.md`
+- `docs/04-integration/INTEGRATION_CONTRACT.md`
+- `docs/04-integration/MODPACK_AUTHOR_GUIDE.md`
+- `docs/05-reference/GLOSSARY.md`
+- `docs/05-reference/REFERENCE_INDEX.md`
+- `docs/05-reference/SYSTEM_INTERACTION_MATRIX.md`
+- `docs/05-reference/resource-bible/CHEMICALS.md`
+- `docs/05-reference/resource-bible/DIMENSIONAL_RESOURCES.md`
+- `docs/05-reference/resource-bible/FLUIDS.md`
+- `docs/05-reference/resource-bible/METALS.md`
+- `docs/05-reference/resource-bible/MINERALS.md`
+- `docs/05-reference/resource-bible/MISCELLANEOUS.md`
+- `docs/05-reference/resource-bible/MOBS.md`
+- `docs/05-reference/resource-bible/NATURAL_BLOCKS.md`
+- `docs/05-reference/resource-bible/ORGANICS.md`
+- `docs/05-reference/resource-bible/PLANTS_AND_CROPS.md`
+- `docs/05-reference/resource-bible/README.md`
+- `docs/05-reference/resource-bible/REDSTONE_AND_TECH.md`
+- `docs/05-reference/resource-bible/WOODS.md`
+- `docs/README.md`
+- `docs/REPLACEMENT_INSTRUCTIONS.md`
