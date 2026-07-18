@@ -1,18 +1,31 @@
-# Documentation v1.0 Manifest
+# Documentation Manifest
 
-Markdown files: 55
+Markdown files: 78
 Broken local links found: 0
 
 ## Included Files
 
+- `AUDIT_SUMMARY.md`
+- `CHANGELOG.md`
 - `CONTRIBUTING.md`
 - `README.md`
+- `TEST_PLAN.md`
+- `TODO.md`
+- `audits/LEGACY_CONTENT_AUDIT.md`
+- `branding/branding-guidelines.md`
+- `branding/curseforge-description.md`
+- `branding/github-description.md`
+- `branding/release-description-template.md`
+- `branding/screenshot-plan.md`
+- `dev/README.md`
 - `docs/01-vision/CIVILIZATION_BLUEPRINT.md`
 - `docs/01-vision/DECISION_LOG.md`
 - `docs/01-vision/DESIGN_PATTERNS.md`
 - `docs/01-vision/MOD_VISION.md`
 - `docs/01-vision/PROJECT_CONSTITUTION.md`
 - `docs/01-vision/PROJECT_LANGUAGE.md`
+- `docs/01-vision/STARTING_CONDITIONS.md`
+- `docs/02-game-design/GAMEPLAY_PILLARS.md`
 - `docs/02-game-design/progression/KNOWLEDGE_WEB.md`
 - `docs/02-game-design/progression/PROGRESSION_ATLAS.md`
 - `docs/02-game-design/systems/AGRICULTURE.md`
@@ -27,10 +40,12 @@ Broken local links found: 0
 - `docs/02-game-design/systems/MACHINES.md`
 - `docs/02-game-design/systems/METALLURGY.md`
 - `docs/02-game-design/systems/RESEARCH.md`
+- `docs/03-engineering/ARCHITECTURAL_PRINCIPLES.md`
 - `docs/03-engineering/CONTRIBUTOR_GUIDE.md`
 - `docs/03-engineering/DEVELOPER_GUIDE.md`
 - `docs/03-engineering/EXTENSION_POINTS.md`
 - `docs/03-engineering/README.md`
+- `docs/03-engineering/SYSTEM_ARCHITECTURE.md`
 - `docs/03-engineering/api/API_REFERENCE.md`
 - `docs/03-engineering/architecture-decisions/ADR-0001-DOCUMENTATION-FIRST.md`
 - `docs/03-engineering/architecture-decisions/README.md`
@@ -60,5 +75,11 @@ Broken local links found: 0
 - `docs/05-reference/resource-bible/README.md`
 - `docs/05-reference/resource-bible/REDSTONE_AND_TECH.md`
 - `docs/05-reference/resource-bible/WOODS.md`
+- `docs/MANIFEST.md`
 - `docs/README.md`
 - `docs/REPLACEMENT_INSTRUCTIONS.md`
+- `legacy-reference/MIGRATION_LEDGER.md`
+- `legacy-reference/README.md`
+- `legacy-reference/assets/README.md`
+- `legacy-reference/code-reference/README.md`
+- `legacy-reference/data/README.md`

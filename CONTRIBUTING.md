@@ -4,10 +4,12 @@ Thank you for your interest in Project Skyblock.
 
 Before writing code, adding content, or proposing a feature, please read:
 
-1. PROJECT_CONSTITUTION.md
-2. CIVILIZATION_BLUEPRINT.md
-3. PROJECT_BIBLE.md
-4. Relevant system documentation
+1. `docs/01-vision/STARTING_CONDITIONS.md`
+2. `docs/01-vision/PROJECT_CONSTITUTION.md`
+3. `docs/02-game-design/GAMEPLAY_PILLARS.md`
+4. `docs/01-vision/CIVILIZATION_BLUEPRINT.md`
+5. `docs/03-engineering/ARCHITECTURAL_PRINCIPLES.md`
+6. Relevant system and feature documentation
 
 ## Philosophy First
 
@@ -19,6 +21,7 @@ Every contribution should answer:
 - Why does it exist?
 - Which Age of Civilization does it belong to?
 - Does it complement vanilla?
+- Does it pass the One-Tree Test?
 - Does it respect the Project Constitution?
 
 ## Pull Request Expectations

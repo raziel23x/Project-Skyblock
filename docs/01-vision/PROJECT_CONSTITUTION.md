@@ -16,7 +16,17 @@ preserving the spirit of vanilla Minecraft.
 
 # Article II — The Laws
 
-## Law 1 — Conservation
+## Law 1 — One Tree
+
+Every world begins with a living tree in the void. The tree species and supporting platform may vary, but the tree is the universal starting point.
+
+Every mandatory progression path must pass the One-Tree Test:
+
+> If the player has the tree, the game is solvable.
+
+---
+
+## Law 2 — Conservation
 
 Nothing comes from nothing.
 
@@ -29,7 +39,7 @@ Questions:
 
 ---
 
-## Law 2 — Discovery Before Automation
+## Law 3 — Discovery Before Automation
 
 Players should understand a process before they automate it.
 
@@ -40,7 +50,7 @@ Automation rewards knowledge rather than replacing it.
 
 ---
 
-## Law 3 — Complement Vanilla
+## Law 4 — Complement Vanilla
 
 Vanilla mechanics are the baseline.
 
@@ -54,7 +64,7 @@ Examples:
 
 ---
 
-## Law 4 — Purpose
+## Law 5 — Purpose
 
 Every feature answers:
 
@@ -64,7 +74,7 @@ If no meaningful answer exists, the feature should be redesigned or removed.
 
 ---
 
-## Law 5 — Scale, Not Magic
+## Law 6 — Scale, Not Magic
 
 Technology increases:
 - throughput,
@@ -77,7 +87,7 @@ Technology should not create arbitrary matter or skip entire branches of progres
 
 ---
 
-## Law 6 — Knowledge
+## Law 7 — Knowledge
 
 Knowledge is progression.
 
@@ -85,7 +95,7 @@ Research, experimentation, observation, and understanding unlock capability.
 
 ---
 
-## Law 7 — Renewable Through Understanding
+## Law 8 — Renewable Through Understanding
 
 Scarcity is acceptable early.
 
@@ -93,7 +103,7 @@ Long-term sustainability should come from learning how systems work.
 
 ---
 
-## Law 8 — Civilization
+## Law 9 — Civilization
 
 Every mechanic should move the player toward building a functioning civilization.
 
@@ -103,7 +113,7 @@ The end goal is creating a world worth living in.
 
 ---
 
-## Law 9 — Creativity
+## Law 10 — Creativity
 
 Whenever practical, systems should provide multiple valid solutions.
 
@@ -111,7 +121,7 @@ Avoid a single mandatory design for factories, farms, or infrastructure.
 
 ---
 
-## Law 10 — Data First
+## Law 11 — Data First
 
 Gameplay content should be data-driven whenever practical.
 
@@ -125,6 +135,7 @@ Configuration enables customization.
 
 Before approving any new feature ask:
 
+- Does it pass the One-Tree Test?
 - Does it obey the Constitution?
 - Does it fit the Four Ages?
 - Does it complement vanilla?

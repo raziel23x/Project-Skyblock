@@ -5,12 +5,14 @@ This folder is the complete, replacement-ready documentation set for **Project S
 ## Start Here
 
 1. [Vision](01-vision/MOD_VISION.md)
-2. [Project Constitution](01-vision/PROJECT_CONSTITUTION.md)
-3. [Civilization Blueprint](01-vision/CIVILIZATION_BLUEPRINT.md)
-4. [Knowledge Web](02-game-design/progression/KNOWLEDGE_WEB.md)
-5. [Engineering Overview](03-engineering/README.md)
-6. [Integration Contract](04-integration/INTEGRATION_CONTRACT.md)
-7. [Reference Index](05-reference/REFERENCE_INDEX.md)
+2. [Starting Conditions](01-vision/STARTING_CONDITIONS.md)
+3. [Project Constitution](01-vision/PROJECT_CONSTITUTION.md)
+4. [Gameplay Pillars](02-game-design/GAMEPLAY_PILLARS.md)
+5. [Civilization Blueprint](01-vision/CIVILIZATION_BLUEPRINT.md)
+6. [Knowledge Web](02-game-design/progression/KNOWLEDGE_WEB.md)
+7. [System Architecture](03-engineering/SYSTEM_ARCHITECTURE.md)
+8. [Integration Contract](04-integration/INTEGRATION_CONTRACT.md)
+9. [Reference Index](05-reference/REFERENCE_INDEX.md)
 
 ## Directory Map
 
