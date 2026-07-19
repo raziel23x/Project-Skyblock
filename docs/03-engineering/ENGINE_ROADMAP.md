@@ -32,10 +32,10 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine framework
 - Machine energy component
 - Machine inventory component
+- Machine thermal component
 
 ### Near-Term Planned
 
-- Automated backend test foundation
 - machine composition proof
 - persistence contracts and codecs
 - Minecraft/NeoForge adapters
@@ -45,7 +45,6 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 
 - Machine fluid component
 - Machine gas component
-- Machine thermal component
 - Machine processing component
 - network fairness and contention
 - fluid and gas network behavior

@@ -42,6 +42,10 @@ Added the first reusable machine component with backend energy ownership, access
 
 Added stable item identity, immutable item quantities, configurable machine slots, per-slot insertion rules, external and internal operation separation, validated restoration, immutable snapshots, diagnostics, dirty signaling, wake signaling, and automated component tests.
 
+## Milestone 10 — Machine Thermal Component
+
+Added reusable machine-owned thermal state integration with external heat access control, internal generation and cooling operations, operating-condition queries, bounded ambient exchange, restoration, immutable snapshots, diagnostics, dirty signaling, wake signaling, and automated component tests.
+
 ## Next
 
-Milestone 10 will establish the automated backend test foundation and prove machine composition using the energy and inventory components together.
+Milestone 11 will prove machine composition by combining energy, inventory, and thermal components under one machine logic implementation.

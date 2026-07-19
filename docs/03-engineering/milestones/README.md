@@ -13,7 +13,8 @@ Milestone documents record completed architectural slices. They describe purpose
 7. [Machine Framework Core](BACKEND_MILESTONE_7_MACHINE_FRAMEWORK_CORE.md)
 8. [Machine Energy Component](BACKEND_MILESTONE_8_MACHINE_ENERGY_COMPONENT.md)
 9. [Machine Inventory Component](BACKEND_MILESTONE_9_MACHINE_INVENTORY_COMPONENT.md)
+10. [Machine Thermal Component](BACKEND_MILESTONE_10_MACHINE_THERMAL_COMPONENT.md)
 
 ## Next
 
-Milestone 10 — Automated Backend Test Foundation and Machine Composition Proof.
+Milestone 11 — Machine Composition Proof.

@@ -97,12 +97,12 @@ Implemented:
 
 - `MachineEnergyComponent`
 - `MachineInventoryComponent`
+- `MachineThermalComponent`
 
 Planned:
 
 - `MachineFluidComponent`
 - `MachineGasComponent`
-- `MachineThermalComponent`
 - `MachineProcessingComponent`
 
 Components own or delegate authoritative state, enforce local access rules, produce diagnostics, mark dirty categories, and wake their owner after meaningful changes.
@@ -112,6 +112,13 @@ Components own or delegate authoritative state, enforce local access rules, prod
 `SimulationItemKey` represents stable item identity using a validated `namespace:path` value. `SimulationItemStack` is an immutable quantity value with an explicit maximum stack size. `MachineInventoryComponent` owns slot contents and applies slot capacity, access, insertion-rule, merge, restoration, dirty-state, and wake behavior.
 
 External adapters use `insert` and `extract`; machine logic uses `store` and `consume`. Minecraft `ItemStack`, registry lookup, NBT, and `IItemHandler` remain outside the authoritative backend. Immutable slot snapshots provide the handoff point for persistence and diagnostics adapters.
+
+
+### Machine Thermal Model
+
+`MachineThermalComponent` composes the existing thermal core for machine ownership. `ThermalState` remains the authoritative fixed-point energy store, `ThermalProperties` derives operating and shutdown conditions, and `ThermalEngine` performs bounded environmental exchange.
+
+External adapters use `receiveHeat` and `extractHeat`; machine logic uses `generateHeat` and `consumeHeat`. `step` applies generated process heat and one ambient exchange as a single machine change. Immutable snapshots expose persistence and synchronization values without introducing block entities, biome lookup, fluids, or NeoForge capabilities into the backend.
 
 ## Integration Boundary
 
@@ -134,7 +141,7 @@ Minecraft-facing code must not:
 
 ## Current Completion Point
 
-Milestones 1 through 9 are implemented. The engine now has reusable machine-owned energy and inventory components. The next milestone will establish the automated backend test foundation and prove that these components compose cleanly inside one machine state.
+Milestones 1 through 10 are implemented. The engine now has reusable machine-owned energy, inventory, and thermal components. The next milestone will prove that these components compose cleanly inside one machine state and machine logic implementation.
 
 ## Long-Term Expansion
 

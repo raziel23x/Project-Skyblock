@@ -38,9 +38,9 @@ Expected to support amount, volume, pressure, temperature, flow, and containment
 
 ## MachineThermalComponent
 
-**Status:** Planned.
+**Status:** Implemented in Milestone 10.
 
-Will connect machine-owned thermal state and operating behavior to the thermal engine without placing temperature logic inside a block entity.
+Wraps authoritative `ThermalState`, shared `ThermalProperties`, and `ThermalEngine` behavior for machine ownership. It separates external heat input/output from internal generation/cooling, exposes operating and shutdown conditions, performs bounded environmental exchange, validates restored thermal energy, produces immutable snapshots and diagnostics, marks persistence/client-sync/scheduler dirty state, and wakes its owner after meaningful changes. Minecraft environments and heat capabilities remain adapter concerns.
 
 ## MachineProcessingComponent
 
