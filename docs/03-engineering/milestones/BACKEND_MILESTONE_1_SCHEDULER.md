@@ -2,11 +2,9 @@
 
 ## Purpose
 
-The first executable backend layer is the scheduler. Machines, generators,
-cables, thermal bodies, and future networks must not independently poll every
-server tick when nothing has changed.
+Create one bounded execution model shared by future machines, networks, thermal controllers, and other simulation participants.
 
-## Added contracts
+## Implemented Contracts
 
 - `SimulationLifecycle`
 - `SimulationContextFactory`
@@ -14,43 +12,31 @@ server tick when nothing has changed.
 - `SchedulerTickReport`
 - `SimulationResult.Invalid`
 
-## Runtime rules
+## Architectural Guarantees
 
-1. Registration begins in `SLEEPING` state.
-2. A participant runs only after `wake(...)` or when a scheduled time becomes due.
-3. `BLOCKED` participants remain idle until an external change wakes them.
-4. `INVALID` participants remain disabled until removed or repaired by platform code.
-5. Each server tick has a fixed maximum execution count.
-6. Each execution receives a fixed work-unit budget.
-7. Stale schedule tickets are ignored through generation numbers.
-8. Dirty-state ownership is per participant and remains separate from integration work.
+1. Registration begins sleeping.
+2. Participants execute only after wake or a due schedule.
+3. Blocked participants wait for external change.
+4. Invalid participants remain disabled until repaired or removed.
+5. Per-tick executions and per-execution work are bounded.
+6. Generation numbers invalidate stale schedule entries.
+7. Equal-time ordering is deterministic.
 
-## Why this comes first
+## Ownership Boundary
 
-Thermal, energy, cable, generator, and machine controllers all require the same
-wake/sleep/schedule behavior. Implementing that behavior once prevents every
-subsystem from inventing its own tick loop.
+All contracts introduced by this milestone live in the backend simulation layer. Minecraft, NeoForge, block entities, capabilities, menus, screens, packets, and production gameplay are not authoritative owners.
 
-## Deliberately deferred
+## Validation
 
-- Minecraft level storage for schedulers
-- Block-entity adapters
-- chunk load and unload hooks
+The milestone was compiled and runtime-tested before commit. Existing Research Era gameplay remained operational because production integration was deliberately deferred.
+
+## Deliberately Deferred
+
+- Minecraft scheduler storage
+- block-entity adapters
+- chunk hooks
 - persistence encoding
-- thermal participant controllers
-- cable topology scheduling
-- legacy machine replacement
 
-Those layers now have a stable execution contract to build against.
+## Completion Status
 
-## Local verification
-
-Run:
-
-```bat
-gradlew.bat compileJava
-gradlew.bat runClient
-```
-
-The existing gameplay should remain unchanged because no legacy block entity is
-wired into the scheduler during this milestone.
+Completed and committed. Later milestones may extend these contracts but must preserve the ownership and dependency boundaries documented here.

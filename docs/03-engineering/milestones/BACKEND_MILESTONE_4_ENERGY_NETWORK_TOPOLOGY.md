@@ -2,44 +2,36 @@
 
 ## Purpose
 
-Establish a deterministic, Minecraft-independent topology authority before adding
-network transfer scheduling. This keeps graph discovery and routing separate from
-Forge Energy capabilities and the legacy cable block entities.
+Represent energy-network graph structure and deterministic routing independently of transfer execution.
 
-## Added contracts
+## Implemented Contracts
 
 - `EnergyNetworkNodeId`
 - `EnergyNetworkConnection`
 - `EnergyRoute`
 - `EnergyNetworkTopology`
 
-## Runtime rules
+## Architectural Guarantees
 
-1. Topology changes only in response to explicit add, remove, connect, or disconnect events.
-2. Nodes use stable identifiers supplied by the platform adapter.
-3. Connections are undirected and canonicalized by node-id order.
-4. Every real topology mutation increments a monotonic revision.
-5. Connected-component discovery is deterministic.
-6. Route discovery uses minimum hop count with node-id order as the tie breaker.
-7. A route exposes its bottleneck transfer limit but does not move energy.
+1. Topology owns graph relationships.
+2. Node identifiers provide stable ordering.
+3. Routes are explicit values.
+4. Topology discovery from the world remains an adapter concern.
 
-## Why this slice is separate
+## Ownership Boundary
 
-The network solver will need stable components and repeatable routes. Implementing
-transfer, fairness, shared-edge throughput, loss accounting, and sleeping behavior
-before topology is trustworthy would mix several independent problems and make the
-result difficult to validate.
+All contracts introduced by this milestone live in the backend simulation layer. Minecraft, NeoForge, block entities, capabilities, menus, screens, packets, and production gameplay are not authoritative owners.
 
-## Deliberately deferred
+## Validation
 
-- source and receiver registration,
-- per-tick shared-edge throughput accounting,
-- route efficiency and cumulative loss,
-- fair distribution between multiple receivers,
-- scheduler participant integration,
-- sleeping and wake conditions,
-- diagnostics snapshots,
-- NeoForge and BlockEntity adapters,
-- replacement of the legacy cable manager.
+The milestone was compiled and runtime-tested before commit. Existing Research Era gameplay remained operational because production integration was deliberately deferred.
 
-Existing gameplay remains unchanged. This milestone introduces backend contracts only.
+## Deliberately Deferred
+
+- resource transfer
+- network runtime
+- world cable discovery
+
+## Completion Status
+
+Completed and committed. Later milestones may extend these contracts but must preserve the ownership and dependency boundaries documented here.

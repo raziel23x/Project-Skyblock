@@ -39,3 +39,27 @@ Use one status:
 - Implemented
 - Deprecated
 - Superseded
+
+## Engine Documentation Requirements
+
+- Use one canonical document per subject.
+- Label planned, implemented, deprecated, and historical material explicitly.
+- Do not claim validation that was not performed.
+- Use relative Markdown links.
+- Record architectural changes in the Engine Changelog.
+- Create or update an ADR when a durable cross-system decision changes.
+- Update the Component Catalog when a reusable component is introduced or materially changed.
+- Every backend milestone receives a milestone document before it is considered complete.
+
+## Milestone Completion Workflow
+
+```text
+Design
+→ Implement
+→ Compile
+→ Runtime Validation
+→ Architecture Review
+→ Documentation
+→ Commit Preparation
+→ Archive
+```

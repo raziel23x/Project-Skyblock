@@ -1,26 +1,26 @@
-# Backend Milestone 2 — Thermal Core
+# Backend Milestone 3 — Energy Simulation
 
 ## Purpose
 
-Establish deterministic backend-owned temperature state and heat-transfer behavior.
+Establish simulation-owned energy storage, limits, requests, transfer, and diagnostics.
 
 ## Implemented Contracts
 
-- `ThermalState`
-- `ThermalProperties`
-- `ThermalEnvironment`
-- `ThermalTransfer`
-- `ThermalEngine`
-- `ThermalCondition`
-- `ThermalDiagnostics`
-- `ThermalConstants`
+- `SimulationEnergyState`
+- `EnergyBuffer`
+- `EnergyLimits`
+- `EnergyRequest`
+- `EnergyTransfer`
+- `EnergyFlowResult`
+- `EnergyEngine`
+- `EnergyDiagnostics`
 
 ## Architectural Guarantees
 
-1. Thermal state is authoritative.
-2. Transfer logic is independent of Minecraft blocks and fluids.
-3. Properties and environment are explicit inputs.
-4. Diagnostics are immutable observations.
+1. The backend owns stored energy.
+2. Capacity and throughput are enforced by simulation operations.
+3. Transfers produce explicit deterministic results.
+4. Forge Energy is deferred to an adapter.
 
 ## Ownership Boundary
 
@@ -32,9 +32,9 @@ The milestone was compiled and runtime-tested before commit. Existing Research E
 
 ## Deliberately Deferred
 
-- machine thermal component
-- world/environment adapters
-- boiling and condensation gameplay
+- NeoForge Energy adapter
+- machine energy composition
+- network topology
 
 ## Completion Status
 

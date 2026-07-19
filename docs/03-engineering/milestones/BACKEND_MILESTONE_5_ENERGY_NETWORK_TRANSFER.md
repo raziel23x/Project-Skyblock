@@ -1,32 +1,36 @@
-# Backend Milestone 5 - Energy Network Transfer
+# Backend Milestone 5 — Energy Network Transfer
 
 ## Purpose
 
-Add deterministic single-route energy movement on top of the established topology.
-The simulation remains independent from Minecraft, NeoForge capabilities, block
-entities, and the legacy cable manager.
+Execute one deterministic energy transfer over a selected network route.
 
-## Added contracts
+## Implemented Contracts
 
 - `EnergyNetworkEngine`
 - `EnergyNetworkHopResult`
 - `EnergyNetworkTransferResult`
 
-## Runtime rules
+## Architectural Guarantees
 
-1. The topology selects the deterministic minimum-hop route.
-2. Source extraction, route bottleneck, and target acceptance all limit movement.
-3. Connection losses are applied in route order using integer fixed-point math.
-4. Every connection produces explicit entered, delivered, and lost accounting.
-5. The source and target mutate only after a complete valid transfer plan exists.
-6. A disconnected source and target produce no transfer result.
+1. Hop results are explicit.
+2. Whole-transfer results preserve observability.
+3. Topology and movement remain separate responsibilities.
+4. The milestone does not pretend to solve global fairness.
 
-## Deliberately deferred
+## Ownership Boundary
 
-- competing transfers in the same tick,
-- shared-edge throughput reservations,
-- fairness between multiple targets,
-- source and receiver registration,
-- scheduler sleep and wake integration,
-- network-wide diagnostics snapshots,
-- Minecraft and NeoForge adapters.
+All contracts introduced by this milestone live in the backend simulation layer. Minecraft, NeoForge, block entities, capabilities, menus, screens, packets, and production gameplay are not authoritative owners.
+
+## Validation
+
+The milestone was compiled and runtime-tested before commit. Existing Research Era gameplay remained operational because production integration was deliberately deferred.
+
+## Deliberately Deferred
+
+- competing transfers
+- shared-edge reservations
+- global distribution
+
+## Completion Status
+
+Completed and committed. Later milestones may extend these contracts but must preserve the ownership and dependency boundaries documented here.

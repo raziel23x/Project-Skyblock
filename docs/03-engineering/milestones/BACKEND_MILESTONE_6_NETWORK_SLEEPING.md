@@ -1,26 +1,22 @@
-# Backend Milestone 2 — Thermal Core
+# Backend Milestone 6 — Network Sleeping
 
 ## Purpose
 
-Establish deterministic backend-owned temperature state and heat-transfer behavior.
+Integrate energy networks with the scheduler so idle networks perform no recurring work.
 
 ## Implemented Contracts
 
-- `ThermalState`
-- `ThermalProperties`
-- `ThermalEnvironment`
-- `ThermalTransfer`
-- `ThermalEngine`
-- `ThermalCondition`
-- `ThermalDiagnostics`
-- `ThermalConstants`
+- `EnergyNetworkActivity`
+- `EnergyNetworkRuntimeState`
+- `EnergyNetworkParticipant`
+- `EnergyNetworkRuntimeDiagnostics`
 
 ## Architectural Guarantees
 
-1. Thermal state is authoritative.
-2. Transfer logic is independent of Minecraft blocks and fluids.
-3. Properties and environment are explicit inputs.
-4. Diagnostics are immutable observations.
+1. Runtime activity is explicit.
+2. Idle networks sleep.
+3. Meaningful state or topology changes wake the participant.
+4. Execution remains bounded by scheduler budgets.
 
 ## Ownership Boundary
 
@@ -32,9 +28,9 @@ The milestone was compiled and runtime-tested before commit. Existing Research E
 
 ## Deliberately Deferred
 
-- machine thermal component
-- world/environment adapters
-- boiling and condensation gameplay
+- Minecraft network ownership
+- fair distribution
+- persistence codecs
 
 ## Completion Status
 

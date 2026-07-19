@@ -1,26 +1,24 @@
-# Backend Milestone 2 — Thermal Core
+# Backend Milestone 7 — Machine Framework Core
 
 ## Purpose
 
-Establish deterministic backend-owned temperature state and heat-transfer behavior.
+Provide reusable machine lifecycle, state, behavior, scheduler participation, identity, and diagnostics.
 
 ## Implemented Contracts
 
-- `ThermalState`
-- `ThermalProperties`
-- `ThermalEnvironment`
-- `ThermalTransfer`
-- `ThermalEngine`
-- `ThermalCondition`
-- `ThermalDiagnostics`
-- `ThermalConstants`
+- `MachineId`
+- `MachineActivity`
+- `MachineState`
+- `MachineLogic`
+- `MachineParticipant`
+- `MachineDiagnostics`
 
 ## Architectural Guarantees
 
-1. Thermal state is authoritative.
-2. Transfer logic is independent of Minecraft blocks and fluids.
-3. Properties and environment are explicit inputs.
-4. Diagnostics are immutable observations.
+1. Machine state and machine behavior are separate.
+2. MachineParticipant is the scheduler-facing adapter.
+3. The framework is Minecraft-independent.
+4. Recipes, GUIs, inventories, and capabilities remain outside the core.
 
 ## Ownership Boundary
 
@@ -32,9 +30,9 @@ The milestone was compiled and runtime-tested before commit. Existing Research E
 
 ## Deliberately Deferred
 
-- machine thermal component
-- world/environment adapters
-- boiling and condensation gameplay
+- machine components
+- persistence adapters
+- production machines
 
 ## Completion Status
 

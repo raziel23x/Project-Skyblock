@@ -1,23 +1,18 @@
-# Replacement Instructions
+# Documentation Replacement Instructions
 
-This package is designed to replace the existing documentation folder.
+This package contains one complete `docs` folder.
 
-## Safe Replacement
+## Replace the Existing Documentation
 
-1. Back up the repository.
-2. Delete the existing `docs/` folder.
-3. Copy this package's `docs/` folder into the repository root.
-4. Replace the root `CONTRIBUTING.md` only if desired.
-5. Commit the change.
+1. Close any open files inside the repository's current `docs` folder.
+2. Delete the current `docs` folder.
+3. Copy the new `docs` folder from this package into the repository root.
+4. Confirm the repository now contains `docs/README.md`.
+5. Review the Git changes before committing.
+6. Commit the replacement as one documentation change.
 
-## Removed During Refactor
+No file-by-file merging or renaming is required.
 
-The replacement intentionally removes:
+## Important Boundary
 
-- staging JSON files;
-- temporary roadmap files;
-- duplicate Resource Bible volume summaries;
-- obsolete top-level indexes;
-- duplicate folder structures.
-
-Their useful information was retained in the canonical documentation or replaced by the new master index.
+Do not delete project-root files such as `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, or the `legacy-reference` folder. This replacement applies only to the repository's `docs` folder.

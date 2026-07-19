@@ -1,29 +1,36 @@
-# Backend Milestone 8 - Machine Energy Component
+# Backend Milestone 8 — Machine Energy Component
 
 ## Purpose
 
-Add the first reusable machine-owned resource component without creating a production machine or coupling the simulation to Minecraft.
+Add the first reusable machine-owned resource component without creating a production machine.
 
-## Implemented
+## Implemented Contracts
 
-- machine energy access rules: none, input, output, and bidirectional,
-- reuse of the authoritative `SimulationEnergyState`,
-- external receive and extract operations,
-- internal produce and consume operations,
-- capacity and per-tick throughput enforcement,
-- persistence, client-sync, and scheduler dirty signaling,
-- owner wake signaling after meaningful changes,
-- immutable diagnostics snapshots.
+- `MachineEnergyAccess`
+- `MachineEnergyComponent`
+- `MachineEnergyDiagnostics`
 
-## Architectural boundary
+## Architectural Guarantees
 
-The component contains no Forge Energy, capability, BlockEntity, menu, networking, recipe, or gameplay code. A future Minecraft adapter may expose this component, but the adapter will not own the energy state.
+1. SimulationEnergyState remains authoritative.
+2. External and internal operations are distinct.
+3. Access modes and throughput are enforced.
+4. Meaningful changes mark persistence, client-sync, and scheduler dirty state and wake the owner.
 
-## Deferred
+## Ownership Boundary
 
-- machine composition container,
-- direct energy-network endpoint registration,
-- thermal and inventory components,
-- processing and recipes,
-- persistence codecs,
-- NeoForge adapters.
+All contracts introduced by this milestone live in the backend simulation layer. Minecraft, NeoForge, block entities, capabilities, menus, screens, packets, and production gameplay are not authoritative owners.
+
+## Validation
+
+The milestone was compiled and runtime-tested before commit. Existing Research Era gameplay remained operational because production integration was deliberately deferred.
+
+## Deliberately Deferred
+
+- inventory, fluid, gas, thermal, and processing components
+- network endpoint integration
+- NeoForge Energy adapter
+
+## Completion Status
+
+Completed and committed. Later milestones may extend these contracts but must preserve the ownership and dependency boundaries documented here.
