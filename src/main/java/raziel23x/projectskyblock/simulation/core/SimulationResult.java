@@ -22,6 +22,14 @@ public sealed interface SimulationResult {
         }
     }
 
+    record Invalid(String reason) implements SimulationResult {
+        public Invalid {
+            if (reason == null || reason.isBlank()) {
+                throw new IllegalArgumentException("reason must not be blank");
+            }
+        }
+    }
+
     static Sleep sleep() {
         return new Sleep();
     }
@@ -36,5 +44,9 @@ public sealed interface SimulationResult {
 
     static Blocked blocked(String reason) {
         return new Blocked(reason);
+    }
+
+    static Invalid invalid(String reason) {
+        return new Invalid(reason);
     }
 }
