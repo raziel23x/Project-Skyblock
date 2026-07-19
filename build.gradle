@@ -129,6 +129,10 @@ configurations {
 }
 
 dependencies {
+    testImplementation platform("org.junit:junit-bom:5.11.4")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+
     // Load optional compatibility and diagnostic mods only in the integration client.
     // Place NeoForge 1.21.1 mod jars in dev/mods/. They are never published or bundled.
     integrationClientAdditionalRuntimeClasspath fileTree(dir: 'dev/mods', include: ['*.jar'])
@@ -204,4 +208,9 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
 }

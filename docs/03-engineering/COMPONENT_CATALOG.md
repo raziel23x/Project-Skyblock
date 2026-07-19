@@ -20,9 +20,9 @@ Owns a `SimulationEnergyState` relationship and controls external receive/extrac
 
 ## MachineInventoryComponent
 
-**Status:** Planned for Milestone 9.
+**Status:** Implemented in Milestone 9.
 
-Will provide typed, Minecraft-independent item identity, quantities, slots or storage regions, controlled insertion/extraction, diagnostics, dirty signaling, and owner wake behavior. It must not use `ItemStack` as authoritative state.
+Owns authoritative Minecraft-independent slot contents using `SimulationItemKey` and `SimulationItemStack`. Each slot has explicit capacity, external access, and an insertion rule. External `insert`/`extract` operations are separated from internal `store`/`consume` operations. The component validates restored state, exposes immutable slot snapshots and diagnostics, marks persistence/client-sync/scheduler dirty state, and wakes its owner after meaningful changes. Minecraft `ItemStack` and NeoForge item handlers remain adapter concerns.
 
 ## MachineFluidComponent
 

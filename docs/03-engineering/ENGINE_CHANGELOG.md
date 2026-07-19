@@ -38,6 +38,10 @@ Separated machine state, machine logic, scheduler participation, identity, activ
 
 Added the first reusable machine component with backend energy ownership, access control, throughput enforcement, dirty signaling, wake signaling, and diagnostics.
 
+## Milestone 9 — Machine Inventory Component
+
+Added stable item identity, immutable item quantities, configurable machine slots, per-slot insertion rules, external and internal operation separation, validated restoration, immutable snapshots, diagnostics, dirty signaling, wake signaling, and automated component tests.
+
 ## Next
 
-Milestone 9 will establish the machine inventory component.
+Milestone 10 will establish the automated backend test foundation and prove machine composition using the energy and inventory components together.

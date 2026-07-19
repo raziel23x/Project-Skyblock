@@ -31,11 +31,11 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Network sleeping
 - Machine framework
 - Machine energy component
+- Machine inventory component
 
 ### Near-Term Planned
 
-- Machine inventory component
-- Automated backend unit tests
+- Automated backend test foundation
 - machine composition proof
 - persistence contracts and codecs
 - Minecraft/NeoForge adapters
@@ -62,3 +62,17 @@ The Journal becomes the first production feature and the central progression int
 ## Game Era
 
 Production content implements knowledge-driven progression, material decomposition, ecology, processing, logistics, energy, chemistry, and civilization systems through the validated engine.
+
+## Potential Engine Extraction
+
+After the Engine Era is complete and the simulation APIs have proven stable through real gameplay, evaluate extracting the Minecraft-independent backend into a standalone NeoForge library mod. This is a future consideration, not a current milestone or commitment.
+
+Extraction should be considered only when:
+
+- multiple mods genuinely need the engine;
+- core packages remain free of Project Skyblock-specific dependencies;
+- component and simulation APIs have stabilized;
+- independent automated tests exist;
+- long-term versioned public API maintenance is justified.
+
+Until then, backend packages and platform adapters should remain cleanly separated without introducing premature publishing, compatibility, or public-API obligations.

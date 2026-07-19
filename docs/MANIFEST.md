@@ -1,6 +1,6 @@
 # Documentation Manifest
 
-Markdown files: 87
+Markdown files: 88
 
 This manifest describes the complete replacement `docs` folder.
 
@@ -68,6 +68,7 @@ This manifest describes the complete replacement `docs` folder.
 - `03-engineering/milestones/BACKEND_MILESTONE_6_NETWORK_SLEEPING.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_7_MACHINE_FRAMEWORK_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_8_MACHINE_ENERGY_COMPONENT.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_9_MACHINE_INVENTORY_COMPONENT.md`
 - `03-engineering/milestones/README.md`
 - `03-engineering/standards/DOCUMENTATION_STYLE_GUIDE.md`
 - `03-engineering/standards/FEATURE_SPECIFICATION_TEMPLATE.md`
@@ -90,5 +91,6 @@ This manifest describes the complete replacement `docs` folder.
 - `05-reference/resource-bible/REDSTONE_AND_TECH.md`
 - `05-reference/resource-bible/WOODS.md`
 - `DOCUMENTATION_AUDIT.md`
+- `MANIFEST.md`
 - `README.md`
 - `REPLACEMENT_INSTRUCTIONS.md`

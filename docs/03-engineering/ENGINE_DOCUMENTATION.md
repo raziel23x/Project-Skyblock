@@ -96,16 +96,22 @@ The framework contains no block entities, menus, rendering, or capabilities.
 Implemented:
 
 - `MachineEnergyComponent`
+- `MachineInventoryComponent`
 
 Planned:
 
-- `MachineInventoryComponent`
 - `MachineFluidComponent`
 - `MachineGasComponent`
 - `MachineThermalComponent`
 - `MachineProcessingComponent`
 
 Components own or delegate authoritative state, enforce local access rules, produce diagnostics, mark dirty categories, and wake their owner after meaningful changes.
+
+### Machine Inventory Model
+
+`SimulationItemKey` represents stable item identity using a validated `namespace:path` value. `SimulationItemStack` is an immutable quantity value with an explicit maximum stack size. `MachineInventoryComponent` owns slot contents and applies slot capacity, access, insertion-rule, merge, restoration, dirty-state, and wake behavior.
+
+External adapters use `insert` and `extract`; machine logic uses `store` and `consume`. Minecraft `ItemStack`, registry lookup, NBT, and `IItemHandler` remain outside the authoritative backend. Immutable slot snapshots provide the handoff point for persistence and diagnostics adapters.
 
 ## Integration Boundary
 
@@ -128,7 +134,7 @@ Minecraft-facing code must not:
 
 ## Current Completion Point
 
-Milestones 1 through 8 are implemented. Milestone 9 will introduce a typed, Minecraft-independent machine inventory model.
+Milestones 1 through 9 are implemented. The engine now has reusable machine-owned energy and inventory components. The next milestone will establish the automated backend test foundation and prove that these components compose cleanly inside one machine state.
 
 ## Long-Term Expansion
 
