@@ -46,6 +46,10 @@ Added stable item identity, immutable item quantities, configurable machine slot
 
 Added reusable machine-owned thermal state integration with external heat access control, internal generation and cooling operations, operating-condition queries, bounded ambient exchange, restoration, immutable snapshots, diagnostics, dirty signaling, wake signaling, and automated component tests.
 
+## Milestone 11 — Scheduler Wake Coalescing
+
+Hardened active-execution wake behavior by coalescing repeated wake requests, deferring in-flight wakes to one next-tick reevaluation, preventing duplicate same-tick execution, and adding scheduler lifecycle tests.
+
 ## Next
 
-Milestone 11 will prove machine composition by combining energy, inventory, and thermal components under one machine logic implementation.
+The next milestone will review and prove machine composition using the strengthened scheduler contract.

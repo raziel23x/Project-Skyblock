@@ -47,6 +47,7 @@ public final class SimulationScheduler {
         }
         removed.generation++;
         removed.queuedReady = false;
+        removed.wakeRequestedDuringExecution = false;
         return true;
     }
 
@@ -55,6 +56,10 @@ public final class SimulationScheduler {
         Entry entry = entries.get(requireId(participantId));
         if (entry == null || entry.lifecycle == SimulationLifecycle.INVALID) {
             return false;
+        }
+        if (entry.lifecycle == SimulationLifecycle.ACTIVE) {
+            entry.wakeRequestedDuringExecution = true;
+            return true;
         }
         enqueueReady(entry);
         return true;
@@ -117,6 +122,7 @@ public final class SimulationScheduler {
                     execute(entry.participant, context, new SimulationBudget(workUnitsPerExecution)),
                     "participant returned null");
             applyResult(entry, result, gameTime);
+            applyDeferredWake(entry, gameTime);
             executed++;
         }
 
@@ -149,6 +155,16 @@ public final class SimulationScheduler {
             entry.generation++;
         } else {
             throw new IllegalStateException("unhandled simulation result: " + result.getClass().getName());
+        }
+    }
+
+    private void applyDeferredWake(Entry entry, long gameTime) {
+        if (!entry.wakeRequestedDuringExecution) {
+            return;
+        }
+        entry.wakeRequestedDuringExecution = false;
+        if (entry.lifecycle != SimulationLifecycle.INVALID) {
+            schedule(entry, gameTime + 1L);
         }
     }
 
@@ -218,6 +234,7 @@ public final class SimulationScheduler {
         private long nextRunTime = -1L;
         private long generation;
         private boolean queuedReady;
+        private boolean wakeRequestedDuringExecution;
 
         private Entry(String id, SimulationParticipant<?> participant) {
             this.id = id;

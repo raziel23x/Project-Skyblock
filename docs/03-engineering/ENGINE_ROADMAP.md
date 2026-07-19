@@ -33,6 +33,7 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine energy component
 - Machine inventory component
 - Machine thermal component
+- Scheduler wake coalescing and active-execution safety
 
 ### Near-Term Planned
 

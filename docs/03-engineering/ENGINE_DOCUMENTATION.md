@@ -55,7 +55,7 @@ bounded execution
           +--> invalidate
 ```
 
-Generation numbers invalidate stale queue entries. Stable participant identifiers provide deterministic ordering where due times match.
+Generation numbers invalidate stale queue entries. Stable participant identifiers provide deterministic ordering where due times match. Repeated wake requests are coalesced. A wake received while a participant is actively executing is deferred into one next-tick reevaluation, preventing same-tick duplicate work and lost future wakeups.
 
 ## Thermal System
 
