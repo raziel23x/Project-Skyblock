@@ -3,17 +3,17 @@ package raziel23x.projectskyblock.simulation.thermal;
 import raziel23x.projectskyblock.simulation.core.SimulationState;
 
 /**
- * Fixed-point thermal state.
+ * Authoritative fixed-point thermal state.
  *
- * <p>Temperature is stored in milli-kelvin. Heat capacity is stored as
- * microjoules required per milli-kelvin. This avoids floating-point drift in
- * authoritative server simulation.</p>
+ * <p>Heat is retained internally as microjoules, including amounts too small to
+ * change the exposed milli-kelvin temperature. This prevents repeated small
+ * transfers from disappearing through integer rounding.</p>
  */
 public final class ThermalState implements SimulationState {
-    public static final long ABSOLUTE_ZERO_MK = 0L;
+    public static final long ABSOLUTE_ZERO_MK = ThermalConstants.ABSOLUTE_ZERO_MILLI_KELVIN;
 
     private final long heatCapacityMicroJoulesPerMilliKelvin;
-    private long temperatureMilliKelvin;
+    private long thermalEnergyMicroJoules;
 
     public ThermalState(long temperatureMilliKelvin, long heatCapacityMicroJoulesPerMilliKelvin) {
         if (temperatureMilliKelvin < ABSOLUTE_ZERO_MK) {
@@ -22,42 +22,40 @@ public final class ThermalState implements SimulationState {
         if (heatCapacityMicroJoulesPerMilliKelvin <= 0) {
             throw new IllegalArgumentException("heat capacity must be positive");
         }
-        this.temperatureMilliKelvin = temperatureMilliKelvin;
         this.heatCapacityMicroJoulesPerMilliKelvin = heatCapacityMicroJoulesPerMilliKelvin;
+        this.thermalEnergyMicroJoules = Math.multiplyExact(
+                temperatureMilliKelvin,
+                heatCapacityMicroJoulesPerMilliKelvin);
     }
 
     public long temperatureMilliKelvin() {
-        return temperatureMilliKelvin;
+        return thermalEnergyMicroJoules / heatCapacityMicroJoulesPerMilliKelvin;
     }
 
     public long heatCapacityMicroJoulesPerMilliKelvin() {
         return heatCapacityMicroJoulesPerMilliKelvin;
     }
 
+    public long thermalEnergyMicroJoules() {
+        return thermalEnergyMicroJoules;
+    }
+
+    /** Adds all requested heat and returns the accepted amount. */
     public long addHeatMicroJoules(long heatMicroJoules) {
         if (heatMicroJoules < 0) {
             throw new IllegalArgumentException("heat must be non-negative");
         }
-        long delta = heatMicroJoules / heatCapacityMicroJoulesPerMilliKelvin;
-        if (delta == 0) {
-            return 0;
-        }
-        long previous = temperatureMilliKelvin;
-        temperatureMilliKelvin = Math.addExact(temperatureMilliKelvin, delta);
-        return Math.multiplyExact(temperatureMilliKelvin - previous, heatCapacityMicroJoulesPerMilliKelvin);
+        thermalEnergyMicroJoules = Math.addExact(thermalEnergyMicroJoules, heatMicroJoules);
+        return heatMicroJoules;
     }
 
+    /** Removes up to the requested heat without crossing absolute zero. */
     public long removeHeatMicroJoules(long requestedMicroJoules) {
         if (requestedMicroJoules < 0) {
             throw new IllegalArgumentException("heat must be non-negative");
         }
-        long available = Math.multiplyExact(temperatureMilliKelvin, heatCapacityMicroJoulesPerMilliKelvin);
-        long removable = Math.min(requestedMicroJoules, available);
-        long delta = removable / heatCapacityMicroJoulesPerMilliKelvin;
-        if (delta == 0) {
-            return 0;
-        }
-        temperatureMilliKelvin -= delta;
-        return Math.multiplyExact(delta, heatCapacityMicroJoulesPerMilliKelvin);
+        long removed = Math.min(requestedMicroJoules, thermalEnergyMicroJoules);
+        thermalEnergyMicroJoules -= removed;
+        return removed;
     }
 }

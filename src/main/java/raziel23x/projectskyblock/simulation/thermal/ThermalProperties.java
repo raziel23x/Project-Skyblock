@@ -11,8 +11,8 @@ public record ThermalProperties(
         if (conductanceMicroJoulesPerMilliKelvinPerTick < 0) {
             throw new IllegalArgumentException("conductance must be non-negative");
         }
-        if (minimumOperatingTemperatureMilliKelvin < 0) {
-            throw new IllegalArgumentException("minimum temperature cannot be negative");
+        if (minimumOperatingTemperatureMilliKelvin < ThermalConstants.ABSOLUTE_ZERO_MILLI_KELVIN) {
+            throw new IllegalArgumentException("minimum temperature cannot be below absolute zero");
         }
         if (maximumOperatingTemperatureMilliKelvin < minimumOperatingTemperatureMilliKelvin) {
             throw new IllegalArgumentException("maximum temperature must not be below minimum");
@@ -23,12 +23,24 @@ public record ThermalProperties(
     }
 
     public boolean isWithinOperatingRange(ThermalState state) {
-        long temperature = state.temperatureMilliKelvin();
-        return temperature >= minimumOperatingTemperatureMilliKelvin
-                && temperature <= maximumOperatingTemperatureMilliKelvin;
+        return condition(state) == ThermalCondition.OPERATING;
     }
 
     public boolean requiresShutdown(ThermalState state) {
-        return state.temperatureMilliKelvin() >= shutdownTemperatureMilliKelvin;
+        return condition(state) == ThermalCondition.SHUTDOWN;
+    }
+
+    public ThermalCondition condition(ThermalState state) {
+        long temperature = state.temperatureMilliKelvin();
+        if (temperature >= shutdownTemperatureMilliKelvin) {
+            return ThermalCondition.SHUTDOWN;
+        }
+        if (temperature < minimumOperatingTemperatureMilliKelvin) {
+            return ThermalCondition.BELOW_OPERATING_RANGE;
+        }
+        if (temperature > maximumOperatingTemperatureMilliKelvin) {
+            return ThermalCondition.ABOVE_OPERATING_RANGE;
+        }
+        return ThermalCondition.OPERATING;
     }
 }
