@@ -1,3 +1,10 @@
+# Engine Milestone 15 — Level-Scoped Scheduler Driver
+
+- Added one bounded scheduler owner per logical server level.
+- Added post-execution observation without changing existing scheduler callers.
+- Avoided per-tick scans of sleeping machines by queuing integration work only after actual execution.
+- Connected engine machine lifecycle to NeoForge level tick and unload events.
+
 # Engine Architectural Changelog
 
 This is an architectural history, not a release changelog.

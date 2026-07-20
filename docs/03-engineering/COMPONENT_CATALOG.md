@@ -60,3 +60,10 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 - `MachineRuntimePersistence` captures and restores authoritative component state.
 - `MachineRuntimeNbtCodec` is the NeoForge-only NBT adapter.
 - `EngineMachineBlockEntity` owns platform lifecycle and deferred integration effects, never simulation execution.
+
+## Level-Scoped Machine Scheduler
+
+- `EngineMachineLevelManager` owns scheduler lifecycle through NeoForge level events.
+- `LevelMachineScheduler` runs one bounded scheduler slice per server-level tick.
+- `SimulationExecutionObserver` lets adapters enqueue only dirty machines that actually executed.
+- Sleeping machines remain outside recurring platform work.

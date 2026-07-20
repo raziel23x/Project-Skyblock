@@ -22,3 +22,5 @@ Milestone documents record completed architectural slices. They describe purpose
 ## Next
 
 Level-scoped scheduler ownership and the first engine-owned vertical slice.
+
+- `BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md` — one bounded scheduler per server level with dirty-only integration flushing.

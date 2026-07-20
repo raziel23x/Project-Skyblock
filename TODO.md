@@ -10,9 +10,10 @@ Project Skyblock is a technology and civilization mod built on a reusable, Minec
 
 - [x] Backend Milestone 12 — Machine Composition Proof
 - [x] Backend Milestone 13 — Machine Processing Component
-- [ ] Run local Gradle tests and build for Milestone 13
-- [ ] Define persistence contracts and validated codecs
-- [ ] Add Minecraft/NeoForge adapters without duplicating authoritative state
+- [x] Backend Milestone 14 — Machine Runtime Persistence Bridge
+- [x] Backend Milestone 15 — Level-Scoped Scheduler Driver
+- [ ] Run local Gradle tests and build for Milestone 15
+- [ ] Add energy and inventory capability adapters without duplicating authoritative state
 - [ ] Build the first engine-driven vertical slice
 
 ## Proof of Concept Migration
@@ -50,8 +51,9 @@ The existing working content is playable evidence, not the final architecture.
 
 ### Planned When Proven Necessary
 
-- [ ] Persistence contracts and codecs
-- [ ] Minecraft/NeoForge platform adapters
+- [x] Persistence contracts and codecs
+- [x] Minecraft/NeoForge block-entity and level-scheduler adapters
+- [ ] Energy and inventory capability adapters
 - [ ] Reference vertical slice
 - [ ] Machine fluid component
 - [ ] Machine gas component

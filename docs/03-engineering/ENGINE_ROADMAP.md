@@ -37,10 +37,10 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine composition proof and shared dirty-state ownership
 - Machine processing component
 - Machine runtime persistence contract and NeoForge block-entity bridge
+- Level-scoped scheduler driver
 
 ### Near-Term Planned
 
-- level-scoped scheduler driver
 - energy and inventory capability adapters
 - reference vertical slice and first engine-owned test machine
 

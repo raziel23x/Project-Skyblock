@@ -1,6 +1,6 @@
 # Documentation Manifest
 
-Markdown files: 94
+Markdown files: 95
 
 This manifest describes the complete replacement `docs` folder.
 
@@ -102,3 +102,5 @@ This manifest describes the complete replacement `docs` folder.
 - `architecture/ENGINEERING_PRINCIPLES.md`
 
 - `03-engineering/milestones/BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md` — versioned runtime persistence and NeoForge lifecycle bridge.
+
+- `03-engineering/milestones/BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md` — bounded level-scoped machine scheduler integration.

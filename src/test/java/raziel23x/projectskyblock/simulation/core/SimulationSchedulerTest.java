@@ -64,6 +64,27 @@ class SimulationSchedulerTest {
     }
 
 
+
+    @Test
+    void executionObserverSeesOnlyParticipantsThatActuallyRun() {
+        AtomicInteger observed = new AtomicInteger();
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        scheduler.register("observed", participant(new AtomicInteger(), context -> {
+            context.dirtyState().mark(DirtyFlag.PERSISTENCE);
+            return SimulationResult.sleep();
+        }));
+        scheduler.register("still-sleeping", participant(new AtomicInteger(), context -> SimulationResult.sleep()));
+
+        scheduler.wake("observed");
+        scheduler.tick(0L, CONTEXT_FACTORY, (participantId, dirtyState) -> {
+            assertEquals("observed", participantId);
+            assertTrue(dirtyState.isDirty(DirtyFlag.PERSISTENCE));
+            observed.incrementAndGet();
+        });
+
+        assertEquals(1, observed.get());
+    }
+
     @Test
     void externallyOwnedDirtyTrackerIsUsedBySchedulerContext() {
         SimulationScheduler scheduler = new SimulationScheduler(8, 8);

@@ -115,10 +115,24 @@ public final class SimulationScheduler {
 
     /** Executes at most the configured number of participants for this game tick. */
     public SchedulerTickReport tick(long gameTime, SimulationContextFactory contextFactory) {
+        return tick(gameTime, contextFactory, SimulationExecutionObserver.NONE);
+    }
+
+    /**
+     * Executes one bounded scheduler slice and reports each participant that actually ran.
+     *
+     * <p>The observer exists so platform adapters can enqueue only required integration work
+     * without scanning every registered participant every game tick.</p>
+     */
+    public SchedulerTickReport tick(
+            long gameTime,
+            SimulationContextFactory contextFactory,
+            SimulationExecutionObserver executionObserver) {
         if (gameTime < 0) {
             throw new IllegalArgumentException("game time must be non-negative");
         }
         Objects.requireNonNull(contextFactory, "contextFactory");
+        Objects.requireNonNull(executionObserver, "executionObserver");
 
         releaseDueParticipants(gameTime);
 
@@ -139,6 +153,7 @@ public final class SimulationScheduler {
                     "participant returned null");
             applyResult(entry, result, gameTime);
             applyDeferredWake(entry, gameTime);
+            executionObserver.afterExecution(entry.id, entry.dirtyState);
             executed++;
         }
 

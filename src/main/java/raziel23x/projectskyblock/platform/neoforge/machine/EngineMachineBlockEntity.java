@@ -4,9 +4,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import raziel23x.projectskyblock.simulation.core.DirtyFlag;
+import raziel23x.projectskyblock.simulation.core.SimulationScheduler;
 import raziel23x.projectskyblock.simulation.machine.persistence.MachineRuntimePersistence;
 import raziel23x.projectskyblock.simulation.machine.persistence.MachineRuntimeSnapshot;
 import raziel23x.projectskyblock.simulation.machine.runtime.MachineRuntime;
@@ -30,8 +32,8 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
         super(type, position, blockState);
     }
 
-    /** Creates and registers the backend runtime. Called once on the logical server. */
-    protected abstract MachineRuntime createMachineRuntime();
+    /** Creates and registers the backend runtime against the level-owned scheduler. */
+    protected abstract MachineRuntime createMachineRuntime(SimulationScheduler scheduler);
 
     public final EngineMachineLifecycle engineLifecycle() {
         return lifecycle;
@@ -52,20 +54,21 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
     public void onLoad() {
         super.onLoad();
         lifecycle = EngineMachineLifecycle.LOADED;
-        if (level == null || level.isClientSide || runtime != null) {
+        if (!(level instanceof ServerLevel serverLevel) || runtime != null) {
             return;
         }
-        runtime = createMachineRuntime();
+        runtime = createMachineRuntime(EngineMachineLevelManager.schedulerFor(serverLevel));
         if (pendingSnapshot != null) {
             MachineRuntimePersistence.restore(runtime, pendingSnapshot);
             pendingSnapshot = null;
         }
+        EngineMachineLevelManager.registerMachine(serverLevel, this);
         lifecycle = EngineMachineLifecycle.ACTIVE;
     }
 
     /**
      * Applies deferred platform side effects after the level scheduler has executed.
-     * Subclasses or the future level-scoped driver call this; it performs no polling itself.
+     * The level-scoped driver calls this only for machines that executed and became dirty.
      */
     public final void flushMachineIntegrationWork() {
         if (runtime == null) {
@@ -122,6 +125,9 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
 
     private void closeRuntime() {
         if (runtime != null) {
+            if (level instanceof ServerLevel serverLevel) {
+                EngineMachineLevelManager.unregisterMachine(serverLevel, this);
+            }
             runtime.close();
             runtime = null;
         }

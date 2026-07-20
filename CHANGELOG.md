@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — Engine Milestone 15
+
+- Added one bounded simulation scheduler per logical server level.
+- Added execution observation so platform integration flushes only machines that actually ran and became dirty.
+- Connected `EngineMachineBlockEntity` lifecycle to the level scheduler manager.
+- Added deterministic level-unload cleanup without per-machine tick loops.
+
 ## Unreleased — Engine Milestone 13
 
 - Added the reusable Machine Processing Component and composed runtime integration.
