@@ -44,12 +44,12 @@ Wraps authoritative `ThermalState`, shared `ThermalProperties`, and `ThermalEngi
 
 ## MachineProcessingComponent
 
-**Status:** Planned.
+**Status:** Implemented in Milestone 13.
 
-Will coordinate bounded process state, progress, requirements, outputs, blocking reasons, and component interactions. It will not hard-code all recipes or production content into the engine.
+Owns the recipe-independent lifecycle of one active operation: idle, running, blocked, and ready to complete. It tracks stable process identity, bounded progress, blocking reasons, completed-operation counts, validated restoration, immutable diagnostics, and shared dirty-state ownership. Ordinary progress avoids redundant scheduler wakes; lifecycle transitions wake through the composed runtime. Recipe matching, resource transactions, energy policy, thermal requirements, and output insertion remain explicit collaborators rather than hidden component behavior.
 
 ## Machine Composition Runtime
 
 **Status:** Implemented in Milestone 12.
 
-`MachineRuntime` composes the implemented energy, inventory, and thermal components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker` and one coalesced wake signal. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.
+`MachineRuntime` composes the implemented energy, inventory, thermal, and processing components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker` and one coalesced wake signal. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.

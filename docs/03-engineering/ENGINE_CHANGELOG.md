@@ -54,6 +54,10 @@ Hardened active-execution wake behavior by coalescing repeated wake requests, de
 
 Added `MachineRuntime` as the Minecraft-independent composition root for energy, inventory, thermal, typed machine state, scheduler participation, shared dirty-state ownership, coalesced wake signaling, aggregate diagnostics, and lifecycle removal. Added a backward-compatible scheduler registration overload for externally owned dirty trackers after composition exposed the need for one authoritative dirty-state boundary.
 
+## Milestone 13 — Machine Processing Component
+
+Added recipe-independent processing lifecycle state with explicit idle, running, blocked, and ready-to-complete phases. Integrated processing into the composed machine runtime, added immutable diagnostics and validated restoration, and avoided redundant scheduler wake requests during ordinary progress while retaining wake behavior for lifecycle transitions.
+
 ## Next
 
 The next milestone will define persistence contracts and codecs for validated backend state restoration.

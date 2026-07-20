@@ -35,6 +35,7 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine thermal component
 - Scheduler wake coalescing and active-execution safety
 - Machine composition proof and shared dirty-state ownership
+- Machine processing component
 
 ### Near-Term Planned
 
@@ -46,7 +47,6 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 
 - Machine fluid component
 - Machine gas component
-- Machine processing component
 - network fairness and contention
 - fluid and gas network behavior
 - chemistry-supporting resource properties

@@ -1,6 +1,6 @@
 # Documentation Manifest
 
-Markdown files: 90
+Markdown files: 94
 
 This manifest describes the complete replacement `docs` folder.
 
@@ -35,6 +35,7 @@ This manifest describes the complete replacement `docs` folder.
 - `03-engineering/COMPONENT_CATALOG.md`
 - `03-engineering/CONTRIBUTOR_GUIDE.md`
 - `03-engineering/DEVELOPER_GUIDE.md`
+- `03-engineering/ENGINEERING_PRINCIPLES.md`
 - `03-engineering/ENGINE_CHANGELOG.md`
 - `03-engineering/ENGINE_DOCUMENTATION.md`
 - `03-engineering/ENGINE_GUIDING_PRINCIPLES.md`
@@ -63,6 +64,7 @@ This manifest describes the complete replacement `docs` folder.
 - `03-engineering/milestones/BACKEND_MILESTONE_10_MACHINE_THERMAL_COMPONENT.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_11_SCHEDULER_WAKE_COALESCING.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_12_MACHINE_COMPOSITION_PROOF.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_13_MACHINE_PROCESSING_COMPONENT.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md`
@@ -97,3 +99,4 @@ This manifest describes the complete replacement `docs` folder.
 - `MANIFEST.md`
 - `README.md`
 - `REPLACEMENT_INSTRUCTIONS.md`
+- `architecture/ENGINEERING_PRINCIPLES.md`

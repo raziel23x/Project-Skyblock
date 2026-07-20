@@ -1,3 +1,12 @@
+# Changelog
+
+## Unreleased — Engine Milestone 13
+
+- Added the reusable Machine Processing Component and composed runtime integration.
+- Replaced the old resource-generator TODO backlog with an engine and real-mod development plan.
+- Integrated project engineering principles into the canonical documentation structure.
+- Defined the Proof of Concept migration and legacy archive procedure.
+
 # Release Candidate Readability and Cable Housing Fix
 
 - Rebuilt the Basic Energy Cable geometry with a graphite outer housing and a recessed animated cyan energy core.

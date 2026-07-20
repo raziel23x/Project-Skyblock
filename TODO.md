@@ -1,261 +1,103 @@
-# Project Skyblock TODO
+# Project Skyblock Development TODO
 
-This file tracks planned work and future ideas. Completed user-facing features belong in `README.md`; completed changes belong in `CHANGELOG.md`.
+This file tracks active work and near-term checkpoints. It is not a permanent idea dump and it does not define the project's identity. The Constitution, game-design documents, engineering principles, and engine roadmap remain authoritative.
 
-## Current Priority
+## Current Direction
 
-- [x] Compile and in-game test the Basic Energy Cable network
-- [x] Test cable chains between Thermal Generator Mk I and Material Crusher
-- [ ] Test the Material Crusher rear FE connector in-game
-- [ ] Test branched cable networks with multiple receivers
-- [ ] Confirm compatibility with third-party standard FE storage and machines
-- [ ] Complete shared Machine Framework v1
-- [ ] Complete shared machine synchronization helpers
-- [x] Establish shared machine GUI status, gauge, and inventory layout
+Project Skyblock is a technology and civilization mod built on a reusable, Minecraft-independent simulation engine. The old Proof of Concept content remains active only long enough to prove the replacement engine in real gameplay.
 
-## Resource Generation Vision: Alchemy to Chemistry
+## Immediate Work
 
-Replace conventional sieve-and-ore skyblock progression with resource manufacturing based on alchemy, chemistry, separation, reduction, crystallization, and industrial processing.
+- [x] Backend Milestone 12 — Machine Composition Proof
+- [x] Backend Milestone 13 — Machine Processing Component
+- [ ] Run local Gradle tests and build for Milestone 13
+- [ ] Define persistence contracts and validated codecs
+- [ ] Add Minecraft/NeoForge adapters without duplicating authoritative state
+- [ ] Build the first engine-driven vertical slice
 
-Players should begin with primitive reagents and observations, then advance into powered chemical processing and synthetic material production.
+## Proof of Concept Migration
 
-### Stage 1 — Primitive Alchemy
+The existing working content is playable evidence, not the final architecture.
 
-Machines and tools:
+- [ ] Recreate the Material Crusher on the engine
+- [ ] Preserve hybrid operation using either stored power or burnable material where the final design still requires it
+- [ ] Recreate the creative power source as a testing adapter
+- [ ] Recreate the Thermal Generator through engine-owned energy and thermal state
+- [ ] Recreate Basic Energy Cable behavior through the energy-network backend
+- [ ] Validate multiple machines on one network
+- [ ] Recreate cobblestone, water, and lava utility generators through approved production systems
+- [ ] Validate sided input, output, fuel, power, and interface behavior through adapters
+- [ ] Validate test blocks, items, tools, weapons, and armor after migration
+- [ ] Move superseded PoC code, assets, and data into `legacy-reference/`
+- [ ] Record each retirement in `legacy-reference/MIGRATION_LEDGER.md`
+- [ ] Confirm archived material is not compiled or loaded
 
-- [ ] Mortar & Pestle
-- [ ] Primitive Kiln
-- [ ] Distillation Pot
-- [ ] Evaporation Basin
+## Engine Era
 
-Processes and materials:
+### Implemented
 
-- [ ] Plant extraction
-- [ ] Salt production
-- [ ] Charcoal production
-- [ ] Sulfur collection
-- [ ] Clay processing
-- [ ] Lime and quicklime production
-- [ ] Vinegar production
-- [ ] Ash production
-- [ ] Basic reagent preparation
+- [x] Explicit scheduler with bounded execution
+- [x] Thermal simulation core
+- [x] Energy simulation
+- [x] Energy network topology and transfer
+- [x] Sleeping networks and wake coalescing
+- [x] Machine framework
+- [x] Machine energy component
+- [x] Machine inventory component
+- [x] Machine thermal component
+- [x] Machine composition runtime
+- [x] Machine processing component
 
-### Stage 2 — Proto Chemistry
+### Planned When Proven Necessary
 
-Machines:
+- [ ] Persistence contracts and codecs
+- [ ] Minecraft/NeoForge platform adapters
+- [ ] Reference vertical slice
+- [ ] Machine fluid component
+- [ ] Machine gas component
+- [ ] Fluid and gas network behavior
+- [ ] Network fairness and contention
+- [ ] Chemistry-supporting resource properties
 
-- [ ] Washer
-- [ ] Filter
-- [ ] Basic Centrifuge
-- [ ] Drying Tray or Drying Oven
+## Game Era
 
-Processes:
+- [ ] Establish the one-tree starting experience
+- [ ] Build meaningful manual survival before automation
+- [ ] Introduce the first engine-driven processing chain
+- [ ] Make automation a progression reward rather than an idle shortcut
+- [ ] Develop research and the Journal as the central progression interface
+- [ ] Expand logistics, energy, materials, chemistry, ecology, and civilization systems
+- [ ] Support multiple valid progression paths without losing clear goals
 
-- [ ] Mineral separation
-- [ ] Ore-bearing dust washing
-- [ ] Dust purification
-- [ ] Precipitation
-- [ ] Filtration
-- [ ] Basic crystallization
+## Compatibility and Polish
 
-Example chain:
+- [ ] Standardize visible machine connection rules
+- [ ] Add recipe-viewer integration when production recipes exist
+- [ ] Validate optional compatibility without making external mods mandatory
+- [ ] Add shared machine sounds and animation helpers only after the vertical slice proves the need
+- [ ] Profile real gameplay before performance tuning beyond established bounded-work rules
 
-`Stone → Material Crusher → Mineral Dust → Washing → Iron-bearing Sand → Chemical Processing → Iron`
+## Parking Lot
 
-### Stage 3 — Industrial Chemistry
+Interesting ideas that are not commitments:
 
-Machines:
+- Replaceable machine parts and maintenance
+- Upgrade cards or augments
+- Factory planning overlays
+- Advanced energy storage
+- Additional thermal interactions
+- Large-scale engineering projects
 
-- [ ] Electrolyzer
-- [ ] Chemical Reactor
-- [ ] Mixer
-- [ ] Pressure Vessel
-- [ ] Distillation Column
-- [ ] Advanced Furnace
-- [ ] Crystallizer
-- [ ] Press
+## Explicitly Not Planned
 
-Processes:
+- Passive generators that bypass progression
+- Infinite idle progression
+- Copying an existing technology mod's machine list as the design
+- Per-tick polling where event-driven sleeping is possible
+- NBT used as live runtime state
+- Backend rewrites for cosmetic preference
+- Premature abstractions without a milestone proving the need
 
-- [ ] Water electrolysis
-- [ ] Acid production
-- [ ] Base production
-- [ ] Metal reduction
-- [ ] Chemical synthesis
-- [ ] Gas processing
-- [ ] Solvent extraction
-- [ ] Electrorefining
+## Vision Check
 
-### Stage 4 — Advanced Materials
-
-- [ ] Steel
-- [ ] Bronze
-- [ ] Brass
-- [ ] Electrum
-- [ ] Invar
-- [ ] Constantan
-- [ ] Stainless Steel
-- [ ] Graphite
-- [ ] Silicon
-- [ ] Lithium
-- [ ] Nickel
-- [ ] Chromium
-- [ ] Titanium
-
-Chemistry-based alloy examples:
-
-- Copper + Zinc → Brass
-- Iron + Carbon → Steel
-- Iron + Chromium + Nickel → Stainless Steel
-
-### Stage 5 — Synthetic Resource Production
-
-Replace direct ore generation with industrial manufacturing chains.
-
-- [ ] Hydrogen and oxygen from water
-- [ ] Sulfuric acid production
-- [ ] Metal leaching
-- [ ] Copper solution electrorefining
-- [ ] Iron oxide reduction
-- [ ] Synthetic quartz or silicon processing
-- [ ] Controlled crystal growth
-- [ ] Renewable reagent loops
-- [ ] Waste recovery and recycling
-
-Example chains:
-
-`Water → Electrolysis → Hydrogen + Oxygen`
-
-`Copper-bearing solution → Electrorefining → Pure Copper`
-
-`Iron Oxide + Reducing Agent → Iron`
-
-### Periodic Element Progression
-
-Unlock useful elements and compounds as progression milestones rather than exposing every recipe immediately.
-
-- [ ] Hydrogen
-- [ ] Oxygen
-- [ ] Carbon
-- [ ] Sodium
-- [ ] Chlorine
-- [ ] Sulfur
-- [ ] Iron
-- [ ] Copper
-- [ ] Zinc
-- [ ] Nickel
-- [ ] Chromium
-- [ ] Titanium
-- [ ] Silicon
-- [ ] Lithium
-
-### Laboratory Journal and Research
-
-- [ ] Laboratory Journal item
-- [ ] Experiment logging
-- [ ] Reaction discovery
-- [ ] Process notes
-- [ ] Research progression
-- [ ] Recipe unlocks through successful experiments
-- [ ] Journal chapters for Alchemy, Separation, Chemistry, Metallurgy, and Industrial Processing
-- [ ] Record failed or incomplete experiments without consuming permanent unlocks
-- [ ] Integrate discovered recipes with JEI or EMI visibility
-
-## Machines
-
-Current:
-
-- [x] Thermal Generator Mk I
-- [x] Material Crusher
-- [x] Basic Energy Cable
-- [x] Structural Energy Frame
-
-Planned:
-
-- [ ] Automated Mixing Bowl
-- [ ] Reagent Infuser
-- [ ] Battery Block
-- [ ] Capacitor Bank
-- [ ] Alloy Furnace
-- [ ] Centrifuge
-- [ ] Chemical Reactor
-- [ ] Electrolyzer
-- [ ] Mixer
-- [ ] Distillation Column
-- [ ] Crystallizer
-- [ ] Press
-- [ ] Pressure Vessel
-- [ ] Thermal Generator Mk II
-- [ ] Thermal Generator Mk III
-- [ ] Additional reagent-powered machines
-
-## Renewable Utility Resource Generators
-
-Only renewable building and utility resources belong in this system. Generator recipes should represent progression rewards rather than starting shortcuts.
-
-### Early progression
-
-- [ ] Clay Generator
-- [ ] Gravel Generator
-- [ ] Sand Generator
-- [ ] Red Sand Generator
-
-### Nether progression
-
-- [ ] Netherrack Generator
-- [ ] Soul Sand Generator
-- [ ] Blackstone Generator
-- [ ] Basalt Generator
-
-### Later progression
-
-- [ ] End Stone Generator
-- [ ] Obsidian Generator
-- [ ] Quartz Generator
-
-## Energy
-
-- [x] Thermal Generator Mk I
-- [x] Internal generator FE buffer
-- [x] Basic Energy Cable implementation
-- [ ] Visible directional cable pulse
-- [ ] Dim idle cables and brighten active cables
-- [ ] Scale pulse speed with FE transfer rate
-- [ ] Advanced Energy Cable
-- [ ] Ultimate Energy Cable
-- [ ] Decide whether standalone players need a craftable Basic Energy Cell
-
-## Compatibility
-
-### Completed
-
-- [x] Curios Repair Gem support
-- [x] Ex Deorum Crusher dust support
-
-### Planned optional integrations
-
-- [ ] EMI / JEI recipe display support
-- [ ] Create
-- [ ] Mekanism
-- [ ] Thermal Series
-- [ ] Immersive Engineering
-- [ ] PneumaticCraft
-- [ ] Applied Energistics 2
-- [ ] Refined Storage
-- [ ] Pipez
-
-## Polish and Documentation
-
-- [ ] Standardize visible FE connectors on every powered machine
-- [ ] Shared machine sounds
-- [ ] Shared machine animation helpers
-- [x] Thermal Generator Mk I exterior active animation
-- [x] Thermal Generator Mk I full-panel exhaust polish
-- [ ] Datapack recipe documentation
-- [ ] Refresh the CurseForge description after the next stable release
-
-## Future Ideas
-
-- [ ] Machine upgrade cards or augments
-- [ ] Additional thermal fuel integrations
-- [ ] Advanced energy storage, only if it fills a standalone gameplay need
+Every task should move Project Skyblock toward becoming a technology and civilization mod powered by a reusable simulation engine. Work that does not support that direction should be reconsidered before implementation.

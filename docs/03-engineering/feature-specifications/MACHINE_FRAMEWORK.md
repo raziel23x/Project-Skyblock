@@ -2,7 +2,7 @@
 
 ## Status
 
-Core framework implemented through Backend Milestone 7. Reusable component expansion is ongoing.
+Core framework and reusable component expansion are implemented through Backend Milestone 13.
 
 ## Goal
 
@@ -17,6 +17,9 @@ Provide a Minecraft-independent framework for machines with authoritative typed 
 - `MachineParticipant`
 - `MachineDiagnostics`
 - `MachineEnergyComponent`
+- `MachineInventoryComponent`
+- `MachineThermalComponent`
+- `MachineProcessingComponent`
 
 ## Responsibility Split
 
@@ -38,11 +41,8 @@ Focused reusable components own or delegate resources such as energy, inventory,
 
 ## Planned Components
 
-- MachineInventoryComponent
 - MachineFluidComponent
 - MachineGasComponent
-- MachineThermalComponent
-- MachineProcessingComponent
 
 ## Integration Rules
 
