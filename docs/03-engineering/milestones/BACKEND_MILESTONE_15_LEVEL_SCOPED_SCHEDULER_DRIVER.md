@@ -2,7 +2,7 @@
 
 ## Status
 
-Implemented; awaiting authoritative local Gradle validation.
+Implemented and validated locally with Gradle.
 
 ## Goal
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — Engine Milestone 16
+
+- Migrated the Creative Energy Cell to the engine-owned runtime and level scheduler.
+- Added the first NeoForge energy capability adapter over backend-owned state.
+- Removed the Creative Energy Cell's independent server ticker.
+- Added load-time reevaluation, post-execution platform integration, and backend logic tests.
+
 ## Unreleased — Engine Milestone 15
 
 - Added one bounded simulation scheduler per logical server level.

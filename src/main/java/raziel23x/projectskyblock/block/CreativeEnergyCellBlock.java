@@ -6,15 +6,13 @@ import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import raziel23x.projectskyblock.blockentity.CreativeEnergyCellBlockEntity;
-import raziel23x.projectskyblock.registry.ModBlockEntities;
 
 public final class CreativeEnergyCellBlock extends BaseEntityBlock {
     public static final MapCodec<CreativeEnergyCellBlock> CODEC =
@@ -40,19 +38,18 @@ public final class CreativeEnergyCellBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-            Level level,
+    protected void neighborChanged(
             BlockState state,
-            BlockEntityType<T> type) {
-        if (level.isClientSide) {
-            return null;
+            Level level,
+            BlockPos pos,
+            Block neighborBlock,
+            BlockPos neighborPos,
+            boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+        if (!level.isClientSide
+                && level.getBlockEntity(pos) instanceof CreativeEnergyCellBlockEntity cell) {
+            cell.requestNeighborRecheck();
         }
-
-        return createTickerHelper(
-                type,
-                ModBlockEntities.CREATIVE_ENERGY_CELL.get(),
-                CreativeEnergyCellBlockEntity::serverTick
-        );
     }
 
     @Override

@@ -63,6 +63,7 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
             pendingSnapshot = null;
         }
         EngineMachineLevelManager.registerMachine(serverLevel, this);
+        runtime.requestWork();
         lifecycle = EngineMachineLifecycle.ACTIVE;
     }
 
@@ -74,6 +75,7 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
         if (runtime == null) {
             return;
         }
+        afterMachineExecution();
         if (runtime.dirtyState().isDirty(DirtyFlag.PERSISTENCE)) {
             setChanged();
             runtime.dirtyState().clear(DirtyFlag.PERSISTENCE);
@@ -82,6 +84,11 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
             runtime.dirtyState().clear(DirtyFlag.CLIENT_SYNC);
         }
+        runtime.dirtyState().clear(DirtyFlag.SCHEDULER);
+    }
+
+    /** Platform-side integration hook invoked only after this machine actually executes. */
+    protected void afterMachineExecution() {
     }
 
     @Override

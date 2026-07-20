@@ -65,7 +65,7 @@ Future machines may use thermal state for operating ranges, heat exchange, boili
 
 ## Energy System
 
-`SimulationEnergyState` owns stored energy. Limits, requests, transfers, results, and diagnostics are simulation contracts. NeoForge Energy will later expose this state through an adapter.
+`SimulationEnergyState` owns stored energy. Limits, requests, transfers, results, and diagnostics are simulation contracts. NeoForge Energy exposes machine-owned state through `EngineEnergyStorageAdapter`; the adapter never owns a second buffer.
 
 ## Energy Networks
 
@@ -156,3 +156,6 @@ Milestones 1 through 13 are implemented. The engine now has reusable machine-own
 ## Long-Term Expansion
 
 The engine is expected to support fluids and gases as backend-owned resources. Fluids may model amount, capacity, flow, temperature, quality, and controlled mixing. Gases may model amount, volume, pressure, temperature, flow, and containment. These systems will be added only when concrete milestones justify their contracts.
+## First Engine-Owned Vertical Slice
+
+The Creative Energy Cell is the first Minecraft block migrated to the production engine bridge. `CreativeEnergyCellLogic` fills the backend-owned energy component through bounded scheduler execution. `EngineEnergyStorageAdapter` exposes that same state to NeoForge consumers. A post-execution platform hook performs adjacent capability transfer without putting world access into the simulation or restoring a dedicated block-entity tick loop.

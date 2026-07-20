@@ -1,3 +1,11 @@
+# Engine Milestone 16 — First Engine-Owned Machine
+
+- Migrated the Creative Energy Cell onto `MachineRuntime` and the level-scoped scheduler.
+- Added a NeoForge energy capability adapter over backend-owned machine energy.
+- Removed the Creative Energy Cell's dedicated block-entity ticker.
+- Added a post-execution platform hook, initial load evaluation, and handled scheduler-dirty cleanup.
+- Added backend tests for the creative energy source logic.
+
 # Engine Milestone 15 — Level-Scoped Scheduler Driver
 
 - Added one bounded scheduler owner per logical server level.
@@ -71,4 +79,4 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-The next milestone will establish level-scoped scheduler ownership and use the bridge for the first engine-owned vertical slice.
+The next integration milestone will prove sided inventory capability behavior through the first engine-owned processing machine.

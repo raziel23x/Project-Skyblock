@@ -12,9 +12,11 @@ Project Skyblock is a technology and civilization mod built on a reusable, Minec
 - [x] Backend Milestone 13 — Machine Processing Component
 - [x] Backend Milestone 14 — Machine Runtime Persistence Bridge
 - [x] Backend Milestone 15 — Level-Scoped Scheduler Driver
-- [ ] Run local Gradle tests and build for Milestone 15
-- [ ] Add energy and inventory capability adapters without duplicating authoritative state
-- [ ] Build the first engine-driven vertical slice
+- [x] Run local Gradle tests and build for Milestone 15
+- [x] Add the first energy capability adapter without duplicating authoritative state
+- [x] Build the first engine-owned vertical slice using the Creative Energy Cell
+- [ ] Run local Gradle and in-game validation for Milestone 16
+- [ ] Add the inventory capability adapter when the first processing-machine migration proves sided item semantics
 
 ## Proof of Concept Migration
 
@@ -22,7 +24,7 @@ The existing working content is playable evidence, not the final architecture.
 
 - [ ] Recreate the Material Crusher on the engine
 - [ ] Preserve hybrid operation using either stored power or burnable material where the final design still requires it
-- [ ] Recreate the creative power source as a testing adapter
+- [x] Recreate the creative power source as an engine-owned testing adapter
 - [ ] Recreate the Thermal Generator through engine-owned energy and thermal state
 - [ ] Recreate Basic Energy Cable behavior through the energy-network backend
 - [ ] Validate multiple machines on one network
@@ -53,8 +55,9 @@ The existing working content is playable evidence, not the final architecture.
 
 - [x] Persistence contracts and codecs
 - [x] Minecraft/NeoForge block-entity and level-scheduler adapters
-- [ ] Energy and inventory capability adapters
-- [ ] Reference vertical slice
+- [x] Energy capability adapter
+- [ ] Inventory capability adapter
+- [x] Reference vertical slice and first engine-owned machine
 - [ ] Machine fluid component
 - [ ] Machine gas component
 - [ ] Fluid and gas network behavior

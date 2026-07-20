@@ -67,3 +67,14 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 - `LevelMachineScheduler` runs one bounded scheduler slice per server-level tick.
 - `SimulationExecutionObserver` lets adapters enqueue only dirty machines that actually executed.
 - Sleeping machines remain outside recurring platform work.
+## NeoForge Energy Capability Adapter
+
+**Status:** Implemented in Milestone 16.
+
+`EngineEnergyStorageAdapter` exposes `MachineEnergyComponent` through NeoForge `IEnergyStorage` without creating a second energy store. Simulation and capability operations share the same capacity, throughput, access rules, dirty state, and wake path.
+
+## First Engine-Owned Machine
+
+**Status:** Implemented in Milestone 16.
+
+The Creative Energy Cell is the first existing PoC block migrated to `EngineMachineBlockEntity`. Its refill behavior is Minecraft-independent machine logic; adjacent FE transfer remains a post-execution platform adapter concern. The block has no dedicated server ticker and sleeps when no transfer work exists.

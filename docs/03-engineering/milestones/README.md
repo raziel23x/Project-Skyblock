@@ -18,9 +18,9 @@ Milestone documents record completed architectural slices. They describe purpose
 12. [Machine Composition Proof](BACKEND_MILESTONE_12_MACHINE_COMPOSITION_PROOF.md)
 13. [Machine Processing Component](BACKEND_MILESTONE_13_MACHINE_PROCESSING_COMPONENT.md)
 14. [Machine Runtime Persistence Bridge](BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md)
+15. [Level-Scoped Scheduler Driver](BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md)
+16. [First Engine-Owned Machine](BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md)
 
 ## Next
 
-Level-scoped scheduler ownership and the first engine-owned vertical slice.
-
-- `BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md` — one bounded scheduler per server level with dirty-only integration flushing.
+Sided inventory capability behavior and the first engine-owned processing-machine migration.

@@ -38,11 +38,12 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine processing component
 - Machine runtime persistence contract and NeoForge block-entity bridge
 - Level-scoped scheduler driver
+- First engine-owned machine and NeoForge energy capability adapter
 
 ### Near-Term Planned
 
-- energy and inventory capability adapters
-- reference vertical slice and first engine-owned test machine
+- inventory capability adapter proven by a sided processing machine
+- first engine-owned processing-machine migration
 
 ### Later Planned When Proven Necessary
 
