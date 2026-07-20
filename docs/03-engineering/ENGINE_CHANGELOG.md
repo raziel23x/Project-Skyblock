@@ -50,6 +50,10 @@ Added reusable machine-owned thermal state integration with external heat access
 
 Hardened active-execution wake behavior by coalescing repeated wake requests, deferring in-flight wakes to one next-tick reevaluation, preventing duplicate same-tick execution, and adding scheduler lifecycle tests.
 
+## Milestone 12 — Machine Composition Proof
+
+Added `MachineRuntime` as the Minecraft-independent composition root for energy, inventory, thermal, typed machine state, scheduler participation, shared dirty-state ownership, coalesced wake signaling, aggregate diagnostics, and lifecycle removal. Added a backward-compatible scheduler registration overload for externally owned dirty trackers after composition exposed the need for one authoritative dirty-state boundary.
+
 ## Next
 
-The next milestone will review and prove machine composition using the strengthened scheduler contract.
+The next milestone will define persistence contracts and codecs for validated backend state restoration.

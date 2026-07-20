@@ -34,10 +34,10 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine inventory component
 - Machine thermal component
 - Scheduler wake coalescing and active-execution safety
+- Machine composition proof and shared dirty-state ownership
 
 ### Near-Term Planned
 
-- machine composition proof
 - persistence contracts and codecs
 - Minecraft/NeoForge adapters
 - reference vertical slice

@@ -63,6 +63,24 @@ class SimulationSchedulerTest {
         assertEquals(SimulationLifecycle.SLEEPING, scheduler.lifecycleOf("self-waking"));
     }
 
+
+    @Test
+    void externallyOwnedDirtyTrackerIsUsedBySchedulerContext() {
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        DirtyStateTracker shared = new DirtyStateTracker();
+        scheduler.register(
+                "shared-dirty",
+                participant(new AtomicInteger(), context -> {
+                    assertTrue(context.dirtyState() == shared);
+                    return SimulationResult.sleep();
+                }),
+                shared);
+
+        assertTrue(scheduler.dirtyStateOf("shared-dirty") == shared);
+        scheduler.wake("shared-dirty");
+        scheduler.tick(0L, CONTEXT_FACTORY);
+    }
+
     @Test
     void wakeDuringExecutionOverridesLongerScheduleWithNextTickReevaluation() {
         AtomicInteger executions = new AtomicInteger();

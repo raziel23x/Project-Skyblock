@@ -120,6 +120,12 @@ External adapters use `insert` and `extract`; machine logic uses `store` and `co
 
 External adapters use `receiveHeat` and `extractHeat`; machine logic uses `generateHeat` and `consumeHeat`. `step` applies generated process heat and one ambient exchange as a single machine change. Immutable snapshots expose persistence and synchronization values without introducing block entities, biome lookup, fluids, or NeoForge capabilities into the backend.
 
+### Machine Composition Runtime
+
+`MachineRuntime` is the registration and composition root for one simulated machine. It owns a shared `DirtyStateTracker`, the energy, inventory, and thermal components, a typed `MachineComponentState`, and the common `MachineParticipant`. All component changes mark and wake through the same state boundary.
+
+The scheduler accepts that externally owned tracker during registration, so `SimulationContext`, components, persistence adapters, and client-sync adapters can observe one authoritative dirty mask without copying or polling. `MachineRuntimeDiagnostics` aggregates scheduler, machine, and component snapshots for future integration use.
+
 ## Integration Boundary
 
 Minecraft-facing code may:
@@ -141,7 +147,7 @@ Minecraft-facing code must not:
 
 ## Current Completion Point
 
-Milestones 1 through 10 are implemented. The engine now has reusable machine-owned energy, inventory, and thermal components. The next milestone will prove that these components compose cleanly inside one machine state and machine logic implementation.
+Milestones 1 through 12 are implemented. The engine now has reusable machine-owned energy, inventory, and thermal components plus a proven composition root that shares dirty state and wake behavior with the scheduler. The next milestone will define persistence contracts and codecs before Minecraft adapters are introduced.
 
 ## Long-Term Expansion
 

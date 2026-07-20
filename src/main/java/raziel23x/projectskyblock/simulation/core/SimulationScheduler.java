@@ -32,9 +32,25 @@ public final class SimulationScheduler {
     }
 
     public void register(String participantId, SimulationParticipant<?> participant) {
+        register(participantId, participant, new DirtyStateTracker());
+    }
+
+    /**
+     * Registers a participant with an externally owned dirty tracker.
+     *
+     * <p>This overload allows a composed backend object and the scheduler context to
+     * observe the same allocation-free dirty state instead of copying or polling it.</p>
+     */
+    public void register(
+            String participantId,
+            SimulationParticipant<?> participant,
+            DirtyStateTracker dirtyState) {
         requireId(participantId);
         Objects.requireNonNull(participant, "participant");
-        if (entries.putIfAbsent(participantId, new Entry(participantId, participant)) != null) {
+        Objects.requireNonNull(dirtyState, "dirtyState");
+        if (entries.putIfAbsent(
+                participantId,
+                new Entry(participantId, participant, dirtyState)) != null) {
             throw new IllegalArgumentException("participant is already registered: " + participantId);
         }
     }
@@ -228,7 +244,7 @@ public final class SimulationScheduler {
     private static final class Entry {
         private final String id;
         private final SimulationParticipant<?> participant;
-        private final DirtyStateTracker dirtyState = new DirtyStateTracker();
+        private final DirtyStateTracker dirtyState;
         private SimulationLifecycle lifecycle = SimulationLifecycle.SLEEPING;
         private String statusReason = "";
         private long nextRunTime = -1L;
@@ -236,9 +252,13 @@ public final class SimulationScheduler {
         private boolean queuedReady;
         private boolean wakeRequestedDuringExecution;
 
-        private Entry(String id, SimulationParticipant<?> participant) {
+        private Entry(
+                String id,
+                SimulationParticipant<?> participant,
+                DirtyStateTracker dirtyState) {
             this.id = id;
             this.participant = participant;
+            this.dirtyState = dirtyState;
         }
     }
 

@@ -47,3 +47,9 @@ Wraps authoritative `ThermalState`, shared `ThermalProperties`, and `ThermalEngi
 **Status:** Planned.
 
 Will coordinate bounded process state, progress, requirements, outputs, blocking reasons, and component interactions. It will not hard-code all recipes or production content into the engine.
+
+## Machine Composition Runtime
+
+**Status:** Implemented in Milestone 12.
+
+`MachineRuntime` composes the implemented energy, inventory, and thermal components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker` and one coalesced wake signal. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.

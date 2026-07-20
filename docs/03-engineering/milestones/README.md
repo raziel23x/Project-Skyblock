@@ -15,7 +15,8 @@ Milestone documents record completed architectural slices. They describe purpose
 9. [Machine Inventory Component](BACKEND_MILESTONE_9_MACHINE_INVENTORY_COMPONENT.md)
 10. [Machine Thermal Component](BACKEND_MILESTONE_10_MACHINE_THERMAL_COMPONENT.md)
 11. [Scheduler Wake Coalescing](BACKEND_MILESTONE_11_SCHEDULER_WAKE_COALESCING.md)
+12. [Machine Composition Proof](BACKEND_MILESTONE_12_MACHINE_COMPOSITION_PROOF.md)
 
 ## Next
 
-Machine Composition Proof.
+Persistence contracts and codecs.
