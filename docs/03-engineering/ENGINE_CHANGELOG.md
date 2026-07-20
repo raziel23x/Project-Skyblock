@@ -58,6 +58,10 @@ Added `MachineRuntime` as the Minecraft-independent composition root for energy,
 
 Added recipe-independent processing lifecycle state with explicit idle, running, blocked, and ready-to-complete phases. Integrated processing into the composed machine runtime, added immutable diagnostics and validated restoration, and avoided redundant scheduler wake requests during ordinary progress while retaining wake behavior for lifecycle transitions.
 
+## Milestone 14 — Machine Runtime Persistence Bridge
+
+Added a versioned Minecraft-independent machine snapshot, minimal capture and restoration services, exact thermal restoration, a NeoForge NBT codec isolated from the simulation, and a reusable `EngineMachineBlockEntity` lifecycle bridge. The adapter performs deferred persistence and client-update work from dirty flags while deliberately leaving scheduler execution to a future level-scoped driver.
+
 ## Next
 
-The next milestone will define persistence contracts and codecs for validated backend state restoration.
+The next milestone will establish level-scoped scheduler ownership and use the bridge for the first engine-owned vertical slice.

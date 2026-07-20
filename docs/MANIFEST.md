@@ -100,3 +100,5 @@ This manifest describes the complete replacement `docs` folder.
 - `README.md`
 - `REPLACEMENT_INSTRUCTIONS.md`
 - `architecture/ENGINEERING_PRINCIPLES.md`
+
+- `03-engineering/milestones/BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md` — versioned runtime persistence and NeoForge lifecycle bridge.

@@ -53,3 +53,10 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 **Status:** Implemented in Milestone 12.
 
 `MachineRuntime` composes the implemented energy, inventory, thermal, and processing components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker` and one coalesced wake signal. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.
+
+## Machine Runtime Persistence Bridge
+
+- `MachineRuntimeSnapshot` is the format-neutral durable state contract.
+- `MachineRuntimePersistence` captures and restores authoritative component state.
+- `MachineRuntimeNbtCodec` is the NeoForge-only NBT adapter.
+- `EngineMachineBlockEntity` owns platform lifecycle and deferred integration effects, never simulation execution.

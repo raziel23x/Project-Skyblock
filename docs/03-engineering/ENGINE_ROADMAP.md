@@ -36,12 +36,13 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Scheduler wake coalescing and active-execution safety
 - Machine composition proof and shared dirty-state ownership
 - Machine processing component
+- Machine runtime persistence contract and NeoForge block-entity bridge
 
 ### Near-Term Planned
 
-- persistence contracts and codecs
-- Minecraft/NeoForge adapters
-- reference vertical slice
+- level-scoped scheduler driver
+- energy and inventory capability adapters
+- reference vertical slice and first engine-owned test machine
 
 ### Later Planned When Proven Necessary
 

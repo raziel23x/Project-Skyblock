@@ -86,6 +86,23 @@ public final class MachineThermalComponent {
         return thermalState.heatCapacityMicroJoulesPerMilliKelvin();
     }
 
+    /** Restores exact durable thermal energy without replaying runtime heat transfer. */
+    public void restoreThermalEnergyMicroJoules(long thermalEnergyMicroJoules) {
+        if (thermalEnergyMicroJoules < 0L) {
+            throw new IllegalArgumentException("thermal energy must be non-negative");
+        }
+        long current = thermalState.thermalEnergyMicroJoules();
+        if (thermalEnergyMicroJoules > current) {
+            thermalState.addHeatMicroJoules(thermalEnergyMicroJoules - current);
+        } else if (thermalEnergyMicroJoules < current) {
+            thermalState.removeHeatMicroJoules(current - thermalEnergyMicroJoules);
+        }
+        if (thermalEnergyMicroJoules != current) {
+            changeCount = Math.addExact(changeCount, 1L);
+            dirtyState.mark(DirtyFlag.CLIENT_SYNC);
+        }
+    }
+
     public ThermalCondition condition() {
         return properties.condition(thermalState);
     }
