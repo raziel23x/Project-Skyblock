@@ -10,6 +10,9 @@ Machines turn learned processes into repeatable infrastructure. They should feel
 - One machine may support a family of related processes.
 - Machines should expose meaningful inputs, outputs, and operating requirements.
 - Multiblocks are used when scale or structure adds gameplay, not simply to look impressive.
+- Multiblocks are modular assemblies whose physical members contribute understandable capabilities such as heating, ventilation, storage, containment, transfer, and processing capacity.
+- A controller provides the stable machine and automation boundary while the structure changes behind it.
+- Breaking, upgrading, unloading, and reforming a structure must preserve authoritative resources through explicit recovery rules.
 
 ## Machine Families
 
@@ -82,8 +85,8 @@ Recipes should be data-driven and define:
 ## Open Questions
 
 - Which early processes should be in-world rather than GUI-based?
-- Which machines require multiblocks?
-- How are upgrades represented?
+- Which approved machines demonstrate a real need for the multiblock framework?
+- Which physical module families are required by the first implementation?
 - What common machine interface standards are necessary?
 
 ---

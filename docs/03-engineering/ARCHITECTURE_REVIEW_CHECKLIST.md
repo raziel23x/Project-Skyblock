@@ -47,7 +47,8 @@ Confirm that the proposal:
 - avoids unnecessary world scans,
 - has explicit cache invalidation,
 - uses change-driven synchronization,
-- can be tested automatically.
+- can be tested automatically,
+- keeps player-facing text localized and out of simulation authority.
 
 Any exception must be written down and justified before implementation.
 
@@ -196,7 +197,19 @@ Use this exact conclusion when appropriate:
 
 ---
 
-## 12. Review Outcome
+## 12. Version and Dependency Changes
+
+For a Minecraft, NeoForge, mapping, Gradle, or library update, record:
+
+- the exact current baseline;
+- the exact proposed version;
+- the concrete feature, fix, compatibility requirement, security improvement, or measured benefit gained;
+- adapter or migration work required;
+- rollback plan and validation tests.
+
+A newer version number alone is not an engineering reason to update.
+
+## 13. Review Outcome
 
 Every architecture review ends with one outcome:
 

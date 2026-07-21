@@ -4,9 +4,9 @@ This section is the authoritative technical documentation for the Project Skyblo
 
 ## Current Engine State
 
-The backend has completed Milestones 1 through 13, ending with the reusable Machine Processing Component integrated into the composed machine runtime.
+The backend has completed Milestones 1 through 16, ending with the first engine-owned machine, level-scoped scheduler integration, runtime persistence bridge, and NeoForge energy capability adapter.
 
-The next planned backend milestone is **Persistence Contracts and Codecs**.
+The next planned work is the **inventory capability adapter proven by a sided processing machine**, followed by the first engine-owned processing-machine migration.
 
 ## Reading Order
 
@@ -18,9 +18,10 @@ The next planned backend milestone is **Persistence Contracts and Codecs**.
 6. [Architecture Overview](ARCHITECTURE_OVERVIEW.md)
 7. [Component Catalog](COMPONENT_CATALOG.md)
 8. [Engine Roadmap](ENGINE_ROADMAP.md)
-9. [Engine Changelog](ENGINE_CHANGELOG.md)
-10. [Architecture Decision Records](architecture-decisions/README.md)
-11. [Backend Milestones](milestones/README.md)
+9. [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md)
+10. [Engine Changelog](ENGINE_CHANGELOG.md)
+11. [Architecture Decision Records](architecture-decisions/README.md)
+12. [Backend Milestones](milestones/README.md)
 
 ## Documentation Categories
 

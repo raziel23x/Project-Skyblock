@@ -7,6 +7,8 @@ Research Era
     ↓
 Engine Era
     ↓
+Engine Baseline
+    ↓
 Archive
     ↓
 Journal
@@ -42,8 +44,8 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 
 ### Near-Term Planned
 
-- inventory capability adapter proven by a sided processing machine
-- first engine-owned processing-machine migration
+- Inventory capability adapter proven by a sided processing machine
+- First engine-owned processing-machine migration
 
 ### Later Planned When Proven Necessary
 
@@ -52,6 +54,10 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - network fairness and contention
 - fluid and gas network behavior
 - chemistry-supporting resource properties
+
+## Engine Baseline
+
+At the end of the Engine Era, capture the implemented simulation, adapters, contracts, tests, known limitations, and expected future needs. This is a comparison point, not an engine freeze. See [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
 
 ## Archive
 
@@ -67,7 +73,7 @@ Production content implements knowledge-driven progression, material decompositi
 
 ## Potential Engine Extraction
 
-After the Engine Era is complete and the simulation APIs have proven stable through real gameplay, evaluate extracting the Minecraft-independent backend into a standalone NeoForge library mod. This is a future consideration, not a current milestone or commitment.
+After the Engine Era baseline is captured and the simulation APIs have proven stable through real gameplay and additional real projects, evaluate extracting the Minecraft-independent backend into a standalone NeoForge library mod shared by Project Skyblock and future mods. This is a future direction evaluated through evidence, not a current publishing milestone.
 
 Extraction should be considered only when:
 
@@ -77,4 +83,4 @@ Extraction should be considered only when:
 - independent automated tests exist;
 - long-term versioned public API maintenance is justified.
 
-Until then, backend packages and platform adapters should remain cleanly separated without introducing premature publishing, compatibility, or public-API obligations.
+Until then, backend packages and platform adapters remain cleanly separated without introducing premature publishing, compatibility, or public-API obligations. Valid engine capabilities are not removed merely because Project Skyblock has not consumed them yet; removal requires an affirmative architectural justification. See ADR-0010 and the engine baseline policy.

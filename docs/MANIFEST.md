@@ -1,8 +1,8 @@
 # Documentation Manifest
 
-Markdown files: 97
+Markdown files: 102
 
-This manifest describes the complete replacement `docs` folder.
+This manifest indexes the authoritative `docs` folder.
 
 ## Included Files
 
@@ -36,11 +36,15 @@ This manifest describes the complete replacement `docs` folder.
 - `03-engineering/CONTRIBUTOR_GUIDE.md`
 - `03-engineering/DEVELOPER_GUIDE.md`
 - `03-engineering/ENGINEERING_PRINCIPLES.md`
+- `03-engineering/ENGINE_BASELINE_AND_VALIDATION.md`
 - `03-engineering/ENGINE_CHANGELOG.md`
 - `03-engineering/ENGINE_DOCUMENTATION.md`
 - `03-engineering/ENGINE_GUIDING_PRINCIPLES.md`
 - `03-engineering/ENGINE_ROADMAP.md`
 - `03-engineering/EXTENSION_POINTS.md`
+- `03-engineering/LOCALIZATION_STANDARD.md`
+- `03-engineering/MULTIBLOCK_ARCHITECTURE.md`
+- `03-engineering/PENDING_ARCHITECTURE_DECISIONS.md`
 - `03-engineering/README.md`
 - `03-engineering/SIMULATION_ARCHITECTURE.md`
 - `03-engineering/SYSTEM_ARCHITECTURE.md`
@@ -54,6 +58,7 @@ This manifest describes the complete replacement `docs` folder.
 - `03-engineering/architecture-decisions/ADR-0007-DETERMINISTIC-BOUNDED-BACKEND.md`
 - `03-engineering/architecture-decisions/ADR-0008-IDLE-SYSTEMS-SLEEP.md`
 - `03-engineering/architecture-decisions/ADR-0009-SIMULATION-OWNED-RESOURCES.md`
+- `03-engineering/architecture-decisions/ADR-0010-REUSABLE-ENGINE-EVOLUTION.md`
 - `03-engineering/architecture-decisions/README.md`
 - `03-engineering/feature-specifications/BIOLOGY_SYSTEM.md`
 - `03-engineering/feature-specifications/CIVILIZATION_CORE.md`
@@ -65,6 +70,9 @@ This manifest describes the complete replacement `docs` folder.
 - `03-engineering/milestones/BACKEND_MILESTONE_11_SCHEDULER_WAKE_COALESCING.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_12_MACHINE_COMPOSITION_PROOF.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_13_MACHINE_PROCESSING_COMPONENT.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md`
@@ -96,13 +104,7 @@ This manifest describes the complete replacement `docs` folder.
 - `05-reference/resource-bible/REDSTONE_AND_TECH.md`
 - `05-reference/resource-bible/WOODS.md`
 - `DOCUMENTATION_AUDIT.md`
-- `MANIFEST.md`
 - `README.md`
 - `REPLACEMENT_INSTRUCTIONS.md`
 - `architecture/ENGINEERING_PRINCIPLES.md`
-
-- `03-engineering/milestones/BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md` — versioned runtime persistence and NeoForge lifecycle bridge.
-
-- `03-engineering/milestones/BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md` — bounded level-scoped machine scheduler integration.
-
-- `03-engineering/milestones/BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md` — first engine-owned block and energy capability vertical slice.
+- `MANIFEST.md`
