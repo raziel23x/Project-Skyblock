@@ -16,13 +16,24 @@ A reusable machine component should:
 
 **Status:** Implemented in Milestone 8.
 
-Owns a `SimulationEnergyState` relationship and controls external receive/extract and internal produce/consume operations. It enforces capacity, throughput, and access mode. Changes mark persistence, client sync, and scheduler dirty state and signal the owner to wake.
+Owns a `SimulationEnergyState` relationship and controls external receive/extract and internal
+produce/consume operations. It enforces capacity, explicit per-operation limits, and access mode.
+Aggregate shared-edge or per-simulation-step budgets remain network concerns. Changes mark
+persistence, client sync, and scheduler dirty state and signal the owner to wake.
 
 ## MachineInventoryComponent
 
 **Status:** Implemented in Milestone 9.
 
-Owns authoritative Minecraft-independent slot contents using `SimulationItemKey` and `SimulationItemStack`. Each slot has explicit capacity, external access, and an insertion rule. External `insert`/`extract` operations are separated from internal `store`/`consume` operations. The component validates restored state, exposes immutable slot snapshots and diagnostics, marks persistence/client-sync/scheduler dirty state, and wakes its owner after meaningful changes. Minecraft `ItemStack` and NeoForge item handlers remain adapter concerns.
+Owns authoritative Minecraft-independent slot contents using `SimulationItemKey`, opaque
+`SimulationItemState`, and `SimulationItemStack`. Adapter-owned state participates in identity so
+damaged, enchanted, or otherwise component-bearing items cannot silently merge as stateless
+items. The canonical typed/component payload is immutable, capped at 64 KiB, and may not use NBT
+or SNBT as a runtime encoding. Each slot has explicit capacity, external access, and an insertion rule. External
+`insert`/`extract` operations are separated from internal `store`/`consume` operations. The
+component validates restored state, exposes immutable slot snapshots and diagnostics, marks
+persistence/client-sync/scheduler dirty state, and wakes its owner after meaningful changes.
+Minecraft `ItemStack`, data-component encoding, and NeoForge item handlers remain adapter concerns.
 
 ## MachineFluidComponent
 
@@ -57,7 +68,8 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 ## Machine Runtime Persistence Bridge
 
 - `MachineRuntimeSnapshot` is the format-neutral durable state contract.
-- `MachineRuntimePersistence` captures and restores authoritative component state.
+- `MachineRuntimePersistence` validates the complete candidate before committing authoritative
+  component state, preventing partial restore.
 - `MachineRuntimeNbtCodec` is the NeoForge-only NBT adapter.
 - `EngineMachineBlockEntity` owns platform lifecycle and deferred integration effects, never simulation execution.
 
@@ -66,7 +78,18 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 - `EngineMachineLevelManager` owns scheduler lifecycle through NeoForge level events.
 - `LevelMachineScheduler` runs one bounded scheduler slice per server-level tick.
 - `SimulationExecutionObserver` lets adapters enqueue only dirty machines that actually executed.
+- `SimulationFailureObserver` reports staged failures while the scheduler invalidates only the
+  failed participant and continues unrelated bounded work.
 - Sleeping machines remain outside recurring platform work.
+
+## Material Registry Snapshot
+
+**Status:** Hardened in Milestone 17.
+
+Materials, processing routes, and source provenance are built as one immutable candidate. The
+registry publishes the generation through one volatile write only after parsing and cross-reference
+validation succeeds. Invalid candidates retain the previous known-good generation rather than
+exposing partial reload state.
 ## NeoForge Energy Capability Adapter
 
 **Status:** Implemented in Milestone 16.

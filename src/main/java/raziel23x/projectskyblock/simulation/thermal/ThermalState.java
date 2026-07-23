@@ -49,6 +49,14 @@ public final class ThermalState implements SimulationState {
         return heatMicroJoules;
     }
 
+    /** Restores exact prevalidated thermal energy for a persistence transaction. */
+    public void restoreThermalEnergyMicroJoules(long thermalEnergyMicroJoules) {
+        if (thermalEnergyMicroJoules < 0L) {
+            throw new IllegalArgumentException("thermal energy must be non-negative");
+        }
+        this.thermalEnergyMicroJoules = thermalEnergyMicroJoules;
+    }
+
     /** Removes up to the requested heat without crossing absolute zero. */
     public long removeHeatMicroJoules(long requestedMicroJoules) {
         if (requestedMicroJoules < 0) {

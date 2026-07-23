@@ -2,8 +2,9 @@
 
 > Status: **Implementation foundation**
 
-Project Skyblock is an industrial simulation mod. Machines, generators, cables, thermal bodies,
-maintenance systems, and transport networks are participants in one event-driven backend.
+Project Skyblock is building a greenfield simulation engine for a technology and civilization mod.
+Machines, generators, cables, thermal bodies, maintenance systems, and transport networks may
+participate in one event-driven backend when their gameplay requirements justify those contracts.
 
 ```text
 Simulation Core
@@ -60,18 +61,17 @@ entire graph every tick.
 
 ## Current implementation boundary
 
-The first code slice establishes:
+The engine currently includes:
 
-- `SimulationState`,
-- `SimulationParticipant`,
-- `SimulationContext`,
-- `SimulationBudget`,
-- `SimulationResult`,
-- `DirtyStateTracker`,
-- fixed-point `ThermalState`,
-- deterministic `ThermalTransfer`,
-- thermally aware `EnergyCableState`,
-- resistive-loss `EnergyCableTransfer`.
+- bounded deterministic scheduling with sleeping, wake coalescing, and failure isolation;
+- typed machine state and shared dirty-state ownership;
+- backend-owned energy, inventory, thermal, and processing components;
+- energy topology, route, transfer, and sleeping-network foundations;
+- transactional runtime snapshots and bounded schema-2 opaque item identity using typed/component
+  codecs rather than NBT runtime blobs;
+- level-scoped NeoForge scheduling and persistence adapters;
+- one engine-owned prototype machine and energy capability adapter;
+- immutable last-known-good material and processing-route publication.
 
-It intentionally does not yet connect these contracts to legacy block entities. The next slice is
-the scheduler and level-scoped participant registry, followed by replacement block-entity hosts.
+Research Era objects are migrated only to stress these boundaries. They remain disposable fixtures
+and do not define final gameplay content.

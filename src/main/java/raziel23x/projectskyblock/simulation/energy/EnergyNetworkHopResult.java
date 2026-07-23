@@ -17,7 +17,7 @@ public record EnergyNetworkHopResult(
         if (Math.addExact(deliveredEnergy, lostEnergy) != enteredEnergy) {
             throw new IllegalArgumentException("delivered energy plus loss must equal entered energy");
         }
-        if (enteredEnergy > connection.maximumTransferPerTick()) {
+        if (enteredEnergy > connection.maximumTransferPerOperation()) {
             throw new IllegalArgumentException("entered energy exceeds the connection transfer limit");
         }
     }

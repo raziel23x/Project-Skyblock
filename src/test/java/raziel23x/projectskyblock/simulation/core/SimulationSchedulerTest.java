@@ -1,6 +1,7 @@
 package raziel23x.projectskyblock.simulation.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -62,8 +63,97 @@ class SimulationSchedulerTest {
         assertEquals(2, executions.get());
         assertEquals(SimulationLifecycle.SLEEPING, scheduler.lifecycleOf("self-waking"));
     }
+    @Test
+    void participantFailureIsIsolatedAndDoesNotStopOtherWork() {
+        AtomicInteger healthyExecutions = new AtomicInteger();
+        AtomicInteger failures = new AtomicInteger();
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        scheduler.register("failing", participant(new AtomicInteger(), context -> {
+            throw new IllegalStateException("boom");
+        }));
+        scheduler.register("healthy", participant(healthyExecutions, context -> SimulationResult.sleep()));
 
+        scheduler.wake("failing");
+        scheduler.wake("healthy");
+        SchedulerTickReport report = scheduler.tick(
+                0L,
+                CONTEXT_FACTORY,
+                SimulationExecutionObserver.NONE,
+                (participantId, stage, failure) -> {
+                    assertEquals("failing", participantId);
+                    assertEquals(SimulationFailureStage.PARTICIPANT_EXECUTION, stage);
+                    failures.incrementAndGet();
+                });
 
+        assertEquals(2, report.executedParticipants());
+        assertEquals(1, healthyExecutions.get());
+        assertEquals(1, failures.get());
+        assertEquals(SimulationLifecycle.INVALID, scheduler.lifecycleOf("failing"));
+        assertEquals(SimulationLifecycle.SLEEPING, scheduler.lifecycleOf("healthy"));
+        assertFalse(scheduler.wake("failing"));
+        assertTrue(scheduler.statusReason("failing").contains("IllegalStateException"));
+    }
+
+    @Test
+    void contextFailureIsStagedAndDoesNotStopOtherWork() {
+        AtomicInteger healthyExecutions = new AtomicInteger();
+        AtomicInteger failures = new AtomicInteger();
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        scheduler.register("bad-context", participant(new AtomicInteger(), context -> SimulationResult.sleep()));
+        scheduler.register("healthy-context", participant(healthyExecutions, context -> SimulationResult.sleep()));
+        scheduler.wake("bad-context");
+        scheduler.wake("healthy-context");
+
+        SchedulerTickReport report = scheduler.tick(
+                0L,
+                (participantId, gameTime, dirtyState) -> {
+                    if (participantId.equals("bad-context")) {
+                        throw new IllegalStateException("context unavailable");
+                    }
+                    return new TestContext(gameTime, dirtyState);
+                },
+                SimulationExecutionObserver.NONE,
+                (participantId, stage, failure) -> {
+                    assertEquals("bad-context", participantId);
+                    assertEquals(SimulationFailureStage.CONTEXT_CREATION, stage);
+                    failures.incrementAndGet();
+                });
+
+        assertEquals(2, report.executedParticipants());
+        assertEquals(1, healthyExecutions.get());
+        assertEquals(1, failures.get());
+        assertEquals(SimulationLifecycle.INVALID, scheduler.lifecycleOf("bad-context"));
+        assertEquals(SimulationLifecycle.SLEEPING, scheduler.lifecycleOf("healthy-context"));
+    }
+
+    @Test
+    void observerFailureIsIsolatedAndFailureDiagnosticsCannotEscape() {
+        AtomicInteger healthyExecutions = new AtomicInteger();
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        scheduler.register("bad-observer", participant(new AtomicInteger(), context -> SimulationResult.sleep()));
+        scheduler.register("healthy-observer", participant(healthyExecutions, context -> SimulationResult.sleep()));
+        scheduler.wake("bad-observer");
+        scheduler.wake("healthy-observer");
+
+        SchedulerTickReport report = scheduler.tick(
+                0L,
+                CONTEXT_FACTORY,
+                (participantId, dirtyState) -> {
+                    if (participantId.equals("bad-observer")) {
+                        throw new IllegalStateException("platform integration failed");
+                    }
+                },
+                (participantId, stage, failure) -> {
+                    assertEquals("bad-observer", participantId);
+                    assertEquals(SimulationFailureStage.EXECUTION_OBSERVER, stage);
+                    throw new IllegalStateException("diagnostics also failed");
+                });
+
+        assertEquals(2, report.executedParticipants());
+        assertEquals(1, healthyExecutions.get());
+        assertEquals(SimulationLifecycle.INVALID, scheduler.lifecycleOf("bad-observer"));
+        assertEquals(SimulationLifecycle.SLEEPING, scheduler.lifecycleOf("healthy-observer"));
+    }
 
     @Test
     void executionObserverSeesOnlyParticipantsThatActuallyRun() {
@@ -120,6 +210,33 @@ class SimulationSchedulerTest {
 
         assertEquals(2, executions.get());
         assertEquals(SimulationLifecycle.SLEEPING, scheduler.lifecycleOf("rescheduled"));
+    }
+
+
+    @Test
+    void externalPlatformFailureInvalidatesOnlyTheAffectedParticipant() {
+        AtomicInteger healthyExecutions = new AtomicInteger();
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        scheduler.register("platform-failure", participant(new AtomicInteger(), context -> SimulationResult.sleep()));
+        scheduler.register("platform-healthy", participant(healthyExecutions, context -> SimulationResult.sleep()));
+        scheduler.wake("platform-failure");
+        scheduler.wake("platform-healthy");
+
+        assertTrue(scheduler.invalidateAfterFailure(
+                "platform-failure",
+                SimulationFailureStage.PLATFORM_INTEGRATION,
+                new IllegalStateException("adapter flush failed")));
+        SchedulerTickReport report = scheduler.tick(0L, CONTEXT_FACTORY);
+
+        assertEquals(1, report.executedParticipants());
+        assertEquals(1, healthyExecutions.get());
+        assertEquals(SimulationLifecycle.INVALID, scheduler.lifecycleOf("platform-failure"));
+        assertTrue(scheduler.statusReason("platform-failure").contains("platform integration"));
+        assertFalse(scheduler.wake("platform-failure"));
+        assertFalse(scheduler.invalidateAfterFailure(
+                "platform-failure",
+                SimulationFailureStage.PLATFORM_INTEGRATION,
+                new IllegalStateException("second failure")));
     }
 
     private static SimulationParticipant<TestState> participant(

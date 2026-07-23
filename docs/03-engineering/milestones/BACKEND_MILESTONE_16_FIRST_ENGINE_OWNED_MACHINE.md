@@ -6,7 +6,9 @@ Implemented; awaiting authoritative local Gradle and in-game validation.
 
 ## Goal
 
-Prove that an existing Minecraft block can be driven by the reusable simulation engine without restoring a per-block-entity simulation tick loop.
+Prove that an existing Minecraft prototype can be driven by the reusable simulation engine without
+restoring a per-block-entity simulation tick loop. This is a stress fixture, not a commitment that
+the Creative Energy Cell survives into final Game Era content.
 
 ## Delivered
 
@@ -67,9 +69,10 @@ The bridge clears `DirtyFlag.SCHEDULER` after the wake request has already been 
 
 ## Deliberate Deferrals
 
-- The inventory capability adapter remains deferred until item-component fidelity and sided slot mapping are proven by the first processing machine.
+- The inventory capability adapter remains deferred until item-component fidelity and sided slot mapping are proven by a processing prototype.
 - The Material Crusher is not migrated in this milestone.
-- The old Creative Energy Cell implementation will be copied into `legacy-reference/` only after the engine replacement passes in-game validation, following the archive rules.
+- The old Creative Energy Cell implementation will be copied into `legacy-reference/` only after
+  the engine-driven prototype passes in-game validation, following the archive rules.
 - Cable migration remains separate; the existing cable PoC may still transfer FE through the new capability adapter during validation.
 - A GUI is unnecessary for the creative testing source and was not added.
 

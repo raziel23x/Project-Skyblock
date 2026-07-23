@@ -175,20 +175,13 @@ public final class MachineProcessingComponent {
             long requiredUnits,
             String blockedReason,
             long completedProcesses) {
-        Objects.requireNonNull(status, "status");
-        Objects.requireNonNull(processId, "processId");
-        Objects.requireNonNull(blockedReason, "blockedReason");
-        if (completedUnits < 0L || requiredUnits < 0L || completedProcesses < 0L) {
-            throw new IllegalArgumentException("processing state values must be non-negative");
-        }
-        validateRestoredState(status, processId, completedUnits, requiredUnits, blockedReason);
+        validateRestore(status, processId, completedUnits, requiredUnits, blockedReason, completedProcesses);
         this.status = status;
         this.processId = processId;
         this.completedUnits = completedUnits;
         this.requiredUnits = requiredUnits;
         this.blockedReason = blockedReason;
         this.completedProcesses = completedProcesses;
-        changeCount = Math.addExact(changeCount, 1L);
         dirtyState.mark(DirtyFlag.CLIENT_SYNC);
     }
 
@@ -234,12 +227,19 @@ public final class MachineProcessingComponent {
         }
     }
 
-    private static void validateRestoredState(
+    public static void validateRestore(
             MachineProcessingStatus status,
             String processId,
             long completedUnits,
             long requiredUnits,
-            String blockedReason) {
+            String blockedReason,
+            long completedProcesses) {
+        Objects.requireNonNull(status, "status");
+        Objects.requireNonNull(processId, "processId");
+        Objects.requireNonNull(blockedReason, "blockedReason");
+        if (completedUnits < 0L || requiredUnits < 0L || completedProcesses < 0L) {
+            throw new IllegalArgumentException("processing state values must be non-negative");
+        }
         if (status == MachineProcessingStatus.IDLE) {
             if (!processId.isEmpty() || completedUnits != 0L || requiredUnits != 0L || !blockedReason.isEmpty()) {
                 throw new IllegalArgumentException("idle processing state must be empty");

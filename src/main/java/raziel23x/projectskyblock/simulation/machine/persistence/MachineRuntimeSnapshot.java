@@ -8,8 +8,8 @@ import raziel23x.projectskyblock.simulation.inventory.SimulationItemStack;
  * Minecraft-independent durable state required to reconstruct one machine runtime.
  *
  * <p>Diagnostics, scheduler state, dirty masks, caches, and derived values are deliberately
- * excluded. Platform codecs may encode this record using NBT, JSON, or another format without
- * making the simulation depend on that format.</p>
+ * excluded. A platform adapter may serialize this record using the host-required persistence
+ * format, but that format is decoded at the boundary and never enters runtime state.</p>
  */
 public record MachineRuntimeSnapshot(
         int schemaVersion,
@@ -18,10 +18,10 @@ public record MachineRuntimeSnapshot(
         List<SimulationItemStack> inventory,
         MachineProcessingSnapshot processing) {
 
-    public static final int CURRENT_SCHEMA_VERSION = 1;
+    public static final int CURRENT_SCHEMA_VERSION = 2;
 
     public MachineRuntimeSnapshot {
-        if (schemaVersion <= 0 || schemaVersion > CURRENT_SCHEMA_VERSION) {
+        if (schemaVersion != CURRENT_SCHEMA_VERSION) {
             throw new IllegalArgumentException("unsupported machine snapshot schema: " + schemaVersion);
         }
         if (storedEnergy < 0L || thermalEnergyMicroJoules < 0L) {

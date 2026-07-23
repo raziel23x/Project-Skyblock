@@ -115,23 +115,27 @@ public final class MachineInventoryComponent {
         return List.copyOf(snapshots);
     }
 
-    /** Restores authoritative slot contents from validated adapter data. */
-    public void restore(List<SimulationItemStack> restoredStacks) {
+    /** Validates a complete persistence candidate without mutating authoritative state. */
+    public void validateRestore(List<SimulationItemStack> restoredStacks) {
         Objects.requireNonNull(restoredStacks, "restoredStacks");
         if (restoredStacks.size() != stacks.length) {
             throw new IllegalArgumentException("restored slot count must match inventory slot count");
         }
-        SimulationItemStack[] validated = new SimulationItemStack[stacks.length];
         for (int slot = 0; slot < stacks.length; slot++) {
             SimulationItemStack restored = Objects.requireNonNull(restoredStacks.get(slot), "restored stack");
             validateRestoredStack(slot, restored);
-            validated[slot] = restored;
         }
-        if (Arrays.equals(stacks, validated)) {
+    }
+
+    /** Restores authoritative slot contents after complete transaction validation. */
+    public void restore(List<SimulationItemStack> restoredStacks) {
+        validateRestore(restoredStacks);
+        SimulationItemStack[] restored = restoredStacks.toArray(SimulationItemStack[]::new);
+        if (Arrays.equals(stacks, restored)) {
             return;
         }
-        System.arraycopy(validated, 0, stacks, 0, stacks.length);
-        markChanged();
+        System.arraycopy(restored, 0, stacks, 0, stacks.length);
+        dirtyState.mark(DirtyFlag.CLIENT_SYNC);
     }
 
     public MachineInventoryDiagnostics diagnostics() {

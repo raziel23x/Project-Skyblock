@@ -20,7 +20,11 @@ Milestone documents record completed architectural slices. They describe purpose
 14. [Machine Runtime Persistence Bridge](BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md)
 15. [Level-Scoped Scheduler Driver](BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md)
 16. [First Engine-Owned Machine](BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md)
+17. [Baseline Hardening and Contract Stabilization](BACKEND_MILESTONE_17_BASELINE_HARDENING.md)
 
 ## Next
 
-Sided inventory capability behavior and the first engine-owned processing-machine migration.
+Complete local Gradle and in-game validation, then select the next prototype workload that exposes
+the most valuable unproven engine contracts. A processing prototype is a likely candidate because
+it stresses energy, inventory, processing, persistence, synchronization, and sided adapters
+together; conversion does not make it permanent game content.

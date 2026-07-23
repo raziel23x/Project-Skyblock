@@ -1,3 +1,18 @@
+# Engine Milestone 17 — Baseline Hardening and Contract Stabilization
+
+- Corrected machine, cable, connection, and route energy limits to explicit per-operation
+  semantics without pretending shared-edge contention already exists.
+- Added full-snapshot validation and transactional machine restore.
+- Added machine snapshot schema 2 with bounded, opaque adapter-owned item state that explicitly
+  rejects NBT/SNBT runtime contracts.
+- Added scheduler failure stages, participant and deferred-platform isolation, and level-aware
+  diagnostics.
+- Made energy-network connection ordering consistent with equality and rejected conflicting endpoint definitions.
+- Added one immutable, last-known-good material and processing-route registry snapshot, including
+  empty-candidate rejection and collision-resistant namespaced data roots.
+- Expanded regression tests, project validation tooling, CI artifacts, wrapper verification, and developer validation documentation.
+- Recorded that the engine is greenfield and that migrated Research Era objects are prototype stress fixtures rather than permanent gameplay commitments.
+
 # Engine Milestone 16 — First Engine-Owned Machine
 
 - Migrated the Creative Energy Cell onto `MachineRuntime` and the level-scoped scheduler.
@@ -79,4 +94,6 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-The next integration milestone will prove sided inventory capability behavior through the first engine-owned processing machine.
+Complete local Gradle and in-game validation of the hardened baseline candidate. Then choose the
+next prototype workload by the engine contracts it can expose. A sided processing prototype is a
+likely stress test, but conversion does not make it permanent Game Era content.

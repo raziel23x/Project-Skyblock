@@ -20,6 +20,10 @@ Game Era
 
 Existing blocks, machines, items, menus, recipes, and compatibility code are prototypes and evidence. They remain available while the production engine is built.
 
+Prototype conversion is deliberate stress testing. A converted object is not automatically final
+Game Era content. It remains only while it exercises a distinct contract or provides useful
+regression evidence.
+
 ## Engine Era
 
 ### Completed
@@ -41,11 +45,17 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 - Machine runtime persistence contract and NeoForge block-entity bridge
 - Level-scoped scheduler driver
 - First engine-owned machine and NeoForge energy capability adapter
+- Baseline hardening and contract stabilization
+- Transaction-safe persistence and machine snapshot schema 2
+- Scheduler failure isolation
+- Opaque item-state identity
+- Atomic last-known-good material publication
 
 ### Near-Term Planned
 
-- Inventory capability adapter proven by a sided processing machine
-- First engine-owned processing-machine migration
+- Complete local Gradle and in-game validation for the hardened baseline candidate
+- Select the next prototype workload by the unproven contracts it stresses
+- Prove sided inventory adaptation through a processing prototype when that workload is selected
 
 ### Later Planned When Proven Necessary
 
@@ -57,7 +67,10 @@ Existing blocks, machines, items, menus, recipes, and compatibility code are pro
 
 ## Engine Baseline
 
-At the end of the Engine Era, capture the implemented simulation, adapters, contracts, tests, known limitations, and expected future needs. This is a comparison point, not an engine freeze. See [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
+Milestone 17 creates the first hardened baseline candidate. It becomes the formal Engine Era
+baseline only after local Gradle, GameTest where applicable, in-game prototype, and tiered optional
+integration validation are recorded. This is a comparison point, not an engine freeze. See
+[Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
 
 ## Archive
 

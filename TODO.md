@@ -4,7 +4,10 @@ This file tracks active work and near-term checkpoints. It is not a permanent id
 
 ## Current Direction
 
-Project Skyblock is a technology and civilization mod built on a reusable, Minecraft-independent simulation engine. The old Proof of Concept content remains active only long enough to prove the replacement engine in real gameplay.
+Project Skyblock is a technology and civilization mod built on a greenfield,
+Minecraft-independent simulation engine. Existing content is a set of prototype stress fixtures:
+it remains available while it exposes scheduler, resource, persistence, adapter, networking, and
+integration requirements, then may be archived or removed after its evidence is captured.
 
 ## Immediate Work
 
@@ -15,14 +18,24 @@ Project Skyblock is a technology and civilization mod built on a reusable, Minec
 - [x] Run local Gradle tests and build for Milestone 15
 - [x] Add the first energy capability adapter without duplicating authoritative state
 - [x] Build the first engine-owned vertical slice using the Creative Energy Cell
+- [x] Backend Milestone 17 — Baseline Hardening and Contract Stabilization
+- [x] Add scheduler failure isolation and failure-injection tests
+- [x] Make machine persistence validation transactional
+- [x] Preserve opaque item state in engine identity and snapshot schema 2
+- [x] Publish material and processing-route data as one last-known-good snapshot
+- [x] Correct machine energy limits to explicit per-operation semantics
 - [ ] Run local Gradle and in-game validation for Milestone 16
-- [ ] Add the inventory capability adapter when the first processing-machine migration proves sided item semantics
+- [ ] Run local Gradle and in-game validation for Milestone 17
+- [ ] Add the inventory capability adapter when a processing-prototype migration proves sided item semantics
 
-## Proof of Concept Migration
+## Prototype Stress-Test Migration
 
-The existing working content is playable evidence, not the final architecture.
+The existing working content is executable evidence, not a final gameplay or content commitment.
+Each conversion must identify the contracts being stressed, fix root causes, add regression tests,
+and record when the prototype no longer provides unique validation value.
 
-- [ ] Recreate the Material Crusher on the engine
+- [ ] Convert a processing prototype, likely the Material Crusher, to stress energy, inventory,
+  processing, persistence, synchronization, and sided-adapter contracts
 - [ ] Preserve hybrid operation using either stored power or burnable material where the final design still requires it
 - [x] Recreate the creative power source as an engine-owned testing adapter
 - [ ] Recreate the Thermal Generator through engine-owned energy and thermal state
@@ -30,7 +43,8 @@ The existing working content is playable evidence, not the final architecture.
 - [ ] Validate multiple machines on one network
 - [ ] Recreate cobblestone, water, and lava utility generators through approved production systems
 - [ ] Validate sided input, output, fuel, power, and interface behavior through adapters
-- [ ] Validate test blocks, items, tools, weapons, and armor after migration
+- [ ] Validate prototype blocks, items, tools, weapons, armor, and remote behaviors only where they
+  exercise a distinct engine or adapter boundary
 - [ ] Move superseded PoC code, assets, and data into `legacy-reference/`
 - [ ] Record each retirement in `legacy-reference/MIGRATION_LEDGER.md`
 - [ ] Confirm archived material is not compiled or loaded
@@ -58,6 +72,9 @@ The existing working content is playable evidence, not the final architecture.
 - [x] Energy capability adapter
 - [ ] Inventory capability adapter
 - [x] Reference vertical slice and first engine-owned machine
+- [x] Transaction-safe persistence and schema-2 item-state identity
+- [x] Scheduler failure isolation
+- [x] Atomic last-known-good material publication
 - [ ] Machine fluid component
 - [ ] Machine gas component
 - [ ] Fluid and gas network behavior
@@ -100,7 +117,7 @@ Interesting ideas that are not commitments:
 - Copying an existing technology mod's machine list as the design
 - Per-tick polling where event-driven sleeping is possible
 - NBT used as live runtime state
-- Backend rewrites for cosmetic preference
+- Backend redesigns performed only for novelty or cosmetic preference
 - Premature abstractions without a milestone proving the need
 
 ## Vision Check

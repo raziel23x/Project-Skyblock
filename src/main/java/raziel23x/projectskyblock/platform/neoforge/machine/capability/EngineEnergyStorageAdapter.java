@@ -20,7 +20,7 @@ public final class EngineEnergyStorageAdapter implements IEnergyStorage {
         }
         long accepted = Math.min(
                 maxReceive,
-                Math.min(energy().availableCapacity(), energy().limits().maximumReceivePerTick()));
+                Math.min(energy().availableCapacity(), energy().limits().maximumReceivePerOperation()));
         if (!simulate && accepted > 0L) {
             accepted = energy().receive(accepted);
         }
@@ -34,7 +34,7 @@ public final class EngineEnergyStorageAdapter implements IEnergyStorage {
         }
         long extracted = Math.min(
                 maxExtract,
-                Math.min(energy().storedEnergy(), energy().limits().maximumExtractPerTick()));
+                Math.min(energy().storedEnergy(), energy().limits().maximumExtractPerOperation()));
         if (!simulate && extracted > 0L) {
             extracted = energy().extract(extracted);
         }

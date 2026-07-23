@@ -109,7 +109,13 @@ Components own or delegate authoritative state, enforce local access rules, prod
 
 ### Machine Inventory Model
 
-`SimulationItemKey` represents stable item identity using a validated `namespace:path` value. `SimulationItemStack` is an immutable quantity value with an explicit maximum stack size. `MachineInventoryComponent` owns slot contents and applies slot capacity, access, insertion-rule, merge, restoration, dirty-state, and wake behavior.
+`SimulationItemKey` represents stable item identity using a validated `namespace:path` value plus
+optional opaque `SimulationItemState`. The payload is a canonical adapter-owned component-state
+encoding, not NBT or SNBT, and is bounded to 64 KiB per identity so malformed platform data cannot
+create unbounded engine state. It participates in engine equality and ordering so stateful items never
+collapse into one stateless identity, while Minecraft component classes remain outside the engine. `SimulationItemStack` is an immutable quantity value with an
+explicit maximum stack size. `MachineInventoryComponent` owns slot contents and applies slot
+capacity, access, insertion-rule, merge, restoration, dirty-state, and wake behavior.
 
 External adapters use `insert` and `extract`; machine logic uses `store` and `consume`. Minecraft `ItemStack`, registry lookup, NBT, and `IItemHandler` remain outside the authoritative backend. Immutable slot snapshots provide the handoff point for persistence and diagnostics adapters.
 
@@ -151,11 +157,24 @@ Minecraft-facing code must not:
 
 ## Current Completion Point
 
-Milestones 1 through 13 are implemented. The engine now has reusable machine-owned energy, inventory, thermal, and processing components plus a proven composition root that shares dirty state and wake behavior with the scheduler. The next milestone will define persistence contracts and codecs before Minecraft adapters are introduced.
+Implementation work through Milestone 17 is complete. The engine has reusable machine-owned
+energy, inventory, thermal, and processing components; a shared composition runtime; transactional
+persistence; level-scoped bounded scheduling; scheduler failure isolation; deterministic energy
+topology; atomic material-data publication; and one engine-owned prototype machine exposed through
+a NeoForge energy adapter.
+
+The baseline candidate still requires local Gradle and in-game validation. The next prototype
+conversion will be selected for the distinct contracts it can stress, not because its Research Era
+content is promised to survive into the Game Era.
 
 ## Long-Term Expansion
 
 The engine is expected to support fluids and gases as backend-owned resources. Fluids may model amount, capacity, flow, temperature, quality, and controlled mixing. Gases may model amount, volume, pressure, temperature, flow, and containment. These systems will be added only when concrete milestones justify their contracts.
-## First Engine-Owned Vertical Slice
+## First Engine-Owned Prototype Vertical Slice
 
-The Creative Energy Cell is the first Minecraft block migrated to the production engine bridge. `CreativeEnergyCellLogic` fills the backend-owned energy component through bounded scheduler execution. `EngineEnergyStorageAdapter` exposes that same state to NeoForge consumers. A post-execution platform hook performs adjacent capability transfer without putting world access into the simulation or restoring a dedicated block-entity tick loop.
+The Creative Energy Cell is the first Minecraft prototype migrated to the engine bridge.
+`CreativeEnergyCellLogic` fills the backend-owned energy component through bounded scheduler
+execution. `EngineEnergyStorageAdapter` exposes that same state to NeoForge consumers. A
+post-execution platform hook performs adjacent capability transfer without putting world access
+into the simulation or restoring a dedicated block-entity tick loop. The cell exists to stress
+engine contracts; migration does not make it permanent gameplay content.

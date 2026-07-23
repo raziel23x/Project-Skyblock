@@ -118,6 +118,12 @@ neoForge {
             sourceSet(sourceSets.main)
         }
     }
+
+    // Tests that touch Minecraft or NeoForge classes require the ModDevGradle unit-test runtime.
+    unitTest {
+        enable()
+        testedMod = mods.projectskyblock
+    }
 }
 
 // Sets up a dependency configuration called 'localRuntime'.

@@ -21,9 +21,9 @@ public final class EnergyEngine {
         long sourceBefore = source.storedEnergy();
         long targetBefore = target.storedEnergy();
 
-        long sourceLimit = Math.min(sourceBefore, source.limits().maximumExtractPerTick());
+        long sourceLimit = Math.min(sourceBefore, source.limits().maximumExtractPerOperation());
         long targetLimit = maximumExtractForAcceptedEnergy(
-                Math.min(target.availableCapacity(), target.limits().maximumReceivePerTick()),
+                Math.min(target.availableCapacity(), target.limits().maximumReceivePerOperation()),
                 request.efficiencyPartsPerMillion());
         long extractedPlanned = Math.min(request.requestedEnergy(), Math.min(sourceLimit, targetLimit));
         long deliveredPlanned = applyEfficiency(extractedPlanned, request.efficiencyPartsPerMillion());
@@ -43,8 +43,8 @@ public final class EnergyEngine {
         boolean sourceLimited = extractedPlanned < request.requestedEnergy() && sourceLimit <= targetLimit;
         boolean targetLimited = extractedPlanned < request.requestedEnergy() && targetLimit <= sourceLimit;
         boolean throughputLimited = extractedPlanned < request.requestedEnergy()
-                && (source.limits().maximumExtractPerTick() < sourceBefore
-                || target.limits().maximumReceivePerTick() < target.availableCapacity() + delivered);
+                && (source.limits().maximumExtractPerOperation() < sourceBefore
+                || target.limits().maximumReceivePerOperation() < target.availableCapacity() + delivered);
         return new EnergyDiagnostics(flow, sourceLimited, targetLimited, throughputLimited);
     }
 

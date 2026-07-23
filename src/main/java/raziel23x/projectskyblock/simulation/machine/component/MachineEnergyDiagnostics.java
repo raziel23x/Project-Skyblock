@@ -6,8 +6,8 @@ public record MachineEnergyDiagnostics(
         long storedEnergy,
         long capacity,
         long availableCapacity,
-        long maximumReceivePerTick,
-        long maximumExtractPerTick,
+        long maximumReceivePerOperation,
+        long maximumExtractPerOperation,
         long totalReceived,
         long totalExtracted,
         long changeCount) {
@@ -17,7 +17,7 @@ public record MachineEnergyDiagnostics(
             throw new NullPointerException("access");
         }
         if (storedEnergy < 0 || capacity < 0 || availableCapacity < 0
-                || maximumReceivePerTick < 0 || maximumExtractPerTick < 0
+                || maximumReceivePerOperation < 0 || maximumExtractPerOperation < 0
                 || totalReceived < 0 || totalExtracted < 0 || changeCount < 0) {
             throw new IllegalArgumentException("energy diagnostics values must be non-negative");
         }

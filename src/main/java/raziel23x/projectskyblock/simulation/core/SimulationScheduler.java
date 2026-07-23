@@ -85,6 +85,24 @@ public final class SimulationScheduler {
         return entries.containsKey(requireId(participantId));
     }
 
+    /**
+     * Invalidates one participant after a failure outside the scheduler execution loop.
+     * Stale ready and scheduled tickets are invalidated by the generation change.
+     */
+    public boolean invalidateAfterFailure(
+            String participantId,
+            SimulationFailureStage stage,
+            RuntimeException failure) {
+        Entry entry = entries.get(requireId(participantId));
+        Objects.requireNonNull(stage, "stage");
+        Objects.requireNonNull(failure, "failure");
+        if (entry == null || entry.lifecycle == SimulationLifecycle.INVALID) {
+            return false;
+        }
+        markInvalidAfterFailure(entry, stage, failure);
+        return true;
+    }
+
     public SimulationLifecycle lifecycleOf(String participantId) {
         Entry entry = entries.get(requireId(participantId));
         if (entry == null) {
@@ -115,7 +133,11 @@ public final class SimulationScheduler {
 
     /** Executes at most the configured number of participants for this game tick. */
     public SchedulerTickReport tick(long gameTime, SimulationContextFactory contextFactory) {
-        return tick(gameTime, contextFactory, SimulationExecutionObserver.NONE);
+        return tick(
+                gameTime,
+                contextFactory,
+                SimulationExecutionObserver.NONE,
+                SimulationFailureObserver.NONE);
     }
 
     /**
@@ -128,11 +150,24 @@ public final class SimulationScheduler {
             long gameTime,
             SimulationContextFactory contextFactory,
             SimulationExecutionObserver executionObserver) {
+        return tick(gameTime, contextFactory, executionObserver, SimulationFailureObserver.NONE);
+    }
+
+    /**
+     * Executes one bounded scheduler slice while isolating participant and adapter failures.
+     * A failed participant becomes invalid and cannot corrupt or stall unrelated work.
+     */
+    public SchedulerTickReport tick(
+            long gameTime,
+            SimulationContextFactory contextFactory,
+            SimulationExecutionObserver executionObserver,
+            SimulationFailureObserver failureObserver) {
         if (gameTime < 0) {
             throw new IllegalArgumentException("game time must be non-negative");
         }
         Objects.requireNonNull(contextFactory, "contextFactory");
         Objects.requireNonNull(executionObserver, "executionObserver");
+        Objects.requireNonNull(failureObserver, "failureObserver");
 
         releaseDueParticipants(gameTime);
 
@@ -145,15 +180,24 @@ public final class SimulationScheduler {
             }
 
             entry.lifecycle = SimulationLifecycle.ACTIVE;
-            SimulationContext context = Objects.requireNonNull(
-                    contextFactory.create(entry.id, gameTime, entry.dirtyState),
-                    "contextFactory returned null");
-            SimulationResult result = Objects.requireNonNull(
-                    execute(entry.participant, context, new SimulationBudget(workUnitsPerExecution)),
-                    "participant returned null");
-            applyResult(entry, result, gameTime);
-            applyDeferredWake(entry, gameTime);
-            executionObserver.afterExecution(entry.id, entry.dirtyState);
+            SimulationFailureStage failureStage = SimulationFailureStage.CONTEXT_CREATION;
+            try {
+                SimulationContext context = Objects.requireNonNull(
+                        contextFactory.create(entry.id, gameTime, entry.dirtyState),
+                        "contextFactory returned null");
+                failureStage = SimulationFailureStage.PARTICIPANT_EXECUTION;
+                SimulationResult result = Objects.requireNonNull(
+                        execute(entry.participant, context, new SimulationBudget(workUnitsPerExecution)),
+                        "participant returned null");
+                failureStage = SimulationFailureStage.RESULT_APPLICATION;
+                applyResult(entry, result, gameTime);
+                applyDeferredWake(entry, gameTime);
+                failureStage = SimulationFailureStage.EXECUTION_OBSERVER;
+                executionObserver.afterExecution(entry.id, entry.dirtyState);
+            } catch (RuntimeException failure) {
+                markInvalidAfterFailure(entry, failureStage, failure);
+                notifyFailure(failureObserver, entry.id, failureStage, failure);
+            }
             executed++;
         }
 
@@ -166,6 +210,39 @@ public final class SimulationScheduler {
             SimulationContext context,
             SimulationBudget budget) {
         return participant.execute(context, budget);
+    }
+
+    private static void notifyFailure(
+            SimulationFailureObserver failureObserver,
+            String participantId,
+            SimulationFailureStage stage,
+            RuntimeException failure) {
+        try {
+            failureObserver.onFailure(participantId, stage, failure);
+        } catch (RuntimeException ignored) {
+            // Diagnostics must never destabilize the scheduler failure boundary.
+        }
+    }
+
+    private static void markInvalidAfterFailure(
+            Entry entry,
+            SimulationFailureStage stage,
+            RuntimeException failure) {
+        entry.lifecycle = SimulationLifecycle.INVALID;
+        entry.statusReason = failureReason(stage, failure);
+        entry.generation++;
+        entry.wakeRequestedDuringExecution = false;
+        entry.queuedReady = false;
+    }
+
+    private static String failureReason(
+            SimulationFailureStage stage,
+            RuntimeException failure) {
+        String message = failure.getMessage();
+        String detail = message == null || message.isBlank() ? "" : ": " + message;
+        String reason = stage.name().toLowerCase().replace('_', ' ')
+                + " failed with " + failure.getClass().getSimpleName() + detail;
+        return reason.length() <= 256 ? reason : reason.substring(0, 256);
     }
 
     private void applyResult(Entry entry, SimulationResult result, long gameTime) {

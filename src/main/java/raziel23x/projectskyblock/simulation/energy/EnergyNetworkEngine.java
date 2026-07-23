@@ -45,9 +45,9 @@ public final class EnergyNetworkEngine {
         }
         EnergyRoute route = routeResult.get();
 
-        long sourceLimit = Math.min(source.storedEnergy(), source.limits().maximumExtractPerTick());
-        long routeLimit = route.maximumTransferPerTick();
-        long targetLimit = Math.min(target.availableCapacity(), target.limits().maximumReceivePerTick());
+        long sourceLimit = Math.min(source.storedEnergy(), source.limits().maximumExtractPerOperation());
+        long routeLimit = route.maximumTransferPerOperation();
+        long targetLimit = Math.min(target.availableCapacity(), target.limits().maximumReceivePerOperation());
         long upperBound = Math.min(requestedEnergy, Math.min(sourceLimit, routeLimit));
         long extractedPlanned = maximumInputForTarget(route, upperBound, targetLimit);
         RouteCalculation calculation = calculateRoute(route, extractedPlanned);

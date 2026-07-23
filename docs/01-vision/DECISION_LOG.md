@@ -78,3 +78,31 @@ Impacted Documents: LOCALIZATION_STANDARD.md, ARCHITECTURE_REVIEW_CHECKLIST.md
 Implementation Notes: Current platform baseline is Minecraft 1.21.1 with NeoForge 21.1.235.
 
 Status: Accepted
+
+## Decision 0004
+
+Date: 2026-07-23
+
+Topic: Greenfield engine origin, scale model, and prototype lifecycle
+
+Decision: Treat the Project Skyblock simulation engine as a new scale-driven engine being created
+from first principles. Existing machines, blocks, tools, armor, menus, and utility items are
+prototype stress fixtures. They may be converted to expose engine requirements, then archived or
+removed after their unique evidence is captured.
+
+Reasoning: The engine emerged after ordinary Minecraft and NeoForge implementation raised questions
+about hundreds, thousands, and extremely large conceptual quantities. Runtime work should scale
+with meaningful activity and state change rather than raw represented object count wherever
+practical. Calling the effort a rewrite implies a previous engine that did not exist and risks
+confusing prototype conversion with final content design.
+
+Alternatives Considered: Continue ordinary per-object ticking; design every engine abstraction
+before testing; treat migrated prototypes as permanent Game Era content.
+
+Impacted Documents: ADR-0011-GREENFIELD-SCALE-DRIVEN-ENGINE.md, ENGINE_ROADMAP.md,
+ENGINE_GUIDING_PRINCIPLES.md, TODO.md
+
+Implementation Notes: Each prototype migration identifies the contracts it stresses, captures
+regression tests, and records whether the prototype still provides unique validation value.
+
+Status: Accepted

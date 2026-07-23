@@ -3,10 +3,11 @@ package raziel23x.projectskyblock.platform.neoforge.machine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.simulation.core.DirtyFlag;
 import raziel23x.projectskyblock.simulation.core.SimulationScheduler;
 import raziel23x.projectskyblock.simulation.machine.persistence.MachineRuntimePersistence;
@@ -24,6 +25,7 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
     private MachineRuntime runtime;
     private MachineRuntimeSnapshot pendingSnapshot;
     private EngineMachineLifecycle lifecycle = EngineMachineLifecycle.CONSTRUCTED;
+    private boolean persistenceFailureReported;
 
     protected EngineMachineBlockEntity(
             BlockEntityType<?> type,
@@ -59,7 +61,7 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
         }
         runtime = createMachineRuntime(EngineMachineLevelManager.schedulerFor(serverLevel));
         if (pendingSnapshot != null) {
-            MachineRuntimePersistence.restore(runtime, pendingSnapshot);
+            restoreSnapshotSafely(pendingSnapshot, "load");
             pendingSnapshot = null;
         }
         EngineMachineLevelManager.registerMachine(serverLevel, this);
@@ -106,11 +108,16 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         if (tag.contains(MachineRuntimeNbtCodec.ROOT_KEY)) {
-            MachineRuntimeSnapshot snapshot = MachineRuntimeNbtCodec.read(tag);
-            if (runtime == null) {
-                pendingSnapshot = snapshot;
-            } else {
-                MachineRuntimePersistence.restore(runtime, snapshot);
+            try {
+                MachineRuntimeSnapshot snapshot = MachineRuntimeNbtCodec.read(tag);
+                if (runtime == null) {
+                    pendingSnapshot = snapshot;
+                } else {
+                    restoreSnapshotSafely(snapshot, "reload");
+                }
+            } catch (RuntimeException failure) {
+                reportPersistenceFailure("decode", failure);
+                pendingSnapshot = null;
             }
         }
     }
@@ -128,6 +135,27 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
         if (lifecycle == EngineMachineLifecycle.REMOVED) {
             lifecycle = EngineMachineLifecycle.UNLOADED;
         }
+    }
+
+    private void restoreSnapshotSafely(MachineRuntimeSnapshot snapshot, String phase) {
+        try {
+            MachineRuntimePersistence.restore(machineRuntime(), snapshot);
+        } catch (RuntimeException failure) {
+            reportPersistenceFailure(phase, failure);
+        }
+    }
+
+    private void reportPersistenceFailure(String phase, RuntimeException failure) {
+        if (persistenceFailureReported) {
+            return;
+        }
+        persistenceFailureReported = true;
+        ProjectSkyblock.LOGGER.error(
+                "Failed to {} engine runtime for {} at {}; retaining safe runtime state",
+                phase,
+                getType(),
+                worldPosition,
+                failure);
     }
 
     private void closeRuntime() {

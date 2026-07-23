@@ -2,12 +2,15 @@ package raziel23x.projectskyblock.platform.neoforge.machine;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import net.minecraft.server.level.ServerLevel;
+import raziel23x.projectskyblock.ProjectSkyblock;
 import raziel23x.projectskyblock.simulation.core.DirtyStateTracker;
 import raziel23x.projectskyblock.simulation.core.SchedulerTickReport;
 import raziel23x.projectskyblock.simulation.core.SimulationContext;
+import raziel23x.projectskyblock.simulation.core.SimulationFailureStage;
 import raziel23x.projectskyblock.simulation.core.SimulationScheduler;
 
 /**
@@ -75,13 +78,26 @@ final class LevelMachineScheduler {
                 gameTime,
                 (participantId, ignoredGameTime, dirtyState) ->
                         new LevelSimulationContext(gameTime, dirtyState),
-                this::afterExecution);
+                this::afterExecution,
+                this::onFailure);
         flushPendingIntegration();
     }
 
     void close() {
         pendingIntegration.clear();
         machinesByParticipantId.clear();
+    }
+
+    private void onFailure(
+            String participantId,
+            SimulationFailureStage stage,
+            RuntimeException failure) {
+        ProjectSkyblock.LOGGER.error(
+                "Engine participant {} failed during {} in level {}; participant invalidated",
+                participantId,
+                stage,
+                level.dimension().location(),
+                failure);
     }
 
     private void afterExecution(String participantId, DirtyStateTracker dirtyState) {
@@ -98,12 +114,23 @@ final class LevelMachineScheduler {
         if (pendingIntegration.isEmpty()) {
             return;
         }
-        for (EngineMachineBlockEntity machine : pendingIntegration) {
-            if (!machine.isRemoved() && machine.getLevel() == level) {
+        List<EngineMachineBlockEntity> batch = List.copyOf(pendingIntegration);
+        pendingIntegration.clear();
+        for (EngineMachineBlockEntity machine : batch) {
+            if (machine.isRemoved() || machine.getLevel() != level || !machine.hasMachineRuntime()) {
+                continue;
+            }
+            String participantId = machine.machineRuntime().id().value();
+            try {
                 machine.flushMachineIntegrationWork();
+            } catch (RuntimeException failure) {
+                scheduler.invalidateAfterFailure(
+                        participantId,
+                        SimulationFailureStage.PLATFORM_INTEGRATION,
+                        failure);
+                onFailure(participantId, SimulationFailureStage.PLATFORM_INTEGRATION, failure);
             }
         }
-        pendingIntegration.clear();
     }
 
     private record LevelSimulationContext(long gameTime, DirtyStateTracker dirtyState)

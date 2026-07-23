@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased — Engine Milestone 17
+
+- Hardened the greenfield simulation engine baseline before additional prototype stress migrations.
+- Clarified machine, cable, connection, and route transfer limits as per-operation contracts and reserved shared aggregate budgeting for the network scheduler.
+- Made machine snapshot restore transactional and added schema migration for opaque adapter-owned item state.
+- Bounded typed item-state payloads and explicitly rejected NBT/SNBT runtime codecs.
+- Isolated scheduler participant and deferred platform-integration failures so one invalid workload cannot stop unrelated simulation work.
+- Made energy-network topology publication deterministic and reject conflicting parallel connection definitions.
+- Made material and processing-route reload publication atomic with last-known-good retention and empty-candidate rejection.
+- Namespaced Project Skyblock custom datapack roots to avoid collisions with unrelated mods.
+- Added regression, failure-injection, codec, reload, topology, thermal, and item-state tests.
+- Added CI, project validation, documentation-manifest tooling, and the permanent tiered developer validation plan.
+- Documented the engine as greenfield, scale-driven development and the existing gameplay objects as temporary stress-test prototypes.
+
 ## Unreleased — Engine Milestone 16
 
 - Migrated the Creative Energy Cell to the engine-owned runtime and level scheduler.

@@ -131,7 +131,7 @@ public final class MachineEnergyComponent implements EnergyBuffer {
     public boolean canConsume(long requestedEnergy) {
         requireNonNegative(requestedEnergy);
         return requestedEnergy <= storedEnergy()
-                && requestedEnergy <= limits().maximumExtractPerTick();
+                && requestedEnergy <= limits().maximumExtractPerOperation();
     }
 
     public MachineEnergyDiagnostics diagnostics() {
@@ -140,8 +140,8 @@ public final class MachineEnergyComponent implements EnergyBuffer {
                 storedEnergy(),
                 capacity(),
                 availableCapacity(),
-                limits().maximumReceivePerTick(),
-                limits().maximumExtractPerTick(),
+                limits().maximumReceivePerOperation(),
+                limits().maximumExtractPerOperation(),
                 totalReceived,
                 totalExtracted,
                 changeCount);

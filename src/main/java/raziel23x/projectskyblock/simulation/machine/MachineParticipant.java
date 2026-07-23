@@ -53,11 +53,16 @@ public final class MachineParticipant<S extends SimulationState>
         }
 
         state.beginExecution(context.gameTime());
-        SimulationResult result = Objects.requireNonNull(
-                logic.execute(state, context, budget),
-                "machine logic returned null");
-        applyResult(result);
-        return result;
+        try {
+            SimulationResult result = Objects.requireNonNull(
+                    logic.execute(state, context, budget),
+                    "machine logic returned null");
+            applyResult(result);
+            return result;
+        } catch (RuntimeException failure) {
+            state.becomeInvalid("machine execution failed with " + failure.getClass().getSimpleName());
+            throw failure;
+        }
     }
 
     private void applyResult(SimulationResult result) {

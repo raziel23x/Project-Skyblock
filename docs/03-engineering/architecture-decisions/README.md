@@ -14,3 +14,4 @@ ADRs record durable decisions that shape multiple systems. They are not used for
 - [ADR-0008 — Idle Systems Sleep](ADR-0008-IDLE-SYSTEMS-SLEEP.md)
 - [ADR-0009 — Simulation-Owned Resource Families](ADR-0009-SIMULATION-OWNED-RESOURCES.md)
 - [ADR-0010 — Reusable Engine Evolution](ADR-0010-REUSABLE-ENGINE-EVOLUTION.md)
+- [ADR-0011 — Greenfield, Scale-Driven Engine Construction](ADR-0011-GREENFIELD-SCALE-DRIVEN-ENGINE.md)

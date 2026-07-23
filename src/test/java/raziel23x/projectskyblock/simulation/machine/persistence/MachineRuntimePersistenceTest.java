@@ -3,6 +3,7 @@ package raziel23x.projectskyblock.simulation.machine.persistence;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -51,6 +52,51 @@ class MachineRuntimePersistenceTest {
             assertFalse(target.dirtyState().isDirty(DirtyFlag.PERSISTENCE));
             assertTrue(target.dirtyState().isDirty(DirtyFlag.CLIENT_SYNC));
         }
+    }
+
+
+    @Test
+    void failedRestoreLeavesEveryComponentUnchanged() {
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        try (MachineRuntime target = runtime(scheduler, "transactional-target")) {
+            target.components().energy().receive(50L);
+            long originalThermalEnergy = target.components().thermal().thermalEnergyMicroJoules();
+            MachineRuntimeSnapshot invalid = new MachineRuntimeSnapshot(
+                    MachineRuntimeSnapshot.CURRENT_SCHEMA_VERSION,
+                    900L,
+                    originalThermalEnergy + 1_000L,
+                    List.of(),
+                    new MachineProcessingSnapshot(
+                            MachineProcessingStatus.IDLE,
+                            "",
+                            0L,
+                            0L,
+                            "",
+                            0L));
+
+            assertThrows(IllegalArgumentException.class,
+                    () -> MachineRuntimePersistence.restore(target, invalid));
+
+            assertEquals(50L, target.components().energy().storedEnergy());
+            assertEquals(originalThermalEnergy,
+                    target.components().thermal().thermalEnergyMicroJoules());
+            assertTrue(target.components().inventory().stack(0).isEmpty());
+            assertEquals(MachineProcessingStatus.IDLE, target.components().processing().status());
+        }
+    }
+
+
+    @Test
+    void closedRuntimeRejectsRestoreBeforeMutation() {
+        SimulationScheduler scheduler = new SimulationScheduler(8, 8);
+        MachineRuntime target = runtime(scheduler, "closed-target");
+        target.components().energy().receive(25L);
+        MachineRuntimeSnapshot snapshot = MachineRuntimePersistence.capture(target);
+        target.close();
+
+        assertThrows(IllegalStateException.class,
+                () -> MachineRuntimePersistence.restore(target, snapshot));
+        assertEquals(25L, target.components().energy().storedEnergy());
     }
 
     @Test

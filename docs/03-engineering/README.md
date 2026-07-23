@@ -4,9 +4,14 @@ This section is the authoritative technical documentation for the Project Skyblo
 
 ## Current Engine State
 
-The backend has completed Milestones 1 through 16, ending with the first engine-owned machine, level-scoped scheduler integration, runtime persistence bridge, and NeoForge energy capability adapter.
+The backend has completed implementation work through Milestone 17. The current baseline candidate
+includes the first engine-owned prototype machine, level-scoped scheduler integration, failure
+isolation, transactional persistence, schema-2 stateful item identity, an energy capability
+adapter, deterministic topology hardening, and atomic material-data publication.
 
-The next planned work is the **inventory capability adapter proven by a sided processing machine**, followed by the first engine-owned processing-machine migration.
+The next gate is local Gradle and in-game validation. After that, the next prototype conversion is
+selected by which unproven engine contracts it can stress most effectively; it is not selected as
+a promise of final gameplay content.
 
 ## Reading Order
 
@@ -20,8 +25,9 @@ The next planned work is the **inventory capability adapter proven by a sided pr
 8. [Engine Roadmap](ENGINE_ROADMAP.md)
 9. [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md)
 10. [Engine Changelog](ENGINE_CHANGELOG.md)
-11. [Architecture Decision Records](architecture-decisions/README.md)
-12. [Backend Milestones](milestones/README.md)
+11. [Developer Validation Environment](DEVELOPER_VALIDATION_ENVIRONMENT.md)
+12. [Architecture Decision Records](architecture-decisions/README.md)
+13. [Backend Milestones](milestones/README.md)
 
 ## Documentation Categories
 

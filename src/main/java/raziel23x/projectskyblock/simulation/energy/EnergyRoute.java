@@ -38,10 +38,10 @@ public record EnergyRoute(
         return connections.size();
     }
 
-    public long maximumTransferPerTick() {
+    public long maximumTransferPerOperation() {
         long limit = Long.MAX_VALUE;
         for (EnergyNetworkConnection connection : connections) {
-            limit = Math.min(limit, connection.maximumTransferPerTick());
+            limit = Math.min(limit, connection.maximumTransferPerOperation());
         }
         return connections.isEmpty() ? 0 : limit;
     }

@@ -1,6 +1,6 @@
 # Documentation Manifest
 
-Markdown files: 102
+Markdown files: 105
 
 This manifest indexes the authoritative `docs` folder.
 
@@ -35,6 +35,7 @@ This manifest indexes the authoritative `docs` folder.
 - `03-engineering/COMPONENT_CATALOG.md`
 - `03-engineering/CONTRIBUTOR_GUIDE.md`
 - `03-engineering/DEVELOPER_GUIDE.md`
+- `03-engineering/DEVELOPER_VALIDATION_ENVIRONMENT.md`
 - `03-engineering/ENGINEERING_PRINCIPLES.md`
 - `03-engineering/ENGINE_BASELINE_AND_VALIDATION.md`
 - `03-engineering/ENGINE_CHANGELOG.md`
@@ -59,6 +60,7 @@ This manifest indexes the authoritative `docs` folder.
 - `03-engineering/architecture-decisions/ADR-0008-IDLE-SYSTEMS-SLEEP.md`
 - `03-engineering/architecture-decisions/ADR-0009-SIMULATION-OWNED-RESOURCES.md`
 - `03-engineering/architecture-decisions/ADR-0010-REUSABLE-ENGINE-EVOLUTION.md`
+- `03-engineering/architecture-decisions/ADR-0011-GREENFIELD-SCALE-DRIVEN-ENGINE.md`
 - `03-engineering/architecture-decisions/README.md`
 - `03-engineering/feature-specifications/BIOLOGY_SYSTEM.md`
 - `03-engineering/feature-specifications/CIVILIZATION_CORE.md`
@@ -73,6 +75,7 @@ This manifest indexes the authoritative `docs` folder.
 - `03-engineering/milestones/BACKEND_MILESTONE_14_MACHINE_RUNTIME_PERSISTENCE_BRIDGE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_17_BASELINE_HARDENING.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md`
@@ -104,7 +107,7 @@ This manifest indexes the authoritative `docs` folder.
 - `05-reference/resource-bible/REDSTONE_AND_TECH.md`
 - `05-reference/resource-bible/WOODS.md`
 - `DOCUMENTATION_AUDIT.md`
+- `MANIFEST.md`
 - `README.md`
 - `REPLACEMENT_INSTRUCTIONS.md`
 - `architecture/ENGINEERING_PRINCIPLES.md`
-- `MANIFEST.md`

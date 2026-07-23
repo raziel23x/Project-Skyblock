@@ -14,7 +14,7 @@ Project Skyblock is a **NeoForge 1.21.1 mod** designed for use inside modpacks. 
 - **Interconnected gameplay systems** including biology, agriculture, chemistry, metallurgy, energy, logistics, and machines
 - **Data-driven content** for easier balancing and customization
 - **Datapack support**
-- **KubeJS integration**
+- **Planned first-class KubeJS integration through the optional public API**
 - **Optional compatibility layers** for other mods
 - **Modpack-friendly design** with configurable progression and extension points
 
@@ -31,9 +31,13 @@ Project Skyblock is built around a few core rules:
 
 ## Project Status
 
-Project Skyblock is currently in active development.
+Project Skyblock is currently in active **Engine Era** development. Its Minecraft-independent
+simulation engine is a greenfield system being built from first principles around bounded work,
+sleeping systems, deterministic state, and scale-aware representation.
 
-The design and documentation are being developed alongside the code so that systems remain consistent, extensible, and maintainable.
+Existing machines, blocks, tools, armor, menus, and utility items are prototype stress fixtures.
+They are converted to the engine to expose missing contracts and performance limits; they are not
+automatically permanent Game Era content.
 
 ## Documentation
 

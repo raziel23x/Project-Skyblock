@@ -41,11 +41,11 @@ class MachineThermalComponentTest {
         assertEquals(ThermalCondition.BELOW_OPERATING_RANGE, component.condition());
         assertFalse(component.isWithinOperatingRange());
 
-        component.restoreThermalEnergy(300_000L * 10L);
+        component.restoreThermalEnergyMicroJoules(300_000L * 10L);
         assertEquals(ThermalCondition.OPERATING, component.condition());
         assertTrue(component.isWithinOperatingRange());
 
-        component.restoreThermalEnergy(400_000L * 10L);
+        component.restoreThermalEnergyMicroJoules(400_000L * 10L);
         assertTrue(component.requiresShutdown());
     }
 
@@ -88,7 +88,7 @@ class MachineThermalComponentTest {
     @Test
     void snapshotAndRestorePreserveAuthoritativeEnergy() {
         MachineThermalComponent component = component(MachineThermalAccess.INPUT, 300_000L, 100L);
-        component.restoreThermalEnergy(31_234_567L);
+        component.restoreThermalEnergyMicroJoules(31_234_567L);
 
         MachineThermalSnapshot snapshot = component.snapshot();
 
@@ -109,7 +109,7 @@ class MachineThermalComponentTest {
                 wakes::incrementAndGet);
 
         assertThrows(IllegalArgumentException.class, () -> component.receiveHeat(-1L));
-        assertThrows(IllegalArgumentException.class, () -> component.restoreThermalEnergy(-1L));
+        assertThrows(IllegalArgumentException.class, () -> component.restoreThermalEnergyMicroJoules(-1L));
         assertEquals(0L, component.generateHeat(0L));
         assertEquals(0, wakes.get());
         assertEquals(0L, component.diagnostics().changeCount());

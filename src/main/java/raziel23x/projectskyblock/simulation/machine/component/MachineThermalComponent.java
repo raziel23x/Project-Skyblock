@@ -86,19 +86,18 @@ public final class MachineThermalComponent {
         return thermalState.heatCapacityMicroJoulesPerMilliKelvin();
     }
 
-    /** Restores exact durable thermal energy without replaying runtime heat transfer. */
-    public void restoreThermalEnergyMicroJoules(long thermalEnergyMicroJoules) {
+    public void validateThermalEnergyMicroJoules(long thermalEnergyMicroJoules) {
         if (thermalEnergyMicroJoules < 0L) {
             throw new IllegalArgumentException("thermal energy must be non-negative");
         }
+    }
+
+    /** Restores exact durable thermal energy after complete transaction validation. */
+    public void restoreThermalEnergyMicroJoules(long thermalEnergyMicroJoules) {
+        validateThermalEnergyMicroJoules(thermalEnergyMicroJoules);
         long current = thermalState.thermalEnergyMicroJoules();
-        if (thermalEnergyMicroJoules > current) {
-            thermalState.addHeatMicroJoules(thermalEnergyMicroJoules - current);
-        } else if (thermalEnergyMicroJoules < current) {
-            thermalState.removeHeatMicroJoules(current - thermalEnergyMicroJoules);
-        }
+        thermalState.restoreThermalEnergyMicroJoules(thermalEnergyMicroJoules);
         if (thermalEnergyMicroJoules != current) {
-            changeCount = Math.addExact(changeCount, 1L);
             dirtyState.mark(DirtyFlag.CLIENT_SYNC);
         }
     }
@@ -202,21 +201,6 @@ public final class MachineThermalComponent {
                 heatCapacityMicroJoulesPerMilliKelvin(),
                 properties,
                 condition());
-    }
-
-    /** Restores validated authoritative thermal energy from a persistence adapter. */
-    public void restoreThermalEnergy(long restoredThermalEnergyMicroJoules) {
-        requireNonNegative(restoredThermalEnergyMicroJoules);
-        long current = thermalEnergyMicroJoules();
-        if (current == restoredThermalEnergyMicroJoules) {
-            return;
-        }
-        if (restoredThermalEnergyMicroJoules > current) {
-            thermalState.addHeatMicroJoules(restoredThermalEnergyMicroJoules - current);
-        } else {
-            thermalState.removeHeatMicroJoules(current - restoredThermalEnergyMicroJoules);
-        }
-        markChanged();
     }
 
     public MachineThermalDiagnostics diagnostics() {

@@ -4,7 +4,9 @@ package raziel23x.projectskyblock.simulation.energy;
  * Minecraft-independent contract for an authoritative energy buffer.
  *
  * <p>Implementations must never accept more than their remaining capacity or
- * extract more than their stored energy and configured per-tick limits.</p>
+ * extract more than their stored energy and configured per-operation limits. Aggregate
+ * per-step or per-network throughput is enforced by the scheduler or network solver that
+ * owns that operation.</p>
  */
 public interface EnergyBuffer {
     long storedEnergy();

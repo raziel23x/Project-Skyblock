@@ -5,6 +5,10 @@
 > Purpose: preserve what the engine was expected to provide at the end of the Engine Era, then
 > compare that expectation with what Project Skyblock and later projects actually required.
 
+> Current candidate: Milestone 17 implementation on 2026-07-23. The candidate is not yet the
+> formal tagged baseline because local Gradle, in-game, and tiered integration validation remain
+> open.
+
 ## 1. What the Baseline Is
 
 At the end of the Engine Era, create a versioned snapshot of the Minecraft-independent simulation
@@ -98,3 +102,26 @@ have demonstrated stability, and long-term versioned maintenance is accepted.
 
 Until then, the repository must preserve extraction-ready boundaries without pretending that an
 unproven internal package is already a stable public library.
+
+## 7. Current Baseline Candidate
+
+The first candidate includes:
+
+- deterministic bounded scheduling with sleep, wake coalescing, and failure isolation;
+- backend-owned energy, inventory, thermal, and processing components;
+- deterministic energy topology and transfer foundations;
+- transactional machine snapshots and bounded schema-2 opaque item identity using typed/component
+  codecs rather than NBT runtime blobs;
+- level-scoped Minecraft scheduling and a NeoForge energy adapter;
+- atomic last-known-good material and processing-route publication;
+- one converted prototype vertical slice, the Creative Energy Cell;
+- independent simulation regression tests and repository-integrity tooling.
+
+The baseline cannot be promoted until the following evidence exists:
+
+1. `gradlew clean test build` succeeds locally from a clean checkout.
+2. The Creative Energy Cell is validated after Milestones 16 and 17 in a real client/server world.
+3. Sleeping receiver demand and wake/refill behavior are proven under actual capability behavior.
+4. Bare-core and optional-integration launch matrices pass.
+5. KubeJS/ProbeJS validation passes only after a supported public API surface exists.
+6. The release artifact is inspected for accidental development dependencies.

@@ -77,10 +77,22 @@ public final class EnergyNetworkTopology {
         if (firstConnections == null || secondConnections == null) {
             throw new IllegalArgumentException("both connection endpoints must already exist");
         }
-        if (!firstConnections.add(connection)) {
-            return false;
+        EnergyNetworkConnection existing = connectionBetween(firstConnections, connection.first(), connection.second());
+        if (existing != null) {
+            if (existing.equals(connection)) {
+                return false;
+            }
+            throw new IllegalArgumentException(
+                    "connection already exists with different transfer properties: "
+                            + connection.first() + " <-> " + connection.second());
         }
-        secondConnections.add(connection);
+        boolean firstAdded = firstConnections.add(connection);
+        boolean secondAdded = secondConnections.add(connection);
+        if (!firstAdded || !secondAdded) {
+            firstConnections.remove(connection);
+            secondConnections.remove(connection);
+            throw new IllegalStateException("failed to publish connection atomically: " + connection);
+        }
         revision++;
         return true;
     }
@@ -96,13 +108,7 @@ public final class EnergyNetworkTopology {
         if (firstConnections == null || secondConnections == null) {
             return false;
         }
-        EnergyNetworkConnection found = null;
-        for (EnergyNetworkConnection connection : firstConnections) {
-            if (connection.contains(second)) {
-                found = connection;
-                break;
-            }
-        }
+        EnergyNetworkConnection found = connectionBetween(firstConnections, first, second);
         if (found == null) {
             return false;
         }
@@ -216,6 +222,18 @@ public final class EnergyNetworkTopology {
         Collections.reverse(reversedNodes);
         Collections.reverse(reversedConnections);
         return new EnergyRoute(reversedNodes, reversedConnections);
+    }
+
+    private static EnergyNetworkConnection connectionBetween(
+            Iterable<EnergyNetworkConnection> connections,
+            EnergyNetworkNodeId first,
+            EnergyNetworkNodeId second) {
+        for (EnergyNetworkConnection connection : connections) {
+            if (connection.joins(first, second)) {
+                return connection;
+            }
+        }
+        return null;
     }
 
     private static EnergyNetworkNodeId requireNodeId(EnergyNetworkNodeId nodeId) {

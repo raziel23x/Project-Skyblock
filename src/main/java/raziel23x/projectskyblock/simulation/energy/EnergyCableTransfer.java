@@ -15,7 +15,7 @@ public final class EnergyCableTransfer {
             throw new IllegalArgumentException("requested energy and heat conversion must be non-negative");
         }
 
-        long boundedRequest = Math.min(requestedEnergy, cable.maximumTransferPerTick());
+        long boundedRequest = Math.min(requestedEnergy, cable.maximumTransferPerOperation());
         long extracted = cable.extract(boundedRequest);
         long lost = multiplyDivideFloor(extracted, cable.lossPartsPerMillion(), PARTS_PER_MILLION);
         long delivered = extracted - lost;

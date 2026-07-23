@@ -35,7 +35,7 @@ public final class SimulationEnergyState implements SimulationState, EnergyBuffe
     public long receive(long requestedEnergy) {
         requireNonNegative(requestedEnergy);
         long accepted = Math.min(requestedEnergy,
-                Math.min(limits.maximumReceivePerTick(), availableCapacity()));
+                Math.min(limits.maximumReceivePerOperation(), availableCapacity()));
         storedEnergy += accepted;
         return accepted;
     }
@@ -44,16 +44,20 @@ public final class SimulationEnergyState implements SimulationState, EnergyBuffe
     public long extract(long requestedEnergy) {
         requireNonNegative(requestedEnergy);
         long extracted = Math.min(requestedEnergy,
-                Math.min(limits.maximumExtractPerTick(), storedEnergy));
+                Math.min(limits.maximumExtractPerOperation(), storedEnergy));
         storedEnergy -= extracted;
         return extracted;
     }
 
-    /** Restores validated persisted state without exposing any NBT dependency. */
-    public void restoreStoredEnergy(long storedEnergy) {
+    public void validateStoredEnergy(long storedEnergy) {
         if (storedEnergy < 0 || storedEnergy > limits.capacity()) {
             throw new IllegalArgumentException("stored energy must fit inside capacity");
         }
+    }
+
+    /** Restores prevalidated persisted state without exposing any NBT dependency. */
+    public void restoreStoredEnergy(long storedEnergy) {
+        validateStoredEnergy(storedEnergy);
         this.storedEnergy = storedEnergy;
     }
 

@@ -283,6 +283,8 @@ Project Skyblock avoids NBT by default.
 - Machine logic must not directly read or write NBT.
 - No NBT imports are permitted in ordinary machine, process, maintenance, or transport packages.
 - No per-tick serialization.
+- No `CompoundTag`, SNBT text, or encoded NBT blob may be hidden inside an opaque runtime field.
+- Opaque adapter payloads must use a documented typed/component codec, not NBT-as-a-bag-of-data.
 - No persistence work unless state is dirty or the platform explicitly requires it.
 - Prefer typed codecs, data components, attachments, registries, and supported typed serializers.
 
@@ -309,7 +311,7 @@ The adapter must:
 - convert immediately into typed state,
 - prevent persistence types from escaping into gameplay code.
 
-NBT is a quarantined platform detail, not a Project Skyblock architecture.
+NBT is a quarantined platform detail, not a Project Skyblock architecture. Decode it once at the host boundary, validate it into typed state, and discard it.
 
 ---
 
