@@ -24,8 +24,11 @@ integration requirements, then may be archived or removed after its evidence is 
 - [x] Preserve opaque item state in engine identity and snapshot schema 2
 - [x] Publish material and processing-route data as one last-known-good snapshot
 - [x] Correct machine energy limits to explicit per-operation semantics
-- [ ] Run local Gradle and in-game validation for Milestone 16
-- [ ] Run local Gradle and in-game validation for Milestone 17
+- [x] Run local Gradle and in-game validation for Milestone 16
+- [x] Run local Gradle and in-game validation for Milestone 17
+- [x] Tag the validated Milestone 17 Engine Era baseline
+- [x] Implement Milestone 18 tiered developer validation environments
+- [ ] Validate the standalone and full-integration Milestone 18 clients locally
 - [ ] Add the inventory capability adapter when a processing-prototype migration proves sided item semantics
 
 ## Prototype Stress-Test Migration
@@ -95,6 +98,7 @@ and record when the prototype no longer provides unique validation value.
 
 - [ ] Standardize visible machine connection rules
 - [ ] Add recipe-viewer integration when production recipes exist
+- [x] Establish isolated standalone and integration validation clients
 - [ ] Validate optional compatibility without making external mods mandatory
 - [ ] Add shared machine sounds and animation helpers only after the vertical slice proves the need
 - [ ] Profile real gameplay before performance tuning beyond established bounded-work rules

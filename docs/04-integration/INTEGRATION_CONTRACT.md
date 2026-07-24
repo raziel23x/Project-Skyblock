@@ -17,3 +17,13 @@ Every compatibility module should follow these rules.
 
 KubeJS is one important consumer of the future public API, not the API's owner and not a required
 core dependency.
+
+
+## Curios Repair Gem Boundary
+
+- Curios remains an optional runtime integration.
+- Project Skyblock registers the dedicated `repair_gem` slot, player assignment,
+  item acceptance, slot icon, and localization through Curios 1.21.x datapack resources.
+- The server-side adapter uses guarded reflection only to inspect equipped stacks.
+- The Repair Gem's authoritative repair behavior remains Project Skyblock-owned and
+  continues to work from the ordinary inventory when Curios is absent.

@@ -1,9 +1,320 @@
+import groovy.json.JsonSlurper
+import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
+import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskAction
+import org.gradle.jvm.tasks.Jar
+import org.gradle.work.DisableCachingByDefault
+
+import java.security.MessageDigest
+import java.util.HexFormat
+import java.util.Locale
+import java.util.zip.ZipFile
+
 plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.141'
     id 'idea'
 }
+
+@DisableCachingByDefault(because = 'Verification task has no outputs to cache.')
+abstract class VerifyReleaseArtifactTask extends DefaultTask {
+    @InputFile
+    @PathSensitive(PathSensitivity.RELATIVE)
+    abstract RegularFileProperty getReleaseJar()
+
+    @Input
+    abstract ListProperty<String> getForbiddenPrefixes()
+
+    @TaskAction
+    void verifyReleaseArtifact() {
+        def violations = []
+        def prefixes = forbiddenPrefixes.get()
+
+        new ZipFile(releaseJar.get().asFile).withCloseable { archive ->
+            archive.entries().each { entry ->
+                if (!entry.directory) {
+                    def path = entry.name
+                    if (path.endsWith('.jar') || prefixes.any { path.startsWith(it) }) {
+                        violations.add(path)
+                    }
+                }
+            }
+        }
+
+        if (!violations.isEmpty()) {
+            throw new GradleException(
+                    'Development-only content leaked into release JAR: ' + violations.sort().join(', ')
+            )
+        }
+    }
+}
+
+
+@DisableCachingByDefault(because = 'Verification task has no outputs to cache.')
+abstract class ValidateIntegrationEnvironmentTask extends DefaultTask {
+    @InputFile
+    @PathSensitive(PathSensitivity.RELATIVE)
+    abstract RegularFileProperty getManifestFile()
+
+    @Optional
+    @InputFile
+    @PathSensitive(PathSensitivity.RELATIVE)
+    abstract RegularFileProperty getLockFile()
+
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    abstract ConfigurableFileCollection getModJars()
+
+    @Internal
+    abstract DirectoryProperty getModsDirectory()
+
+    private static Map<String, Object> readJsonObject(File file, String label) {
+        if (!file.isFile()) {
+            throw new GradleException(
+                    "Integration environment validation failed: missing ${label}: ${file}"
+            )
+        }
+
+        Object parsed
+        try {
+            parsed = new JsonSlurper().parseText(file.getText('UTF-8'))
+        }
+        catch (Exception exception) {
+            throw new GradleException(
+                    "Integration environment validation failed: invalid JSON in ${label}: " +
+                            exception.message,
+                    exception
+            )
+        }
+
+        if (!(parsed instanceof Map)) {
+            throw new GradleException(
+                    "Integration environment validation failed: expected a JSON object in ${label}"
+            )
+        }
+        return (Map<String, Object>) parsed
+    }
+
+    private static int requireSchema(Map<String, Object> value, String label) {
+        Object rawSchema = value.get('schema')
+        if (!(rawSchema instanceof Number)) {
+            throw new GradleException(
+                    "Integration environment validation failed: ${label} schema is missing or invalid"
+            )
+        }
+        return ((Number) rawSchema).intValue()
+    }
+
+    private static String requireString(
+            Map<String, Object> value,
+            String field,
+            String context
+    ) {
+        Object raw = value.get(field)
+        if (!(raw instanceof String) || ((String) raw).trim().isEmpty()) {
+            throw new GradleException(
+                    "Integration environment validation failed: ${context} has no valid '${field}'"
+            )
+        }
+        return (String) raw
+    }
+
+    private static String sha512(File file) {
+        MessageDigest digest = MessageDigest.getInstance('SHA-512')
+        file.withInputStream { stream ->
+            byte[] buffer = new byte[1024 * 1024]
+            int count
+            while ((count = stream.read(buffer)) != -1) {
+                digest.update(buffer, 0, count)
+            }
+        }
+        return HexFormat.of().formatHex(digest.digest())
+    }
+
+    private static void fail(String message) {
+        throw new GradleException("Integration environment validation failed: ${message}")
+    }
+
+    @TaskAction
+    void validateIntegrationEnvironment() {
+        File manifestPath = manifestFile.get().asFile
+        File lockPath = lockFile.get().asFile
+        File modsRoot = modsDirectory.get().asFile
+
+        Map<String, Object> manifest = readJsonObject(manifestPath, 'manifest')
+        Map<String, Object> lock = readJsonObject(
+                lockPath,
+                'local lock; run tools\\setup_integration_mods.ps1 first'
+        )
+
+        if (requireSchema(manifest, 'manifest') != 1 || requireSchema(lock, 'lock') != 1) {
+            fail('unsupported manifest or lock schema')
+        }
+
+        String manifestMinecraft = requireString(manifest, 'minecraft_version', 'manifest')
+        String lockMinecraft = requireString(lock, 'minecraft_version', 'lock')
+        if (manifestMinecraft != lockMinecraft) {
+            fail('Minecraft version mismatch between manifest and lock')
+        }
+
+        String manifestLoader = requireString(manifest, 'loader', 'manifest')
+        String lockLoader = requireString(lock, 'loader', 'lock')
+        if (manifestLoader != lockLoader) {
+            fail('loader mismatch between manifest and lock')
+        }
+
+        Object rawProjects = manifest.get('projects')
+        Object rawMods = lock.get('mods')
+        if (!(rawProjects instanceof List) || !(rawMods instanceof List)) {
+            fail('manifest projects and lock mods must be arrays')
+        }
+
+        Set<String> requiredDirect = new LinkedHashSet<>()
+        List<?> projects = (List<?>) rawProjects
+        for (int index = 0; index < projects.size(); index++) {
+            Object rawProject = projects.get(index)
+            if (!(rawProject instanceof Map)) {
+                fail("manifest project ${index} is not an object")
+            }
+            String slug = ValidateIntegrationEnvironmentTask.requireString(
+                    (Map<String, Object>) rawProject,
+                    'slug',
+                    "manifest project ${index}"
+            )
+            if (!requiredDirect.add(slug)) {
+                fail("duplicate direct project in manifest: ${slug}")
+            }
+        }
+
+        List<Map<String, Object>> lockedMods = []
+        Set<String> lockedDirect = new LinkedHashSet<>()
+        List<?> mods = (List<?>) rawMods
+        for (int index = 0; index < mods.size(); index++) {
+            Object rawMod = mods.get(index)
+            if (!(rawMod instanceof Map)) {
+                fail("lock mod ${index} is not an object")
+            }
+            Map<String, Object> mod = (Map<String, Object>) rawMod
+            Object direct = mod.get('direct')
+            if (!(direct instanceof Boolean)) {
+                fail("lock mod ${index} has no valid 'direct' flag")
+            }
+            String slug = ValidateIntegrationEnvironmentTask.requireString(
+                    mod,
+                    'slug',
+                    "lock mod ${index}"
+            )
+            if ((Boolean) direct && !lockedDirect.add(slug)) {
+                fail("duplicate direct project in lock: ${slug}")
+            }
+            lockedMods.add(mod)
+        }
+
+        if (requiredDirect != lockedDirect) {
+            List<String> missing = (requiredDirect - lockedDirect).toList().sort()
+            List<String> unexpected = (lockedDirect - requiredDirect).toList().sort()
+            List<String> details = []
+            if (!missing.isEmpty()) {
+                details.add('missing direct projects: ' + missing.join(', '))
+            }
+            if (!unexpected.isEmpty()) {
+                details.add('unexpected direct projects: ' + unexpected.join(', '))
+            }
+            fail(details.join('; '))
+        }
+
+        if (!modsRoot.isDirectory()) {
+            fail("missing integration-mod directory: ${modsRoot}")
+        }
+
+        Set<String> expectedFiles = new LinkedHashSet<>()
+        List<String> summary = []
+        Set<String> allowedVersionTypes = ['release', 'beta', 'alpha'] as Set<String>
+
+        for (int index = 0; index < lockedMods.size(); index++) {
+            Map<String, Object> mod = lockedMods.get(index)
+            String context = "lock mod ${index}"
+            String fileName = ValidateIntegrationEnvironmentTask.requireString(mod, 'file_name', context)
+            String expectedHash = ValidateIntegrationEnvironmentTask.requireString(mod, 'sha512', context)
+            String title = ValidateIntegrationEnvironmentTask.requireString(mod, 'title', context)
+            String version = ValidateIntegrationEnvironmentTask.requireString(mod, 'version_number', context)
+            String versionType = ValidateIntegrationEnvironmentTask.requireString(mod, 'version_type', context)
+
+            if (!allowedVersionTypes.contains(versionType)) {
+                fail("unsupported version type in lock: ${versionType}")
+            }
+
+            String lowerName = fileName.toLowerCase(Locale.ROOT)
+            if (
+                    fileName.contains('/') ||
+                    fileName.contains('\\') ||
+                    fileName == '.' ||
+                    fileName == '..' ||
+                    new File(fileName).isAbsolute() ||
+                    !lowerName.endsWith('.jar')
+            ) {
+                fail("unsafe or non-JAR filename in lock: ${fileName}")
+            }
+            if (!expectedHash.matches('(?i)[0-9a-f]{128}')) {
+                fail("invalid SHA-512 value in lock for ${fileName}")
+            }
+            if (!expectedFiles.add(fileName)) {
+                fail("duplicate filename in lock: ${fileName}")
+            }
+
+            File jar = new File(modsRoot, fileName)
+            if (!jar.isFile()) {
+                fail("missing JAR: ${jar}")
+            }
+
+            String actualHash = ValidateIntegrationEnvironmentTask.sha512(jar)
+            if (!actualHash.equalsIgnoreCase(expectedHash)) {
+                fail("SHA-512 mismatch: ${jar}")
+            }
+
+            String kind = Boolean.TRUE.equals(mod.get('direct')) ? 'direct' : 'dependency'
+            summary.add("${title} ${version} [${versionType}, ${kind}]")
+        }
+
+        Set<String> actualFiles = new LinkedHashSet<>()
+        File[] localFiles = modsRoot.listFiles()
+        if (localFiles != null) {
+            for (File file : localFiles) {
+                if (file.isFile() && file.name.toLowerCase(Locale.ROOT).endsWith('.jar')) {
+                    actualFiles.add(file.name)
+                }
+            }
+        }
+
+        List<String> extra = (actualFiles - expectedFiles).toList().sort()
+        if (!extra.isEmpty()) {
+            fail('unmanaged JARs present: ' + extra.join(', '))
+        }
+
+        logger.lifecycle(
+                "Integration environment validation passed: ${expectedFiles.size()} " +
+                        "locked JARs for ${lockLoader} ${lockMinecraft}."
+        )
+        List<String> sortedSummary = new ArrayList<>(summary)
+        Collections.sort(sortedSummary)
+        for (String line : sortedSummary) {
+            logger.lifecycle(" - ${line}")
+        }
+    }
+}
+
 
 tasks.named('wrapper', Wrapper).configure {
     // Define wrapper values here so as to not have to always do so when updating gradlew.properties.
@@ -17,14 +328,34 @@ tasks.named('wrapper', Wrapper).configure {
 version = mod_version
 group = mod_group_id
 
-sourceSets.main.resources {
-    // Include resources generated by data generators.
-    srcDir('src/generated/resources')
+sourceSets {
+    main {
+        resources {
+            // Include resources generated by data generators.
+            srcDir('src/generated/resources')
 
-    // Exclude common development only resources from finalized outputs
-    exclude("**/*.bbmodel") // BlockBench project files
-    exclude("src/generated/**/.cache") // datagen cache files
+            // Exclude common development only resources from finalized outputs.
+            exclude("**/*.bbmodel") // BlockBench project files
+            exclude("src/generated/**/.cache") // datagen cache files
+        }
+    }
+
+    // Source-free run model used only to assemble the optional integration runtime.
+    integrationRun {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
 }
+
+configurations {
+    integrationHelperRuntime {
+        canBeConsumed = false
+        canBeResolved = true
+        description = 'Verified development-only helper mods for the integration client.'
+    }
+}
+
+sourceSets.integrationRun.runtimeClasspath += configurations.integrationHelperRuntime
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
@@ -52,10 +383,11 @@ neoForge {
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
-        client {
+        standaloneClient {
             client()
-            gameDirectory = project.file('run-clean')
-            ideName = 'Project Skyblock - Clean Client'
+            sourceSet = sourceSets.main
+            gameDirectory = project.file('run-standalone')
+            ideName = 'Project Skyblock - Standalone Client'
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
@@ -63,6 +395,7 @@ neoForge {
 
         integrationClient {
             client()
+            sourceSet = sourceSets.integrationRun
             gameDirectory = project.file('run-integration')
             ideName = 'Project Skyblock - Integration Client'
 
@@ -126,22 +459,16 @@ neoForge {
     }
 }
 
-// Sets up a dependency configuration called 'localRuntime'.
-// This configuration should be used instead of 'runtimeOnly' to declare
-// a dependency that will be present for runtime testing but that is
-// "optional", meaning it will not be pulled by dependents of this mod.
-configurations {
-    runtimeClasspath.extendsFrom localRuntime
-}
-
 dependencies {
     testImplementation platform("org.junit:junit-bom:5.11.4")
     testImplementation "org.junit.jupiter:junit-jupiter"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 
-    // Load optional compatibility and diagnostic mods only in the integration client.
-    // Place NeoForge 1.21.1 mod jars in dev/mods/. They are never published or bundled.
-    integrationClientAdditionalRuntimeClasspath fileTree(dir: 'dev/mods', include: ['*.jar'])
+    // Verified helper JARs exist only on the dedicated integration run classpath.
+    integrationHelperRuntime files(fileTree(
+            dir: 'dev/mods/integration',
+            include: ['*.jar']
+    ))
 
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -219,4 +546,41 @@ idea {
 
 tasks.named('test', Test).configure {
     useJUnitPlatform()
+}
+
+
+// Development-only helper mods must never leak into the distributable Project Skyblock JAR.
+// This is deliberately part of `check` so local builds and CI enforce the same boundary.
+def releaseJarTask = tasks.named('jar', Jar)
+
+tasks.register('verifyReleaseArtifact', VerifyReleaseArtifactTask) {
+    group = 'verification'
+    description = 'Verifies that development-only validation assets are absent from the release JAR.'
+    dependsOn releaseJarTask
+    releaseJar.set(releaseJarTask.flatMap { it.archiveFile })
+    forbiddenPrefixes.set([
+            'dev/',
+            'run-standalone/',
+            'run-integration/'
+    ])
+}
+
+tasks.named('check').configure {
+    dependsOn tasks.named('verifyReleaseArtifact')
+}
+
+def validateIntegrationEnvironmentTask = tasks.register(
+        'validateIntegrationEnvironment',
+        ValidateIntegrationEnvironmentTask
+) {
+    group = 'verification'
+    description = 'Verifies the locally locked integration-mod environment and downloaded JAR hashes.'
+    manifestFile.set(layout.projectDirectory.file('dev/integration-mods.json'))
+    lockFile.set(layout.projectDirectory.file('dev/integration-mods.lock.json'))
+    modsDirectory.set(layout.projectDirectory.dir('dev/mods/integration'))
+    modJars.from(configurations.integrationHelperRuntime)
+}
+
+tasks.named('runIntegrationClient').configure {
+    dependsOn validateIntegrationEnvironmentTask
 }

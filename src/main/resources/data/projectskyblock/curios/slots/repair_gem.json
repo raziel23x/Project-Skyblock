@@ -1,0 +1,13 @@
+{
+  "size": 1,
+  "operation": "SET",
+  "order": 500,
+  "icon": "projectskyblock:slot/repair_gem",
+  "add_cosmetic": false,
+  "use_native_gui": true,
+  "render_toggle": false,
+  "drop_rule": "DEFAULT",
+  "validators": [
+    "curios:tag"
+  ]
+}

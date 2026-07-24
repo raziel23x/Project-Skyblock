@@ -21,10 +21,10 @@ Milestone documents record completed architectural slices. They describe purpose
 15. [Level-Scoped Scheduler Driver](BACKEND_MILESTONE_15_LEVEL_SCOPED_SCHEDULER_DRIVER.md)
 16. [First Engine-Owned Machine](BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md)
 17. [Baseline Hardening and Contract Stabilization](BACKEND_MILESTONE_17_BASELINE_HARDENING.md)
+18. [Tiered Developer Validation Environments](BACKEND_MILESTONE_18_TIERED_DEVELOPER_VALIDATION.md)
 
 ## Next
 
-Complete local Gradle and in-game validation, then select the next prototype workload that exposes
-the most valuable unproven engine contracts. A processing prototype is a likely candidate because
-it stresses energy, inventory, processing, persistence, synchronization, and sided adapters
-together; conversion does not make it permanent game content.
+Validate both Milestone 18 client environments and record the exact locked helper versions. Then
+choose the first Project Skyblock-specific optional adapter or the next prototype workload by the
+unproven contract it can expose. Environment availability alone does not justify freezing an API.

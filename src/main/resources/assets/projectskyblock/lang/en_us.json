@@ -43,5 +43,6 @@
   "block.projectskyblock.thermal_generator": "Thermal Generator Mk I",
   "container.projectskyblock.thermal_generator": "Thermal Generator Mk I",
   "block.projectskyblock.basic_energy_cable": "Basic Energy Cable",
-  "block.projectskyblock.structural_energy_frame": "Structural Energy Frame"
+  "block.projectskyblock.structural_energy_frame": "Structural Energy Frame",
+  "curios.identifier.repair_gem": "Repair Gem"
 }

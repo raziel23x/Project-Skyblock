@@ -40,11 +40,14 @@ repo/
 !**/src/**/repo/
 
 ### Local integration testing ###
-dev/mods/*.jar
+dev/mods/**/*.jar
+dev/mods/**/.projectskyblock-managed.json
+dev/integration-mods.lock.json
 dev/configs/
 dev/test-worlds/
 dev/screenshots/
 dev/benchmarks/
 run-clean/
+run-standalone/
 run-integration/
 

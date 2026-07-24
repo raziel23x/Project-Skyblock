@@ -34,6 +34,72 @@ for path in json_files:
 for archive in RESOURCES.rglob("*.zip"):
     fail(f"Archive packaged inside runtime resources: {archive.relative_to(ROOT)}")
 
+# Curios 1.21.x compatibility is data-driven and must remain complete while Curios stays optional.
+curios_slot_path = RESOURCES / "data/projectskyblock/curios/slots/repair_gem.json"
+curios_entities_path = RESOURCES / "data/projectskyblock/curios/entities/repair_gem.json"
+curios_tag_path = RESOURCES / "data/curios/tags/item/repair_gem.json"
+curios_icon_path = RESOURCES / "assets/projectskyblock/textures/slot/repair_gem.png"
+curios_lang_path = RESOURCES / "assets/projectskyblock/lang/en_us.json"
+
+for required_curios_resource in (
+    curios_slot_path,
+    curios_entities_path,
+    curios_tag_path,
+    curios_icon_path,
+    curios_lang_path,
+):
+    if not required_curios_resource.exists():
+        fail(
+            "Missing Repair Gem Curios resource: "
+            + str(required_curios_resource.relative_to(ROOT))
+        )
+
+slot_data = parsed.get(curios_slot_path)
+if isinstance(slot_data, dict):
+    expected_slot_fields = {
+        "size": 1,
+        "operation": "SET",
+        "icon": "projectskyblock:slot/repair_gem",
+        "add_cosmetic": False,
+        "use_native_gui": True,
+        "render_toggle": False,
+        "drop_rule": "DEFAULT",
+        "validators": ["curios:tag"],
+    }
+    for field, expected in expected_slot_fields.items():
+        if slot_data.get(field) != expected:
+            fail(
+                f"Repair Gem Curios slot has invalid {field}: "
+                f"{slot_data.get(field)!r}"
+            )
+elif curios_slot_path.exists():
+    fail("Repair Gem Curios slot data is not a JSON object")
+
+entities_data = parsed.get(curios_entities_path)
+if isinstance(entities_data, dict):
+    if entities_data.get("entities") != ["minecraft:player"]:
+        fail("Repair Gem Curios slot must be assigned only to minecraft:player")
+    if entities_data.get("slots") != ["repair_gem"]:
+        fail("Repair Gem Curios entity assignment must contain repair_gem")
+elif curios_entities_path.exists():
+    fail("Repair Gem Curios entity data is not a JSON object")
+
+tag_data = parsed.get(curios_tag_path)
+if isinstance(tag_data, dict):
+    if tag_data.get("replace") is not False:
+        fail("Repair Gem Curios item tag must merge instead of replace")
+    if tag_data.get("values") != ["projectskyblock:repair_gem"]:
+        fail("Repair Gem Curios item tag contains unexpected values")
+elif curios_tag_path.exists():
+    fail("Repair Gem Curios item tag is not a JSON object")
+
+lang_data = parsed.get(curios_lang_path)
+if isinstance(lang_data, dict):
+    if lang_data.get("curios.identifier.repair_gem") != "Repair Gem":
+        fail("Repair Gem Curios slot localization is missing or incorrect")
+elif curios_lang_path.exists():
+    fail("Project Skyblock en_us language data is not a JSON object")
+
 # The greenfield simulation engine must remain host-independent. Persistence formats are
 # quarantined at explicit platform adapters and may not leak into runtime code.
 for source in sorted(SIMULATION_ROOT.rglob("*.java")):
@@ -82,6 +148,114 @@ if not gradlew.exists():
     fail("Missing Gradle wrapper script")
 elif not gradlew.stat().st_mode & 0o111:
     fail("gradlew is not executable")
+
+
+build_gradle = ROOT / "build.gradle"
+if not build_gradle.exists():
+    fail("Missing build.gradle")
+else:
+    build_text = build_gradle.read_text(encoding="utf-8")
+    required_build_contracts = {
+        "standalone run directory": "gameDirectory = project.file('run-standalone')",
+        "integration run directory": "gameDirectory = project.file('run-integration')",
+        "integration-only helper classpath": "integrationHelperRuntime files(fileTree(",
+        "typed release artifact isolation task": "abstract class VerifyReleaseArtifactTask extends DefaultTask",
+        "declared release archive input": "abstract RegularFileProperty getReleaseJar()",
+        "release artifact isolation registration": "tasks.register('verifyReleaseArtifact', VerifyReleaseArtifactTask)",
+        "provider-backed release archive": "releaseJar.set(releaseJarTask.flatMap { it.archiveFile })",
+        "native integration validation task": "abstract class ValidateIntegrationEnvironmentTask extends DefaultTask",
+        "native integration validation registration": "'validateIntegrationEnvironment',\n        ValidateIntegrationEnvironmentTask",
+        "integration SHA-512 verification": "MessageDigest.getInstance('SHA-512')",
+        "dedicated integration source set": "integrationRun {",
+        "isolated integration helper configuration": "integrationHelperRuntime {",
+        "integration runtime classpath wiring": "sourceSets.integrationRun.runtimeClasspath += configurations.integrationHelperRuntime",
+        "standalone source set binding": "sourceSet = sourceSets.main",
+        "integration source set binding": "sourceSet = sourceSets.integrationRun",
+        "integration launch validation gate": "dependsOn validateIntegrationEnvironmentTask",
+    }
+    for description, snippet in required_build_contracts.items():
+        if snippet not in build_text:
+            fail(f"Missing {description} contract in build.gradle")
+    if "gameDirectory = project.file('run-clean')" in build_text:
+        fail("Legacy shared run-clean client directory remains in build.gradle")
+    for forbidden_execution_access in (
+        "tasks.named('jar').get().archiveFile",
+        "zipTree(releaseJar)",
+        "commandLine 'python', 'tools/validate_integration_environment.py'",
+        "eachWithIndex",
+        "integrationClientAdditionalRuntimeClasspath",
+        "runtimeClasspath.extendsFrom localRuntime",
+    ):
+        if forbidden_execution_access in build_text:
+            fail(
+                "Configuration-cache-unsafe release verification remains in build.gradle: "
+                + forbidden_execution_access
+            )
+
+integration_manifest = ROOT / "dev" / "integration-mods.json"
+if not integration_manifest.exists():
+    fail("Missing tracked integration-mod manifest")
+else:
+    try:
+        integration_data = json.loads(integration_manifest.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001 - validator should report parser failures
+        fail(f"Invalid integration-mod manifest: {exc}")
+    else:
+        if not isinstance(integration_data, dict) or integration_data.get("schema") != 1:
+            fail("Unsupported integration-mod manifest schema")
+        if integration_data.get("minecraft_version") != "1.21.1":
+            fail("Integration-mod manifest targets the wrong Minecraft version")
+        if integration_data.get("loader") != "neoforge":
+            fail("Integration-mod manifest targets the wrong loader")
+        projects = integration_data.get("projects")
+        if not isinstance(projects, list) or not projects:
+            fail("Integration-mod manifest contains no projects")
+        else:
+            slugs: list[str] = []
+            for entry in projects:
+                if (
+                    not isinstance(entry, dict)
+                    or not isinstance(entry.get("slug"), str)
+                    or not isinstance(entry.get("role"), str)
+                    or not isinstance(entry.get("allow_prerelease"), bool)
+                ):
+                    fail("Integration-mod manifest contains an invalid project entry")
+                    continue
+                slugs.append(entry["slug"])
+            duplicates = sorted({slug for slug in slugs if slugs.count(slug) > 1})
+            if duplicates:
+                fail("Duplicate integration-mod projects: " + ", ".join(duplicates))
+
+for required_tool in (
+    ROOT / "tools" / "setup_integration_mods.ps1",
+    ROOT / "tools" / "restore_local_validation_state.ps1",
+):
+    if not required_tool.exists():
+        fail(f"Missing developer validation tool: {required_tool.relative_to(ROOT)}")
+
+integration_setup = ROOT / "tools" / "setup_integration_mods.ps1"
+if integration_setup.exists():
+    integration_setup_text = integration_setup.read_text(encoding="utf-8")
+    if "function ConvertTo-FlatObjectArray" not in integration_setup_text:
+        fail("Integration setup must normalize Windows PowerShell REST array responses")
+    if "function Get-DatePublishedSortKey" not in integration_setup_text:
+        fail("Integration setup must validate Modrinth publication dates")
+    if "Sort-Object { [DateTimeOffset]$_.date_published }" in integration_setup_text:
+        fail("Integration setup contains the unsafe PowerShell 5.1 date-sort pattern")
+
+ignore_file = ROOT / ".gitignore"
+if not ignore_file.exists():
+    fail("Missing .gitignore")
+else:
+    ignore_text = ignore_file.read_text(encoding="utf-8")
+    for required_ignore in (
+        "dev/mods/**/*.jar",
+        "dev/integration-mods.lock.json",
+        "run-standalone/",
+        "run-integration/",
+    ):
+        if required_ignore not in ignore_text:
+            fail(f"Missing development isolation rule in .gitignore: {required_ignore}")
 
 
 def check_model_ref(reference: str, source: Path) -> None:
@@ -133,6 +307,11 @@ for png in sorted(RESOURCES.rglob("*.png")):
         fail(f"Invalid PNG signature: {png.relative_to(ROOT)}")
         continue
     width, height = struct.unpack(">II", raw[16:24])
+    if png == curios_icon_path and (width, height) != (16, 16):
+        fail(
+            "Repair Gem Curios slot icon must be 16x16: "
+            f"{png.relative_to(ROOT)} ({width}x{height})"
+        )
     meta = png.with_suffix(png.suffix + ".mcmeta")
     if meta.exists() and height % width != 0:
         fail(f"Animated texture height is not a multiple of width: {png.relative_to(ROOT)} ({width}x{height})")

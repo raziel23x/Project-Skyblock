@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "minecraft_version": "1.21.1",
+  "loader": "neoforge",
+  "source": "modrinth",
+  "projects": [
+    {
+      "slug": "jei",
+      "role": "Recipe and item visibility",
+      "allow_prerelease": true
+    },
+    {
+      "slug": "jade",
+      "role": "Block and machine observation overlay",
+      "allow_prerelease": false
+    },
+    {
+      "slug": "the-one-probe",
+      "role": "Independent block and machine observation overlay",
+      "allow_prerelease": false
+    },
+    {
+      "slug": "crafttweaker",
+      "role": "Optional scripting and reload consumer",
+      "allow_prerelease": false
+    },
+    {
+      "slug": "kubejs",
+      "role": "Optional public-API scripting and orchestration consumer",
+      "allow_prerelease": true
+    },
+    {
+      "slug": "probejs",
+      "role": "KubeJS type and scripting-surface inspection",
+      "allow_prerelease": false
+    },
+    {
+      "slug": "curios",
+      "role": "Optional equipment integration validation",
+      "allow_prerelease": false
+    },
+    {
+      "slug": "spark",
+      "role": "Scheduler and runtime performance profiling",
+      "allow_prerelease": false
+    },
+    {
+      "slug": "modernfix",
+      "role": "Lifecycle, reload, and compatibility stress validation",
+      "allow_prerelease": false
+    }
+  ]
+}

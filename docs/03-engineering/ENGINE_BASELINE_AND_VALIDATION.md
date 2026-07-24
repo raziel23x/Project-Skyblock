@@ -5,9 +5,9 @@
 > Purpose: preserve what the engine was expected to provide at the end of the Engine Era, then
 > compare that expectation with what Project Skyblock and later projects actually required.
 
-> Current candidate: Milestone 17 implementation on 2026-07-23. The candidate is not yet the
-> formal tagged baseline because local Gradle, in-game, and tiered integration validation remain
-> open.
+> Current baseline: Milestone 17 at tag `engine-era-baseline-m17` (commit `2fc296e`). The
+> baseline passed local Gradle, standalone runtime, persistence, wake-path, and Linux CI validation.
+> Milestone 18 establishes the permanent optional-integration harness after the baseline.
 
 ## 1. What the Baseline Is
 
@@ -117,11 +117,17 @@ The first candidate includes:
 - one converted prototype vertical slice, the Creative Energy Cell;
 - independent simulation regression tests and repository-integrity tooling.
 
-The baseline cannot be promoted until the following evidence exists:
+The baseline was promoted after the following evidence was recorded:
 
-1. `gradlew clean test build` succeeds locally from a clean checkout.
-2. The Creative Energy Cell is validated after Milestones 16 and 17 in a real client/server world.
-3. Sleeping receiver demand and wake/refill behavior are proven under actual capability behavior.
-4. Bare-core and optional-integration launch matrices pass.
-5. KubeJS/ProbeJS validation passes only after a supported public API surface exists.
-6. The release artifact is inspected for accidental development dependencies.
+1. `gradlew.bat clean test` and `gradlew.bat clean build` succeeded locally.
+2. The standalone client loaded with only Minecraft, NeoForge, and Project Skyblock.
+3. Generator, cable, crusher, automation, clean save/load, and resumed processing passed.
+4. Sleeping Creative Energy Cell receiver demand and wake/refill behavior passed with valid sided
+   capability placement.
+5. Linux GitHub Actions passed for the branch and the immutable baseline tag.
+6. The Gradle wrapper executable bit and the project-owned Gradle 10 deprecation were corrected in
+   immediate post-baseline maintenance.
+
+Optional-integration validation remains important, but it validates adapter and ecosystem behavior
+rather than deciding whether the already standalone simulation baseline exists. Milestone 18 adds
+that permanent harness without moving the baseline tag.

@@ -1,3 +1,12 @@
+# Engine Milestone 18 — Tiered Developer Validation Environments
+
+- Added isolated standalone and integration client runs with separate working directories and world copies.
+- Added a tracked Modrinth intent manifest, recursive dependency resolution, exact local version locking,
+  SHA-512 verification, and unmanaged-JAR rejection.
+- Added offline validation for the local helper set and release-artifact isolation checks to `check`.
+- Kept helper mods out of runtime dependencies, published metadata, source control, and release JARs.
+- Deliberately separated environment construction from future Project Skyblock-specific optional adapters.
+
 # Engine Milestone 17 — Baseline Hardening and Contract Stabilization
 
 - Corrected machine, cable, connection, and route energy limits to explicit per-operation

@@ -3,3 +3,9 @@
 # are changed when only line endings change.
 src/generated/**/.cache/* text eol=lf
 src/generated/**/*.json text eol=lf
+
+# Keep wrapper and build tooling stable across Windows and Linux checkouts.
+gradlew text eol=lf
+build.gradle text eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf

@@ -1,5 +1,63 @@
 # Changelog
 
+## Unreleased — Engine Milestone 18
+
+### Milestone 18 Repair Gem Curios slot restoration
+- Restored the dedicated Repair Gem Curios slot using the Curios 1.21.x datapack model.
+- Added player slot assignment, exact item tag validation, a localized slot name, and a
+  dedicated 16x16 slot icon.
+- Preserved the existing guarded reflection bridge and inventory fallback, so Curios
+  remains optional and the Repair Gem still works without it.
+- Added packaged-resource JUnit coverage and repository schema validation.
+
+
+### Milestone 18 integration runtime-classpath correction
+- Local testing proved that the integration client launched but loaded only Minecraft, NeoForge, and Project Skyblock.
+- Replaced the ineffective per-run additional-runtime configuration with a dedicated `integrationRun` source set and isolated `integrationHelperRuntime` configuration.
+- Bound the standalone client to `main` and the integration client to `integrationRun`.
+- Made verified lock/JAR validation an automatic prerequisite of integration-client launch.
+
+
+### Milestone 18 Groovy helper-resolution correction
+- Replaced closure-based iteration in the typed integration validator with explicit loops.
+- Qualified static helper calls to prevent Groovy from resolving them against the task instance.
+- Added repository validation rejecting `eachWithIndex` in Gradle build logic.
+
+
+### Milestone 18 native validation correction
+- Replaced the local `python`-backed integration verification task with a typed, configuration-cache-safe Gradle task using the JDK JSON/Groovy runtime and SHA-512 APIs.
+- Removed the redundant Python integration validator so the Gradle task is the single authoritative offline lock/JAR validator.
+- Added a transactional PowerShell helper that preserves ignored integration locks and verified helper JARs across complete replacement-package installs.
+- Local integration validation now requires only the existing JDK/Gradle toolchain.
+
+
+### Milestone 18 Windows PowerShell resolver correction
+- Normalized Modrinth REST array responses explicitly because Windows PowerShell 5.1 can preserve a JSON array as one nested `System.Object[]` pipeline value.
+- Replaced the ambiguous date cast used by version sorting with invariant, validated `DateTimeOffset` parsing and precise malformed-response diagnostics.
+- Added repository checks preventing regression to the unsafe nested-array sort pattern.
+
+
+### Milestone 18 helper-version policy correction
+- Allowed JEI prerelease selection for the NeoForge 1.21.1 developer client after the live resolver confirmed that compatible JEI files are published on the beta channel.
+- Kept release-first selection and made resolved release channels explicit in setup and validation output.
+- Strengthened manifest validation for roles and prerelease-policy types.
+
+
+### Milestone 18 validation-world correction
+- Replaced the provisional color-block-only world copies with the user-supplied, validated Milestone 17 TEST world containing the established machine, cable, automation, persistence, and wake-path rigs.
+- Copied the validated world independently into the standalone and integration profiles while omitting only the transient `session.lock` file.
+
+
+- Added isolated standalone and full-integration NeoForge client environments.
+- Added a tracked helper-mod intent manifest and a Windows PowerShell bootstrapper that resolves
+  compatible Modrinth files, follows required dependencies, verifies SHA-512 hashes, and writes an
+  ignored exact-version lock.
+- Added offline integration-environment validation and refused unmanaged helper JARs.
+- Added configuration-cache-safe release-artifact isolation checks so development JARs and run
+  directories cannot be packaged with Project Skyblock.
+- Preserved independent standalone and integration copies of the validated TEST world.
+- Kept every helper mod development-only and avoided adding or freezing public integration APIs.
+
 ## Unreleased — Engine Milestone 17
 
 - Hardened the greenfield simulation engine baseline before additional prototype stress migrations.

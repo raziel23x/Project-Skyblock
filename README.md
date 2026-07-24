@@ -84,19 +84,23 @@ Build artifacts are generated in:
 build/libs/
 ```
 
-### Run the Development Client
+### Run the Development Clients
 
-On Windows:
+Standalone core client on Windows:
 
 ```powershell
-./gradlew.bat runClient
+./gradlew.bat runStandaloneClient
 ```
 
-On Linux or macOS:
+Standalone core client on Linux or macOS:
 
 ```bash
-./gradlew runClient
+./gradlew runStandaloneClient
 ```
+
+The optional helper-mod client uses a separate working directory and development-only JAR set.
+See [`dev/README.md`](dev/README.md) for the Windows bootstrap, lock validation, and
+`runIntegrationClient` commands.
 
 ## Contributing
 

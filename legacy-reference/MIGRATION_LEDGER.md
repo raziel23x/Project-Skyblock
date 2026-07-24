@@ -2,7 +2,7 @@
 
 | Feature | Decision | Next action |
 |---|---|---|
-| Repair Gem | REBUILT | Regression test |
+| Repair Gem | REBUILT | Dedicated Curios slot restored for 1.21.1; installed/absent regression test |
 | Wooden and Flint equipment | REBUILT | Regression test |
 | Reagents and Mixing Bowl | REBUILT | Regression test |
 | Cobblestone/Water/Lava generators | REBUILT | Regression test |

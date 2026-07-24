@@ -13,7 +13,7 @@ import raziel23x.projectskyblock.registry.ModItems;
  * Server-side behavior for the Repair Gem.
  *
  * <p>The gem must be carried in the player's inventory/equipment or equipped
- * in a Curios slot. Ender Chests are deliberately never inspected.</p>
+ * in the dedicated Repair Gem Curios slot. Ender Chests are deliberately never inspected.</p>
  */
 public final class RepairGemHandler {
     private RepairGemHandler() {

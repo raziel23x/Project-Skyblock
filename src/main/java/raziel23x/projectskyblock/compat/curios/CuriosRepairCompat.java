@@ -11,8 +11,11 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * Optional Curios integration implemented through a guarded reflection bridge.
- * Project Skyblock therefore has no hard compile-time or runtime dependency on Curios.
+ * Optional Curios inventory access implemented through a guarded reflection bridge.
+ *
+ * <p>The dedicated Repair Gem slot, player assignment, item validation, icon, and
+ * localization are data-driven resources. This bridge only reads equipped stacks,
+ * keeping Project Skyblock free of a hard Curios compile-time or runtime dependency.</p>
  */
 public final class CuriosRepairCompat {
     private static final String CURIOS_MOD_ID = "curios";

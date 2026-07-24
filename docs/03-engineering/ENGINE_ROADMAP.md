@@ -50,11 +50,14 @@ regression evidence.
 - Scheduler failure isolation
 - Opaque item-state identity
 - Atomic last-known-good material publication
+- Tagged Milestone 17 Engine Era baseline
+- Tiered standalone and integration developer validation environments
 
 ### Near-Term Planned
 
-- Complete local Gradle and in-game validation for the hardened baseline candidate
-- Select the next prototype workload by the unproven contracts it stresses
+- Complete local standalone and full-integration validation for Milestone 18
+- Record the exact locked helper graph and any compatibility failures
+- Select the next prototype workload or optional adapter by the unproven contracts it stresses
 - Prove sided inventory adaptation through a processing prototype when that workload is selected
 
 ### Later Planned When Proven Necessary
@@ -67,10 +70,11 @@ regression evidence.
 
 ## Engine Baseline
 
-Milestone 17 creates the first hardened baseline candidate. It becomes the formal Engine Era
-baseline only after local Gradle, GameTest where applicable, in-game prototype, and tiered optional
-integration validation are recorded. This is a comparison point, not an engine freeze. See
-[Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
+Milestone 17 is the first formal Engine Era baseline, tagged as `engine-era-baseline-m17` after
+local Gradle, standalone runtime, persistence, wake-path, and Linux CI validation. Milestone 18 adds
+the permanent optional-integration test harness after the baseline; it validates adapters and
+ecosystem behavior without redefining core baseline ownership. This is a comparison point, not an
+engine freeze. See [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
 
 ## Archive
 

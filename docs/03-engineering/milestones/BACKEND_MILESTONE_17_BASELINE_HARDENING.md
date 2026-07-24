@@ -91,21 +91,17 @@ is still young enough to change without public compatibility obligations.
 
 ## Validation Performed
 
-- Compiled all Minecraft-independent simulation sources with Java 21, all lint warnings enabled,
-  and warnings treated as errors.
-- Executed 54 simulation tests through an independent local runner; all passed.
-- Compiled the added adapter/material tests against the included NeoForge development artifacts.
-- Executed six NBT-codec and material-snapshot boundary tests against strict in-memory test doubles;
-  all passed.
-- Ran targeted failure probes for energy accounting, topology conflict handling, scheduler
-  isolation, transactional restore, stateful item identity, and thermal equilibrium.
-- Ran `tools/validate_project.py` successfully against JSON, textures, models, documentation links,
-  and documentation-manifest coverage.
-
-A fresh Gradle build was not available in the audit sandbox because the Gradle distribution and its
-external dependency graph were not cached and network resolution was unavailable. Local Gradle,
-GameTest, and in-game validation remain required before this milestone becomes the tagged Engine
-Era baseline.
+- Executed the full local Gradle test and build gates successfully.
+- Validated the standalone client with only Minecraft, NeoForge, and Project Skyblock.
+- Validated material and processing-route loading, generator output, cable transfer, crusher
+  processing, hopper/chest automation, clean save/load, and processing resumption.
+- Validated Creative Energy Cell sleep/wake behavior through its top output, a cable path, and the
+  Material Crusher rear input; the empty receiver reached full energy without processing input.
+- Confirmed the earlier zero-energy arrangements were invalid directional setups rather than engine
+  failures.
+- Passed Linux GitHub Actions on the branch and again on tag `engine-era-baseline-m17`.
+- Preserved the baseline at commit `2fc296e`; later build-script modernization remains
+  post-baseline maintenance.
 
 ## Gameplay, Save, API, and Dependency Impact
 
@@ -119,8 +115,6 @@ Era baseline.
 
 ## Remaining Validation
 
-- Run `gradlew clean test build` locally.
-- Validate the Creative Energy Cell in-game after Milestone 16 and this hardening pass.
-- Confirm sleeping-cell receiver wake/refill behavior under actual NeoForge capabilities.
-- Run bare-core, optional-integration, scripting-enabled, and large-modpack validation tiers.
+- Use Milestone 18 to validate optional integrations and scripting consumers independently of the
+  already proven standalone baseline.
 - Use the next prototype migration as a stress test, not as a commitment to permanent content.
