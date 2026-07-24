@@ -2,6 +2,7 @@ package raziel23x.projectskyblock.simulation.machine.component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Objects;
 import raziel23x.projectskyblock.simulation.core.DirtyFlag;
@@ -11,9 +12,10 @@ import raziel23x.projectskyblock.simulation.inventory.SimulationItemStack;
 /**
  * Reusable Minecraft-independent inventory component owned by a simulated machine.
  *
- * <p>The component owns authoritative slot state, enforces slot capacity, item stack
- * limits, access modes, and insertion rules, and reports immutable snapshots suitable
- * for persistence adapters and diagnostics.</p>
+ * <p>The component owns authoritative slot state, enforces slot capacity, item stack limits,
+ * access modes, and insertion rules, and reports immutable snapshots suitable for persistence
+ * adapters and diagnostics. Multi-slot changes may be staged and committed atomically through
+ * {@link MachineInventoryTransaction}.</p>
  */
 public final class MachineInventoryComponent {
     private final List<MachineInventorySlotDefinition> definitions;
@@ -23,6 +25,9 @@ public final class MachineInventoryComponent {
     private long totalInserted;
     private long totalExtracted;
     private long changeCount;
+    private long stateVersion;
+    private long transactionCommitCount;
+    private long transactionConflictCount;
 
     public MachineInventoryComponent(List<MachineInventorySlotDefinition> definitions) {
         this(definitions, new DirtyStateTracker(), () -> { });
@@ -62,44 +67,83 @@ public final class MachineInventoryComponent {
         return dirtyState;
     }
 
+    /** Opens an isolated candidate over the current authoritative slot state. */
+    public synchronized MachineInventoryTransaction beginTransaction() {
+        return new MachineInventoryTransaction(this, stateVersion, stacks);
+    }
+
     public SimulationItemStack insert(int slot, SimulationItemStack offered) {
-        return insert(slot, offered, true);
+        try (MachineInventoryTransaction transaction = beginTransaction()) {
+            SimulationItemStack remainder = transaction.insert(slot, offered);
+            if (transaction.changed()) {
+                transaction.commit();
+            }
+            return remainder;
+        }
     }
 
     public SimulationItemStack store(int slot, SimulationItemStack offered) {
-        return insert(slot, offered, false);
+        try (MachineInventoryTransaction transaction = beginTransaction()) {
+            SimulationItemStack remainder = transaction.store(slot, offered);
+            if (transaction.changed()) {
+                transaction.commit();
+            }
+            return remainder;
+        }
     }
 
     public SimulationItemStack extract(int slot, long requestedQuantity) {
-        return extract(slot, requestedQuantity, true);
+        try (MachineInventoryTransaction transaction = beginTransaction()) {
+            SimulationItemStack extracted = transaction.extract(slot, requestedQuantity);
+            if (transaction.changed()) {
+                transaction.commit();
+            }
+            return extracted;
+        }
     }
 
     public SimulationItemStack consume(int slot, long requestedQuantity) {
-        return extract(slot, requestedQuantity, false);
+        try (MachineInventoryTransaction transaction = beginTransaction()) {
+            SimulationItemStack extracted = transaction.consume(slot, requestedQuantity);
+            if (transaction.changed()) {
+                transaction.commit();
+            }
+            return extracted;
+        }
     }
 
     public boolean canInsert(int slot, SimulationItemStack offered) {
         Objects.requireNonNull(offered, "offered");
         validateSlot(slot);
+        return canInsertCandidate(slot, stacks[slot], offered, true);
+    }
+
+    public boolean acceptsExternalItem(int slot, SimulationItemStack offered) {
+        Objects.requireNonNull(offered, "offered");
+        validateSlot(slot);
         if (offered.isEmpty()) {
-            return true;
+            return false;
         }
         MachineInventorySlotDefinition definition = definitions.get(slot);
-        if (!definition.access().acceptsItems() || !definition.accepts(offered.item())) {
-            return false;
-        }
-        SimulationItemStack current = stacks[slot];
-        if (!current.isEmpty() && !current.canMerge(offered)) {
-            return false;
-        }
-        return current.quantity() < effectiveCapacity(definition, current, offered);
+        return definition.access().acceptsItems() && definition.accepts(offered.item());
+    }
+
+    public boolean canStore(int slot, SimulationItemStack offered) {
+        Objects.requireNonNull(offered, "offered");
+        validateSlot(slot);
+        return canInsertCandidate(slot, stacks[slot], offered, false);
     }
 
     public boolean canExtract(int slot, long requestedQuantity) {
-        requireNonNegative(requestedQuantity);
+        requireNonNegativeQuantity(requestedQuantity);
         validateSlot(slot);
-        return requestedQuantity == 0L
-                || (definitions.get(slot).access().providesItems() && !stacks[slot].isEmpty());
+        return canExtractCandidate(slot, stacks[slot], requestedQuantity, true);
+    }
+
+    public boolean canConsume(int slot, long requestedQuantity) {
+        requireNonNegativeQuantity(requestedQuantity);
+        validateSlot(slot);
+        return canExtractCandidate(slot, stacks[slot], requestedQuantity, false);
     }
 
     public List<MachineInventorySlotSnapshot> snapshot() {
@@ -128,13 +172,15 @@ public final class MachineInventoryComponent {
     }
 
     /** Restores authoritative slot contents after complete transaction validation. */
-    public void restore(List<SimulationItemStack> restoredStacks) {
+    public synchronized void restore(List<SimulationItemStack> restoredStacks) {
         validateRestore(restoredStacks);
         SimulationItemStack[] restored = restoredStacks.toArray(SimulationItemStack[]::new);
         if (Arrays.equals(stacks, restored)) {
             return;
         }
+        long restoredVersion = Math.addExact(stateVersion, 1L);
         System.arraycopy(restored, 0, stacks, 0, stacks.length);
+        stateVersion = restoredVersion;
         dirtyState.mark(DirtyFlag.CLIENT_SYNC);
     }
 
@@ -154,57 +200,118 @@ public final class MachineInventoryComponent {
                 totalInserted,
                 totalExtracted,
                 changeCount,
+                stateVersion,
+                transactionCommitCount,
+                transactionConflictCount,
                 snapshot());
     }
 
-    private SimulationItemStack insert(int slot, SimulationItemStack offered, boolean requireExternalAccess) {
+    synchronized MachineInventoryCommitResult commitTransaction(
+            MachineInventoryTransaction transaction) {
+        Objects.requireNonNull(transaction, "transaction");
+        if (!transaction.belongsTo(this)) {
+            throw new IllegalArgumentException("inventory transaction belongs to another component");
+        }
+        if (transaction.baseVersion() != stateVersion) {
+            transactionConflictCount = Math.addExact(transactionConflictCount, 1L);
+            transaction.markCommitted();
+            throw new ConcurrentModificationException(
+                    "inventory transaction is stale: expected version "
+                            + transaction.baseVersion() + " but found " + stateVersion);
+        }
+
+        SimulationItemStack[] candidate = transaction.workingStacksCopy();
+        validateCandidate(candidate);
+        if (Arrays.equals(stacks, candidate)) {
+            transaction.markCommitted();
+            return new MachineInventoryCommitResult(false, 0L, 0L, stateVersion);
+        }
+
+        long insertedQuantity = transaction.insertedQuantity();
+        long extractedQuantity = transaction.extractedQuantity();
+        long committedTotalInserted = Math.addExact(totalInserted, insertedQuantity);
+        long committedTotalExtracted = Math.addExact(totalExtracted, extractedQuantity);
+        long committedChangeCount = Math.addExact(changeCount, 1L);
+        long committedStateVersion = Math.addExact(stateVersion, 1L);
+        long committedTransactionCount = Math.addExact(transactionCommitCount, 1L);
+
+        System.arraycopy(candidate, 0, stacks, 0, stacks.length);
+        totalInserted = committedTotalInserted;
+        totalExtracted = committedTotalExtracted;
+        changeCount = committedChangeCount;
+        stateVersion = committedStateVersion;
+        transactionCommitCount = committedTransactionCount;
+        transaction.markCommitted();
+        markChanged();
+        return new MachineInventoryCommitResult(
+                true,
+                insertedQuantity,
+                extractedQuantity,
+                stateVersion);
+    }
+
+    boolean canInsertCandidate(
+            int slot,
+            SimulationItemStack current,
+            SimulationItemStack offered,
+            boolean requireExternalAccess) {
+        Objects.requireNonNull(current, "current");
         Objects.requireNonNull(offered, "offered");
-        validateSlot(slot);
         if (offered.isEmpty()) {
-            return offered;
+            return true;
         }
         MachineInventorySlotDefinition definition = definitions.get(slot);
         if ((requireExternalAccess && !definition.access().acceptsItems())
                 || !definition.accepts(offered.item())) {
-            return offered;
+            return false;
         }
-        SimulationItemStack current = stacks[slot];
         if (!current.isEmpty() && !current.canMerge(offered)) {
-            return offered;
+            return false;
         }
-        long capacity = effectiveCapacity(definition, current, offered);
-        long accepted = Math.min(offered.quantity(), capacity - current.quantity());
-        if (accepted <= 0L) {
-            return offered;
-        }
-        long updatedQuantity = Math.addExact(current.quantity(), accepted);
-        stacks[slot] = current.isEmpty()
-                ? offered.withQuantity(updatedQuantity)
-                : current.withQuantity(updatedQuantity);
-        totalInserted = Math.addExact(totalInserted, accepted);
-        markChanged();
-        return offered.withQuantity(offered.quantity() - accepted);
+        return current.quantity() < effectiveCapacity(definition, current, offered);
     }
 
-    private SimulationItemStack extract(int slot, long requestedQuantity, boolean requireExternalAccess) {
-        requireNonNegative(requestedQuantity);
+    long acceptedQuantity(
+            int slot,
+            SimulationItemStack current,
+            SimulationItemStack offered,
+            boolean requireExternalAccess) {
+        if (!canInsertCandidate(slot, current, offered, requireExternalAccess)) {
+            return 0L;
+        }
+        long capacity = effectiveCapacity(definitions.get(slot), current, offered);
+        return Math.min(offered.quantity(), capacity - current.quantity());
+    }
+
+    boolean canExtractCandidate(
+            int slot,
+            SimulationItemStack current,
+            long requestedQuantity,
+            boolean requireExternalAccess) {
+        Objects.requireNonNull(current, "current");
+        requireNonNegativeQuantity(requestedQuantity);
+        return requestedQuantity == 0L
+                || ((!requireExternalAccess || definitions.get(slot).access().providesItems())
+                && !current.isEmpty());
+    }
+
+    void validateSlotForTransaction(int slot) {
         validateSlot(slot);
-        if (requestedQuantity == 0L) {
-            return SimulationItemStack.empty();
+    }
+
+    void requireNonNegativeQuantity(long value) {
+        if (value < 0L) {
+            throw new IllegalArgumentException("requested quantity must be non-negative");
         }
-        MachineInventorySlotDefinition definition = definitions.get(slot);
-        if (requireExternalAccess && !definition.access().providesItems()) {
-            return SimulationItemStack.empty();
+    }
+
+    private void validateCandidate(SimulationItemStack[] candidate) {
+        if (candidate.length != stacks.length) {
+            throw new IllegalArgumentException("candidate slot count must match inventory slot count");
         }
-        SimulationItemStack current = stacks[slot];
-        if (current.isEmpty()) {
-            return SimulationItemStack.empty();
+        for (int slot = 0; slot < candidate.length; slot++) {
+            validateRestoredStack(slot, Objects.requireNonNull(candidate[slot], "candidate stack"));
         }
-        long extracted = Math.min(requestedQuantity, current.quantity());
-        stacks[slot] = current.withQuantity(current.quantity() - extracted);
-        totalExtracted = Math.addExact(totalExtracted, extracted);
-        markChanged();
-        return current.withQuantity(extracted);
     }
 
     private void validateRestoredStack(int slot, SimulationItemStack restored) {
@@ -235,14 +342,7 @@ public final class MachineInventoryComponent {
     }
 
     private void markChanged() {
-        changeCount = Math.addExact(changeCount, 1L);
         dirtyState.mark(DirtyFlag.PERSISTENCE, DirtyFlag.CLIENT_SYNC, DirtyFlag.SCHEDULER);
         wakeSignal.run();
-    }
-
-    private static void requireNonNegative(long value) {
-        if (value < 0L) {
-            throw new IllegalArgumentException("requested quantity must be non-negative");
-        }
     }
 }

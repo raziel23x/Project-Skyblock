@@ -1,3 +1,12 @@
+# Engine Milestone 19A — Inventory Transactions and Item Capability Adapter
+
+- Added optimistic atomic machine-inventory transactions with stale-candidate rejection.
+- Added explicit automation and player-menu inventory views without duplicating slot state.
+- Added canonical registry-aware Minecraft data-component persistence encoding with namespaced keys, exact round-trip verification, and transient-state rejection.
+- Added a fail-closed NeoForge `IItemHandler` adapter that converts staged extraction before commit.
+- Added transaction, view, codec, capability, simulation, conflict, and component-identity regression tests.
+- Deliberately deferred Material Crusher migration, capability registration, gameplay changes, and public API freezing to Milestone 19B or later evidence.
+
 # Engine Milestone 18 — Tiered Developer Validation Environments
 
 - Added isolated standalone and integration client runs with separate working directories and world copies.

@@ -113,14 +113,15 @@ later check rather than loaded alongside JEI without a distinct validation purpo
 - **Dependencies:** no new Project Skyblock runtime dependency; helper mods are local development
   files loaded only by the integration run.
 
-## Remaining Validation
+## Local Runtime Validation Completed
 
-- Run the PowerShell helper bootstrap and capture the generated exact-version lock.
-- Run `gradlew.bat clean test build` and `gradlew.bat validateIntegrationEnvironment`.
-- Launch and validate both clients independently.
-- Confirm the release JAR remains free of helper content.
-- Record startup, mod-list, clean shutdown, world reload, and any compatibility failures before
-  beginning Project Skyblock-specific optional adapter work.
+- The integration environment loaded all approved direct helpers and required dependencies.
+- Existing machines, overlays, menus, worlds, and save/reload behavior remained functional.
+- The dedicated Repair Gem Curios slot appeared and the equipped gem performed its repair behavior.
+- Curios remained absent from the standalone profile, preserving the ordinary-inventory fallback.
+- The exact helper lock remains ignored local validation state by design.
+- The next complete `clean test build` is retained as a regression gate in the Milestone 19A test
+  delivery; no unreported Gradle result is claimed here.
 
 
 ### Integration launch-classpath correction
@@ -141,3 +142,10 @@ later check rather than loaded alongside JEI without a distinct validation purpo
 - Added a packaged-resource JUnit regression test and repository schema checks.
 - Gameplay intent is restored rather than rebalanced: one dedicated Repair Gem slot,
   default drop behavior, no cosmetic slot, and no render toggle.
+
+
+### Deferred slot artwork
+
+The first Repair Gem slot icon proves resource registration but resembles the equipped item too
+closely. Final empty-slot artwork is deferred to the Game Era and must use the permanent transparent
+grayscale-outline rule. No engine milestone time is spent iterating presentation-only artwork.

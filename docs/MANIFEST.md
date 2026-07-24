@@ -1,6 +1,6 @@
 # Documentation Manifest
 
-Markdown files: 106
+Markdown files: 107
 
 This manifest indexes the authoritative `docs` folder.
 
@@ -77,6 +77,7 @@ This manifest indexes the authoritative `docs` folder.
 - `03-engineering/milestones/BACKEND_MILESTONE_16_FIRST_ENGINE_OWNED_MACHINE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_17_BASELINE_HARDENING.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_18_TIERED_DEVELOPER_VALIDATION.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md`

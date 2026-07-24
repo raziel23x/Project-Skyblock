@@ -13,6 +13,25 @@ Expected:
 - No Project Skyblock-owned Gradle deprecation warning remains.
 - No development helper JAR or run-directory content appears in the release JAR.
 
+
+## Milestone 19A inventory contract
+
+The Gradle test suite must include and pass:
+
+- `MachineInventoryTransactionTest`
+- `MachineInventoryViewTest`
+- `MinecraftItemStackCodecTest`
+- `EngineItemHandlerAdapterTest`
+
+Verify that simulated capability calls do not mutate or wake the inventory, one multi-slot commit
+wakes once, stale transactions fail closed, menu extraction can return input items, automation
+respects sided access, component-bearing items round-trip exactly, transient or non-canonical state fails closed, and
+undecodable state cannot be extracted or overwritten.
+
+Milestone 19A does not register the new adapter on a block entity. In-game validation is therefore a
+regression launch of the standalone and integration clients, not a claim that the Material Crusher
+has already migrated.
+
 ## Standalone client
 
 ```cmd
@@ -61,7 +80,7 @@ Verify:
 
 1. Launch `runIntegrationClient` and open `TEST-INTEGRATION`.
 2. Open the Curios inventory and confirm one dedicated slot named **Repair Gem**.
-3. Confirm the slot uses the Repair Gem icon and accepts only
+3. Confirm the prototype slot icon loads and the slot accepts only
    `projectskyblock:repair_gem` through the default Curios tag validator.
 4. Move the Repair Gem out of the normal inventory and into the dedicated slot.
 5. Damage a repairable tool, keep it in the normal player inventory, and wait at least

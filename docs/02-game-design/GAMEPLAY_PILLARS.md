@@ -27,3 +27,12 @@ Progression unlocks capabilities, relationships, and production networks—not m
 The long-term objective is a functioning, sustainable world: food, materials, power, logistics, research, ecology, and shelter working together.
 
 The player begins with a tree. The player ends with a civilization.
+
+
+## Deferred Equipment-Slot Presentation Rule
+
+Custom equipment and Curios slots are finalized during the Game Era, not while an Engine Era
+prototype is merely proving an integration contract. An empty custom slot uses a transparent
+grayscale outline or silhouette that matches vanilla equipment-slot language and cannot be
+mistaken for an equipped item. The full-color item texture appears only after the item is actually
+equipped. Empty-slot artwork must remain legible at 16×16.

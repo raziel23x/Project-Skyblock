@@ -111,6 +111,153 @@ for source in sorted(SIMULATION_ROOT.rglob("*.java")):
         if forbidden_type in text:
             fail(f"Persistence type leaked into simulation engine: {source.relative_to(ROOT)} ({forbidden_type})")
 
+# Milestone 19A inventory mutation and item-boundary contracts must remain explicit.
+m19a_required_sources = {
+    "atomic inventory commit result": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/component/MachineInventoryCommitResult.java",
+    "inventory transaction": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/component/MachineInventoryTransaction.java",
+    "inventory view kind": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/component/MachineInventoryViewKind.java",
+    "inventory view": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/component/MachineInventoryView.java",
+    "Minecraft item boundary failure": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/inventory/ItemStackBoundaryException.java",
+    "Minecraft item boundary codec": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/inventory/MinecraftItemStackCodec.java",
+    "NeoForge item handler adapter": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/capability/EngineItemHandlerAdapter.java",
+    "item handler adapter diagnostics": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/capability/EngineItemHandlerAdapterDiagnostics.java",
+}
+for description, source in m19a_required_sources.items():
+    if not source.exists():
+        fail(f"Missing Milestone 19A {description}: {source.relative_to(ROOT)}")
+
+inventory_component_source = (
+    JAVA_ROOT
+    / "raziel23x/projectskyblock/simulation/machine/component/MachineInventoryComponent.java"
+)
+if inventory_component_source.exists():
+    inventory_component_text = inventory_component_source.read_text(encoding="utf-8")
+    required_inventory_contracts = {
+        "transaction opening": "public synchronized MachineInventoryTransaction beginTransaction()",
+        "optimistic version check": "transaction.baseVersion() != stateVersion",
+        "stale candidate rejection": "throw new ConcurrentModificationException",
+        "precomputed commit counters": "long committedStateVersion = Math.addExact(stateVersion, 1L)",
+        "single atomic candidate publication": "System.arraycopy(candidate, 0, stacks, 0, stacks.length)",
+        "transaction commit diagnostics": "transactionCommitCount",
+        "transaction conflict diagnostics": "transactionConflictCount",
+    }
+    for description, snippet in required_inventory_contracts.items():
+        if snippet not in inventory_component_text:
+            fail(f"Missing Milestone 19A inventory {description} contract")
+
+transaction_source = m19a_required_sources["inventory transaction"]
+if transaction_source.exists():
+    transaction_text = transaction_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "isolated source snapshot": "this.originalStacks = sourceStacks.clone()",
+        "isolated working snapshot": "this.workingStacks = sourceStacks.clone()",
+        "explicit rollback": "public void rollback()",
+        "owner-controlled commit": "return owner.commitTransaction(this)",
+    }.items():
+        if snippet not in transaction_text:
+            fail(f"Missing Milestone 19A transaction {description} contract")
+
+view_source = m19a_required_sources["inventory view"]
+if view_source.exists():
+    view_text = view_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "automation view": "MachineInventoryViewKind.AUTOMATION",
+        "menu view": "MachineInventoryViewKind.MENU",
+        "player extraction distinction": "transaction.consume(mappedSlot, requestedQuantity)",
+        "automation extraction distinction": "transaction.extract(mappedSlot, requestedQuantity)",
+        "cross-owner transaction rejection": "transaction.belongsTo(inventory)",
+    }.items():
+        if snippet not in view_text:
+            fail(f"Missing Milestone 19A inventory-view {description} contract")
+
+item_codec_source = m19a_required_sources["Minecraft item boundary codec"]
+if item_codec_source.exists():
+    item_codec_text = item_codec_source.read_text(encoding="utf-8")
+    required_codec_contracts = {
+        "typed persistent data-component codec": "DataComponentPatch.CODEC",
+        "stable codec identifier": "projectskyblock:minecraft_data_components_json_v1",
+        "canonical component ordering": "entries.sort(Comparator.comparing",
+        "canonical JSON object ordering": ".sorted(Map.Entry.comparingByKey())",
+        "registered component identifier validation": "BuiltInRegistries.DATA_COMPONENT_TYPE.getKey(component)",
+        "registry-aware persistence operations": "RegistryOps.create(",
+        "typed JSON operations": "JsonOps.INSTANCE",
+        "bounded payload validation": "SimulationItemState.MAX_PAYLOAD_BYTES",
+        "strict UTF-8 decoding": "CodingErrorAction.REPORT",
+        "bounded JSON nesting": "MAX_JSON_DEPTH = 64",
+        "canonical payload rejection": "data-component payload is not in canonical form",
+        "lossless persistence verification": "data-component patch is not losslessly persistent",
+        "transient component rejection": "transient data component cannot cross the persistent engine boundary",
+    }
+    for description, snippet in required_codec_contracts.items():
+        if snippet not in item_codec_text:
+            fail(f"Missing Milestone 19A item-codec {description} contract")
+    for forbidden_codec_surface in (
+        "import net.minecraft.nbt.",
+        "CompoundTag",
+        "ListTag",
+        "NbtOps",
+        "TagParser",
+        "SnbtPrinterTagVisitor",
+        "DataComponentPatch.STREAM_CODEC",
+        "RegistryFriendlyByteBuf",
+        "ConnectionType",
+        "io.netty.buffer",
+    ):
+        if forbidden_codec_surface in item_codec_text:
+            fail(
+                "NBT/SNBT leaked into the Milestone 19A item boundary codec: "
+                + forbidden_codec_surface
+            )
+
+item_adapter_source = m19a_required_sources["NeoForge item handler adapter"]
+if item_adapter_source.exists():
+    item_adapter_text = item_adapter_source.read_text(encoding="utf-8")
+    required_adapter_contracts = {
+        "backend transaction use": "MachineInventoryTransaction transaction",
+        "simulation without commit": "if (!simulate && transaction.changed())",
+        "decode before extraction commit": "decoded = codec.decode(extracted)",
+        "fail-closed stale commit": "catch (ConcurrentModificationException exception)",
+        "restricted inventory view": "private final MachineInventoryView view",
+    }
+    for description, snippet in required_adapter_contracts.items():
+        if snippet not in item_adapter_text:
+            fail(f"Missing Milestone 19A item-adapter {description} contract")
+    for forbidden_adapter_state in ("ItemStackHandler", "NonNullList<ItemStack>"):
+        if forbidden_adapter_state in item_adapter_text:
+            fail(
+                "NeoForge item adapter duplicates authoritative inventory state: "
+                + forbidden_adapter_state
+            )
+
+m19a_required_tests = (
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/machine/component/MachineInventoryTransactionTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/machine/component/MachineInventoryViewTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/platform/neoforge/inventory/MinecraftItemStackCodecTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/platform/neoforge/machine/EngineItemHandlerAdapterTest.java",
+)
+for test_source in m19a_required_tests:
+    if not test_source.exists():
+        fail(f"Missing Milestone 19A regression test: {test_source.relative_to(ROOT)}")
+
+item_codec_test = m19a_required_tests[2]
+if item_codec_test.exists():
+    item_codec_test_text = item_codec_test.read_text(encoding="utf-8")
+    for description, snippet in {
+        "component round trip": "componentBearingStackRoundTripsExactly",
+        "canonical mutation-order identity": "canonicalEncodingDoesNotDependOnComponentMutationOrder",
+        "non-canonical payload rejection": "nonCanonical",
+        "transient component rejection": "transientComponentsFailClosedInsteadOfDisappearing",
+    }.items():
+        if snippet not in item_codec_test_text:
+            fail(f"Missing Milestone 19A item-codec test for {description}")
+
+m19a_milestone_doc = (
+    ROOT
+    / "docs/03-engineering/milestones/BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md"
+)
+if not m19a_milestone_doc.exists():
+    fail("Missing Milestone 19A engineering record")
+
 # Keep the unavoidable Minecraft NBT surface explicit. Legacy prototype block entities are
 # temporary stress fixtures; new NBT-bearing gameplay files must not appear unnoticed.
 allowed_nbt_sources = {

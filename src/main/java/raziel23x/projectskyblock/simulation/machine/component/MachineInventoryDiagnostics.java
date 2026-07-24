@@ -10,11 +10,16 @@ public record MachineInventoryDiagnostics(
         long totalInserted,
         long totalExtracted,
         long changeCount,
+        long stateVersion,
+        long transactionCommitCount,
+        long transactionConflictCount,
         List<MachineInventorySlotSnapshot> slots) {
 
     public MachineInventoryDiagnostics {
         if (slotCount < 0 || occupiedSlotCount < 0 || occupiedSlotCount > slotCount
-                || totalQuantity < 0 || totalInserted < 0 || totalExtracted < 0 || changeCount < 0) {
+                || totalQuantity < 0L || totalInserted < 0L || totalExtracted < 0L
+                || changeCount < 0L || stateVersion < 0L || transactionCommitCount < 0L
+                || transactionConflictCount < 0L) {
             throw new IllegalArgumentException("inventory diagnostics values are invalid");
         }
         slots = List.copyOf(slots);

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — Engine Milestone 19A
+
+- Added atomic multi-slot inventory transactions with stale-candidate rejection and one-wake commit semantics.
+- Added separate automation and player-menu views over simulation-owned slot state.
+- Added canonical typed data-component persistence encoding using namespaced registry keys, exact round-trip verification, and no NBT/SNBT runtime transport.
+- Added a fail-closed NeoForge item capability adapter with simulation safety and boundary diagnostics.
+- Added focused transaction, view, codec, and capability regression tests.
+- Kept the Material Crusher, gameplay balance, save schema, runtime dependencies, and public API unchanged.
+
 ## Unreleased — Engine Milestone 18
 
 ### Milestone 18 Repair Gem Curios slot restoration

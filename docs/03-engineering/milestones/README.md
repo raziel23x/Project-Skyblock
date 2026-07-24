@@ -1,6 +1,6 @@
 # Backend Milestones
 
-Milestone documents record completed architectural slices. They describe purpose, implementation, boundaries, validation, and deliberate deferrals.
+Milestone documents record completed and candidate architectural slices. They describe purpose, implementation, boundaries, validation, and deliberate deferrals.
 
 ## Completed
 
@@ -23,8 +23,10 @@ Milestone documents record completed architectural slices. They describe purpose
 17. [Baseline Hardening and Contract Stabilization](BACKEND_MILESTONE_17_BASELINE_HARDENING.md)
 18. [Tiered Developer Validation Environments](BACKEND_MILESTONE_18_TIERED_DEVELOPER_VALIDATION.md)
 
-## Next
+## Active Candidate
 
-Validate both Milestone 18 client environments and record the exact locked helper versions. Then
-choose the first Project Skyblock-specific optional adapter or the next prototype workload by the
-unproven contract it can expose. Environment availability alone does not justify freezing an API.
+19A. [Inventory Transactions and Item Capability Adapter](BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md)
+
+Milestone 19 was split after audit evidence showed that transaction and capability semantics deserve
+an independent validation boundary before the Material Crusher migration. The milestone numbering
+is intentionally flexible; architecture is not constrained to an obsolete milestone count.

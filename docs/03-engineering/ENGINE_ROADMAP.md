@@ -24,6 +24,10 @@ Prototype conversion is deliberate stress testing. A converted object is not aut
 Game Era content. It remains only while it exercises a distinct contract or provides useful
 regression evidence.
 
+Milestones are planning checkpoints rather than fixed commitments. Audit evidence may split, merge,
+expand, reorder, or retire them when that produces a smaller complete contract or avoids premature
+abstraction.
+
 ## Engine Era
 
 ### Completed
@@ -52,13 +56,19 @@ regression evidence.
 - Atomic last-known-good material publication
 - Tagged Milestone 17 Engine Era baseline
 - Tiered standalone and integration developer validation environments
+- Full integration runtime validation, including optional Curios Repair Gem behavior
+
+### Active Candidate
+
+- Milestone 19A — atomic inventory transactions, explicit menu/automation views, canonical
+  Minecraft data-component identity, and a fail-closed NeoForge item capability adapter
 
 ### Near-Term Planned
 
-- Complete local standalone and full-integration validation for Milestone 18
-- Record the exact locked helper graph and any compatibility failures
-- Select the next prototype workload or optional adapter by the unproven contracts it stresses
-- Prove sided inventory adaptation through a processing prototype when that workload is selected
+- Run the complete local Gradle suite for Milestone 19A
+- Migrate the Material Crusher as Milestone 19B only after the inventory contract passes
+- Prove transactional processing completion, sided automation, persistence, and scheduler blocking
+  through that processing workload
 
 ### Later Planned When Proven Necessary
 

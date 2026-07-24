@@ -27,3 +27,18 @@ core dependency.
 - The server-side adapter uses guarded reflection only to inspect equipped stacks.
 - The Repair Gem's authoritative repair behavior remains Project Skyblock-owned and
   continues to work from the ordinary inventory when Curios is absent.
+
+
+## NeoForge Item Capability Boundary
+
+- `MachineInventoryComponent` remains the only authoritative machine slot store.
+- `EngineItemHandlerAdapter` exposes an explicit automation or menu view and never owns a second
+  `ItemStackHandler`.
+- Capability simulation uses an uncommitted engine transaction and must not dirty or wake state.
+- Minecraft data components cross the boundary through a canonical typed persistence payload using
+  namespaced registry keys, never numeric network IDs, NBT, or SNBT runtime identity. Transient or
+  lossy components fail closed.
+- Item conversion, stale transaction, or unsupported-state failure is closed: no item is inserted,
+  extracted, replaced, or deleted.
+- Player-menu extraction and automation extraction are distinct contracts rather than one ambiguous
+  unsided handler.

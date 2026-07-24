@@ -28,8 +28,10 @@ integration requirements, then may be archived or removed after its evidence is 
 - [x] Run local Gradle and in-game validation for Milestone 17
 - [x] Tag the validated Milestone 17 Engine Era baseline
 - [x] Implement Milestone 18 tiered developer validation environments
-- [ ] Validate the standalone and full-integration Milestone 18 clients locally
-- [ ] Add the inventory capability adapter when a processing-prototype migration proves sided item semantics
+- [x] Validate the standalone and full-integration Milestone 18 clients locally
+- [x] Implement the Milestone 19A inventory transaction and item capability adapter candidate
+- [ ] Run local Gradle tests and build for Milestone 19A
+- [ ] Prove the adapter through the Material Crusher Milestone 19B migration
 
 ## Prototype Stress-Test Migration
 
@@ -73,7 +75,7 @@ and record when the prototype no longer provides unique validation value.
 - [x] Persistence contracts and codecs
 - [x] Minecraft/NeoForge block-entity and level-scheduler adapters
 - [x] Energy capability adapter
-- [ ] Inventory capability adapter
+- [x] Inventory capability adapter candidate with atomic simulation-owned transactions
 - [x] Reference vertical slice and first engine-owned machine
 - [x] Transaction-safe persistence and schema-2 item-state identity
 - [x] Scheduler failure isolation

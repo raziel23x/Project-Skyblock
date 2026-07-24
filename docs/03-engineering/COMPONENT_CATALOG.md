@@ -33,7 +33,13 @@ or SNBT as a runtime encoding. Each slot has explicit capacity, external access,
 `insert`/`extract` operations are separated from internal `store`/`consume` operations. The
 component validates restored state, exposes immutable slot snapshots and diagnostics, marks
 persistence/client-sync/scheduler dirty state, and wakes its owner after meaningful changes.
-Minecraft `ItemStack`, data-component encoding, and NeoForge item handlers remain adapter concerns.
+
+Milestone 19A adds optimistic atomic transactions, stale-candidate rejection, one-wake multi-slot
+commit, and explicit automation/menu views. Minecraft `ItemStack` conversion uses a canonical,
+registry-aware data-component persistence payload at the platform boundary. The payload uses sorted
+compact JSON and namespaced registry keys rather than unstable numeric network IDs. The NeoForge
+item handler owns no slot state and converts staged extraction before committing, so undecodable
+state is never deleted.
 
 ## MachineFluidComponent
 
