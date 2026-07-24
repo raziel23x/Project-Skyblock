@@ -47,6 +47,7 @@ class MachineRuntimeTest {
             assertSame(shared, runtime.components().energy().dirtyState());
             assertSame(shared, runtime.components().inventory().dirtyState());
             assertSame(shared, runtime.components().thermal().dirtyState());
+            assertSame(shared, runtime.components().combustion().dirtyState());
             assertSame(shared, runtime.components().processing().dirtyState());
             assertSame(shared, scheduler.dirtyStateOf(runtime.id().value()));
 
@@ -138,6 +139,7 @@ class MachineRuntimeTest {
             assertEquals(SimulationLifecycle.BLOCKED, diagnostics.schedulerLifecycle());
             assertEquals("waiting for recipe", diagnostics.schedulerStatusReason());
             assertEquals(250L, diagnostics.components().energy().storedEnergy());
+            assertFalse(diagnostics.components().combustion().burning());
             assertFalse(diagnostics.components().processing().active());
             assertEquals(MachineActivity.BLOCKED, diagnostics.machine().activity());
         }

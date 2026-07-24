@@ -30,8 +30,10 @@ integration requirements, then may be archived or removed after its evidence is 
 - [x] Implement Milestone 18 tiered developer validation environments
 - [x] Validate the standalone and full-integration Milestone 18 clients locally
 - [x] Implement the Milestone 19A inventory transaction and item capability adapter candidate
-- [ ] Run local Gradle tests and build for Milestone 19A
-- [ ] Prove the adapter through the Material Crusher Milestone 19B migration
+- [x] Run local Gradle tests and build for Milestone 19A
+- [x] Add the Milestone 19B1 combustion-state and snapshot-schema candidate
+- [ ] Run local Gradle tests and build for Milestone 19B1
+- [ ] Prove inventory, combustion, and processing contracts through the Material Crusher Milestone 19B2 migration
 
 ## Prototype Stress-Test Migration
 

@@ -9,6 +9,7 @@ import raziel23x.projectskyblock.simulation.machine.MachineId;
 import raziel23x.projectskyblock.simulation.machine.MachineLogic;
 import raziel23x.projectskyblock.simulation.machine.MachineParticipant;
 import raziel23x.projectskyblock.simulation.machine.MachineState;
+import raziel23x.projectskyblock.simulation.machine.component.MachineCombustionComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyAccess;
 import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineInventoryComponent;
@@ -64,9 +65,11 @@ public final class MachineRuntime implements AutoCloseable {
                 Objects.requireNonNull(thermalAccess, "thermalAccess"),
                 dirtyState,
                 wakeSignal);
+        MachineCombustionComponent combustion = new MachineCombustionComponent(dirtyState);
         MachineProcessingComponent processing = new MachineProcessingComponent(dirtyState, wakeSignal);
 
-        this.components = new MachineComponentState(dirtyState, energy, inventory, thermal, processing);
+        this.components = new MachineComponentState(
+                dirtyState, energy, inventory, thermal, combustion, processing);
         this.participant = new MachineParticipant<>(
                 new MachineState<>(id, components),
                 Objects.requireNonNull(logic, "logic"));

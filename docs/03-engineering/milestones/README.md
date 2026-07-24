@@ -23,10 +23,14 @@ Milestone documents record completed and candidate architectural slices. They de
 17. [Baseline Hardening and Contract Stabilization](BACKEND_MILESTONE_17_BASELINE_HARDENING.md)
 18. [Tiered Developer Validation Environments](BACKEND_MILESTONE_18_TIERED_DEVELOPER_VALIDATION.md)
 
-## Active Candidate
+## Completed Candidates Awaiting Baseline Integration
 
 19A. [Inventory Transactions and Item Capability Adapter](BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md)
 
-Milestone 19 was split after audit evidence showed that transaction and capability semantics deserve
-an independent validation boundary before the Material Crusher migration. The milestone numbering
+## Active Candidate
+
+19B1. [Combustion State and Persistence](BACKEND_MILESTONE_19B1_COMBUSTION_STATE_AND_PERSISTENCE.md)
+
+Milestone 19 was split after audit evidence showed that inventory adaptation, combustion persistence,
+and the Material Crusher migration deserve independent validation boundaries. The milestone numbering
 is intentionally flexible; architecture is not constrained to an obsolete milestone count.

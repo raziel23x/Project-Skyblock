@@ -258,6 +258,71 @@ m19a_milestone_doc = (
 if not m19a_milestone_doc.exists():
     fail("Missing Milestone 19A engineering record")
 
+# Milestone 19B1 combustion state and schema-3 persistence must remain explicit.
+m19b1_required_sources = {
+    "combustion component": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/component/MachineCombustionComponent.java",
+    "combustion diagnostics": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/component/MachineCombustionDiagnostics.java",
+    "combustion snapshot": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/persistence/MachineCombustionSnapshot.java",
+}
+for description, source in m19b1_required_sources.items():
+    if not source.exists():
+        fail(f"Missing Milestone 19B1 {description}: {source.relative_to(ROOT)}")
+
+combustion_source = m19b1_required_sources["combustion component"]
+if combustion_source.exists():
+    combustion_text = combustion_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "positive ignition": "if (burnUnits <= 0L)",
+        "repeat ignition rejection": "combustion reservoir is already burning",
+        "bounded consumption": "Math.min(requestedUnits, remainingBurnUnits)",
+        "restore validation": "remainingBurnUnits > totalBurnUnits",
+        "persistence/client dirty boundary": "DirtyFlag.PERSISTENCE, DirtyFlag.CLIENT_SYNC",
+    }.items():
+        if snippet not in combustion_text:
+            fail(f"Missing Milestone 19B1 combustion {description} contract")
+    if "DirtyFlag.SCHEDULER" in combustion_text:
+        fail("Combustion progress must not issue redundant scheduler dirty state")
+
+runtime_snapshot_source = (
+    JAVA_ROOT
+    / "raziel23x/projectskyblock/simulation/machine/persistence/MachineRuntimeSnapshot.java"
+)
+if runtime_snapshot_source.exists():
+    snapshot_text = runtime_snapshot_source.read_text(encoding="utf-8")
+    if "CURRENT_SCHEMA_VERSION = 3" not in snapshot_text:
+        fail("Milestone 19B1 machine snapshot schema must be version 3")
+    if "MachineCombustionSnapshot combustion" not in snapshot_text:
+        fail("Milestone 19B1 combustion state is missing from machine snapshots")
+
+nbt_codec_source = (
+    JAVA_ROOT
+    / "raziel23x/projectskyblock/platform/neoforge/machine/MachineRuntimeNbtCodec.java"
+)
+if nbt_codec_source.exists():
+    nbt_codec_text = nbt_codec_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "schema-3 combustion write": 'root.put("Combustion", combustionTag)',
+        "older-schema migration": "combustion = MachineCombustionSnapshot.EMPTY",
+        "remaining burn read": 'combustionTag.getLong("RemainingBurnUnits")',
+        "total burn read": 'combustionTag.getLong("TotalBurnUnits")',
+    }.items():
+        if snippet not in nbt_codec_text:
+            fail(f"Missing Milestone 19B1 NBT {description} contract")
+
+m19b1_test = (
+    ROOT
+    / "src/test/java/raziel23x/projectskyblock/simulation/machine/component/MachineCombustionComponentTest.java"
+)
+if not m19b1_test.exists():
+    fail("Missing Milestone 19B1 combustion regression test")
+
+m19b1_milestone_doc = (
+    ROOT
+    / "docs/03-engineering/milestones/BACKEND_MILESTONE_19B1_COMBUSTION_STATE_AND_PERSISTENCE.md"
+)
+if not m19b1_milestone_doc.exists():
+    fail("Missing Milestone 19B1 engineering record")
+
 # Keep the unavoidable Minecraft NBT surface explicit. Legacy prototype block entities are
 # temporary stress fixtures; new NBT-bearing gameplay files must not appear unnoticed.
 allowed_nbt_sources = {

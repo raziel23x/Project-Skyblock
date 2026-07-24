@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — Engine Milestone 19B1
+
+- Added a Minecraft-independent combustion reservoir for durable remaining and total burn work.
+- Integrated combustion into machine runtime composition, diagnostics, capture, validation, and transactional restore.
+- Added machine snapshot schema 3 while preserving schema 1 and 2 reads as empty combustion state.
+- Added focused combustion, persistence, shared-dirty-state, and schema-migration regression tests.
+- Kept the Material Crusher, gameplay balance, recipes, capability registration, and visible behavior unchanged.
+
 ## Unreleased — Engine Milestone 19A
 
 - Added atomic multi-slot inventory transactions with stale-candidate rejection and one-wake commit semantics.

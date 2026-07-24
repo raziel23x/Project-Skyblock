@@ -14,6 +14,16 @@ Expected:
 - No development helper JAR or run-directory content appears in the release JAR.
 
 
+## Milestone 19B1 combustion and persistence contract
+
+The Gradle test suite must include and pass `MachineCombustionComponentTest` together with the
+updated runtime, persistence, and NBT codec suites. Verify ignition and consumption bounds, no
+redundant scheduler wake flag during internal burn progress, complete snapshot validation, schema-3
+round trip, schema-1/schema-2 empty-combustion migration, and failure isolation.
+
+Milestone 19B1 does not migrate a block entity. Standalone and integration launches remain regression
+gates only; no new visible machine behavior should appear.
+
 ## Milestone 19A inventory contract
 
 The Gradle test suite must include and pass:

@@ -9,6 +9,7 @@ import raziel23x.projectskyblock.simulation.inventory.SimulationItemKey;
 import raziel23x.projectskyblock.simulation.inventory.SimulationItemStack;
 import raziel23x.projectskyblock.simulation.inventory.SimulationItemState;
 import raziel23x.projectskyblock.simulation.machine.component.MachineProcessingStatus;
+import raziel23x.projectskyblock.simulation.machine.persistence.MachineCombustionSnapshot;
 import raziel23x.projectskyblock.simulation.machine.persistence.MachineProcessingSnapshot;
 import raziel23x.projectskyblock.simulation.machine.persistence.MachineRuntimeSnapshot;
 
@@ -40,6 +41,12 @@ public final class MachineRuntimeNbtCodec {
             inventory.add(encoded);
         }
         root.put("Inventory", inventory);
+
+        MachineCombustionSnapshot combustion = snapshot.combustion();
+        CompoundTag combustionTag = new CompoundTag();
+        combustionTag.putLong("RemainingBurnUnits", combustion.remainingBurnUnits());
+        combustionTag.putLong("TotalBurnUnits", combustion.totalBurnUnits());
+        root.put("Combustion", combustionTag);
 
         MachineProcessingSnapshot processing = snapshot.processing();
         CompoundTag processTag = new CompoundTag();
@@ -101,6 +108,19 @@ public final class MachineRuntimeNbtCodec {
                     encoded.getLong("Maximum")));
         }
 
+        MachineCombustionSnapshot combustion;
+        if (schema >= 3) {
+            requireTag(root, "Combustion", Tag.TAG_COMPOUND);
+            CompoundTag combustionTag = root.getCompound("Combustion");
+            requireTag(combustionTag, "RemainingBurnUnits", Tag.TAG_LONG);
+            requireTag(combustionTag, "TotalBurnUnits", Tag.TAG_LONG);
+            combustion = new MachineCombustionSnapshot(
+                    combustionTag.getLong("RemainingBurnUnits"),
+                    combustionTag.getLong("TotalBurnUnits"));
+        } else {
+            combustion = MachineCombustionSnapshot.EMPTY;
+        }
+
         CompoundTag processTag = root.getCompound("Processing");
         requireTag(processTag, "Status", Tag.TAG_STRING);
         requireTag(processTag, "ProcessId", Tag.TAG_STRING);
@@ -126,6 +146,7 @@ public final class MachineRuntimeNbtCodec {
                 root.getLong("Energy"),
                 root.getLong("ThermalEnergy"),
                 inventory,
+                combustion,
                 processing);
     }
 

@@ -3,13 +3,14 @@ package raziel23x.projectskyblock.simulation.machine.runtime;
 import java.util.Objects;
 import raziel23x.projectskyblock.simulation.core.DirtyStateTracker;
 import raziel23x.projectskyblock.simulation.core.SimulationState;
+import raziel23x.projectskyblock.simulation.machine.component.MachineCombustionComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineInventoryComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineProcessingComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineThermalComponent;
 
 /**
- * Authoritative composed state for a machine that owns energy, inventory, thermal, and processing resources.
+ * Authoritative composed state for a machine that owns energy, inventory, thermal, combustion, and processing resources.
  *
  * <p>All components must share one dirty tracker. This keeps persistence, client-sync,
  * and scheduler work represented by one allocation-free state boundary.</p>
@@ -19,6 +20,7 @@ public final class MachineComponentState implements SimulationState {
     private final MachineEnergyComponent energy;
     private final MachineInventoryComponent inventory;
     private final MachineThermalComponent thermal;
+    private final MachineCombustionComponent combustion;
     private final MachineProcessingComponent processing;
 
     public MachineComponentState(
@@ -26,6 +28,7 @@ public final class MachineComponentState implements SimulationState {
             MachineEnergyComponent energy,
             MachineInventoryComponent inventory,
             MachineThermalComponent thermal,
+            MachineCombustionComponent combustion,
             MachineProcessingComponent processing) {
         this.dirtyState = Objects.requireNonNull(dirtyState, "dirtyState");
         this.energy = requireSharedTracker(Objects.requireNonNull(energy, "energy"), energy.dirtyState());
@@ -33,6 +36,8 @@ public final class MachineComponentState implements SimulationState {
                 Objects.requireNonNull(inventory, "inventory"), inventory.dirtyState());
         this.thermal = requireSharedTracker(
                 Objects.requireNonNull(thermal, "thermal"), thermal.dirtyState());
+        this.combustion = requireSharedTracker(
+                Objects.requireNonNull(combustion, "combustion"), combustion.dirtyState());
         this.processing = requireSharedTracker(
                 Objects.requireNonNull(processing, "processing"), processing.dirtyState());
     }
@@ -53,6 +58,10 @@ public final class MachineComponentState implements SimulationState {
         return thermal;
     }
 
+    public MachineCombustionComponent combustion() {
+        return combustion;
+    }
+
     public MachineProcessingComponent processing() {
         return processing;
     }
@@ -63,6 +72,7 @@ public final class MachineComponentState implements SimulationState {
                 energy.diagnostics(),
                 inventory.diagnostics(),
                 thermal.diagnostics(),
+                combustion.diagnostics(),
                 processing.diagnostics());
     }
 

@@ -57,18 +57,19 @@ abstraction.
 - Tagged Milestone 17 Engine Era baseline
 - Tiered standalone and integration developer validation environments
 - Full integration runtime validation, including optional Curios Repair Gem behavior
+- Milestone 19A transactional inventory and item capability contracts
 
 ### Active Candidate
 
-- Milestone 19A — atomic inventory transactions, explicit menu/automation views, canonical
-  Minecraft data-component identity, and a fail-closed NeoForge item capability adapter
+- Milestone 19B1 — engine-owned combustion state, aggregate diagnostics, and backward-compatible
+  machine snapshot schema 3
 
 ### Near-Term Planned
 
-- Run the complete local Gradle suite for Milestone 19A
-- Migrate the Material Crusher as Milestone 19B only after the inventory contract passes
-- Prove transactional processing completion, sided automation, persistence, and scheduler blocking
-  through that processing workload
+- Run the complete local Gradle suite for Milestone 19B1
+- Migrate the Material Crusher as Milestone 19B2 after combustion persistence passes
+- Prove transactional processing completion, sided automation, hybrid FE/fuel operation, legacy
+  save migration, and scheduler blocking through that processing workload
 
 ### Later Planned When Proven Necessary
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import raziel23x.projectskyblock.simulation.core.DirtyFlag;
 import raziel23x.projectskyblock.simulation.inventory.SimulationItemStack;
+import raziel23x.projectskyblock.simulation.machine.component.MachineCombustionComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineInventorySlotSnapshot;
 import raziel23x.projectskyblock.simulation.machine.component.MachineProcessingComponent;
 import raziel23x.projectskyblock.simulation.machine.component.MachineProcessingDiagnostics;
@@ -25,6 +26,9 @@ public final class MachineRuntimePersistence {
                 runtime.components().energy().storedEnergy(),
                 runtime.components().thermal().thermalEnergyMicroJoules(),
                 inventory,
+                new MachineCombustionSnapshot(
+                        runtime.components().combustion().remainingBurnUnits(),
+                        runtime.components().combustion().totalBurnUnits()),
                 new MachineProcessingSnapshot(
                         processing.status(),
                         processing.processId(),
@@ -44,6 +48,10 @@ public final class MachineRuntimePersistence {
         runtime.components().energy().authoritativeState().validateStoredEnergy(snapshot.storedEnergy());
         runtime.components().thermal().validateThermalEnergyMicroJoules(snapshot.thermalEnergyMicroJoules());
         runtime.components().inventory().validateRestore(snapshot.inventory());
+        MachineCombustionSnapshot combustion = snapshot.combustion();
+        MachineCombustionComponent.validateRestore(
+                combustion.remainingBurnUnits(),
+                combustion.totalBurnUnits());
         MachineProcessingSnapshot processing = snapshot.processing();
         MachineProcessingComponent.validateRestore(
                 processing.status(),
@@ -64,6 +72,10 @@ public final class MachineRuntimePersistence {
         runtime.components().energy().authoritativeState().restoreStoredEnergy(snapshot.storedEnergy());
         runtime.components().thermal().restoreThermalEnergyMicroJoules(snapshot.thermalEnergyMicroJoules());
         runtime.components().inventory().restore(snapshot.inventory());
+        MachineCombustionSnapshot combustion = snapshot.combustion();
+        runtime.components().combustion().restore(
+                combustion.remainingBurnUnits(),
+                combustion.totalBurnUnits());
         MachineProcessingSnapshot processing = snapshot.processing();
         runtime.components().processing().restore(
                 processing.status(),

@@ -1,3 +1,11 @@
+# Engine Milestone 19B1 — Combustion State and Persistence
+
+- Added an internal machine combustion reservoir with validated ignition, consumption, restore, and diagnostics.
+- Integrated combustion into the shared machine runtime dirty-state boundary.
+- Added typed combustion persistence and machine snapshot schema 3.
+- Preserved schema 1 and 2 loading with empty combustion state.
+- Deliberately deferred Material Crusher behavior and capability migration to Milestone 19B2.
+
 # Engine Milestone 19A — Inventory Transactions and Item Capability Adapter
 
 - Added optimistic atomic machine-inventory transactions with stale-candidate rejection.
@@ -112,6 +120,7 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-Complete local Gradle and in-game validation of the hardened baseline candidate. Then choose the
-next prototype workload by the engine contracts it can expose. A sided processing prototype is a
-likely stress test, but conversion does not make it permanent Game Era content.
+Run the complete local Gradle and client regression gates for Milestone 19B1. After combustion
+persistence is proven, migrate the Material Crusher in Milestone 19B2 to stress transactional
+processing, sided automation, hybrid FE/fuel operation, legacy save conversion, and scheduler
+sleep/wake behavior. Prototype conversion does not make the crusher permanent Game Era content.

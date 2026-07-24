@@ -35,6 +35,8 @@ class MachineRuntimePersistenceTest {
             source.components().energy().receive(400L);
             source.components().inventory().insert(0, SimulationItemStack.of(ITEM, 7L, 64L));
             source.components().thermal().generateHeat(12_345L);
+            source.components().combustion().ignite(120L);
+            source.components().combustion().consume(20L);
             source.components().processing().start("projectskyblock:test_process", 20L);
             source.components().processing().advance(6L);
             snapshot = MachineRuntimePersistence.capture(source);
@@ -47,6 +49,8 @@ class MachineRuntimePersistenceTest {
             assertEquals(400L, target.components().energy().storedEnergy());
             assertEquals(7L, target.components().inventory().stack(0).quantity());
             assertEquals(snapshot.thermalEnergyMicroJoules(), target.components().thermal().thermalEnergyMicroJoules());
+            assertEquals(100L, target.components().combustion().remainingBurnUnits());
+            assertEquals(120L, target.components().combustion().totalBurnUnits());
             assertEquals(MachineProcessingStatus.RUNNING, target.components().processing().status());
             assertEquals(6L, target.components().processing().completedUnits());
             assertFalse(target.dirtyState().isDirty(DirtyFlag.PERSISTENCE));
@@ -66,6 +70,7 @@ class MachineRuntimePersistenceTest {
                     900L,
                     originalThermalEnergy + 1_000L,
                     List.of(),
+                    new MachineCombustionSnapshot(1L, 1L),
                     new MachineProcessingSnapshot(
                             MachineProcessingStatus.IDLE,
                             "",
@@ -81,6 +86,7 @@ class MachineRuntimePersistenceTest {
             assertEquals(originalThermalEnergy,
                     target.components().thermal().thermalEnergyMicroJoules());
             assertTrue(target.components().inventory().stack(0).isEmpty());
+            assertFalse(target.components().combustion().burning());
             assertEquals(MachineProcessingStatus.IDLE, target.components().processing().status());
         }
     }
@@ -107,6 +113,7 @@ class MachineRuntimePersistenceTest {
             assertEquals(MachineRuntimeSnapshot.CURRENT_SCHEMA_VERSION, snapshot.schemaVersion());
             assertEquals(1, snapshot.inventory().size());
             assertEquals(MachineProcessingStatus.IDLE, snapshot.processing().status());
+            assertEquals(MachineCombustionSnapshot.EMPTY, snapshot.combustion());
         }
     }
 

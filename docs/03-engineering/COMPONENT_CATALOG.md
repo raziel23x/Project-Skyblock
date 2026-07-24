@@ -69,7 +69,17 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 
 **Status:** Implemented in Milestone 12.
 
-`MachineRuntime` composes the implemented energy, inventory, thermal, and processing components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker` and one coalesced wake signal. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.
+`MachineRuntime` composes the implemented energy, inventory, thermal, combustion, and processing components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker`; components with externally triggered work use the runtime's coalesced wake signal, while internal combustion progress avoids redundant wake requests. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.
+
+## Machine Combustion Component
+
+**Status:** Candidate in Milestone 19B1.
+
+`MachineCombustionComponent` owns normalized remaining and total burn work for machines that consume
+discrete fuels. It deliberately does not inspect Minecraft items, recipes, burn-time APIs, or
+container remainders. Runtime ignition and consumption mark persistence and client synchronization
+without issuing a redundant scheduler wake because those mutations occur inside an active machine
+execution. Snapshot schema 3 persists this state, while older schemas restore an empty reservoir.
 
 ## Machine Runtime Persistence Bridge
 

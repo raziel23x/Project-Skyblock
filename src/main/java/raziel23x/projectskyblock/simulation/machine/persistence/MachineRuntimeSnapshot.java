@@ -16,9 +16,10 @@ public record MachineRuntimeSnapshot(
         long storedEnergy,
         long thermalEnergyMicroJoules,
         List<SimulationItemStack> inventory,
+        MachineCombustionSnapshot combustion,
         MachineProcessingSnapshot processing) {
 
-    public static final int CURRENT_SCHEMA_VERSION = 2;
+    public static final int CURRENT_SCHEMA_VERSION = 3;
 
     public MachineRuntimeSnapshot {
         if (schemaVersion != CURRENT_SCHEMA_VERSION) {
@@ -29,6 +30,7 @@ public record MachineRuntimeSnapshot(
         }
         inventory = List.copyOf(Objects.requireNonNull(inventory, "inventory"));
         inventory.forEach(stack -> Objects.requireNonNull(stack, "inventory stack"));
+        Objects.requireNonNull(combustion, "combustion");
         Objects.requireNonNull(processing, "processing");
     }
 }
