@@ -59,6 +59,7 @@ public final class ProjectSkyblock {
 
         NeoForge.EVENT_BUS.addListener(RepairGemHandler::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(ProjectSkyblock::addReloadListeners);
+        NeoForge.EVENT_BUS.addListener(ProjectSkyblock::onDatapackSync);
         EngineMachineLevelManager.register(NeoForge.EVENT_BUS);
         modEventBus.addListener(ProjectSkyblock::registerCapabilities);
 
@@ -68,6 +69,13 @@ public final class ProjectSkyblock {
     private static void addReloadListeners(
             net.neoforged.neoforge.event.AddReloadListenerEvent event) {
         event.addListener(MaterialDataReloadListener.INSTANCE);
+    }
+
+    private static void onDatapackSync(
+            net.neoforged.neoforge.event.OnDatapackSyncEvent event) {
+        if (event.getPlayer() == null) {
+            EngineMachineLevelManager.requestAllWork(event.getPlayerList().getServer());
+        }
     }
 
     private static void registerCapabilities(

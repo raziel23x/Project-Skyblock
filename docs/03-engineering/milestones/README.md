@@ -27,9 +27,11 @@ Milestone documents record completed and candidate architectural slices. They de
 
 19A. [Inventory Transactions and Item Capability Adapter](BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md)
 
+19B1. [Combustion State and Persistence](BACKEND_MILESTONE_19B1_COMBUSTION_STATE_AND_PERSISTENCE.md)
+
 ## Active Candidate
 
-19B1. [Combustion State and Persistence](BACKEND_MILESTONE_19B1_COMBUSTION_STATE_AND_PERSISTENCE.md)
+19B2. [Material Crusher Engine Migration](BACKEND_MILESTONE_19B2_MATERIAL_CRUSHER_ENGINE_MIGRATION.md)
 
 Milestone 19 was split after audit evidence showed that inventory adaptation, combustion persistence,
 and the Material Crusher migration deserve independent validation boundaries. The milestone numbering

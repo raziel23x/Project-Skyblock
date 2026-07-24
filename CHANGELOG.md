@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — Engine Milestone 19B2
+
+- Migrated the Material Crusher prototype onto engine-owned inventory, energy, combustion, and processing state.
+- Removed its independent server ticker and obsolete crusher-owned inventory/energy wrappers.
+- Added transactional completion, stable blocked sleeping, sided capability views, legacy save migration, and datapack-reload reevaluation.
+- Preserved recipes, timing, FE cost, fuel fallback, sided rules, menu layout, visuals, and unrelated prototype fixtures.
+- Added focused crusher logic, legacy migration, and adapter regression tests.
+
 ## Unreleased — Engine Milestone 19B1
 
 - Added a Minecraft-independent combustion reservoir for durable remaining and total burn work.

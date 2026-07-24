@@ -1,3 +1,13 @@
+# Engine Milestone 19B2 — Material Crusher Engine Migration
+
+- Replaced the Material Crusher's per-block ticker and duplicated resource state with one composed machine runtime.
+- Added Minecraft-independent crusher logic with recipe/fuel/settings ports and atomic completion transactions.
+- Added restricted sided/menu item adapters and dynamic FE receipt gating over engine-owned state.
+- Added one-time legacy NBT conversion into schema-3 snapshots and tested normalization.
+- Added datapack-reload wake propagation for sleeping and blocked engine machines.
+- Removed obsolete crusher-owned inventory, energy, sided-handler, and power-source classes.
+- Preserved the prototype's recipes, timing, power policy, UI, visuals, automation directions, and save contents.
+
 # Engine Milestone 19B1 — Combustion State and Persistence
 
 - Added an internal machine combustion reservoir with validated ignition, consumption, restore, and diagnostics.
@@ -120,7 +130,7 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-Run the complete local Gradle and client regression gates for Milestone 19B1. After combustion
-persistence is proven, migrate the Material Crusher in Milestone 19B2 to stress transactional
-processing, sided automation, hybrid FE/fuel operation, legacy save conversion, and scheduler
-sleep/wake behavior. Prototype conversion does not make the crusher permanent Game Era content.
+Run the complete Windows Gradle and both-profile runtime gates for Milestone 19B2. After the crusher
+proves transactional processing, sided adaptation, legacy save conversion, reload reevaluation, and
+scheduler sleeping, decide whether another fixture exposes a missing engine contract. Conversion does
+not make the crusher permanent Game Era content; retire it when its validation value is exhausted.

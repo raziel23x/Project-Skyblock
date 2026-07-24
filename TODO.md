@@ -32,8 +32,9 @@ integration requirements, then may be archived or removed after its evidence is 
 - [x] Implement the Milestone 19A inventory transaction and item capability adapter candidate
 - [x] Run local Gradle tests and build for Milestone 19A
 - [x] Add the Milestone 19B1 combustion-state and snapshot-schema candidate
-- [ ] Run local Gradle tests and build for Milestone 19B1
-- [ ] Prove inventory, combustion, and processing contracts through the Material Crusher Milestone 19B2 migration
+- [x] Run local Gradle tests and build for Milestone 19B1
+- [x] Implement the Material Crusher Milestone 19B2 engine-migration candidate
+- [ ] Run local Gradle and both-profile runtime validation for Milestone 19B2
 
 ## Prototype Stress-Test Migration
 
@@ -41,9 +42,9 @@ The existing working content is executable evidence, not a final gameplay or con
 Each conversion must identify the contracts being stressed, fix root causes, add regression tests,
 and record when the prototype no longer provides unique validation value.
 
-- [ ] Convert a processing prototype, likely the Material Crusher, to stress energy, inventory,
-  processing, persistence, synchronization, and sided-adapter contracts
-- [ ] Preserve hybrid operation using either stored power or burnable material where the final design still requires it
+- [x] Convert the Material Crusher prototype to stress energy, inventory, combustion, processing,
+  persistence, synchronization, reload, scheduler, and sided-adapter contracts
+- [x] Preserve the Material Crusher prototype's hybrid FE/furnace-fuel regression behavior
 - [x] Recreate the creative power source as an engine-owned testing adapter
 - [ ] Recreate the Thermal Generator through engine-owned energy and thermal state
 - [ ] Recreate Basic Energy Cable behavior through the energy-network backend

@@ -323,6 +323,120 @@ m19b1_milestone_doc = (
 if not m19b1_milestone_doc.exists():
     fail("Missing Milestone 19B1 engineering record")
 
+# Milestone 19B2 must keep the Material Crusher as an engine-owned, ticker-free stress fixture.
+m19b2_required_sources = {
+    "crusher logic": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/logic/crusher/MaterialCrusherLogic.java",
+    "crusher legacy migration": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/logic/crusher/MaterialCrusherLegacySnapshotMigration.java",
+    "recipe port": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/logic/crusher/MaterialCrusherRecipePort.java",
+    "fuel port": JAVA_ROOT / "raziel23x/projectskyblock/simulation/machine/logic/crusher/MaterialCrusherFuelPort.java",
+    "Minecraft recipe adapter": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/crusher/MinecraftMaterialCrusherRecipePort.java",
+    "Minecraft fuel adapter": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/crusher/MinecraftMaterialCrusherFuelPort.java",
+    "crusher item adapter": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/crusher/MaterialCrusherItemHandler.java",
+    "crusher FE gate": JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/crusher/MaterialCrusherEnergyStorage.java",
+}
+for description, source in m19b2_required_sources.items():
+    if not source.exists():
+        fail(f"Missing Milestone 19B2 {description}: {source.relative_to(ROOT)}")
+
+crusher_logic_source = m19b2_required_sources["crusher logic"]
+if crusher_logic_source.exists():
+    crusher_logic_text = crusher_logic_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "maximum-output admission": "canAcceptMaximum(inventory, recipe.maximumResult())",
+        "atomic completion transaction": "MachineInventoryTransaction transaction = inventory.beginTransaction()",
+        "input consumption": "transaction.consume(INPUT_SLOT, 1L)",
+        "primary output insertion": "transaction.store(OUTPUT_SLOT, result.primary())",
+        "byproduct output insertion": "transaction.store(BYPRODUCT_SLOT, result.byproduct())",
+        "hybrid source policy": "consumePower(components, settings)",
+        "combustion ownership": "components.combustion()",
+        "stable output blocking": "SimulationResult.blocked(BLOCKED_OUTPUT)",
+        "legacy process adoption": "processing.processId().equals(LEGACY_PROCESS_ID)",
+    }.items():
+        if snippet not in crusher_logic_text:
+            fail(f"Missing Milestone 19B2 crusher {description} contract")
+
+crusher_block_entity = (
+    JAVA_ROOT / "raziel23x/projectskyblock/blockentity/MaterialCrusherBlockEntity.java"
+)
+if not crusher_block_entity.exists():
+    fail("Missing Material Crusher block entity")
+else:
+    crusher_block_entity_text = crusher_block_entity.read_text(encoding="utf-8")
+    required_shell_contracts = {
+        "engine block-entity bridge": "extends EngineMachineBlockEntity",
+        "composed machine runtime": "new MachineRuntime(",
+        "legacy snapshot hook": "readLegacyMachineSnapshot(",
+        "legacy normalization helper": "MaterialCrusherLegacySnapshotMigration.migrate(",
+        "engine item views": "EngineItemHandlerAdapter",
+        "top input view": "Material Crusher top input",
+        "side fuel view": "Material Crusher side fuel",
+        "bottom output view": "Material Crusher bottom output",
+        "engine energy adapter": "EngineEnergyStorageAdapter",
+    }
+    for description, snippet in required_shell_contracts.items():
+        if snippet not in crusher_block_entity_text:
+            fail(f"Missing Milestone 19B2 platform-shell {description} contract")
+    for forbidden_state in (
+        "new CrusherInventory(",
+        "new CrusherEnergyStorage(",
+        "private int progress;",
+        "private int burnTimeRemaining;",
+        "private int burnTimeTotal;",
+        "serverTick(",
+    ):
+        if forbidden_state in crusher_block_entity_text:
+            fail("Material Crusher still owns legacy authority or ticking: " + forbidden_state)
+
+crusher_block_source = JAVA_ROOT / "raziel23x/projectskyblock/block/MaterialCrusherBlock.java"
+if crusher_block_source.exists():
+    crusher_block_text = crusher_block_source.read_text(encoding="utf-8")
+    if "getTicker(" in crusher_block_text or "MaterialCrusherBlockEntity::serverTick" in crusher_block_text:
+        fail("Material Crusher still registers an independent block-entity ticker")
+
+for retired_source in (
+    JAVA_ROOT / "raziel23x/projectskyblock/machine/crusher/CrusherEnergyStorage.java",
+    JAVA_ROOT / "raziel23x/projectskyblock/machine/crusher/CrusherInventory.java",
+    JAVA_ROOT / "raziel23x/projectskyblock/machine/crusher/CrusherPowerSource.java",
+    JAVA_ROOT / "raziel23x/projectskyblock/machine/crusher/CrusherSidedItemHandler.java",
+):
+    if retired_source.exists():
+        fail(f"Retired split-authority crusher source remains active: {retired_source.relative_to(ROOT)}")
+
+level_manager_source = (
+    JAVA_ROOT / "raziel23x/projectskyblock/platform/neoforge/machine/EngineMachineLevelManager.java"
+)
+project_entry_source = JAVA_ROOT / "raziel23x/projectskyblock/ProjectSkyblock.java"
+if level_manager_source.exists():
+    level_manager_text = level_manager_source.read_text(encoding="utf-8")
+    if "public static void requestAllWork(MinecraftServer server)" not in level_manager_text:
+        fail("Milestone 19B2 datapack-reload wake entry point is missing")
+if project_entry_source.exists():
+    project_entry_text = project_entry_source.read_text(encoding="utf-8")
+    for snippet in (
+        "ProjectSkyblock::onDatapackSync",
+        "event.getPlayer() == null",
+        "EngineMachineLevelManager.requestAllWork",
+    ):
+        if snippet not in project_entry_text:
+            fail("Milestone 19B2 datapack-reload reevaluation contract is missing: " + snippet)
+
+m19b2_required_tests = (
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/machine/logic/crusher/MaterialCrusherLogicTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/machine/logic/crusher/MaterialCrusherLegacySnapshotMigrationTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/platform/neoforge/machine/crusher/MaterialCrusherItemHandlerTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/platform/neoforge/machine/crusher/MaterialCrusherEnergyStorageTest.java",
+)
+for test_source in m19b2_required_tests:
+    if not test_source.exists():
+        fail(f"Missing Milestone 19B2 regression test: {test_source.relative_to(ROOT)}")
+
+m19b2_milestone_doc = (
+    ROOT
+    / "docs/03-engineering/milestones/BACKEND_MILESTONE_19B2_MATERIAL_CRUSHER_ENGINE_MIGRATION.md"
+)
+if not m19b2_milestone_doc.exists():
+    fail("Missing Milestone 19B2 engineering record")
+
 # Keep the unavoidable Minecraft NBT surface explicit. Legacy prototype block entities are
 # temporary stress fixtures; new NBT-bearing gameplay files must not appear unnoticed.
 allowed_nbt_sources = {

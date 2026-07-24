@@ -72,6 +72,14 @@ final class LevelMachineScheduler {
         pendingIntegration.remove(machine);
     }
 
+    void requestAllWork() {
+        for (EngineMachineBlockEntity machine : List.copyOf(machinesByParticipantId.values())) {
+            if (!machine.isRemoved() && machine.getLevel() == level && machine.hasMachineRuntime()) {
+                machine.machineRuntime().requestWork();
+            }
+        }
+    }
+
     void tick() {
         long gameTime = level.getGameTime();
         lastReport = scheduler.tick(

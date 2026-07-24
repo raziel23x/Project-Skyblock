@@ -58,18 +58,19 @@ abstraction.
 - Tiered standalone and integration developer validation environments
 - Full integration runtime validation, including optional Curios Repair Gem behavior
 - Milestone 19A transactional inventory and item capability contracts
+- Milestone 19B1 engine-owned combustion state and snapshot schema 3
 
 ### Active Candidate
 
-- Milestone 19B1 — engine-owned combustion state, aggregate diagnostics, and backward-compatible
-  machine snapshot schema 3
+- Milestone 19B2 — Material Crusher migration onto engine-owned inventory, energy, combustion,
+  processing, persistence, reload, and scheduler contracts
 
 ### Near-Term Planned
 
-- Run the complete local Gradle suite for Milestone 19B1
-- Migrate the Material Crusher as Milestone 19B2 after combustion persistence passes
-- Prove transactional processing completion, sided automation, hybrid FE/fuel operation, legacy
-  save migration, and scheduler blocking through that processing workload
+- Run the complete Windows Gradle and standalone/integration runtime suite for Milestone 19B2
+- Prove legacy save conversion, transactional completion, sided automation, hybrid FE/fuel behavior,
+  blocked sleeping, meaningful wakes, and datapack reload reevaluation
+- Retain or retire the crusher strictly according to remaining validation value
 
 ### Later Planned When Proven Necessary
 

@@ -9,7 +9,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import raziel23x.projectskyblock.ProjectSkyblock;
-import raziel23x.projectskyblock.machine.crusher.CrusherPowerSource;
+import raziel23x.projectskyblock.simulation.machine.logic.crusher.MaterialCrusherPowerSource;
 import raziel23x.projectskyblock.menu.MaterialCrusherMenu;
 import raziel23x.projectskyblock.client.gui.MachineGuiRenderHelper;
 
@@ -179,7 +179,7 @@ public final class MaterialCrusherScreen
                 0xFF39A7FF
         );
 
-        if (getPowerSource() == CrusherPowerSource.FE && menu.isWorking()) {
+        if (getPowerSource() == MaterialCrusherPowerSource.FE && menu.isWorking()) {
             int pulseY = top + ENERGY_Y + ENERGY_HEIGHT
                     - ((animationTicks * 2) % Math.max(1, energyHeight));
             guiGraphics.fill(
@@ -269,7 +269,7 @@ public final class MaterialCrusherScreen
                 28
         );
 
-        if (getPowerSource() == CrusherPowerSource.FUEL && menu.isWorking()) {
+        if (getPowerSource() == MaterialCrusherPowerSource.FUEL && menu.isWorking()) {
             guiGraphics.blit(
                     FLAMES,
                     left + MACHINE_CENTER_X - 16,
@@ -329,7 +329,7 @@ public final class MaterialCrusherScreen
             int y = top + 66 + ((index * 7 - cycle) % 18);
             int size = index % 3 == 0 ? 2 : 1;
             int color;
-            if (getPowerSource() == CrusherPowerSource.FE && index % 3 == 0) {
+            if (getPowerSource() == MaterialCrusherPowerSource.FE && index % 3 == 0) {
                 color = 0xFF55B8FF;
             } else if (index % 4 == 0) {
                 color = 0xFFFFB13B;
@@ -463,12 +463,12 @@ public final class MaterialCrusherScreen
         );
     }
 
-    private CrusherPowerSource getPowerSource() {
-        CrusherPowerSource[] values = CrusherPowerSource.values();
+    private MaterialCrusherPowerSource getPowerSource() {
+        MaterialCrusherPowerSource[] values = MaterialCrusherPowerSource.values();
         int id = menu.getPowerSourceId();
         return id >= 0 && id < values.length
                 ? values[id]
-                : CrusherPowerSource.NONE;
+                : MaterialCrusherPowerSource.NONE;
     }
 
     private static String formatEnergy(int energy) {

@@ -3,6 +3,7 @@ package raziel23x.projectskyblock.platform.neoforge.machine;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Objects;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -34,6 +35,17 @@ public final class EngineMachineLevelManager {
         LevelMachineScheduler scheduler = LEVEL_SCHEDULERS.get(level);
         if (scheduler != null) {
             scheduler.unregister(machine);
+        }
+    }
+
+    /** Rechecks sleeping and blocked machines after an authoritative datapack reload. */
+    public static void requestAllWork(MinecraftServer server) {
+        Objects.requireNonNull(server, "server");
+        for (ServerLevel level : server.getAllLevels()) {
+            LevelMachineScheduler scheduler = LEVEL_SCHEDULERS.get(level);
+            if (scheduler != null) {
+                scheduler.requestAllWork();
+            }
         }
     }
 

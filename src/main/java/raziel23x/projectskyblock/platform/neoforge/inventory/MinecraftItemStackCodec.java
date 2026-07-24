@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -43,9 +43,9 @@ public final class MinecraftItemStackCodec {
             "projectskyblock:minecraft_data_components_json_v1";
     private static final int MAX_JSON_DEPTH = 64;
 
-    private final Supplier<RegistryAccess> registryAccessSupplier;
+    private final Supplier<HolderLookup.Provider> registryAccessSupplier;
 
-    public MinecraftItemStackCodec(Supplier<RegistryAccess> registryAccessSupplier) {
+    public MinecraftItemStackCodec(Supplier<HolderLookup.Provider> registryAccessSupplier) {
         this.registryAccessSupplier = Objects.requireNonNull(
                 registryAccessSupplier,
                 "registryAccessSupplier");
@@ -191,8 +191,8 @@ public final class MinecraftItemStackCodec {
         return canonicalizePatch(patch);
     }
 
-    private RegistryAccess registryAccess() {
-        RegistryAccess registryAccess = registryAccessSupplier.get();
+    private HolderLookup.Provider registryAccess() {
+        HolderLookup.Provider registryAccess = registryAccessSupplier.get();
         if (registryAccess == null) {
             throw new ItemStackBoundaryException("Minecraft registry access is unavailable");
         }

@@ -81,6 +81,17 @@ container remainders. Runtime ignition and consumption mark persistence and clie
 without issuing a redundant scheduler wake because those mutations occur inside an active machine
 execution. Snapshot schema 3 persists this state, while older schemas restore an empty reservoir.
 
+## Material Crusher Vertical Slice
+
+**Status:** Candidate in Milestone 19B2.
+
+The disposable Material Crusher fixture composes engine-owned inventory, energy, combustion, and
+processing state behind narrow recipe, fuel, settings, item-capability, energy-capability, menu,
+visual, and persistence adapters. Its logic proves maximum-output admission, atomic input/output
+completion, power-source policy, stable blocked sleeping, meaningful wakes, datapack-reload
+reevaluation, and one-time legacy save conversion. The fixture is not a reusable component and does
+not become permanent content merely because it exercises these contracts.
+
 ## Machine Runtime Persistence Bridge
 
 - `MachineRuntimeSnapshot` is the format-neutral durable state contract.

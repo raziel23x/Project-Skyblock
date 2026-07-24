@@ -17,8 +17,6 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -28,7 +26,6 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import raziel23x.projectskyblock.blockentity.MaterialCrusherBlockEntity;
-import raziel23x.projectskyblock.registry.ModBlockEntities;
 
 public final class MaterialCrusherBlock extends BaseEntityBlock {
     public static final MapCodec<MaterialCrusherBlock> CODEC =
@@ -95,22 +92,6 @@ public final class MaterialCrusherBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-            Level level,
-            BlockState state,
-            BlockEntityType<T> type) {
-        if (level.isClientSide) {
-            return null;
-        }
-
-        return createTickerHelper(
-                type,
-                ModBlockEntities.MATERIAL_CRUSHER.get(),
-                MaterialCrusherBlockEntity::serverTick
-        );
-    }
-
-    @Override
     public void animateTick(
             BlockState state,
             Level level,
@@ -137,9 +118,7 @@ public final class MaterialCrusherBlock extends BaseEntityBlock {
             );
 
             if (level.getBlockEntity(pos) instanceof MaterialCrusherBlockEntity crusher) {
-                ItemStack input = crusher.getInventory().getStackInSlot(
-                        MaterialCrusherBlockEntity.INPUT_SLOT
-                );
+                ItemStack input = crusher.getInputStackForVisuals();
                 Block inputBlock = Block.byItem(input.getItem());
                 if (!input.isEmpty() && inputBlock != net.minecraft.world.level.block.Blocks.AIR) {
                     level.addParticle(

@@ -3,6 +3,9 @@ package raziel23x.projectskyblock.platform.neoforge.machine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -36,6 +39,20 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
 
     /** Creates and registers the backend runtime against the level-owned scheduler. */
     protected abstract MachineRuntime createMachineRuntime(SimulationScheduler scheduler);
+
+    /**
+     * Optional platform-specific migration hook for pre-engine block-entity data.
+     * Returning {@code null} means the tag does not contain a supported legacy state.
+     */
+    protected MachineRuntimeSnapshot readLegacyMachineSnapshot(
+            CompoundTag tag,
+            HolderLookup.Provider registries) {
+        return null;
+    }
+
+    /** Invoked only after a decoded or migrated snapshot has been restored successfully. */
+    protected void afterMachineSnapshotRestored(MachineRuntimeSnapshot snapshot) {
+    }
 
     public final EngineMachineLifecycle engineLifecycle() {
         return lifecycle;
@@ -107,19 +124,32 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        if (tag.contains(MachineRuntimeNbtCodec.ROOT_KEY)) {
-            try {
-                MachineRuntimeSnapshot snapshot = MachineRuntimeNbtCodec.read(tag);
-                if (runtime == null) {
-                    pendingSnapshot = snapshot;
-                } else {
-                    restoreSnapshotSafely(snapshot, "reload");
-                }
-            } catch (RuntimeException failure) {
-                reportPersistenceFailure("decode", failure);
-                pendingSnapshot = null;
+        try {
+            MachineRuntimeSnapshot snapshot = tag.contains(MachineRuntimeNbtCodec.ROOT_KEY)
+                    ? MachineRuntimeNbtCodec.read(tag)
+                    : readLegacyMachineSnapshot(tag, registries);
+            if (snapshot == null) {
+                return;
             }
+            if (runtime == null) {
+                pendingSnapshot = snapshot;
+            } else {
+                restoreSnapshotSafely(snapshot, "reload");
+            }
+        } catch (RuntimeException failure) {
+            reportPersistenceFailure("decode", failure);
+            pendingSnapshot = null;
         }
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
@@ -140,6 +170,7 @@ public abstract class EngineMachineBlockEntity extends BlockEntity {
     private void restoreSnapshotSafely(MachineRuntimeSnapshot snapshot, String phase) {
         try {
             MachineRuntimePersistence.restore(machineRuntime(), snapshot);
+            afterMachineSnapshotRestored(snapshot);
         } catch (RuntimeException failure) {
             reportPersistenceFailure(phase, failure);
         }

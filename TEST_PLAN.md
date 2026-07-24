@@ -1,5 +1,18 @@
 # Test Plan — Engine Era Validation
 
+## Milestone 19B2 Material Crusher migration contract
+
+The Gradle suite must include and pass `MaterialCrusherLogicTest`,
+`MaterialCrusherLegacySnapshotMigrationTest`, `MaterialCrusherItemHandlerTest`, and
+`MaterialCrusherEnergyStorageTest` together with all prior engine and boundary tests.
+
+Runtime validation must cover both standalone and integration profiles. Use the existing placed
+crusher as a legacy-save fixture before placing a fresh crusher. Verify FE-only processing,
+fuel-only processing, configured source preference, lava-bucket remainder handling, blocked outputs
+without input/power loss, top/side/bottom automation, menu extraction, save/reload persistence,
+`/reload` reevaluation, and clean shutdown. Confirm the Thermal Generators, Creative Energy Cell, and
+all unrelated prototype fixtures remain unchanged.
+
 ## Build and repository gates
 
 ```cmd
