@@ -1,3 +1,12 @@
+# Engine Milestone 20A — Typed Transport Network Core
+
+- Added one Minecraft-independent physical topology supporting arbitrary typed transport channels.
+- Added data-facing profiles with independent native-unit throughput instead of hard-coded Mk tiers.
+- Added deterministic channel-filtered routes and atomic per-step shared-edge reservations.
+- Added rotating dispatch fairness with exact planned, deferred, and unroutable accounting.
+- Added stable no-progress confirmation and event-driven network sleeping.
+- Deliberately deferred energy loss/commit policy, live cable migration, and fluid/gas semantics.
+
 # Engine Milestone 19B2 — Material Crusher Engine Migration
 
 - Replaced the Material Crusher's per-block ticker and duplicated resource state with one composed machine runtime.
@@ -130,7 +139,7 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-Run the complete Windows Gradle and both-profile runtime gates for Milestone 19B2. After the crusher
-proves transactional processing, sided adaptation, legacy save conversion, reload reevaluation, and
-scheduler sleeping, decide whether another fixture exposes a missing engine contract. Conversion does
-not make the crusher permanent Game Era content; retire it when its validation value is exhausted.
+Run the complete Windows Gradle and both-profile runtime gates for Milestone 20A. After the typed
+transport contracts pass, implement the energy-specific source, receiver, loss, and atomic commit
+policy in Milestone 20B. Migrate the Basic Energy Cable only after that policy is proven; do not freeze
+Mk tiers or final gameplay progression during the Engine Era.

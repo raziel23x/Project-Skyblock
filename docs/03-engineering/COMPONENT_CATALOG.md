@@ -12,6 +12,21 @@ A reusable machine component should:
 - wake the owning participant when new work may be possible;
 - avoid knowledge of menus, rendering, packets, and recipes.
 
+## Typed Transport Network Core
+
+**Status:** Candidate in Milestone 20A.
+
+`TransportTopology` owns one event-driven physical graph while `TransportProfile` defines independent
+native-unit throughput for arbitrary typed channels. `TransportStepReservations` enforces one
+per-channel shared-edge budget per simulation step. `TransportDispatchPlanner` produces immutable,
+exactly accounted plans and rotates stable request order across steps so lexical identifiers cannot
+permanently starve later work. `TransportNetworkParticipant` continues progressing work, confirms an
+unchanged no-progress fingerprint once, and then sleeps until an endpoint or topology event wakes it.
+
+The core contains no Mk tier names, Minecraft capabilities, resource mutation, energy-loss policy,
+item transaction policy, fluid semantics, or gas semantics. Those remain channel-specific adapters and
+policies proven by concrete consumers.
+
 ## MachineEnergyComponent
 
 **Status:** Implemented in Milestone 8.

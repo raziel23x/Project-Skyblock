@@ -437,6 +437,112 @@ m19b2_milestone_doc = (
 if not m19b2_milestone_doc.exists():
     fail("Missing Milestone 19B2 engineering record")
 
+# Milestone 20A typed transport topology, reservations, fairness, and sleeping must remain explicit.
+m20a_required_sources = {
+    "transport channel id": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportChannelId.java",
+    "transport node id": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportNodeId.java",
+    "transport profile": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportProfile.java",
+    "transport connection": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportConnection.java",
+    "typed transport topology": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportTopology.java",
+    "typed transport route": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportRoute.java",
+    "shared-edge reservations": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportStepReservations.java",
+    "dispatch planner": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportDispatchPlanner.java",
+    "dispatch plan": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportDispatchPlan.java",
+    "scheduled transport participant": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportNetworkParticipant.java",
+    "transport runtime state": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportNetworkRuntimeState.java",
+    "per-channel step result": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportChannelStepResult.java",
+    "multi-channel step result": JAVA_ROOT / "raziel23x/projectskyblock/simulation/transport/TransportNetworkStepResult.java",
+}
+for description, source in m20a_required_sources.items():
+    if not source.exists():
+        fail(f"Missing Milestone 20A {description}: {source.relative_to(ROOT)}")
+
+transport_profile_source = m20a_required_sources["transport profile"]
+if transport_profile_source.exists():
+    transport_profile_text = transport_profile_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "arbitrary typed channel map": "NavigableMap<TransportChannelId, TransportChannelProfile>",
+        "independent native-unit lookup": "maximumUnitsPerStep(TransportChannelId channelId)",
+        "duplicate-channel rejection": "transport profile contains duplicate channel",
+    }.items():
+        if snippet not in transport_profile_text:
+            fail(f"Missing Milestone 20A transport-profile {description} contract")
+
+transport_topology_source = m20a_required_sources["typed transport topology"]
+if transport_topology_source.exists():
+    transport_topology_text = transport_topology_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "channel-filtered route discovery": "if (!connection.supports(channelId))",
+        "stable node ordering": "new TreeMap<>()",
+        "conflicting connection rejection": "transport connection already exists with a different profile",
+        "channel-filtered components": "connectedComponentsForChannel",
+    }.items():
+        if snippet not in transport_topology_text:
+            fail(f"Missing Milestone 20A topology {description} contract")
+
+transport_reservations_source = m20a_required_sources["shared-edge reservations"]
+if transport_reservations_source.exists():
+    transport_reservations_text = transport_reservations_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "captured topology revision": "topologyRevision = topology.revision()",
+        "stale topology rejection": "topology.revision() != topologyRevision",
+        "all-route validation before mutation": "validateRoute(route);",
+        "checked shared-edge decrement": "Math.subtractExact(remaining, reserved)",
+    }.items():
+        if snippet not in transport_reservations_text:
+            fail(f"Missing Milestone 20A reservation {description} contract")
+
+transport_planner_source = m20a_required_sources["dispatch planner"]
+if transport_planner_source.exists():
+    transport_planner_text = transport_planner_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "stable request sorting": "stableRequests.sort(Comparator.comparing(TransportDispatchRequest::id))",
+        "rotating fairness": "fairnessSequence % stableRequests.size()",
+        "shared-edge reservation use": "new TransportStepReservations(topology, channelId)",
+        "unroutable accounting": "TransportDispatchStatus.UNROUTABLE",
+        "capacity deferral accounting": "TransportDispatchStatus.CAPACITY_DEFERRED",
+    }.items():
+        if snippet not in transport_planner_text:
+            fail(f"Missing Milestone 20A dispatch {description} contract")
+
+transport_participant_source = m20a_required_sources["scheduled transport participant"]
+if transport_participant_source.exists():
+    transport_participant_text = transport_participant_source.read_text(encoding="utf-8")
+    for description, snippet in {
+        "bounded execution": "budget.tryConsume(EXECUTION_WORK_UNITS)",
+        "progress continuation": "if (result.madeProgress())",
+        "stable stall confirmation": "state.confirmsStableStall(result.stateFingerprint())",
+        "event-driven sleeping": "return SimulationResult.sleep()",
+    }.items():
+        if snippet not in transport_participant_text:
+            fail(f"Missing Milestone 20A scheduler {description} contract")
+
+transport_step_result_source = m20a_required_sources["multi-channel step result"]
+if transport_step_result_source.exists():
+    transport_step_result_text = transport_step_result_source.read_text(encoding="utf-8")
+    if "Native units are never summed across channels" not in transport_step_result_text:
+        fail("Milestone 20A diagnostics must preserve native units per channel")
+    for forbidden_aggregate in ("totalRequestedUnits", "totalCommittedUnits", "totalTransportUnits"):
+        if forbidden_aggregate in transport_step_result_text:
+            fail("Milestone 20A transport diagnostics aggregate incompatible channel units")
+
+m20a_required_tests = (
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/transport/TransportTopologyTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/transport/TransportStepReservationsTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/transport/TransportDispatchPlannerTest.java",
+    ROOT / "src/test/java/raziel23x/projectskyblock/simulation/transport/TransportNetworkParticipantTest.java",
+)
+for test_source in m20a_required_tests:
+    if not test_source.exists():
+        fail(f"Missing Milestone 20A regression test: {test_source.relative_to(ROOT)}")
+
+m20a_milestone_doc = (
+    ROOT
+    / "docs/03-engineering/milestones/BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md"
+)
+if not m20a_milestone_doc.exists():
+    fail("Missing Milestone 20A engineering record")
+
 # Keep the unavoidable Minecraft NBT surface explicit. Legacy prototype block entities are
 # temporary stress fixtures; new NBT-bearing gameplay files must not appear unnoticed.
 allowed_nbt_sources = {

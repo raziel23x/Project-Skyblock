@@ -59,24 +59,24 @@ abstraction.
 - Full integration runtime validation, including optional Curios Repair Gem behavior
 - Milestone 19A transactional inventory and item capability contracts
 - Milestone 19B1 engine-owned combustion state and snapshot schema 3
+- Milestone 19B2 Material Crusher engine migration and both-profile validation
 
 ### Active Candidate
 
-- Milestone 19B2 — Material Crusher migration onto engine-owned inventory, energy, combustion,
-  processing, persistence, reload, and scheduler contracts
+- Milestone 20A — typed transport topology, profiles, shared-edge reservations, fairness, and
+  stable no-progress sleeping
 
 ### Near-Term Planned
 
-- Run the complete Windows Gradle and standalone/integration runtime suite for Milestone 19B2
-- Prove legacy save conversion, transactional completion, sided automation, hybrid FE/fuel behavior,
-  blocked sleeping, meaningful wakes, and datapack reload reevaluation
-- Retain or retire the crusher strictly according to remaining validation value
+- Run the complete Windows Gradle and standalone/integration runtime suite for Milestone 20A
+- Implement Milestone 20B energy-specific dispatch, route loss, endpoint validation, and commit policy
+- Migrate the Basic Energy Cable in Milestone 20C only after the energy policy is proven
+- Keep transport profile names and speeds data-facing; do not freeze Mk 1/Mk 2/Mk 3 progression
 
 ### Later Planned When Proven Necessary
 
 - Machine fluid component
 - Machine gas component
-- network fairness and contention
 - fluid and gas network behavior
 - chemistry-supporting resource properties
 

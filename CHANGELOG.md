@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — Engine Milestone 20A
+
+- Added a Minecraft-independent typed transport topology with arbitrary channel identifiers.
+- Replaced hard-coded Mk tier assumptions with data-facing profiles containing independent native-unit throughput per channel.
+- Added deterministic channel-filtered routing, atomic shared-edge reservations, and stale-topology rejection.
+- Added rotating request fairness with exact planned, deferred, and unroutable accounting.
+- Added a scheduled transport participant that confirms stable no-progress once, then sleeps until an event wakes it.
+- Kept the live Basic Energy Cable, machines, gameplay balance, saves, capabilities, and assets unchanged.
+
 ## Unreleased — Engine Milestone 19B2
 
 - Migrated the Material Crusher prototype onto engine-owned inventory, energy, combustion, and processing state.

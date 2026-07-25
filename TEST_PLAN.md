@@ -1,5 +1,20 @@
 # Test Plan — Engine Era Validation
 
+## Milestone 20A typed transport network contract
+
+The Gradle suite must include and pass `TransportTopologyTest`,
+`TransportStepReservationsTest`, `TransportDispatchPlannerTest`, and
+`TransportNetworkParticipantTest` together with all prior engine and boundary tests.
+
+The contract must prove arbitrary typed channels, independent FE/item/fluid/gas native-unit
+throughput, channel-filtered routing, shared-edge contention, stale-topology failure, exact planning
+accounting, rotating fairness, bounded execution, and stable no-progress sleeping. Planning must not
+mutate endpoints or introduce Minecraft/NeoForge types into the simulation package.
+
+Standalone and integration smoke tests must confirm the existing world, Material Crushers, Thermal
+Generators, Creative Energy Cell, cable fixture, and optional helper environment still load and shut
+down cleanly. No M20A runtime behavior is expected from the live Basic Energy Cable.
+
 ## Milestone 19B2 Material Crusher migration contract
 
 The Gradle suite must include and pass `MaterialCrusherLogicTest`,

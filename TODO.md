@@ -34,7 +34,9 @@ integration requirements, then may be archived or removed after its evidence is 
 - [x] Add the Milestone 19B1 combustion-state and snapshot-schema candidate
 - [x] Run local Gradle tests and build for Milestone 19B1
 - [x] Implement the Material Crusher Milestone 19B2 engine-migration candidate
-- [ ] Run local Gradle and both-profile runtime validation for Milestone 19B2
+- [x] Run local Gradle and both-profile runtime validation for Milestone 19B2
+- [x] Implement the Milestone 20A typed transport network candidate
+- [ ] Run local Gradle and both-profile runtime validation for Milestone 20A
 
 ## Prototype Stress-Test Migration
 
@@ -86,7 +88,9 @@ and record when the prototype no longer provides unique validation value.
 - [ ] Machine fluid component
 - [ ] Machine gas component
 - [ ] Fluid and gas network behavior
-- [ ] Network fairness and contention
+- [x] Typed transport topology, per-channel throughput, shared-edge reservations, and fairness candidate
+- [ ] Energy-specific dispatch, loss, and endpoint commit policy
+- [ ] Basic Energy Cable migration onto the typed transport backend
 - [ ] Chemistry-supporting resource properties
 
 ## Game Era
