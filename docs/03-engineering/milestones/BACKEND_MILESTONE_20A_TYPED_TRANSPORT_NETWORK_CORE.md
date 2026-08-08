@@ -1,5 +1,11 @@
 # Backend Milestone 20A — Typed Transport Network Core
 
+## Status
+
+**Accepted post-baseline milestone.** Implementation and automated coverage passed the complete
+Windows Gradle suite plus standalone and locked-integration runtime validation. The immutable M17
+baseline tag is not moved by this acceptance.
+
 ## Purpose
 
 Replace the premature assumption that transport progression must be hard-coded as Mk 1, Mk 2, and
@@ -22,7 +28,7 @@ The shared parts are physical connectivity, deterministic routing, per-edge cont
 and sleeping. Resource mutation, loss, endpoint transactions, batching, and validation remain typed
 channel-policy responsibilities.
 
-## Implemented Candidate
+## Implemented
 
 ### Typed physical topology
 
@@ -90,15 +96,17 @@ channel-policy responsibilities.
 
 - **Gameplay:** none. No transport profile is registered as final content and no cable behavior changes.
 - **Save:** none. No persistence schema changes.
-- **API:** internal engine candidate only; no stable public API is frozen.
+- **API:** internal engine contract; no stable public API is frozen by milestone acceptance.
 - **Dependencies:** none.
 - **Performance:** topology remains event-driven; planning is bounded by supplied requests and route
   size; stable blocked networks sleep.
 
-## Runtime Validation Gate
+## Acceptance Evidence
 
-Windows validation must pass the complete Gradle test/build suite and launch both standalone and
-locked integration profiles without changing existing fixture behavior. Milestone 20A is accepted
-only after those gates pass. Milestone 20B may then implement the first energy-specific dispatch and
-commit policy over this core; Milestone 20C may migrate the Basic Energy Cable only after that policy
-is proven.
+Milestone 20A passed the complete Windows Gradle test/build gate and both isolated runtime profiles.
+The standalone profile proved no accidental optional dependency, while the locked integration profile
+proved helper-mod isolation and regression behavior. Existing fixture behavior remained unchanged.
+
+With M20A accepted, `DOC-SPRING-001` is the current prerequisite. After it closes, M20B1 begins with a
+guarded audit and then proves transactional energy endpoints over this transport core. M20C may
+migrate the Basic Energy Cable only after the required energy policy is proven.

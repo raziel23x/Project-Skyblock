@@ -14,7 +14,7 @@ A reusable machine component should:
 
 ## Typed Transport Network Core
 
-**Status:** Candidate in Milestone 20A.
+**Status:** Accepted post-baseline in Milestone 20A.
 
 `TransportTopology` owns one event-driven physical graph while `TransportProfile` defines independent
 native-unit throughput for arbitrary typed channels. `TransportStepReservations` enforces one
@@ -38,7 +38,7 @@ persistence, client sync, and scheduler dirty state and signal the owner to wake
 
 ## MachineInventoryComponent
 
-**Status:** Implemented in Milestone 9.
+**Status:** Implemented in Milestone 9; transactional/adaptation extensions accepted in Milestone 19A.
 
 Owns authoritative Minecraft-independent slot contents using `SimulationItemKey`, opaque
 `SimulationItemState`, and `SimulationItemStack`. Adapter-owned state participates in identity so
@@ -82,13 +82,13 @@ Owns the recipe-independent lifecycle of one active operation: idle, running, bl
 
 ## Machine Composition Runtime
 
-**Status:** Implemented in Milestone 12.
+**Status:** Implemented in Milestone 12 and extended by accepted post-baseline milestones.
 
 `MachineRuntime` composes the implemented energy, inventory, thermal, combustion, and processing components with typed machine state and scheduler participation. All components share one externally registered `DirtyStateTracker`; components with externally triggered work use the runtime's coalesced wake signal, while internal combustion progress avoids redundant wake requests. `MachineComponentState`, `MachineComponentDiagnostics`, and `MachineRuntimeDiagnostics` provide ownership and observability without introducing platform dependencies.
 
 ## Machine Combustion Component
 
-**Status:** Candidate in Milestone 19B1.
+**Status:** Accepted post-baseline in Milestone 19B1.
 
 `MachineCombustionComponent` owns normalized remaining and total burn work for machines that consume
 discrete fuels. It deliberately does not inspect Minecraft items, recipes, burn-time APIs, or
@@ -98,7 +98,7 @@ execution. Snapshot schema 3 persists this state, while older schemas restore an
 
 ## Material Crusher Vertical Slice
 
-**Status:** Candidate in Milestone 19B2.
+**Status:** Accepted migrated stress fixture in Milestone 19B2.
 
 The disposable Material Crusher fixture composes engine-owned inventory, energy, combustion, and
 processing state behind narrow recipe, fuel, settings, item-capability, energy-capability, menu,
@@ -132,6 +132,7 @@ Materials, processing routes, and source provenance are built as one immutable c
 registry publishes the generation through one volatile write only after parsing and cross-reference
 validation succeeds. Invalid candidates retain the previous known-good generation rather than
 exposing partial reload state.
+
 ## NeoForge Energy Capability Adapter
 
 **Status:** Implemented in Milestone 16.

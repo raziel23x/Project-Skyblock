@@ -7,7 +7,9 @@ Research Era
     ↓
 Engine Era
     ↓
-Engine Baseline
+Engine Baseline / Validation
+    ↓
+Engine Graduation
     ↓
 Archive
     ↓
@@ -30,7 +32,7 @@ abstraction.
 
 ## Engine Era
 
-### Completed
+### Accepted Through Milestone 20A
 
 - Simulation foundation
 - Scheduler
@@ -60,18 +62,22 @@ abstraction.
 - Milestone 19A transactional inventory and item capability contracts
 - Milestone 19B1 engine-owned combustion state and snapshot schema 3
 - Milestone 19B2 Material Crusher engine migration and both-profile validation
+- Milestone 20A typed transport topology, profiles, shared-edge reservations, fairness, and stable
+  no-progress sleeping
 
-### Active Candidate
+### Current Gate
 
-- Milestone 20A — typed transport topology, profiles, shared-edge reservations, fairness, and
-  stable no-progress sleeping
+- Complete `DOC-SPRING-001` and its documentation-only acceptance criteria before new production work.
 
 ### Near-Term Planned
 
-- Run the complete Windows Gradle and standalone/integration runtime suite for Milestone 20A
-- Implement Milestone 20B energy-specific dispatch, route loss, endpoint validation, and commit policy
-- Migrate the Basic Energy Cable in Milestone 20C only after the energy policy is proven
-- Keep transport profile names and speeds data-facing; do not freeze Mk 1/Mk 2/Mk 3 progression
+- Begin Milestone 20B1 with a guarded audit of `SimulationEnergyState`, `MachineEnergyComponent`,
+  energy capability adapters, prior energy-network runtime behavior, and accepted M20A transport
+  contracts.
+- Prove transactional energy endpoints before broader energy dispatch/loss policy.
+- Continue evidence-driven Milestone 20B transport policy only after M20B1.
+- Migrate the Basic Energy Cable in Milestone 20C only after the energy policy is proven.
+- Keep transport profile names and speeds data-facing; do not freeze Mk 1/Mk 2/Mk 3 progression.
 
 ### Later Planned When Proven Necessary
 
@@ -83,10 +89,25 @@ abstraction.
 ## Engine Baseline
 
 Milestone 17 is the first formal Engine Era baseline, tagged as `engine-era-baseline-m17` after
-local Gradle, standalone runtime, persistence, wake-path, and Linux CI validation. Milestone 18 adds
-the permanent optional-integration test harness after the baseline; it validates adapters and
-ecosystem behavior without redefining core baseline ownership. This is a comparison point, not an
-engine freeze. See [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
+local Gradle, standalone runtime, persistence, wake-path, and Linux CI validation. Milestone 18 and
+accepted post-baseline milestones extend the engine without redefining the immutable M17 tag. The
+baseline is a comparison point, not an engine freeze. See [Engine Baseline and Validation](ENGINE_BASELINE_AND_VALIDATION.md).
+
+## Engine Graduation
+
+The physical repository topology is now decided.
+
+Through the Engine Era, this `Project-Skyblock` repository remains the Minecraft 1.21.1 / NeoForge
+engine laboratory. At graduation it becomes the single Minecraft/NeoForge-independent shared Project
+Skyblock engine/library repository.
+
+Project Skyblock gameplay then lives in one separate repository with version branches for 1.21.1 and
+26.1.x NeoForge. Both branches consume the same shared library; engine semantics are never duplicated
+between gameplay versions.
+
+Graduation does not automatically freeze a public API. Public contracts are promoted deliberately
+only after their ownership, tests, versioning, and maintenance obligations are justified. The final
+public/library artifact name remains undecided.
 
 ## Archive
 
@@ -99,17 +120,3 @@ The Journal becomes the first production feature and the central progression int
 ## Game Era
 
 Production content implements knowledge-driven progression, material decomposition, ecology, processing, logistics, energy, chemistry, and civilization systems through the validated engine.
-
-## Potential Engine Extraction
-
-After the Engine Era baseline is captured and the simulation APIs have proven stable through real gameplay and additional real projects, evaluate extracting the Minecraft-independent backend into a standalone NeoForge library mod shared by Project Skyblock and future mods. This is a future direction evaluated through evidence, not a current publishing milestone.
-
-Extraction should be considered only when:
-
-- multiple mods genuinely need the engine;
-- core packages remain free of Project Skyblock-specific dependencies;
-- component and simulation APIs have stabilized;
-- independent automated tests exist;
-- long-term versioned public API maintenance is justified.
-
-Until then, backend packages and platform adapters remain cleanly separated without introducing premature publishing, compatibility, or public-API obligations. Valid engine capabilities are not removed merely because Project Skyblock has not consumed them yet; removal requires an affirmative architectural justification. See ADR-0010 and the engine baseline policy.

@@ -36,7 +36,10 @@ integration requirements, then may be archived or removed after its evidence is 
 - [x] Implement the Material Crusher Milestone 19B2 engine-migration candidate
 - [x] Run local Gradle and both-profile runtime validation for Milestone 19B2
 - [x] Implement the Milestone 20A typed transport network candidate
-- [ ] Run local Gradle and both-profile runtime validation for Milestone 20A
+- [x] Run local Gradle and both-profile runtime validation for Milestone 20A
+- [x] Accept Milestone 20A typed transport network core after recovered Windows, standalone, and integration validation evidence
+- [ ] Complete DOC-SPRING-001 documentation spring cleaning and its acceptance gate
+- [ ] Begin M20B1 with a guarded audit of energy state, adapters, legacy runtime behavior, and M20A contracts
 
 ## Prototype Stress-Test Migration
 
@@ -88,7 +91,7 @@ and record when the prototype no longer provides unique validation value.
 - [ ] Machine fluid component
 - [ ] Machine gas component
 - [ ] Fluid and gas network behavior
-- [x] Typed transport topology, per-channel throughput, shared-edge reservations, and fairness candidate
+- [x] Typed transport topology, per-channel throughput, shared-edge reservations, and fairness
 - [ ] Energy-specific dispatch, loss, and endpoint commit policy
 - [ ] Basic Energy Cable migration onto the typed transport backend
 - [ ] Chemistry-supporting resource properties

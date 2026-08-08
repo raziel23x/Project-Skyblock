@@ -1,8 +1,8 @@
 # Project Skyblock Documentation
 
-This folder is the complete, replacement-ready documentation system for **Project Skyblock**.
-
-It is designed to be copied into the repository as one authoritative `docs` folder. The documentation distinguishes current implementation, accepted architecture, planned systems, and historical milestones.
+This is the live documentation tree for Project Skyblock. It distinguishes current implementation,
+accepted architecture, planned systems, historical milestones, integration boundaries, and reference
+material. It is maintained in place with the repository; it is not a replacement package.
 
 ## Start Here
 
@@ -12,10 +12,11 @@ It is designed to be copied into the repository as one authoritative `docs` fold
 4. [Progression Atlas](02-game-design/progression/PROGRESSION_ATLAS.md)
 5. [Engineering Principles](03-engineering/ENGINEERING_PRINCIPLES.md)
 6. [Engineering Documentation](03-engineering/README.md)
-6. [Engine Manual](03-engineering/ENGINE_DOCUMENTATION.md)
-7. [Engine Roadmap](03-engineering/ENGINE_ROADMAP.md)
-8. [Integration Contract](04-integration/INTEGRATION_CONTRACT.md)
-9. [Reference Index](05-reference/REFERENCE_INDEX.md)
+7. [Engine Manual](03-engineering/ENGINE_DOCUMENTATION.md)
+8. [Engine Roadmap](03-engineering/ENGINE_ROADMAP.md)
+9. [Integration Contract](04-integration/INTEGRATION_CONTRACT.md)
+10. [Reference Index](05-reference/REFERENCE_INDEX.md)
+11. [Document Status Index](DOCUMENT_STATUS_INDEX.md)
 
 ## Directory Map
 
@@ -30,8 +31,13 @@ docs/
 
 ## Canonical-Source Rule
 
-Each subject has one authoritative location. Other documents should link to that source rather than restating it. Planned features must be labeled **Planned**; implemented features must be supported by the repository.
+Each subject has one authoritative location. Other documents should link to that source rather than
+restating it. Planned features must be labeled **Planned**; implemented or accepted milestone status
+must be supported by repository and validation evidence. Historical files must identify themselves as
+historical rather than competing with current authority.
 
-## Replacement Safety
+## Maintenance
 
-This documentation set is intended to replace the repository's existing `docs` folder in one operation. See [Replacement Instructions](REPLACEMENT_INSTRUCTIONS.md).
+`MANIFEST.md` inventories the tracked Markdown documentation tree. `DOCUMENT_STATUS_INDEX.md` records
+purpose and authority/disposition boundaries established by DOC-SPRING-001. Documentation changes
+must keep navigation, status, and relative links consistent with the repository state.

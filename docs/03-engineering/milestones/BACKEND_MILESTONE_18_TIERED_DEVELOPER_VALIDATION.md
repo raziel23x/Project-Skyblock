@@ -12,10 +12,13 @@ or leaking into release artifacts.
 
 - Replaced the ambiguous clean client run with `standaloneClient` and the explicit
   `run-standalone\` working directory.
-- Retained `integrationClient` with the separate `run-integration\` working directory.
-- Limited helper JAR loading to `integrationClientAdditionalRuntimeClasspath` from
-  `dev\mods\integration\`.
+- Retained the integration client with the separate `run-integration\` working directory.
+- The final validated integration design uses the source-free `integrationRun` source set and the
+  `integrationHelperRuntime` configuration for helper JARs from `dev\mods\integration\`.
 - Preserved normal `clean`, `test`, `check`, and `build` behavior independently of helper JARs.
+
+The earlier `integrationClientAdditionalRuntimeClasspath` approach was an intermediate design and is
+superseded by the dedicated `integrationRun` source-set isolation described below.
 
 ### Reproducible helper-mod bootstrap
 
@@ -123,14 +126,13 @@ later check rather than loaded alongside JEI without a distinct validation purpo
 - The next complete `clean test build` is retained as a regression gate in the Milestone 19A test
   delivery; no unreported Gradle result is claimed here.
 
-
 ### Integration launch-classpath correction
 
 - The first integration launch preserved gameplay but its Mods screen matched standalone.
-- The dedicated run source set now owns the optional helper runtime graph.
+- The dedicated source-free `integrationRun` source set now owns the optional helper runtime graph
+  through `integrationHelperRuntime`.
 - Standalone and integration classpaths are explicitly isolated.
 - No production dependency, save format, gameplay, balance, or public API changed.
-
 
 ### Repair Gem Curios slot migration finding
 
@@ -142,7 +144,6 @@ later check rather than loaded alongside JEI without a distinct validation purpo
 - Added a packaged-resource JUnit regression test and repository schema checks.
 - Gameplay intent is restored rather than rebalanced: one dedicated Repair Gem slot,
   default drop behavior, no cosmetic slot, and no render toggle.
-
 
 ### Deferred slot artwork
 

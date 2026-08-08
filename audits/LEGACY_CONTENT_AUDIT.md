@@ -1,5 +1,10 @@
 # Legacy Content Audit
 
+> **Historical record — not current project authority.**
+>
+> This file preserves a legacy-content migration snapshot. Use `legacy-reference/` and the current
+> engineering roadmap for present decisions; do not treat the statuses below as the active work queue.
+
 ## Generators found in legacy resources
 
 Already rebuilt:

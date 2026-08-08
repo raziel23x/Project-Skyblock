@@ -3,11 +3,11 @@
 > Status: **Approved engineering record**
 >
 > Purpose: preserve what the engine was expected to provide at the end of the Engine Era, then
-> compare that expectation with what Project Skyblock and later projects actually required.
+> compare that expectation with what Project Skyblock and later consumers actually required.
 
 > Current baseline: Milestone 17 at tag `engine-era-baseline-m17` (commit `2fc296e`). The
 > baseline passed local Gradle, standalone runtime, persistence, wake-path, and Linux CI validation.
-> Milestone 18 establishes the permanent optional-integration harness after the baseline.
+> Later accepted milestones extend the engine without moving or redefining this immutable baseline tag.
 
 ## 1. What the Baseline Is
 
@@ -62,8 +62,8 @@ Every meaningful post-baseline change should be classified as one of the followi
 
 ## 4. Validation Journal
 
-During the Game Era, record changes that affect the engine in a validation journal. Each entry must
-include:
+During later development, record changes that affect the engine in a validation journal. Each entry
+must include:
 
 - date and project;
 - original baseline assumption;
@@ -71,7 +71,7 @@ include:
 - change classification;
 - why the responsibility belongs in that layer;
 - affected contracts and tests;
-- whether the change benefits future projects;
+- whether the change benefits future consumers;
 - documentation and migration work performed.
 
 ## 5. Final Validation Report
@@ -86,26 +86,29 @@ baseline and answer:
 - Which project-specific systems correctly remained outside the engine?
 - Which abstractions were premature, insufficient, or exactly right?
 - What should be retained for future mods even if Project Skyblock did not use it?
-- Is standalone library extraction now justified?
+- Which contracts are mature enough to publish as stable public API?
 
 The report exists to improve future engineering decisions, not to grade the project or search for
 features to delete.
 
-## 6. Relationship to Library Extraction
+## 6. Relationship to Engine Graduation
 
-The baseline and validation report provide the evidence needed to decide whether the simulation
-should become a standalone library mod shared by Project Skyblock and future projects.
+The physical repository topology is decided independently of whether unrelated external projects
+already consume the engine.
 
-Extraction is justified when multiple real projects need the backend, the core remains free of
-Project Skyblock-specific dependencies, tests are independent of Minecraft where practical, APIs
-have demonstrated stability, and long-term versioned maintenance is accepted.
+Through the Engine Era, the current `Project-Skyblock` repository remains the 1.21.1 NeoForge engine
+laboratory. At graduation, it becomes the single Minecraft/NeoForge-independent shared Project
+Skyblock engine/library repository. Project Skyblock gameplay moves to one separate repository with
+1.21.1 and 26.1.x NeoForge branches, both consuming the same shared library.
 
-Until then, the repository must preserve extraction-ready boundaries without pretending that an
-unproven internal package is already a stable public library.
+This decision supersedes the older requirement that multiple external projects must exist before the
+engine is physically separated. The evidence-driven parts of the original policy remain: the shared
+core must stay free of gameplay/platform ownership, tests must remain independent where practical,
+and public API stability must be intentional rather than inferred from repository separation.
 
-## 7. Current Baseline Candidate
+## 7. Current Baseline and Post-Baseline Evidence
 
-The first candidate includes:
+The M17 baseline includes:
 
 - deterministic bounded scheduling with sleep, wake coalescing, and failure isolation;
 - backend-owned energy, inventory, thermal, and processing components;
@@ -128,6 +131,6 @@ The baseline was promoted after the following evidence was recorded:
 6. The Gradle wrapper executable bit and the project-owned Gradle 10 deprecation were corrected in
    immediate post-baseline maintenance.
 
-Optional-integration validation remains important, but it validates adapter and ecosystem behavior
-rather than deciding whether the already standalone simulation baseline exists. Milestone 18 adds
-that permanent harness without moving the baseline tag.
+Post-baseline accepted work now includes Milestone 18 validation infrastructure, M19A transactional
+inventory/item adaptation, M19B1 combustion state, M19B2 Material Crusher migration, and M20A typed
+transport contracts. These accepted milestones extend the evidence set without moving the M17 tag.

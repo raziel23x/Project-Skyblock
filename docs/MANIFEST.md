@@ -1,8 +1,10 @@
 # Documentation Manifest
 
-Markdown files: 110
+Markdown files: 109
 
-This manifest indexes the authoritative `docs` folder.
+This manifest indexes the tracked Markdown files in the live `docs` tree. It is an inventory, not a
+second source of subject authority. See [Document Status Index](DOCUMENT_STATUS_INDEX.md) for purpose
+and authority boundaries.
 
 ## Included Files
 
@@ -80,8 +82,8 @@ This manifest indexes the authoritative `docs` folder.
 - `03-engineering/milestones/BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_19B1_COMBUSTION_STATE_AND_PERSISTENCE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_19B2_MATERIAL_CRUSHER_ENGINE_MIGRATION.md`
-- `03-engineering/milestones/BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_4_ENERGY_NETWORK_TOPOLOGY.md`
@@ -111,8 +113,7 @@ This manifest indexes the authoritative `docs` folder.
 - `05-reference/resource-bible/README.md`
 - `05-reference/resource-bible/REDSTONE_AND_TECH.md`
 - `05-reference/resource-bible/WOODS.md`
-- `DOCUMENTATION_AUDIT.md`
+- `DOCUMENT_STATUS_INDEX.md`
 - `MANIFEST.md`
 - `README.md`
-- `REPLACEMENT_INSTRUCTIONS.md`
 - `architecture/ENGINEERING_PRINCIPLES.md`

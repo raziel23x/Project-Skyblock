@@ -1,5 +1,11 @@
 # Civilization Core Specification
 
+> **Status: Planned outline — not implementation-ready.**
+>
+> This file records design direction only. It does not satisfy the repository's production feature
+> specification standard until functional requirements, data model, compatibility, testing, and
+> measurable acceptance criteria are completed and reviewed against current engine contracts.
+
 ## Purpose
 Provide the overarching progression model for the mod.
 

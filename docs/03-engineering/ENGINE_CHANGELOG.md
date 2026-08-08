@@ -6,6 +6,7 @@
 - Added rotating dispatch fairness with exact planned, deferred, and unroutable accounting.
 - Added stable no-progress confirmation and event-driven network sleeping.
 - Deliberately deferred energy loss/commit policy, live cable migration, and fluid/gas semantics.
+- Accepted after complete Windows Gradle validation and both standalone/integration runtime gates.
 
 # Engine Milestone 19B2 — Material Crusher Engine Migration
 
@@ -139,7 +140,7 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-Run the complete Windows Gradle and both-profile runtime gates for Milestone 20A. After the typed
-transport contracts pass, implement the energy-specific source, receiver, loss, and atomic commit
-policy in Milestone 20B. Migrate the Basic Energy Cable only after that policy is proven; do not freeze
-Mk tiers or final gameplay progression during the Engine Era.
+Complete `DOC-SPRING-001`. After its documentation-only acceptance gate closes, begin M20B1 with a
+guarded audit of energy state, adapters, prior energy-network behavior, and accepted M20A transport
+contracts. Production M20B1 then proves transactional energy endpoints. Broader M20B energy policy
+and M20C Basic Energy Cable migration remain later evidence-driven steps.

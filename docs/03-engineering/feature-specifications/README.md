@@ -1,12 +1,21 @@
 # Feature Specification Index
 
-## Core Specifications
+Feature documents fall into two explicit maturity classes. A short planning outline is useful design
+input, but it must not be mistaken for implementation authorization.
+
+## Implementation-Aligned Specification
+
+- [Machine Framework](MACHINE_FRAMEWORK.md) — reflects implemented engine contracts and documented planned components.
+
+## Planned Outlines
 
 - [Civilization Core](CIVILIZATION_CORE.md)
 - [Research System](RESEARCH_SYSTEM.md)
 - [Biology System](BIOLOGY_SYSTEM.md)
-- [Machine Framework](MACHINE_FRAMEWORK.md)
 - [Resource Production](RESOURCE_PRODUCTION.md)
+
+These outlines are intentionally pre-implementation. They become implementation-ready only after the
+required sections below are completed and their acceptance criteria are measurable.
 
 ## Specification Standard
 

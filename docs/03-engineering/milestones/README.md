@@ -1,8 +1,10 @@
 # Backend Milestones
 
-Milestone documents record completed and candidate architectural slices. They describe purpose, implementation, boundaries, validation, and deliberate deferrals.
+Milestone documents record completed and accepted architectural slices. They describe purpose,
+implementation, boundaries, validation, and deliberate deferrals. Milestones after the immutable M17
+baseline may be accepted without becoming part of the M17 baseline tag.
 
-## Completed
+## Baseline and Earlier Completed Milestones
 
 1. [Explicit Simulation Scheduler](BACKEND_MILESTONE_1_SCHEDULER.md)
 2. [Thermal Core](BACKEND_MILESTONE_2_THERMAL_CORE.md)
@@ -23,15 +25,13 @@ Milestone documents record completed and candidate architectural slices. They de
 17. [Baseline Hardening and Contract Stabilization](BACKEND_MILESTONE_17_BASELINE_HARDENING.md)
 18. [Tiered Developer Validation Environments](BACKEND_MILESTONE_18_TIERED_DEVELOPER_VALIDATION.md)
 
-## Completed Candidates Awaiting Baseline Integration
+## Accepted Post-Baseline Milestones
 
 19A. [Inventory Transactions and Item Capability Adapter](BACKEND_MILESTONE_19A_INVENTORY_TRANSACTIONS_AND_ITEM_ADAPTER.md)
 
 19B1. [Combustion State and Persistence](BACKEND_MILESTONE_19B1_COMBUSTION_STATE_AND_PERSISTENCE.md)
 
 19B2. [Material Crusher Engine Migration](BACKEND_MILESTONE_19B2_MATERIAL_CRUSHER_ENGINE_MIGRATION.md)
-
-## Active Candidate
 
 20A. [Typed Transport Network Core](BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md)
 
@@ -40,3 +40,10 @@ and the Material Crusher migration deserve independent validation boundaries. Mi
 so generic typed topology and contention, energy-specific dispatch, and live cable migration are
 proven independently. The numbering is intentionally flexible; architecture is not constrained to an
 obsolete milestone count or premature Mk tier plan.
+
+## Next Planned Implementation
+
+After `DOC-SPRING-001` closes, Milestone 20B1 begins with an energy-boundary audit before production
+code. It will prove transactional energy endpoint behavior over the accepted M20A transport core.
+Later M20B work may add evidence-driven energy dispatch/loss policy, and M20C may migrate the live
+Basic Energy Cable only after that policy is proven.

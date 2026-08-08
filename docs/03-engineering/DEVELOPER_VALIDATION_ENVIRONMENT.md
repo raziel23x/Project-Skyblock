@@ -91,7 +91,8 @@ evidence, not in the permanent source manifest.
 - Standalone and integration clients use separate writable game directories.
 - Each environment has its own options, configs, logs, crash reports, generated scripts, and world
   copy.
-- Integration JARs are loaded only through `integrationClientAdditionalRuntimeClasspath`.
+- Integration helper JARs enter the integration client only through the source-free `integrationRun`
+  source set and its `integrationHelperRuntime` configuration.
 - Helper JARs are ignored by Git and absent from normal runtime and published dependency metadata.
 - `verifyReleaseArtifact` runs as part of `check`, uses declared task inputs rather than execution-time
   project-model access, and rejects nested JARs or development workspace paths in the Project
@@ -150,18 +151,16 @@ Jade, TOP, JEI, KubeJS, CraftTweaker, or ProbeJS already expose complete Project
 adapters. Those integrations are implemented only when a real public contract is ready to prove,
 and each must also be tested with its target mod absent.
 
-
 ## Run-Classpath Isolation
 
 The standalone client launches from `main`. The integration client launches from a source-free
-`integrationRun` source set whose runtime classpath contains the normal Project Skyblock runtime
-plus the locally verified helper JARs. The helper configuration is absent from standalone execution,
-compilation, publication metadata, and release artifacts.
+`integrationRun` source set whose runtime classpath contains the normal Project Skyblock runtime plus
+locally verified helper JARs supplied by `integrationHelperRuntime`. The helper configuration is
+absent from standalone execution, compilation, publication metadata, and release artifacts.
 
 `runIntegrationClient` depends on `validateIntegrationEnvironment`, preventing a missing lock,
 hash mismatch, missing JAR, or unmanaged JAR from silently producing a false standalone-equivalent
 integration launch.
-
 
 ## Curios Slot Validation
 

@@ -1,5 +1,11 @@
 # Project Skyblock Repository Review
 
+> **Historical repository snapshot — not current project authority.**
+>
+> The word “Final” refers only to this completed historical review pass. File counts, build state,
+> recommendations, and implementation status below describe that earlier snapshot and must not be
+> used as current repository truth.
+
 ## Executive Summary
 
 This pass aligned the repository around its clearest design invariant: **One Tree. Infinite Possibilities.** Project Skyblock is now documented as a civilization-building systems mod whose mandatory progression begins with a living tree in the void.
@@ -52,7 +58,7 @@ Integrations and player experience
 
 The supplied archive included `.git/` and `.gradle/`. They were retained in the audit workspace for inspection but excluded from the clean deliverable ZIP. `.git/` is repository metadata; `.gradle/` is machine-generated local build state.
 
-## Remaining Recommendations
+## Remaining Recommendations At That Time
 
 1. Treat `STARTING_CONDITIONS.md` as the only canonical definition of the opening world; link to it instead of restating platform dimensions elsewhere.
 2. Add automated CI checks for Markdown links, JSON parsing, and documentation-manifest freshness.
@@ -60,6 +66,6 @@ The supplied archive included `.git/` and `.gradle/`. They were retained in the 
 4. Review exact duplicate textures and models before release; some may be intentional aliases, while others may be maintenance duplication.
 5. Run `gradlew build` in a network-enabled development environment and record the result before tagging a release.
 
-## Final Assessment
+## Historical Assessment
 
-The documentation structure is strong and now has a clearer identity. The most important improvement is not cosmetic: contributors can evaluate every mandatory feature against a memorable rule, trace design intent into architecture, and understand that automation exists to turn mastered labor into civilization-scale infrastructure.
+The documentation structure was judged strong for that repository snapshot, with the one-tree rule providing a useful design test and traceable relationship between intent and architecture.

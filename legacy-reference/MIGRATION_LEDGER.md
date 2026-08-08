@@ -18,5 +18,4 @@
 | Dirt Generator | REVIEW | Decide whether it bypasses progression |
 | Grass Block Generator | REVIEW | Decide whether it duplicates Dirt progression |
 | Cobblestone Crusher | REFERENCE | Compare behavior with Material Crusher |
-
-| Material Crusher | ACTIVE STRESS FIXTURE | M19A proves inventory adapter; M19B migrates processing ownership |
+| Material Crusher | MIGRATED STRESS FIXTURE | M19B2 migration and standalone/integration validation complete; retain only while it provides distinct engine regression value |

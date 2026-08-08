@@ -24,6 +24,7 @@ Status:
 - Proposed
 - Accepted
 - Deprecated
+- Superseded
 
 ## Decision 0001
 
@@ -41,7 +42,7 @@ Impacted Documents: ENGINE_BASELINE_AND_VALIDATION.md, ENGINE_ROADMAP.md, ADR-00
 
 Implementation Notes: Record post-baseline changes by classification and produce a final validation report before deciding on extraction.
 
-Status: Accepted
+Status: Superseded in part by Decision 0005. The non-freezing baseline, reusable-boundary, and evidence-driven API principles remain accepted. The old requirement for multiple external projects before physical library separation no longer controls the repository topology.
 
 ## Decision 0002
 
@@ -104,5 +105,32 @@ ENGINE_GUIDING_PRINCIPLES.md, TODO.md
 
 Implementation Notes: Each prototype migration identifies the contracts it stresses, captures
 regression tests, and records whether the prototype still provides unique validation value.
+
+Status: Accepted
+
+## Decision 0005
+
+Date: 2026-08-08
+
+Topic: Physical repository topology after Engine Era graduation
+
+Decision: Keep the current `Project-Skyblock` repository as the 1.21.1 NeoForge engine laboratory
+through the Engine Era. At graduation, this repository becomes the single Minecraft/NeoForge-independent
+shared Project Skyblock engine/library. Project Skyblock gameplay moves to one separate gameplay
+repository with `MC-1.21.1-NeoForge` and `MC-26.1.x-NeoForge` branches, both consuming the same shared
+library. Engine semantics must not be duplicated between gameplay branches.
+
+Reasoning: The semantic architecture already requires one version-neutral engine and replaceable
+platform adapters. Making the physical repository topology explicit prevents duplicated engine
+implementations while allowing both Minecraft generations to expose platform migration cost.
+
+Alternatives Considered: Keep physical topology indefinitely open; duplicate the engine per Minecraft
+branch; require unrelated external projects before separating the shared engine.
+
+Impacted Documents: ENGINE_ROADMAP.md, ENGINE_BASELINE_AND_VALIDATION.md,
+ADR-0010-REUSABLE-ENGINE-EVOLUTION.md
+
+Implementation Notes: The final public/library artifact name remains undecided. Graduation does not
+freeze a stable public API automatically; API publication remains an intentional versioned decision.
 
 Status: Accepted

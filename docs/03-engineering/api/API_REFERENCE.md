@@ -1,6 +1,10 @@
 # API Reference
 
-This document will catalog the mod's public integration surface.
+> **Status: Planned.** Project Skyblock has not frozen a stable public API yet.
+
+This document reserves the canonical location for the future public integration surface. Engine and
+platform contracts may exist internally before they are intentionally promoted, documented, and
+versioned as public API. Consumers must not infer stability from internal classes or packages.
 
 ## Planned Sections
 
@@ -14,4 +18,4 @@ This document will catalog the mod's public integration surface.
 - Datapack Formats
 - Compatibility APIs
 
-Only documented APIs should be considered public and stable.
+Only contracts explicitly documented here as public and stable should be treated as supported API.
