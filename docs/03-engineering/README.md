@@ -9,10 +9,11 @@ work through Milestone 20A has been implemented and accepted, including tiered v
 environments, transactional inventory/item adaptation, engine-owned combustion state, the Material
 Crusher engine migration, and the typed transport network core.
 
-`DOC-SPRING-001` is the current project action and is documentation-only. Production Milestone 20B1
-remains blocked until the documentation acceptance gate closes. M20B1 then begins with a guarded
-audit of energy state, capability adapters, prior energy-network behavior, and M20A transport
-contracts before any production implementation.
+Milestone 20B1 is now an implemented **candidate** after its energy-boundary audit and Termux/Debian
+source/build validation. It adds optimistic machine-energy endpoint transactions, state-version
+conflict detection, transaction-aware NeoForge energy adaptation, and permanent energy regression
+coverage. Because the changed energy adapter is already exercised by live prototype machines, M20B1
+remains unaccepted until standalone and integration runtime regression passes on a launch-capable PC.
 
 Existing blocks and machines remain prototype stress fixtures unless separately promoted as Game Era
 content.

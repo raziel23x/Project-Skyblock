@@ -35,15 +35,20 @@ baseline may be accepted without becoming part of the M17 baseline tag.
 
 20A. [Typed Transport Network Core](BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md)
 
+## Implemented Candidate Awaiting Runtime Acceptance
+
+20B1. [Transactional Energy Endpoints](BACKEND_MILESTONE_20B1_TRANSACTIONAL_ENERGY_ENDPOINTS.md)
+
 Milestone 19 was split after audit evidence showed that inventory adaptation, combustion persistence,
 and the Material Crusher migration deserve independent validation boundaries. Milestone 20 is split
 so generic typed topology and contention, energy-specific dispatch, and live cable migration are
 proven independently. The numbering is intentionally flexible; architecture is not constrained to an
 obsolete milestone count or premature Mk tier plan.
 
-## Next Planned Implementation
+## Next Planned Validation / Implementation
 
-After `DOC-SPRING-001` closes, Milestone 20B1 begins with an energy-boundary audit before production
-code. It will prove transactional energy endpoint behavior over the accepted M20A transport core.
-Later M20B work may add evidence-driven energy dispatch/loss policy, and M20C may migrate the live
-Basic Energy Cable only after that policy is proven.
+M20B1 has passed its audit and Termux/Debian source/build validation but remains an implementation
+candidate because it changes the live NeoForge energy adapter. Run standalone and integration runtime
+regression on a launch-capable PC before accepting it. After acceptance, later M20B work may add
+evidence-driven energy dispatch/loss/multi-endpoint commit policy, and M20C may migrate the live Basic
+Energy Cable only after that policy is proven.

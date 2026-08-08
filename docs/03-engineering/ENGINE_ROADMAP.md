@@ -65,17 +65,27 @@ abstraction.
 - Milestone 20A typed transport topology, profiles, shared-edge reservations, fairness, and stable
   no-progress sleeping
 
+### Implemented Candidate — Milestone 20B1
+
+- Added optimistic `MachineEnergyTransaction` candidates over machine-owned energy endpoints.
+- Added monotonic endpoint state versions, stale-candidate rejection, commit/conflict diagnostics,
+  one-publication dirty/wake behavior, and restore invalidation.
+- Updated the NeoForge energy adapter so simulation stages disposable candidates while real calls
+  commit a fresh transaction; FE simulation is explicitly not a reservation.
+- Routed durable machine-energy validation/restore through `MachineEnergyComponent` ownership.
+- Added dedicated endpoint/adapter tests and permanent Milestone 5/6 energy-network regression tests.
+- Passed Project Skyblock validation plus clean Gradle test/build in Termux/Debian.
+
 ### Current Gate
 
-- Complete `DOC-SPRING-001` and its documentation-only acceptance criteria before new production work.
+- Run standalone and integration runtime regression on a launch-capable PC and accept M20B1 only after
+  the live prototype energy-capability path remains clean.
 
 ### Near-Term Planned
 
-- Begin Milestone 20B1 with a guarded audit of `SimulationEnergyState`, `MachineEnergyComponent`,
-  energy capability adapters, prior energy-network runtime behavior, and accepted M20A transport
-  contracts.
-- Prove transactional energy endpoints before broader energy dispatch/loss policy.
-- Continue evidence-driven Milestone 20B transport policy only after M20B1.
+- Accept M20B1 after the runtime regression gate.
+- Continue evidence-driven Milestone 20B energy dispatch, declared route-loss accounting, endpoint
+  validation, and multi-endpoint commit policy only after M20B1 acceptance.
 - Migrate the Basic Energy Cable in Milestone 20C only after the energy policy is proven.
 - Keep transport profile names and speeds data-facing; do not freeze Mk 1/Mk 2/Mk 3 progression.
 

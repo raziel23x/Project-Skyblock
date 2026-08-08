@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyComponent;
+import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyTransaction;
 
 /** NeoForge energy capability view over backend-owned machine energy state. */
 public final class EngineEnergyStorageAdapter implements IEnergyStorage {
@@ -15,30 +16,30 @@ public final class EngineEnergyStorageAdapter implements IEnergyStorage {
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        if (maxReceive <= 0 || !energy().access().acceptsEnergy()) {
+        if (maxReceive <= 0) {
             return 0;
         }
-        long accepted = Math.min(
-                maxReceive,
-                Math.min(energy().availableCapacity(), energy().limits().maximumReceivePerOperation()));
-        if (!simulate && accepted > 0L) {
-            accepted = energy().receive(accepted);
+        try (MachineEnergyTransaction transaction = energy().beginTransaction()) {
+            long accepted = transaction.receive(maxReceive);
+            if (!simulate && transaction.changed()) {
+                transaction.commit();
+            }
+            return toInt(accepted);
         }
-        return toInt(accepted);
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        if (maxExtract <= 0 || !energy().access().providesEnergy()) {
+        if (maxExtract <= 0) {
             return 0;
         }
-        long extracted = Math.min(
-                maxExtract,
-                Math.min(energy().storedEnergy(), energy().limits().maximumExtractPerOperation()));
-        if (!simulate && extracted > 0L) {
-            extracted = energy().extract(extracted);
+        try (MachineEnergyTransaction transaction = energy().beginTransaction()) {
+            long extracted = transaction.extract(maxExtract);
+            if (!simulate && transaction.changed()) {
+                transaction.commit();
+            }
+            return toInt(extracted);
         }
-        return toInt(extracted);
     }
 
     @Override

@@ -1,6 +1,6 @@
 # Documentation Manifest
 
-Markdown files: 109
+Markdown files: 110
 
 This manifest indexes the tracked Markdown files in the live `docs` tree. It is an inventory, not a
 second source of subject authority. See [Document Status Index](DOCUMENT_STATUS_INDEX.md) for purpose
@@ -84,6 +84,7 @@ and authority boundaries.
 - `03-engineering/milestones/BACKEND_MILESTONE_19B2_MATERIAL_CRUSHER_ENGINE_MIGRATION.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md`
+- `03-engineering/milestones/BACKEND_MILESTONE_20B1_TRANSACTIONAL_ENERGY_ENDPOINTS.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md`
 - `03-engineering/milestones/BACKEND_MILESTONE_4_ENERGY_NETWORK_TOPOLOGY.md`

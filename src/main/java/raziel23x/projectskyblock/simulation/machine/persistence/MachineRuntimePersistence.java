@@ -45,7 +45,7 @@ public final class MachineRuntimePersistence {
         if (!runtime.registered()) {
             throw new IllegalStateException("cannot restore a closed machine runtime: " + runtime.id());
         }
-        runtime.components().energy().authoritativeState().validateStoredEnergy(snapshot.storedEnergy());
+        runtime.components().energy().validateStoredEnergy(snapshot.storedEnergy());
         runtime.components().thermal().validateThermalEnergyMicroJoules(snapshot.thermalEnergyMicroJoules());
         runtime.components().inventory().validateRestore(snapshot.inventory());
         MachineCombustionSnapshot combustion = snapshot.combustion();
@@ -69,7 +69,7 @@ public final class MachineRuntimePersistence {
     public static void restore(MachineRuntime runtime, MachineRuntimeSnapshot snapshot) {
         validate(runtime, snapshot);
 
-        runtime.components().energy().authoritativeState().restoreStoredEnergy(snapshot.storedEnergy());
+        runtime.components().energy().restoreStoredEnergy(snapshot.storedEnergy());
         runtime.components().thermal().restoreThermalEnergyMicroJoules(snapshot.thermalEnergyMicroJoules());
         runtime.components().inventory().restore(snapshot.inventory());
         MachineCombustionSnapshot combustion = snapshot.combustion();

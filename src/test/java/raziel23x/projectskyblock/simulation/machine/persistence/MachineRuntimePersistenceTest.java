@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import raziel23x.projectskyblock.simulation.core.DirtyFlag;
@@ -16,6 +17,7 @@ import raziel23x.projectskyblock.simulation.inventory.SimulationItemKey;
 import raziel23x.projectskyblock.simulation.inventory.SimulationItemStack;
 import raziel23x.projectskyblock.simulation.machine.MachineId;
 import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyAccess;
+import raziel23x.projectskyblock.simulation.machine.component.MachineEnergyTransaction;
 import raziel23x.projectskyblock.simulation.machine.component.MachineInventorySlotDefinition;
 import raziel23x.projectskyblock.simulation.machine.component.MachineProcessingStatus;
 import raziel23x.projectskyblock.simulation.machine.component.MachineThermalAccess;
@@ -91,6 +93,32 @@ class MachineRuntimePersistenceTest {
         }
     }
 
+
+    @Test
+    void restoreInvalidatesOpenEnergyCandidateWithoutPersistenceOrSchedulerDirty() {
+        MachineRuntimeSnapshot snapshot;
+        SimulationScheduler sourceScheduler = new SimulationScheduler(8, 8);
+        try (MachineRuntime source = runtime(sourceScheduler, "restore-source")) {
+            source.components().energy().receive(125L);
+            snapshot = MachineRuntimePersistence.capture(source);
+        }
+
+        SimulationScheduler targetScheduler = new SimulationScheduler(8, 8);
+        try (MachineRuntime target = runtime(targetScheduler, "restore-target")) {
+            MachineEnergyTransaction stale = target.components().energy().beginTransaction();
+            assertEquals(25L, stale.receive(25L));
+
+            MachineRuntimePersistence.restore(target, snapshot);
+
+            assertEquals(125L, target.components().energy().storedEnergy());
+            assertEquals(1L, target.components().energy().stateVersion());
+            assertFalse(target.dirtyState().isDirty(DirtyFlag.PERSISTENCE));
+            assertTrue(target.dirtyState().isDirty(DirtyFlag.CLIENT_SYNC));
+            assertFalse(target.dirtyState().isDirty(DirtyFlag.SCHEDULER));
+            assertThrows(ConcurrentModificationException.class, stale::commit);
+            assertEquals(125L, target.components().energy().storedEnergy());
+        }
+    }
 
     @Test
     void closedRuntimeRejectsRestoreBeforeMutation() {

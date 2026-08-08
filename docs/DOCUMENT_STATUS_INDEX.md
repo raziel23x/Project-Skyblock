@@ -108,6 +108,7 @@
 | `docs/03-engineering/milestones/BACKEND_MILESTONE_19B2_MATERIAL_CRUSHER_ENGINE_MIGRATION.md` | Current | Historical/accepted backend milestone record for backend milestone 19b2 material crusher engine migration. |
 | `docs/03-engineering/milestones/BACKEND_MILESTONE_1_SCHEDULER.md` | Current | Historical/accepted backend milestone record for backend milestone 1 scheduler. |
 | `docs/03-engineering/milestones/BACKEND_MILESTONE_20A_TYPED_TRANSPORT_NETWORK_CORE.md` | Current | Historical/accepted backend milestone record for backend milestone 20a typed transport network core. |
+| `docs/03-engineering/milestones/BACKEND_MILESTONE_20B1_TRANSACTIONAL_ENERGY_ENDPOINTS.md` | Current | Current milestone record for the M20B1 implementation candidate and its pending runtime-acceptance boundary. |
 | `docs/03-engineering/milestones/BACKEND_MILESTONE_2_THERMAL_CORE.md` | Current | Historical/accepted backend milestone record for backend milestone 2 thermal core. |
 | `docs/03-engineering/milestones/BACKEND_MILESTONE_3_ENERGY_SIMULATION.md` | Current | Historical/accepted backend milestone record for backend milestone 3 energy simulation. |
 | `docs/03-engineering/milestones/BACKEND_MILESTONE_4_ENERGY_NETWORK_TOPOLOGY.md` | Current | Historical/accepted backend milestone record for backend milestone 4 energy network topology. |

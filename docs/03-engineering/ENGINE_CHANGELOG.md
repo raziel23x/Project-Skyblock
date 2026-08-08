@@ -1,3 +1,19 @@
+# Engine Milestone 20B1 — Transactional Energy Endpoints (Implementation Candidate)
+
+- Added optimistic machine-energy transactions with one-version stale-candidate rejection.
+- Added endpoint state versions plus transaction commit/conflict diagnostics.
+- Routed external receive/extract and internal produce/consume through one transactional publication path.
+- Made NeoForge FE simulation use disposable candidates and real calls commit fresh candidates without
+  treating simulation as a reservation.
+- Routed machine-energy persistence validation/restore through component ownership so restored state
+  invalidates stale candidates without persistence/scheduler dirtiness.
+- Added focused endpoint/adapter tests plus permanent Milestone 5/6 energy-network regressions.
+- Passed Project Skyblock validation and clean Gradle test/build in Termux/Debian.
+- Runtime acceptance remains pending standalone/integration regression because the live FE adapter is
+  used by existing prototype machines.
+- Deliberately deferred multi-endpoint commit policy, route-loss policy, and Basic Energy Cable
+  migration to later M20B/M20C work.
+
 # Engine Milestone 20A — Typed Transport Network Core
 
 - Added one Minecraft-independent physical topology supporting arbitrary typed transport channels.
@@ -140,7 +156,6 @@ Added a versioned Minecraft-independent machine snapshot, minimal capture and re
 
 ## Next
 
-Complete `DOC-SPRING-001`. After its documentation-only acceptance gate closes, begin M20B1 with a
-guarded audit of energy state, adapters, prior energy-network behavior, and accepted M20A transport
-contracts. Production M20B1 then proves transactional energy endpoints. Broader M20B energy policy
-and M20C Basic Energy Cable migration remain later evidence-driven steps.
+Run M20B1 standalone/integration runtime regression on a launch-capable PC. If that gate passes,
+accept the transactional energy endpoint milestone and continue the remaining evidence-driven M20B
+energy dispatch/loss/commit policy. Basic Energy Cable migration remains M20C.

@@ -1,5 +1,30 @@
 # Test Plan — Engine Era Validation
 
+## Milestone 20B1 transactional energy endpoint contract
+
+The Gradle suite must include and pass `MachineEnergyTransactionTest`,
+`EngineEnergyStorageAdapterTest`, `EnergyNetworkEngineTest`, `EnergyNetworkParticipantTest`, and the
+updated `MachineRuntimePersistenceTest` together with all prior engine and boundary tests.
+
+The contract must prove disposable non-mutating candidates, one-publication changed commits, no-op
+commit behavior, aggregate per-operation throughput, stale-candidate failure, access-change and
+restore invalidation, separation of external access from internal produce/consume, transaction-aware
+FE simulation/execution, and preserved Milestone 5/6 energy-network transfer/sleeping semantics.
+
+Because `EngineEnergyStorageAdapter` is already used by live prototype block entities, source/build
+validation alone does not accept M20B1. Before acceptance, run both standalone and integration
+profiles on a launch-capable PC and verify at minimum:
+
+- existing worlds load and shut down cleanly;
+- the Creative Energy Cell still refills and transfers FE through its existing adapter path;
+- a Material Crusher still accepts FE and processes without duplicate, lost, or phantom energy;
+- Basic Energy Cable remains behaviorally unchanged as a Research Era fixture;
+- save/reload preserves machine energy;
+- no new Project Skyblock capability, scheduler, persistence, or transaction errors appear in logs.
+
+M20B1 does not claim atomic commit across independent endpoints and does not migrate the Basic Energy
+Cable. Those remain later M20B/M20C responsibilities.
+
 ## Milestone 20A typed transport network contract
 
 The Gradle suite must include and pass `TransportTopologyTest`,

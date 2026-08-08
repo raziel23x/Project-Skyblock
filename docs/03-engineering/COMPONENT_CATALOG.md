@@ -29,12 +29,18 @@ policies proven by concrete consumers.
 
 ## MachineEnergyComponent
 
-**Status:** Implemented in Milestone 8.
+**Status:** Implemented in Milestone 8; transactional extension is an M20B1 implementation candidate
+pending runtime acceptance.
 
 Owns a `SimulationEnergyState` relationship and controls external receive/extract and internal
 produce/consume operations. It enforces capacity, explicit per-operation limits, and access mode.
-Aggregate shared-edge or per-simulation-step budgets remain network concerns. Changes mark
-persistence, client sync, and scheduler dirty state and signal the owner to wake.
+M20B1 adds isolated directional `MachineEnergyTransaction` candidates, monotonic endpoint
+`stateVersion`, stale-candidate rejection, exact commit/conflict diagnostics, and one-publication
+dirty/wake semantics. A transaction represents one atomic endpoint operation, so repeated staging in
+one direction shares that operation's throughput budget; receive/extract directions cannot be mixed
+in one candidate. Durable restore invalidates stale candidates while remaining a load boundary rather
+than a persistence/scheduler mutation. Aggregate shared-edge or per-simulation-step budgets remain
+network concerns.
 
 ## MachineInventoryComponent
 
@@ -135,9 +141,14 @@ exposing partial reload state.
 
 ## NeoForge Energy Capability Adapter
 
-**Status:** Implemented in Milestone 16.
+**Status:** Implemented in Milestone 16; transaction-aware adaptation is an M20B1 implementation
+candidate pending runtime acceptance.
 
-`EngineEnergyStorageAdapter` exposes `MachineEnergyComponent` through NeoForge `IEnergyStorage` without creating a second energy store. Simulation and capability operations share the same capacity, throughput, access rules, dirty state, and wake path.
+`EngineEnergyStorageAdapter` exposes `MachineEnergyComponent` through NeoForge `IEnergyStorage`
+without creating a second energy store. M20B1 stages simulated calls in disposable uncommitted
+transactions and commits real calls through a fresh candidate. FE simulation therefore remains a
+non-mutating query, not a reservation promise. Simulation and capability operations share the same
+capacity, throughput, access rules, authoritative state, dirty state, and wake path.
 
 ## First Engine-Owned Machine
 
